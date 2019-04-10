@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ASKITCHEN</title>
+
+  <link rel="stylesheet" href="framework7/css/framework7.min.css">
+  <!--<link rel="stylesheet" href="css/framework7.keypad.min.css">-->
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar"></div>
+    <!-- Left panel with reveal effect when hidden -->
+    <div class="panel panel-left panel-cover">
+      <div class="view view-left">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner sliding">
+              <div class="title">ASKITCHEN</div>
+            </div>
+          </div>
+          <!--<header>
+              <img class="responsive" src="img/logo.jpg" />
+          </header>-->
+          <div class="page-content">
+            <div class="list">
+              <ul class="menu">
+                  <li>
+                    <a href="/" data-view=".view-main" class="item-link item-content panel-close">
+                        <div class="item-media">
+                          <i class="icon f7-icons ios-only">home</i>
+                          <i class="material-icons menu md-only">home</i>
+                        </div>
+                        <div class="item-inner menu">
+                            <div class="item-title menu">Home</div>
+                        </div>
+                    </a>
+                  </li>
+                  <li>
+                      <a href="/notifications/" data-view=".view-main" class="item-link item-content panel-close">
+                          <div class="item-media">
+                            <i class="icon f7-icons ios-only">notifications</i>
+                            <i class="material-icons menu md-only">notifications</i>
+                          </div>
+                          <div class="item-inner menu">
+                              <div class="item-title menu">Notifications</div>
+                          </div>
+                      </a>
+                    </li>
+                    <li>
+                        <a href="/wish-list/" data-view=".view-main" class="item-link item-content panel-close">
+                          <div class="item-media">
+                            <i class="icon f7-icons ios-only">favorite</i>
+                            <i class="material-icons menu md-only">favorite</i>
+                          </div>
+                          <div class="item-inner menu">
+                              <div class="item-title menu">Wish List</div>
+                          </div>
+                      </a>
+                    </li>
+                    <!-- <li>
+                      <a href="/categories/" data-view=".view-main" class="item-link item-content panel-close">
+                          <div class="item-media">
+                            <i class="icon f7-icons ios-only">category</i>
+                            <i class="icon material-icons md-only">category</i>
+                          </div>
+                          <div class="item-inner menu">
+                              <div class="item-title menu">Categories</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/report-list/" data-view=".view-main" class="item-link item-content panel-close">
+                          <div class="item-media"><img class="material-icons" src="img/report.png" /></div>
+                          <div class="item-inner menu">
+                              <div class="item-title menu">Laporan</div>
+                          </div>
+                      </a>
+                  </li> -->
+                  <li>
+                    <a href="/settings/" data-view=".view-main" class="item-link item-content panel-close">
+                        <div class="item-media"><i class="material-icons menu">settings</i></div>
+                        <div class="item-inner menu">
+                            <div class="item-title menu">Settings</div>
+                        </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-view=".view-main" class="item-link item-content panel-close ac-share">
+                      <div class="item-media"><i class="material-icons menu">share</i></div>
+                      <div class="item-inner menu">
+                        <div class="item-title menu">Share Aplikasi</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.app.askitchen" data-view=".view-main" class="item-link external item-content panel-close">
+                      <div class="item-media"><i class="material-icons menu">grade</i></div>
+                      <div class="item-inner menu">
+                        <div class="item-title menu">Rate Aplikasi</div>
+                      </div>
+                    </a>
+                  </li>
+                  <!--<li>
+                    <a href="#" data-view=".view-main" class="item-link item-content panel-close login-screen-open" data-login-screen="#my-login-screen">
+                      <div class="item-media"><i class="material-icons menu">power_settings_new</i></div>
+                      <div class="item-inner menu">
+                        <div class="item-title menu">Logout</div>
+                      </div>
+                    </a>
+                  </li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right panel with cover effect -->
+    <!-- <div class="panel panel-right panel-cover theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Right Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">Right panel content goes here</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main ios-edges">
+      <!-- Page, data-name contains page name which can be used in callbacks -->
+      <div class="page" data-name="home">
+        <!-- Top Navbar -->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left">
+              <a href="#" class="link icon-only panel-open" data-panel="left">
+                <i class="icon f7-icons ios-only">menu</i>
+                <i class="icon material-icons md-only">menu</i>
+              </a>
+            </div>
+            <div class="title sliding">ASKITCHEN</div>
+            <div class="right">
+              <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
+                <i class="icon material-icons md-only">search</i>
+              </a>
+              <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
+                <i class="icon f7-icons ios-only">shopping_cart</i>
+                <i class="icon material-icons md-only">shopping_cart</i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+  
+        <!-- <div class="fab fab-right-bottom">
+          <a href="#">
+            <i class="icon f7-icons ios-only">add</i>
+            <i class="icon f7-icons ios-only">close</i>
+            <i class="icon material-icons md-only">add</i>
+            <i class="icon material-icons md-only">close</i>
+          </a>
+          <div class="fab-buttons fab-buttons-top">
+            <a href="/stock/" class="fab-label-button">
+              <i class="icon f7-icons ios-only">add_to_photos</i>
+              <i class="icon material-icons md-only">add_to_photos</i>
+              <span class="fab-label">Tambah Item / Jasa</span>
+            </a>
+            <a href="/supplier/" class="fab-label-button">
+              <span>
+                <i class="icon f7-icons ios-only">person</i>
+                <i class="icon material-icons md-only">person</i>
+              </span>
+              <span class="fab-label">Tambah Supplier</span>
+            </a>
+            <a href="/beli/" class="fab-label-button">
+              <span>
+                <i class="icon f7-icons ios-only">create_new_folder</i>
+                <i class="icon material-icons md-only">create_new_folder</i>
+              </span>
+              <span class="fab-label">Input Pembelian</span>
+            </a>
+          </div>
+        </div> -->
+
+        <!-- Toolbar-->
+        <!--<div class="toolbar">
+          <div class="toolbar-inner">
+            <a href="/akun/" class="link"><i class="material-icons">account_balance_wallet</i><b>&nbsp;&nbsp;<span class="saldo"></b><span></a>
+            <a href="/topup-saldo/" class="link">Topup Saldo</a>
+          </div>
+        </div>-->
+        
+        <!-- Scrollable page content-->
+        <div class="page-content">
+          <div class="block header">
+            <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init demo-swiper">
+              <div class="swiper-pagination"></div>
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban1.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban2.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban3.jpg" /></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="block-title">Categories</div>
+          <div class="card">
+            <div class="card-content">
+              <div class="list links-list no-safe-areas">
+                  <ul>
+                  <li><a href="/category/01/Refrigeration">REFRIGERATION</a></li>
+                  <li><a href="/category/02/Ice">ICE</a></li>
+                  <li><a href="/category/03/Food Cooking">FOOD COOKING</a></li>
+                  <li><a href="/category/04/Meat, Fruit &amp; Vegetable">MEAT, FRUIT &amp; VEGETABLE</a></li>
+                  <li><a href="/category/05/Bar Kiosk">BAR KIOSKS</a></li>
+                  <li><a href="/category/06/Bakery">BAKERY</a></li>
+                  <li><a href="/category/07/Accessories">ACCESSORIES</a></li>
+                  <li><a href="/category/08/Stainless Steel">STAINLESS STEEL</a></li>
+                  <!-- <li><a href="/category/21/Apparel">APPAREL</a></li>
+                  <li><a href="/category/22/Bakeware">BAKEWARE</a></li>
+                  <li><a href="/category/23/Bar Tools">BAR TOOLS</a></li>
+                  <li><a href="/category/24/Container &amp; Pantry">CONTAINER &amp; PANTRY</a></li>
+                  <li><a href="/category/25/Cookware &amp; Knives">COOKWARE &amp; KNIVES</a></li>
+                  <li><a href="/category/26/Cutlery &amp; Tabletop">CUTLERY &amp; TABLETOP</a></li>
+                  <li><a href="/category/27/Utensil">UTENSIL</a></li>
+                  <li><a href="/category/28/Units">UNITS</a></li> -->
+                  </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!--
+          <div class="row no-gutter">
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/stock-list/" class="item-link">
+                      <img class="responsive-card" src="img/stock.png" />
+                      <div class="card-content-inner">Barang</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/supplier-list/" class="item-link">
+                      <img class="responsive-card" src="img/supplier.png" />
+                      <div class="card-content-inner">Supplier</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/customer-list/" class="item-link">
+                      <img class="responsive-card" src="img/customer.png" />
+                      <div class="card-content-inner">Customer</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>                 
+
+          <div class="row no-gutter">
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/trx-list/" class="item-link">
+                      <img class="responsive-card" src="img/trx.png" />
+                      <div class="card-content-inner">Transaksi</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/system/" class="item-link">
+                      <img class="responsive-card" src="img/system.png" />
+                      <div class="card-content-inner">Sistem</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-33">
+                <div class="card">
+                  <div class="card-content">
+                    <a href="/report-list/" class="item-link">
+                      <img class="responsive-card" src="img/report.png" />
+                      <div class="card-content-inner">Laporan</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>                 
+-->
+
+        </div>
+      </div>
+    </div>
+  
+    <!-- Login Screen -->
+    <div class="login-screen modal" id="my-login-screen">
+      <div class="view">
+        <div class="page">
+          <div class="page-content">
+
+            <div class="header-container">
+                <!--<img class="profile-header" src="img/logo.jpg" />-->
+            </div>
+    
+            <form class="login-form form-ajax-submit">
+              <div class="block-header text-align-center"><h3>Login Member</h3></div>
+              <div class="block">
+                <div class="list no-hairlines-md">
+                    <ul>
+                      <li>
+                        <div class="item-content item-input">
+                          <div class="item-inner">
+                            <div class="item-title item-label">E-Mail</div>
+                            <div class="item-input-wrap">
+                              <input type="text" id="email" name="email" placeholder="E-Mail" />
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="item-content item-input">
+                          <div class="item-inner">
+                            <div class="item-title item-label">Password</div>
+                            <div class="item-input-wrap">
+                              <input type="password" id="password" name="password" placeholder="Password"/>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+              <div class="content-block"><a href="#" class="button button-raised button-fill larger login-button">LOGIN</a></div>
+            </form>
+          
+            <div class="block-footer text-align-center">Belum punya akun? <a class="label-register" href="#">Register</a></div>
+  
+            <div class="kb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Register Screen -->
+    <div class="login-screen" id="my-reg-screen">
+      <div class="view">
+        <div class="page">
+          <div class="page-content">
+
+            <!--<div class="header-container">
+                <img class="profile-header" src="img/logo.jpg" />
+            </div>-->
+        
+            <form class="register-form form-ajax-submit">
+              <div class="block-header text-align-center"><h3>Registrasi Member</h3></div>
+              <div class="block">
+                <div class="list no-hairlines-md">
+                  <ul>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Nama Depan</div>
+                          <div class="item-input-wrap">
+                            <input type="text" id="first_name" name="first_name" placeholder="Nama Depan"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Nama Belakang</div>
+                          <div class="item-input-wrap">
+                            <input type="text" id="last_name" name="last_name" placeholder="Nama Belakang"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">E-Mail</div>
+                          <div class="item-input-wrap">
+                            <input type="text" id="email-reg" name="email" placeholder="E-Mail" autocomplete="off"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Password</div>
+                          <div class="item-input-wrap">
+                            <input type="password" id="password-reg" name="password" placeholder="Password"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="content-block"><a href="#" class="button button-raised button-fill larger register-button">DAFTAR</a></div>
+            </form>
+
+            <div class="block-footer text-align-center">Sudah punya akun? <a class="label-login" href="#">Login</a></div>
+            
+            <div class="kb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cordova -->
+  <!-- --
+  <script src="cordova.js"></script>
+  !-- -->
+
+  <!-- Framework7 library -->
+  <script src="framework7/js/framework7.min.js"></script>
+  <!-- Keypad plugin
+  <script src="js/framework7.keypad.min.js"></script>
+  -->
+
+  <!-- App routes -->
+  <script src="js/routes.js"></script>
+
+  <!-- Your custom app scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>

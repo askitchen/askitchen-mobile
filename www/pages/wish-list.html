@@ -1,0 +1,110 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Wish List</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <img class="responsive" src="img/back.jpg" />
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      pageInit: function(e, page) {
+      
+        // var swiper = app.swiper.create('.swiper-container', {
+        //   speed: 300,
+        // });
+
+        app.preloader.show();
+    
+        var db = app.data.db;
+
+        if (db) {
+        
+          db.transaction(function(tx) {
+            
+            tx.executeSql('select kdbar, nama, gambar, hjual from wishlist;', [], function(ignored, res) {
+              
+              for (var i = 0; i < res.rows.length; i++) {
+                
+                var html  = '      <div class="card item-detail">'
+
+                    html += '          <div style="background-image:url(https://askitchen.com/upload/gambar/' + res.rows.item(i).gambar + '); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;';
+                    html += '          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">' + res.rows.item(i).kdbar + '</div>';
+                    html += '          <input type="hidden" class="item-code"  value="' + res.rows.item(i).kdbar + '" />';
+          
+                    html += '          <div class="card-footer">';
+                    html += '            <div class="product-name">' + res.rows.item(i).nama + '</div>';
+                    html += '          </div>';
+                    html += '          <div class="card-footer">';
+                    html += '            <div class="product-price">Rp' + res.rows.item(i).harga + '</div>';
+                    html += '            <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div>';
+                    html += '          </div>';
+                    html += '      </div>';
+                // swiper.appendSlide(html);
+              }
+            });
+          }, function(error) {
+            app.preloader.hide();
+            app.dialog.alert('select error: ' + error.message);
+          });
+        } else {
+        
+          /*
+          for (var i = 1; i < 11; i++) {
+                var html  = '      <div class="card item-detail">'
+
+                    html += '          <div style="background-image:url(https://askitchen.com/upload/gambar/' + res.rows.item(i).gambar + '); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;';
+                    html += '          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">' + res.rows.item(i).kdbar + '</div>';
+                    html += '          <input type="hidden" class="item-code"  value="' + res.rows.item(i).kdbar + '" />';
+          
+                    html += '          <div class="card-footer">';
+                    html += '            <div class="product-name">' + res.rows.item(i).nama + '</div>';
+                    html += '          </div>';
+                    html += '          <div class="card-footer">';
+                    html += '            <div class="product-price">Rp' + res.rows.item(i).harga + '</div>';
+                    html += '            <div class="delete"><a href="#" class="link icon-only"><i class="material-icons delete">delete</i></a></div>';
+                    html += '          </div>';
+                    html += '      </div>';
+            swiper.appendSlide(html);
+          }//*/
+        }
+        
+        app.preloader.hide();
+        
+        $$('.page-content').on('click', 'i.material-icons.delete', function (e) {
+          
+          var db = app.data.db;
+          if (db) {
+            
+            var card  = $$(this).parents(".card");
+            var kdbar = card.find('.item-code').val();
+            
+            db.transaction(function(tx) {
+              tx.executeSql('DELETE FROM wishlist WHERE kdbar = ?', [kdbar]);
+            }, function(error) {
+              // app.dialog.alert('DELETE error: ' + error.message);
+            }, function() {
+              // console.log('Sukses!.');
+            });
+          }
+        });
+      }
+    }
+  }
+</script>

@@ -1,0 +1,125 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">{{title}}</div>
+        <div class="right">
+          <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
+            <i class="icon f7-icons ios-only">shopping_cart</i>
+            <i class="icon material-icons md-only">shopping_cart</i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+        
+      <div class="card item-detail">
+          <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
+          <input type="hidden" class="item-code"  value="{{data.kdbar}}" />
+          <input type="hidden" class="item-name"  value="{{data.nama}}" />
+          <input type="hidden" class="item-price" value="{{data.hjual}}" />
+          <input type="hidden" class="last-value" value="{{data.stok}}" />
+          
+          <div class="card-footer">
+            <div class="product-name">{{data.nama}}</div>
+          </div>
+          <div class="card-footer">
+            <div class="">{{data.deskripsi}}</div>
+          </div>
+          <div class="card-footer">
+            <div class="product-price">Rp{{data.hjual}}</div>
+            <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
+          </div>
+      </div>
+      <!-- <p>
+        <a href="#" class="button button-raised button-fill">Buy it now</a>
+      </p>
+      <p>
+        <a href="#" class="button button-raised">Add to cart</a>
+      </p> -->
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-80 tablet-50">
+            <a href="#" class="button button-raised button-fill btn-buy">Buy it now</a>
+        </div>
+        <div class="col-10"></div>
+      </div>
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-80 tablet-50">
+          <a href="#" class="button button-raised btn-cart">Add to cart</a>
+        </div>
+        <div class="col-10"></div>
+      </div>
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-80 tablet-50">
+          <a href="#" class="button button-raised btn-wish">Add to wish list</a>
+        </div>
+        <div class="col-10"></div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      pageInit: function(e, page) {
+        
+        $$('.btn-buy').on('click', function (e) {
+          app.dialog.alert('Buy now!');
+        });
+          
+        $$('.btn-cart').on('click', function (e) {
+          app.dialog.alert('Add to cart!');
+          
+          var db = app.data.db;
+          if (db) {
+            var card  = $$('.item-detail');
+            var kdbar = card.find('.item-code').val();
+            var nama  = card.find('.item-name').val();
+            var gambar= card.find('.item-picture').val();
+            var harga = card.find('.item-price').val();
+            
+            db.transaction(function(tx) {
+              tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+            }, function(error) {
+              app.dialog.alert('INSERT error: ' + error.message);
+            }, function() {
+              // console.log('Sukses!.');
+            });
+          }
+        });
+          
+        $$('.btn-wish').on('click', function (e) {
+          app.dialog.alert('Add to wish list!');
+          
+          var db = app.data.db;
+          if (db) {
+            var card  = $$('.item-detail');
+            var kdbar = card.find('.item-code').val();
+            var nama  = card.find('.item-name').val();
+            var gambar= card.find('.item-picture').val();
+            var harga = card.find('.item-price').val();
+            
+            db.transaction(function(tx) {
+              tx.executeSql('INSERT INTO wishlist (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+            }, function(error) {
+              app.dialog.alert('INSERT error: ' + error.message);
+            }, function() {
+              // console.log('Sukses!.');
+            });
+          }
+        });
+      }
+    }
+  }
+</script>

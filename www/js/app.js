@@ -63,7 +63,7 @@ var items = //[];
   }
 ];
 
-var bScan = false;
+var bBackPressed = false;
 
 // Framework7.use(Framework7Keypad);
 
@@ -562,52 +562,6 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-// create searchbar
-var searchbar = app.searchbar.create({
-  el: '.searchbar',
-  searchContainer: '.list-lookup',
-  searchIn: '.item-title',
-  on: {
-    search(sb, query, previousQuery) {
-      // console.log(query, previousQuery);
-    }
-  }
-});
-
-// if (!app.data.db) {
-
-//       var virtualList = app.virtualList.create({
-//         // List Element
-//         el: '.virtual-list',
-//         // Pass array with items
-//         items: items,
-//         // Custom search function for searchbar
-//         searchAll: function (query, items) {
-//           var found = [];
-//           for (var i = 0; i < items.length; i++) {
-//             if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-//           }
-//           return found; //return array with mathced indexes
-//         },
-//         // List item Template7 template
-//         itemTemplate:
-//           '<li><input type="hidden" value="{{kdbar}}">' +
-//             '<a href="#" class="item-link item-content item-basket">' +
-//               '<div class="item-media"><img class="material-icons" src="img/stock.png" /></div>' +
-//               '<div class="item-inner">' +
-//                 '<div class="item-title-row">' +
-//                   '<div class="item-title">{{nama}}</div>' +
-//                 '</div>' +
-//                 //'<div class="item-subtitle">{{subtitle}}</div>' +
-//               '</div>' +
-//               '<div class="item-after">Rp {{hjual.toLocaleString("ID")}}<br>{{saldo}} {{satuan}}</div>' +
-//             '</a>' +
-//           '</li>',
-//         // Item height
-//         //height: app.theme === 'ios' ? 63 : 73,
-//       });
-// }
-
 var swiper = app.swiper.create('.swiper-container', {
     speed: 400,
     //slidesPerView: auto,
@@ -623,7 +577,7 @@ swiper.autoplay.start();
 
 // $$('.barcode-scan1').on('click', function () {
      
-//   bScan = true;
+//   bBackPressed = true;
 
 //   cordova.plugins.barcodeScanner.scan(
 //     function (result) {
@@ -651,37 +605,6 @@ swiper.autoplay.start();
 //     }
 //   );
 // });
-
-$$('.barcode-scan2').on('click', function () {
-     
-  bScan = true;
-
-  cordova.plugins.barcodeScanner.scan(
-    function (result) {
-        app.methods.editItem(result.text);
-        // app.dialog.alert("We got a barcode\n" +
-        //       "Result: " + result.text + "\n" +
-        //       "Format: " + result.format + "\n" +
-        //       "Cancelled: " + result.cancelled);
-    },
-    function (error) {
-        app.dialog.alert("Scanning failed: " + error);
-    },
-    {
-        preferFrontCamera : false, // iOS and Android
-        showFlipCameraButton : false, // iOS and Android
-        showTorchButton : true, // iOS and Android
-        torchOn: true, // Android, launch with the torch switched on (if available)
-        saveHistory: false, // Android, save scan history (default false)
-        prompt : "Place a barcode inside the scan area", // Android
-        resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-        formats : "EAN_13,CODE_128,QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-        orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-        disableAnimations : true, // iOS
-        disableSuccessBeep: false // iOS and Android
-    }
-  );
-});
 
 var ac_more = app.actions.create({
   grid: true,
@@ -725,46 +648,6 @@ var ac_more = app.actions.create({
       {
         text: 'Button 3',
         icon: '<img src="http://lorempixel.com/96/96/fashion/6" width="42">'
-      },
-    ]
-  ]
-});
-
-var ac_more2 = app.actions.create({
-  grid: true,
-  buttons: [
-    [
-      {
-        text: 'Pending',
-        icon: '<img src="img/histori.png" width="42"/>',
-        onClick: function () {
-          app.dialog.alert('Pending clicked')
-        }
-      },
-      {
-        text: 'Load Pending',
-        icon: '<img src="img/histori.png" width="42"/>',
-        onClick: function () {
-          app.dialog.alert('Load pending clicked')
-        }
-      },
-      {
-        text: 'Bayar',
-        icon: '<img src="img/payment.png" width="42">',
-        onClick: function () {
-          app.dialog.alert('Bayar clicked')
-        }
-      },
-    ],
-    [
-      {
-        text: 'Batal',
-        icon: '<img src="img/cancel.png" width="42"/>',
-        onClick: function () {
-          details = [];
-          app.methods.calcTotal();
-          mainView.router.back();
-        }
       },
     ]
   ]
@@ -870,28 +753,15 @@ $$('.ac-share').on('click', function () {
 // Login Screen
 $$('#my-login-screen .login-button').on('click', function () {
   
-  var mbrid = $$('#my-login-screen [name="mbrid"]').val();
-  if (mbrid == '') {
-      app.dialog.alert('Masukkan ID member anda.', 'Login Member');
-      return;
-  }
-  
-  var nohpx = $$('#my-login-screen [name="nohp"]').val();
-  if (nohpx == '') {
-      app.dialog.alert('Masukkan nomor handphone anda.', 'Login Member');
+  var email = $$('#my-login-screen [name="email"]').val();
+  if (email == '') {
+      app.dialog.alert('Masukkan alamat email anda.', 'Login Member');
       return;
   }
 
-  var rgx_nohp = /[08][0-9]{9,}/;
-  var nohp = nohpx.trim().match(rgx_nohp);
-  if (!nohp) {
-      app.dialog.alert('Input data nomor handphone belum benar.', 'Login Member');
-      return;
-  }
-
-  var pin = $$('#my-login-screen [name="pin"]').val();
-  if (pin == '') {
-      app.dialog.alert('Masukkan nomor PIN anda.', 'Login Member');
+  var password = $$('#my-login-screen [name="password"]').val();
+  if (password == '') {
+      app.dialog.alert('Masukkan password anda.', 'Login Member');
       return;
   }
   
@@ -912,38 +782,17 @@ $$('#my-login-screen .login-button').on('click', function () {
 
     if (data.status) {
     
-      localStorage.setItem('mbrid', mbrid);
-      localStorage.setItem('nohp', nohp);
-      // console.log('localStorage.setItem')
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
 
       app.loginScreen.close('#my-login-screen');
       
-      app.data.mbrid = mbrid;
-      app.data.nohp = nohp;
-      app.data.pin = pin;
+      app.data.email = email;
+      app.data.pwd = password;
       app.data.token = data.token;
       
       // kosongkan isian nomor pin
-      $$('#my-login-screen [name="pin"]').val('');
-      
-      app.request.get('http://localhost/askitchenweb/api/v1/member/saldo/'+mbrid, function (res) {
-          
-        var data = JSON.parse(res);
-    
-        if (data.status) {
-          $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
-          app.data.saldo = parseInt(data.saldo);
-        } else {
-          app.dialog.alert(data.message, 'Akun Saya');
-        }
-      });
-
-      if ( AdMob ) {
-     
-        // this will create a banner on startup
-        AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-      }
-
+      $$('#my-login-screen [name="password"]').val('');
 
     } else {
       app.dialog.alert(data.message, 'Login Member');
@@ -961,29 +810,34 @@ $$('a.label-register').on('click', function () {
 // Registrasi member
 $$('#my-reg-screen .register-button').on('click', function () {
   
-  var nama = $$('#my-reg-screen [name="nama"]').val();
-  if (nama == '') {
-      app.dialog.alert('Masukkan nama lengkap anda.', 'Registrasi Member');
+  var first_name = $$('#my-reg-screen [name="first_name"]').val();
+  if (first_name == '') {
+      app.dialog.alert('Masukkan nama depan anda.', 'Registrasi Member');
       return;
   }
   
-  var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
-  var namax = nama.trim().match(rgx_nama);
-  if (!namax) {
-    app.dialog.alert('Input data nama belum benar.', 'Registrasi Member');
-    return;
+  var last_name = $$('#my-reg-screen [name="last_name"]').val();
+  if (last_name == '') {
+      app.dialog.alert('Masukkan nama belakang anda.', 'Registrasi Member');
+      return;
   }
+  
+  // var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
+  // var namax = nama.trim().match(rgx_nama);
+  // if (!namax) {
+  //   app.dialog.alert('Input data nama belum benar.', 'Registrasi Member');
+  //   return;
+  // }
 
-  var nohpx = $$('#my-reg-screen [name="nohp"]').val();
-  if (nohpx == '') {
-      app.dialog.alert('Masukkan nomor handphone.', 'Registrasi Member');
+  var email = $$('#my-reg-screen [name="email"]').val();
+  if (email == '') {
+      app.dialog.alert('Masukkan email anda.', 'Registrasi Member');
       return;
   }
 
-  var rgx_nohp = /[08][0-9]{9,}/;
-  var nohp = nohpx.trim().match(rgx_nohp);
-  if (!nohp) {
-    app.dialog.alert('Input data nomor handphone belum benar.', 'Registrasi Member');
+  var password = $$('#my-reg-screen [name="password"]').val();
+  if (password == '') {
+    app.dialog.alert('Masukkan password anda.', 'Registrasi Member');
     return;
   }
 
@@ -992,7 +846,6 @@ $$('#my-reg-screen .register-button').on('click', function () {
   var regId = localStorage.getItem('RegId');
   var formData = app.form.convertToData('.register-form');
 
-  formData.mbrid = 1;
   formData.gcmid = regId;
   
   app.request.post('http://localhost/askitchenweb/api/v1/member', formData, function (res) {
@@ -1004,15 +857,14 @@ $$('#my-reg-screen .register-button').on('click', function () {
     if (data.status) {
       
       // simpan data nomor handphone
-      localStorage.setItem('mbrid', data.mbrid);
-      localStorage.setItem('nohp', nohp);
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
 
-      app.data.mbrid = data.mbrid;
-      app.data.nohp = data.nohp;
+      app.data.email    = email;
+      app.data.password = password;
 
       // set data ke form login
-      $$('#my-login-screen [name="mbrid"]').val(data.mbrid);
-      $$('#my-login-screen [name="nohp"]').val(nohp);
+      $$('#my-login-screen [name="email"]').val(email);
 
       app.loginScreen.close('#my-reg-screen');
       app.loginScreen.open('#my-login-screen');
@@ -1035,8 +887,8 @@ $$('a.label-login').on('click', function () {
 
 $$('#my-login-screen').on('loginscreen:opened', function (e, loginScreen) {
   // set data ke form login
-  $$('#my-login-screen [name="mbrid"]').val(localStorage.getItem('mbrid'));
-  $$('#my-login-screen [name="nohp"]').val(localStorage.getItem('nohp'));
+  $$('#my-login-screen [name="email"]').val(localStorage.getItem('mbrid'));
+  // $$('#my-login-screen [name=""]').val(localStorage.getItem(''));
 });
 
 $$(document).on('backbutton', function (e) {
@@ -1045,8 +897,9 @@ $$(document).on('backbutton', function (e) {
 
   // for example, based on what and where view you have
   if (app.views.main.router.url == '/') {
-    if (bScan) {
-      bScan = false
+    if (!bBackPressed) {
+      bBackPressed = true
+      // show toast
     } else {
       navigator.app.exitApp();
     }

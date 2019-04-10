@@ -38,33 +38,10 @@
             <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
           </div>
       </div>
-      <!-- <p>
-        <a href="#" class="button button-raised button-fill">Buy it now</a>
-      </p>
-      <p>
-        <a href="#" class="button button-raised">Add to cart</a>
-      </p> -->
-      <div class="row">
-        <div class="col-10"></div>
-        <div class="col-80 tablet-50">
-            <a href="#" class="button button-raised button-fill btn-buy">Buy it now</a>
-        </div>
-        <div class="col-10"></div>
-      </div>
-      <div class="row">
-        <div class="col-10"></div>
-        <div class="col-80 tablet-50">
-          <a href="#" class="button button-raised btn-cart">Add to cart</a>
-        </div>
-        <div class="col-10"></div>
-      </div>
-      <div class="row">
-        <div class="col-10"></div>
-        <div class="col-80 tablet-50">
-          <a href="#" class="button button-raised btn-wish">Add to wish list</a>
-        </div>
-        <div class="col-10"></div>
-      </div>
+
+      <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-buy">Buy it now</a></div>
+      <div class="content-block"><a href="#" class="button button-raised larger btn-cart">Add to cart</a></div>
+      <div class="content-block"></div><a href="#" class="button button-raised larger btn-wish">Add to wish list</a></div>
     </div>
   </div>
 </template>
@@ -90,7 +67,19 @@
             var harga = card.find('.item-price').val();
             
             db.transaction(function(tx) {
+              
+              // save to local db
               tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+
+              var formData = [];
+
+              formData.kdbar = kdbar;
+              formData.Authorization = app.data.token;
+
+              app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+                  
+                var data = JSON.parse(res);
+              });
             }, function(error) {
               app.dialog.alert('INSERT error: ' + error.message);
             }, function() {
@@ -111,7 +100,20 @@
             var harga = card.find('.item-price').val();
             
             db.transaction(function(tx) {
+              
+              // save to local db
               tx.executeSql('INSERT INTO wishlist (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+
+              var formData = [];
+
+              formData.kdbar = kdbar;
+              formData.Authorization = app.data.token;
+
+              app.request.post("http://localhost/askitchenweb/api/v1/wishlist", formData, function(res) {
+                  
+                var data = JSON.parse(res);
+              });
+
             }, function(error) {
               app.dialog.alert('INSERT error: ' + error.message);
             }, function() {

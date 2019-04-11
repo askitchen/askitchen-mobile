@@ -34,7 +34,7 @@
             <div class="">{{data.deskripsi}}</div>
           </div>
           <div class="card-footer">
-            <div class="product-price">Rp{{data.hjual}}</div>
+            <div class="product-price">Rp{{data.hjual.toLocaleString('ID')}}</div>
             <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
           </div>
       </div>
@@ -100,9 +100,13 @@
             var harga = card.find('.item-price').val();
             
             db.transaction(function(tx) {
+
+              var now  = new Date();
+              var date = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+              var time = date + " " + now.getHours() + ":" + now.getMinutes()
               
               // save to local db
-              tx.executeSql('INSERT INTO wishlist (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+              tx.executeSql('INSERT INTO wishlist (kdbar, nama, gambar, hjual, tglinput) VALUES (?,?,?,?,?);', [kdbar, nama, gambar, harga, time]);
 
               var formData = [];
 
@@ -112,6 +116,14 @@
               app.request.post("http://localhost/askitchenweb/api/v1/wishlist", formData, function(res) {
                   
                 var data = JSON.parse(res);
+                if (data.status)
+                {
+                  app.dialog.alert('Sukses!')
+                }
+                else
+                {
+                  app.dialog.alert(data.message);
+                }
               });
 
             }, function(error) {

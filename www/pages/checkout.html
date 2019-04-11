@@ -1,0 +1,250 @@
+<template>
+<div data-page="tabs-swipeable" class="page toolbar-fixed">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="left"><a href="#" class="back link icon-only"><i class="icon icon-back"></i></a></div>
+      <div class="center">Checkout</div>
+      <div class="right"><a href="#" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>
+    </div>
+  </div>
+  <div class="toolbar tabbar">
+    <div class="toolbar-inner"><a href="#tab1" class="active tab-link">Address</a><a href="#tab2" class="tab-link">Delivery</a><a href="#tab3" class="tab-link">Order Detail</a></div>
+  </div>
+  <div class="tabs-swipeable-wrap">
+    <div class="tabs">
+      <div id="tab1" class="page-content tab active">
+        <div class="content-block">
+          <div class="block">
+            <div class="list no-hairlines-md">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">First Name</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="first_name" name="first_name" placeholder="First Name"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Last Name</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="last_name" name="last_name" placeholder="Last Name"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Company</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="company" name="company" placeholder="Company"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Address</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="address" name="address" placeholder="Address"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Province</div>
+                    <div class="item-input-wrap">
+                      <select id="province" name="province">
+                        <option value="" selected>-</option>
+                        <option value="1">BALI</option>
+                        <option value="2">BANGKA BELITUNG</option>
+                        <option value="3">BANTEN</option>
+                        <option value="4">BENGKULU</option>
+                        <option value="5">DI YOGYAKARTA</option>
+                        <option value="6">DKI JAKARTA</option>
+                        <option value="7">GORONTALO</option>
+                        <option value="8">JAMBI</option>
+                        <option value="9">JAWA BARAT</option>
+                        <option value="10">JAWA TENGAH</option>
+                        <option value="11">JAWA TIMUR</option>
+                        <option value="12">KALIMANTAN BARAT</option>
+                        <option value="13">KALIMANTAN SELATAN</option>
+                        <option value="14">KALIMANTAN TENGAH</option>
+                        <option value="15">KALIMANTAN TIMUR</option>
+                        <option value="16">KALIMANTAN UTARA</option>
+                        <option value="17">KEPULAUAN RIAU</option>
+                        <option value="18">LAMPUNG</option>
+                        <option value="19">MALUKU</option>
+                        <option value="20">MALUKU UTARA</option>
+                        <option value="21">NANGGROE ACEH DARUSSALAM (NAD)</option>
+                        <option value="22">NUSA TENGGARA BARAT (NTB)</option>
+                        <option value="23">NUSA TENGGARA TIMUR (NTT)</option>
+                        <option value="24">PAPUA</option>
+                        <option value="25">PAPUA BARAT</option>
+                        <option value="26">RIAU</option>
+                        <option value="27">SULAWESI BARAT</option>
+                        <option value="28">SULAWESI SELATAN</option>
+                        <option value="29">SULAWESI TENGAH</option>
+                        <option value="30">SULAWESI TENGGARA</option>
+                        <option value="31">SULAWESI UTARA</option>
+                        <option value="32">SUMATERA BARAT</option>
+                        <option value="33">SUMATERA SELATAN</option>
+                        <option value="34">SUMATERA UTARA</option>
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Regency</div>
+                    <div class="item-input-wrap">
+                      <select id="regency" name="regency">
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">District</div>
+                    <div class="item-input-wrap">
+                      <select id="district" name="district">
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Post Code</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="post_code" name="post_code" placeholder="Post code" autocomplete="off" onkeypress="return isNumber(event)"/>
+                    </div>
+                  </div>
+                </li>
+                              
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Phone</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="phone" name="phone" placeholder="Phone" autocomplete="off" onkeypress="return isNumber(event)"/>
+                    </div>
+                  </div>
+                </li>
+                <script type="text/javascript">
+										
+                  function isNumber(evt) {
+                    evt = (evt) ? evt : window.event;
+                    var charCode = (evt.which) ? evt.which : evt.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                      return false;
+                    }
+                    return true;
+                  }
+                </script>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">E-Mail</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="email-reg" name="email" placeholder="E-Mail" autocomplete="off"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Password</div>
+                    <div class="item-input-wrap">
+                      <input type="password" id="password-reg" name="password" placeholder="Password"/>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab2" class="page-content tab">
+        <div class="content-block">
+          <div class="block">
+            <div class="list no-hairlines-md">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Carrier</div>
+                    <div class="item-input-wrap">
+                      <select id="carrier" name="carrier">
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Package</div>
+                    <div class="item-input-wrap">
+                      <select id="package" name="package">
+                      </select>
+                    </div>
+                  </div>
+                </li>
+              <ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab3" class="page-content tab">
+        <div class="content-block">
+          <div class="block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      pageInit: function(e, page) {
+
+
+        app.request.json("http://localhost/askitchenweb/api/v1/checkout/carrier", function(json) {
+          var data = json.data;
+
+          $$('#carrier').html('');
+          for (var i = 0; i < data.length; i++) {
+              $$('#carrier').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+          }
+        });
+										
+        $$('#province').on('change', function(e){
+          var provid = $$(this).val();
+          // updateList(opr);
+
+          app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+provid, function(json) {
+            
+            var data = json.data, firstid = data[0].id;
+
+            $$('#regency').html('');
+            for (var i = 0; i < data.length; i++) {
+              $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
+            }
+
+            app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+firstid, function(json) {
+              var data = json.data;
+
+              $$('#district').html('');
+              for (var i = 0; i < data.length; i++) {
+                  $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+              }
+            });
+
+            app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+provid, function(json) {
+              var data = json.data;
+              $$('#post_code').val(data.postal_code);
+
+            });
+
+          });
+        });
+      }
+    }
+  }
+</script>

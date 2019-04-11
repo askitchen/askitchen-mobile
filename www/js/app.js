@@ -4,64 +4,7 @@ var $$ = Dom7;
 // var AdMob = null;
 
 var details = [];
-var items = //[];
-[
-  {
-     "kdbar": 8999999035839,
-     "nama": " CITRA HBL ADVANCED WHITE 250 ML",
-     "satuan": "PCS",
-     "hbeli": 18900,
-     "hpokok2": 18900,
-     "hjual": 21000,
-     "stawal": "0",
-     "saldo": 4,
-     "mstock": "Y"
-  },
-  /*{
-     "kdbar": 522,
-     "nama": "838T / D5 GELAS SET",
-     "satuan": "PCS",
-     "hbeli": 16800,
-     "hpokok2": 16800,
-     "hjual": 19000,
-     "stawal": "0",
-     "saldo": 1,
-     "mstock": "Y"
-  },*/
-  {
-     "kdbar": 711844162426,
-     "nama": "ABC ASAM JAWA 250 ML",
-     "satuan": "PCS",
-     "hbeli": 3309,
-     "hpokok2": 3309,
-     "hjual": 4000,
-     "stawal": 6,
-     "saldo": 7,
-     "mstock": "Y"
-  },
-  /*{
-     "kdbar": 517,
-     "nama": "ABC BATRAI BIRU BESAR",
-     "satuan": "PCS",
-     "hbeli": 8500,
-     "hpokok2": 8500,
-     "hjual": 10000,
-     "stawal": "0",
-     "saldo": 8,
-     "mstock": "Y"
-  },*/
-  {
-     "kdbar": 8991002101333,
-     "nama": "ABC INSTANT WHITE COFFEE 20 GR",
-     "satuan": "PCS",
-     "hbeli": 981,
-     "hpokok2": 981,
-     "hjual": 1300,
-     "stawal": "0",
-     "saldo": 30,
-     "mstock": "Y"
-  }
-];
+var items   = [];
 
 var bBackPressed = false;
 
@@ -87,26 +30,13 @@ var app  = new Framework7({
       mbrid: null,
       pwd: null,
 
-      // periode berjalan
-      bulan: 0,
-      tahun: 0,
+      context: null,
 
-      //detail: [],
       total: 0,
+      tax: 0,
+      shipcost: 0,
 
-      disc: 0,
-      tmpdisc: 0,
-
-      discrp: 0,
-      tmpdiscrp: 0,
-      
       gtotal: 0,
-      cash: 0,
-      card: 0,
-      kembali: 0,
-
-      kdbar: null,
-      kdsup: null,
 
       // currentGroup: 0,
       currentDate: null,
@@ -118,8 +48,8 @@ var app  = new Framework7({
       // currentPos: null,
       // currentNom: 0,
       
-      // token: null,
-      // push: null,
+      token: null,
+      push: null,
       // admobid: {}
     };
   },
@@ -147,41 +77,6 @@ var app  = new Framework7({
           
           details[l].net = details[l].hjual - (details[l].discrp / details[l].qty);          
           details[l].jumlah = (details[l].qty * details[l].hjual) - details[l].discrp;
-        }
-
-        app.data.total += details[l].jumlah;
-
-        // hitung diskon global
-        if (app.data.disc > 0) {
-          app.data.tmpdiscrp = app.data.total * app.data.disc / 100;
-          app.data.gtotal = app.data.total - app.data.tmpdiscrp;
-        } else {
-          app.data.tmpdisc = app.data.discrp * 100 / app.data.total;
-          app.data.gtotal = app.data.total - app.data.discrp;
-        }
-      }
-      app.data.gtotal = app.data.total;
-      $$('.gtotal').text(app.data.gtotal.toLocaleString('ID'));
-    },
-    calcPTotal: function(kode) {
-
-      app.data.total = 0;
-
-      for (var l = 0; l < details.length; l++) {
-
-        if (details[l].disc > 0) { // diskon persen
-
-          var discrp = details[l].qty * details[l].hbeli * details[l].disc / 100;
-
-          details[l].net = details[l].hbeli - (discrp / details[l].qty);
-          details[l].jumlah = (details[l].qty * details[l].hbeli) - discrp;
-
-        } else {
-
-          // var disc = (details[l].discrp * 100 / details[l].qty) / (details[l].qty * details[l].hbeli);
-          
-          details[l].net = details[l].hbeli - (details[l].discrp / details[l].qty);          
-          details[l].jumlah = (details[l].qty * details[l].hbeli) - details[l].discrp;
         }
 
         app.data.total += details[l].jumlah;
@@ -282,51 +177,6 @@ var app  = new Framework7({
         });
       });
     },
-    addPurchaseItem: function(kode) {
-      
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      var found2 = details.filter(cekKode);
-
-      if (found2.length) {
-        found2[0].qty++;
-        // found2[0].jumlah = found2[0].qty * found2[0].hbeli;
-      } else
-      {
-        details.push({ kdbar: found[0].kdbar,
-                                nama: found[0].nama,
-                                qty: 1,
-                                hpokok: found[0].hpokok2,
-                                hbeli: found[0].hbeli,
-                                disc: 0,
-                                discrp: 0.0,
-                                net: 0.0,
-                                jumlah: found[0].hbeli })
-        // console.log(details)
-      }
-      
-      // hitung total
-      app.methods.calcPTotal();
-
-    },
-    decPurchaseItem: function(kode) {
-      
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      var found2 = details.filter(cekKode);
-
-      if (found2.length) {
-        found2[0].qty--;
-        // found2[0].jumlah = found2[0].qty * found2[0].hbeli;
-      }
-      app.methods.calcPTotal();
-    },
   },
   on: {
 
@@ -363,9 +213,9 @@ var app  = new Framework7({
         });
       }
 
-      copyDatabaseFile('dagang.db').then(function () {
+      copyDatabaseFile('data.db').then(function () {
         // success! :)
-        app.data.db = window.sqlitePlugin.openDatabase({name: 'dagang.db'});
+        app.data.db = window.sqlitePlugin.openDatabase({name: 'data.db'});
         // var currentDate = new Date();
         // var month = currentDate.getMonth() + 1;
         // var year = currentDate.getFullYear();
@@ -373,75 +223,14 @@ var app  = new Framework7({
         var db = app.data.db;
         if (db) {
           app.dialog.alert('db is OK!');
-        
-          db.transaction(function(tx) {
-            tx.executeSql('insert into setup (nama, blnsaldo, thnsaldo) values (?, ?, ?);', ['Nama Usaha Anda',month,year]);
-          }, function(error) {
-            app.dialog.alert('insert error: ' + error.message);
-          });      
 
-          // hitung selisih periode yang telah lewat
-          
-          db.transaction(function(tx) {
-            tx.executeSql('select kdbar, nama, satuan, hbeli, hpokok2, hjual, stawal, saldo, mstock from stock order by nama;', [], function(ignored, res) {
-
-              // $$('.gtotal').text(res.rows.length);
-              for (var i = 0; i < res.rows.length; i++) {
-                items.push({ kdbar: res.rows.item(i).kdbar,
-                            nama: res.rows.item(i).nama,
-                            satuan: res.rows.item(i).satuan,
-                            hbeli: res.rows.item(i).hbeli,
-                            hpokok: res.rows.item(i).hpokok,
-                            hpokok2: res.rows.item(i).hpokok2,
-                            hjual: res.rows.item(i).hjual,
-                            stawal: res.rows.item(i).stawal,
-                            saldo: res.rows.item(i).saldo,
-                            mstock: res.rows.item(i).mstock
-                            });
-              }
-            
-              var virtualList = app.virtualList.create({
-                // List Element
-                el: '.virtual-list',
-                // Pass array with items
-                items: items,
-                // Custom search function for searchbar
-                searchAll: function (query, items) {
-                  var found = [];
-                  for (var i = 0; i < items.length; i++) {
-                    if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                  }
-                  return found; //return array with mathced indexes
-                },
-                // List item Template7 template
-                itemTemplate:
-                  '<li><input type="hidden" value="{{kdbar}}">' +
-                    '<a href="#" class="item-link item-content item-basket">' +
-                      '<div class="item-media"><img class="material-icons" src="img/stock.png" /></div>' +
-                      '<div class="item-inner">' +
-                        '<div class="item-title-row">' +
-                          '<div class="item-title">{{nama}}</div>' +
-                        '</div>' +
-                        //'<div class="item-subtitle">{{subtitle}}</div>' +
-                      '</div>' +
-                      '<div class="item-after">Rp{{hjual}}<br>{{saldo}} {{satuan}}</div>' +
-                    '</a>' +
-                  '</li>',
-                // Item height
-                //height: app.theme === 'ios' ? 63 : 73,
-              });
-
-              $$('.item-basket').on('click', function () {
-                var li = $$(this).parents("li");
-                var kode = li.find('input').val();
-                // console.log(kode)
-                app.methods.addSalesItem(kode)
-                // app.dialog.alert('Tes')
-              });                      
-            });
-          }, function(error) {
-            app.dialog.alert('select error: ' + error.message);
-          });
+          // $$('.item-basket').on('click', function () {
+          //   var li = $$(this).parents("li");
+          //   var kode = li.find('input').val();
+          //   // console.log(kode)
+          //   app.methods.addSalesItem(kode)
+          //   // app.dialog.alert('Tes')
+          // });                      
         }
       }).catch(function (err) {
         // error! :(
@@ -520,26 +309,43 @@ var app  = new Framework7({
 
       push.on('notification', function(data) {
         
+        var db = app.data.db;
+    
+        if (db) {
+          
+          var now = new Date();
+          var date = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+          var time = now.getHours() + ":" + now.getMinutes()
+          
+          db.transaction(function(tx) {
+              db.transaction(function(tx) {
+                tx.executeSql('insert into notifikasi (tgl, jam, info) values (?, ?, ?);', [date, time, data.message]);
+              }, function(error) {
+                app.dialog.alert('insert error: ' + error.message);
+              });
+          });
+        }
+        
         // show message
-        app.dialog.alert(data.message, 'Sistem POS');
+        app.dialog.alert(data.message, 'ASKITCHEN');
         
         // update info saldo
-        setTimeout(function () {
+        // setTimeout(function () {
 
-          // http://localhost/
-          app.request.get('http://localhost/askitchenweb/api/v1/member/saldo/'+ app.data.mbrid, function (res) {
+        //   // http://localhost/
+        //   app.request.get('http://localhost/askitchenweb/api/v1/member/saldo/'+ app.data.mbrid, function (res) {
           
-            var data = JSON.parse(res);
+        //     var data = JSON.parse(res);
         
-            if (data.status) {
-              $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
-              app.data.saldo = parseInt(data.saldo);
-              app.data.bonus = parseInt(data.bonus);
-            } else {
-              app.dialog.alert(data.message, 'Sistem POS');
-            }
-          });
-        }, 1000);
+        //     if (data.status) {
+        //       $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
+        //       app.data.saldo = parseInt(data.saldo);
+        //       app.data.bonus = parseInt(data.bonus);
+        //     } else {
+        //       app.dialog.alert(data.message, 'ASKITCHEN');
+        //     }
+        //   });
+        // }, 1000);
       });//*/
     },     
   },
@@ -673,7 +479,7 @@ var ac_share = app.actions.create({
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
         'https://play.google.com/store/apps/details?id=com.app.askitchen';
         window.plugins.socialsharing.shareViaWhatsApp(msg, null, null, null, function(e){
-          app.dialog.alert("Sharing failed with message: " + e, "Sistem POS");
+          app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
       }
     },
@@ -691,7 +497,7 @@ var ac_share = app.actions.create({
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
         'https://play.google.com/store/apps/details?id=com.app.askitchen';
         window.plugins.socialsharing.shareVia('org.telegram.messenger', msg, null, null, null, null, function(e){
-          app.dialog.alert('Sharing failed with message: ' + e, 'Sistem POS');
+          app.dialog.alert('Sharing failed with message: ' + e, 'ASKITCHEN');
         })
       }
     },
@@ -709,7 +515,7 @@ var ac_share = app.actions.create({
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
         'https://play.google.com/store/apps/details?id=com.app.askitchen';
         window.plugins.socialsharing.shareViaFacebook(msg, null, null, null, function(e){
-          app.dialog.alert("Sharing failed with message: " + e, "Sistem POS");
+          app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
       }
     },
@@ -727,7 +533,7 @@ var ac_share = app.actions.create({
         var msg = 'Download this app for all your kitchen equipments!' +
         'https://play.google.com/store/apps/details?id=com.app.askitchen';
         window.plugins.socialsharing.shareViaTwitter(msg, null, 'https://twitter.com/', null, function(e){
-          app.dialog.alert("Sharing failed with message: " + e, "Sistem POS");
+          app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
       }
     },*/
@@ -897,9 +703,20 @@ $$(document).on('backbutton', function (e) {
 
   // for example, based on what and where view you have
   if (app.views.main.router.url == '/') {
+    
     if (!bBackPressed) {
-      bBackPressed = true
+      
+      bBackPressed = true;
+
       // show toast
+      var toast = app.toast.create({
+        text: 'Press back once again to exit.',
+        on: {
+          opened: function () {
+            // console.log('Toast opened')
+          }
+        }
+      })
     } else {
       navigator.app.exitApp();
     }

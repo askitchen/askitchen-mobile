@@ -9,190 +9,88 @@
           </a>
         </div>
         <div class="title">Cart</div>
-        <div class="right">
-          <!--<a href="#" class="link icon-only panel-open" data-panel="right">-->
-          <a href="#" data-view=".view-main" class="link icon-only panel-close ac-more2">
-            <i class="icon f7-icons ios-only">settings</i>
-            <i class="icon material-icons md-only">settings</i>
-          </a>
-        </div>
-      </div>
-      <div class="subnavbar cart">
-        <!-- Searchbar with auto init -->
-        <div class="total-label">
-          Total
-        </div>
-        <div class="total-bar">
-          <div class="gtotal">{{gtotal.toLocaleString('ID')}}</div>
-        </div>
       </div>
     </div>
+    
     <div class="page-content">
-
-          {{#each detail}}
-          <div class="card">
-              <input type="hidden" class="item-code" value="{{this.kdbar}}" />
-              <input type="hidden" class="last-value" value="{{this.qty}}" />
-              <div class="card-header">
-              <div class="product-name">{{this.nama}}</div>
-            </div>
-            <div class="card-footer">
-              <!--<div class="left">
-                  <div class="product-name">{{this.hjual.toLocaleString('ID')}}</div>
-              </div>>-->
-              <div class="left">
-                <div class="stepper stepper-fill stepper-init" data-wraps="false" data-autorepeat="true" data-autorepeat-dynamic="true" data-decimal-point="2" data-manual-input-mode="true">
-                  <div class="stepper-button-minus"></div>
-                  <div class="stepper-input-wrap">
-                    <input class="item-qty" type="text" value="{{this.qty}}" min="1" max="10000" step="1">
-                  </div>
-                  <div class="stepper-button-plus"></div>
-                </div>
-              </div>
-              <div class="product-name">@Rp {{this.hjual.toLocaleString('ID')}}</div>
-              <div class="product-name">Rp {{this.jumlah.toLocaleString('ID')}}</div>
-            </div>
-            <div class="card-footer">
-              <!--<div class="left">-->
-                <div class="icon-social"><a href="#" class="link icon-only"><i class="material-icons remove">delete</i></a></div>
-                <div class="icon-social"><a href="/diskon-item/{{this.kdbar}}/" class="link icon-only">Diskon</a></div>
-              <div class="right">
-                {{#if disc}}<div class="product-name">Disc. {{this.disc}}%</div>{{/if}}
-                {{#if discrp}}<div class="product-name">Disc Rp {{this.discrp.toLocaleString('ID')}}</div>{{/if}}
-              </div>
-            </div>
-            <!--<div class="card-footer"> 
-              <div class="left">
-              </div>
-              <div class="right">
-                <div class="icon-social"><a href="#" class="link icon-only"><i class="material-icons remove">delete</i></a></div>
-              </div>
-            </div>-->
+        
+      {{#each data}}
+      <div class="card item-detail">
+          <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
+          <input type="hidden" class="item-code"  value="{{data.kdbar}}" />
+          <input type="hidden" class="item-name"  value="{{data.nama}}" />
+          <input type="hidden" class="item-price" value="{{data.hjual}}" />
+          <input type="hidden" class="last-value" value="{{data.stok}}" />
+          
+          <div class="card-footer">
+            <div class="product-name">{{data.nama}}</div>
           </div>
-          {{/each}}
+          <div class="card-footer">
+            <div class="">{{data.deskripsi}}</div>
+          </div>
+          <div class="card-footer">
+            <div class="product-price">Rp{{data.hjual.toLocaleString('ID')}}</div>
+            <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
+          </div>
+      </div>
+      {{/each}}
+
+      <div class="card">
+        <div class="card-footer">
+          <div class="product-name">Total:</div>
+          <div class="product-price">Rp{{app.data.total.toLocaleString('ID')}}</div>
+        </div>
+        <div class="card-footer">
+          <div class="content-block"><a href="/checkout/" class="button button-raised button-fill larger btn-order">Proceed to checkout</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
   return {
-    // Component Data
-    data: function () {
-      var self = this;
-      // Must return an object
-      return {
-        gtotal: self.$app.data.gtotal,
-        detail: details
-      }
-    },
-    // Component Methods
-    methods: {
-      // addOne: function () {
-      //   var self = this;
-      //   self.$app.dialog.alert('Hello World');
-      // },
-    },
     // Page Events
     on: {
       pageInit: function(e, page) {
         
-        app.methods.calcTotal();
-
-        $$('.ac-more2').on('click', function () {
-          // app.dialog.alert('tes')
-          ac_more2.open();
+        $$('.btn-order').on('click', function (e) {
+          app.dialog.alert('Order now!');
         });
-
-        $$('.page-content').on('change', 'div.stepper', function (e) {
           
-          // console.log('stepper', e.srcElement.value);
-          var value = e.srcElement.value;
-          var card = $$(this).parents(".card");
-          var kdbar = card.find('.item-code').val();
-
-          for(var i=0; i < details.length; i++) {
-            if(details[i].kdbar == kdbar)
-            {
-              card.find('.last-value').val(value);
-              details[i].qty = value;
-              // details[i].jumlah = value * details[i].hjual;
-            }
-          }
+        $$('.btn-cart').on('click', function (e) {
+          app.dialog.alert('Add to cart!');
           
-          // refresh total
-          app.methods.calcTotal();
+          var db = app.data.db;
+          if (db) {
+            var card  = $$('.item-detail');
+            var kdbar = card.find('.item-code').val();
+            var nama  = card.find('.item-name').val();
+            var gambar= card.find('.item-picture').val();
+            var harga = card.find('.item-price').val();
+            
+            db.transaction(function(tx) {
+              
+              // save to local db
+              tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
 
-          // refresh total per item
-          app.router.navigate('/cart/', {
-            reloadCurrent: true,
-            ignoreCache: true,
-          });
-        });
-        
-        $$('.page-content').on('click', 'div.stepper-button-minus', function (e) {
-          var card = $$(this).parents(".card");
-          var kdbar = card.find('.item-code').val();
-          var lqty = parseInt(card.find('.last-value').val());
-          var qty = parseInt(card.find('.item-qty').val());
+              var formData = [];
 
-          if (lqty > 1) {
-            card.find('.last-value').val(qty);
-          
-            // refresh total
-            app.methods.calcTotal();
+              formData.kdbar = kdbar;
+              formData.Authorization = app.data.token;
 
-            // refresh total per item
-            app.router.navigate('/cart/', {
-              reloadCurrent: true,
-              ignoreCache: true,
+              app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+                  
+                var data = JSON.parse(res);
+              });
+            }, function(error) {
+              app.dialog.alert('INSERT error: ' + error.message);
+            }, function() {
+              // console.log('Sukses!.');
             });
-          } else {
-            return;
           }
         });
-
-        $$('.page-content').on('click', 'div.stepper-button-plus', function (e) {
-          var card = $$(this).parents(".card");
-          var kdbar = card.find('.item-code').val();
-          var qty = parseInt(card.find('.item-qty').val());
-
-          card.find('.last-value').val(qty);
-
-          // refresh total
-          app.methods.calcTotal();
-
-          // refresh total per item
-          app.router.navigate('/cart/', {
-            reloadCurrent: true,
-            ignoreCache: true,
-          });
-        });
-        
-        $$('.page-content').on('click', 'i.material-icons.remove', function (e) {
-          
-          var card = $$(this).parents(".card");
-          var kdbar = card.find('.item-code').val();
-
-          // hapus item
-          for(var i=0; i < details.length; i++) {
-            if(details[i].kdbar == kdbar)
-            {
-              details.splice(i,1);
-            }
-          }
-
-          app.methods.calcTotal();
-          
-          if (details.length > 0) {
-            app.router.navigate('/cart/', {
-              reloadCurrent: true,
-              ignoreCache: true,
-            });
-          } else {
-            // app.router.navigate('/');
-            mainView.router.back();
-          }
-        });
-      },
+      }
     }
   }
 </script>

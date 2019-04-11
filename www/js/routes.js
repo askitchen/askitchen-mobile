@@ -768,6 +768,14 @@ routes = [
     }
   },
   {
+    path: '/notifications/',
+    componentUrl: './pages/notifications.html',
+  },
+  {
+    path: '/wish-list/',
+    componentUrl: './pages/wish-list.html',
+  },
+  {
     path: '/category/:kode/:nama',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
@@ -894,6 +902,10 @@ routes = [
         app.preloader.hide();
       });
     }
+  },
+  {
+    path: '/checkout/',
+    componentUrl: './pages/checkout.html',
   },
   {
     path: '/histori/',

@@ -21,7 +21,7 @@
           <input type="hidden" class="item-code"  value="{{data.kdbar}}" />
           <input type="hidden" class="item-name"  value="{{data.nama}}" />
           <input type="hidden" class="item-price" value="{{data.hjual}}" />
-          <input type="hidden" class="last-value" value="{{data.stok}}" />
+          <input type="hidden" class="last-value" value="{{stok}}" />
           
           <div class="card-footer">
             <div class="product-name">{{data.nama}}</div>
@@ -30,7 +30,7 @@
             <div class="">{{data.deskripsi}}</div>
           </div>
           <div class="card-footer">
-            <div class="product-price">Rp{{data.hjual.toLocaleString('ID')}}</div>
+            <div class="product-price">Rp{{hjualf}}</div>
             <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
           </div>
       </div>

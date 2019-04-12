@@ -28,8 +28,10 @@ var app  = new Framework7({
     return {
       db: null,
       mbrid: null,
+      email: null,
       pwd: null,
 
+      endpoint: null,
       context: null,
 
       total: 0,
@@ -593,8 +595,9 @@ $$('#my-login-screen .login-button').on('click', function () {
 
       app.loginScreen.close('#my-login-screen');
       
+      app.data.mbrid = data.mbrid;
       app.data.email = email;
-      app.data.pwd = password;
+      app.data.pwd   = password;
       app.data.token = data.token;
       
       // kosongkan isian nomor pin

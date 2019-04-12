@@ -401,270 +401,6 @@ routes = [
     }
   },
   {
-    path: '/beli/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-        
-      if (!app.data.currentDate) {
-      
-        var now = new Date();
-        
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        
-        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-        app.data.currentDate = today;
-        console.log(app.data.currentDate)
-      }
-      
-      var db = app.data.db;
-      var supplier = //[];
-      [
-        {
-           "kdsup": "AJC",
-           "nama": "ABADI JAYA CAMILAN"
-        },
-        {
-           "kdsup": "AS",
-           "nama": "AGUNG SMS"
-        },
-        {
-           "kdsup": "AM",
-           "nama": "AMBAR BIR"
-        },
-        {
-           "kdsup": "AR",
-           "nama": "ARIZONA KARYA MITRA"
-        },
-        {
-           "kdsup": "AB",
-           "nama": "ARTA BOGA CEMERLANG"
-        }
-     ];
-      
-      if (db) {
-        db.transaction(function(tx) {
-          tx.executeSql('select kdsup, nama from supplier order by nama;', [kode], function(ignored, res) {
-
-            for (var i = 0; i < res.rows.length; i++) {
-              supplier.push({ kode: res.rows.item(i).kdsup,
-                        nama: res.rows.item(i).nama });
-            }
-            
-          });
-        }, function(error) {
-          app.dialog.alert('select error: ' + error.message);
-        });
-      }
-        
-      // console.log('app.data.currentDate: ',app.data.currentDate);
-      
-      // var formData = [];
-
-      // formData.tgltrx = app.data.currentDate;
-      // formData.Authorization = app.data.token;
-      
-      // app.request.post("http://localhost/askitchenweb/api/v1/beli", formData, function(res) {
-          
-      var data = { supplier: supplier }; //JSON.parse(res);
-
-        resolve(
-          { componentUrl: './pages/beli.html' },
-          { context: { data: data } }
-        );
-        app.preloader.hide();
-      // });
-    },
-    
-    on: {
-      pageBeforeIn: function (event, page) {
-        
-        $$('#total').val(app.data.total);
-        var disc = parseFloat($$('#disc').val());
-        var discrp = disc / 100 * app.data.total;
-        $$('#discrp').val(discrp);
-        var gtotal = app.data.total - discrp;
-        $$('#gtotal').val(gtotal);
-
-        if (!app.data.currentDate) {
-        
-          var now = new Date();
-          
-          var day = ("0" + now.getDate()).slice(-2);
-          var month = ("0" + (now.getMonth() + 1)).slice(-2);
-          
-          var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-          app.data.currentDate = today;
-        }
-      },  
-      pageInit: function (event, page) {
-        
-        // console.log('#tgltrx_val: ', $$('#tgltrx').val());
-        $$('#tglinput').val(app.data.currentDate);
-        $$('#tgljto').val(app.data.currentDate);
-      
-        // $$('#tglinput').on('change', function(e){
-
-        //   app.data.currentDate = $$('#tglinput').val();
-        //   app.router.navigate('/histori/', {
-        //     reloadCurrent: true,
-        //     ignoreCache: true,
-        //   });
-        // });
-
-        $$('#tunai').on('change', function(e){
-          //e.preventDefault();
-          if ($$(this).prop('checked')){
-            $$('#tgljto').prop('disabled', true);
-            $$('#tgljto').val(app.data.currentDate);
-          } else {
-            $$('#tgljto').prop('disabled', false);
-            $$('#tgljto').val(app.data.currentDate);
-          }
-        });
-      
-        $$('.batal').on('click', function(e){
-
-          app.dialog.confirm('Yakin ingin membatalkan transaksi?', function () {
-            details = [];
-            app.methods.calcPTotal();
-            mainView.router.back();
-          },  function () {
-            //
-          });
-        });
-        
-        $$('#disc').on('blur', function(e){
-          var disc = parseFloat($$('#disc').val());
-          var discrp = disc / 100 * app.data.total;
-          $$('#discrp').val(discrp);
-          var gtotal = app.data.total - discrp;
-          $$('#gtotal').val(gtotal);
-        });
-        
-        $$('#discrp').on('blur', function(e){
-          var discrp = parseFloat($$('#discrp').val());
-          var disc = discrp * 100 / app.data.total;
-          $$('#disc').val(disc);
-          var gtotal = app.data.total - discrp;
-          $$('#gtotal').val(gtotal);
-        });
-
-        $$('.btnSimpan').on('click', function(e){
-          //e.preventDefault();
-          
-          var nofak = $$('#nofak').val();
-          if (nofak === '') {
-            app.dialog.alert('Masukkan data nomor faktur pembelian.', 'Input Pembelian');
-            return;
-          }
-          
-          var tglfak = $$('#tglfak').val();
-          var tgljto = $$('#tgljto').val();
-          
-          var kdsup = $$('#kdsup').val();
-          var bTunai = $$('#tunai').prop('checked');
-
-          var total = parseFloat($$('#total').val());
-          if (total === 0) {
-            app.dialog.alert('Masukkan detail barang.', 'Input Pembelian');
-            return;
-          }
-          var disc = parseFloat($$('#disc').val());
-          var discrp = parseFloat($$('#discrp').val());
-          var gtotal = parseFloat($$('#gtotal').val());
-
-          var tgllunas = null;
-          var cash = 'N';
-          var saldo = gtotal;
-
-          if (bTunai) {
-            tgllunas = tglfak;
-            saldo = 0;
-            cash = 'Y';
-          }
-          
-          // app.preloader.show();
-          $$(this).prop("disabled", true);
-          
-          var db = app.data.db;
-          
-          if (db) {
-
-            db.transaction(function(tx) {
-
-              tx.executeSql('insert into beli (nofak, tglfak, kdsup, tgljto, total, disc, discrp, gtotal, tgllunas, saldo, cash) ' +
-              'values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [nofak, tglfak, kdsup, tgljto, total, disc, discrp, gtotal, tgllunas, saldo, cash]);
-
-              if (!bTunai) {
-                // update saldo hutang
-                tx.executeSql('update supplier set saldo = saldo + ? where kdsup = ?;', [details[i].qty, details[i].hbeli, details[i].hpokok2, details[i].kdbar]);
-              }
-              
-              for (var i = 0; i < details.length; i++) {
-                
-                // update jumlah perssediaan
-                tx.executeSql('update stock set saldo = saldo + ?, hbeli = ROUND(?,2), ' +
-                  'hpokok2 = ROUND(?,2), used = "Y" where kdbar = ?;', [details[i].qty, details[i].hbeli, details[i].hpokok2, details[i].kdbar]);
-
-                // simpan detail transaksi
-                tx.executeSql('insert into dtrans (nofak, tglfak, tgl_t, jenis, urut, kdbar, qty, satuan, hpokok, harga, disc, discrp, net, jumlah, ket) ' +
-                  'values (?, ?, :tgl_t, :kduser, :jenis, :urut, :kdbar, :qty, ' +
-                  ':satuan, :hpokok, :harga, :disc, :discrp, :net, :jumlah, :ket);',
-                  [nofak, tglfak, tglfak, 'BELI', i+1, details[i].kdbar, details[i].qty, details[i].satuan, details[i].hpokok2, details[i].hjual,
-                  details[i].disc, details[i].discrp, details[i].net, details[i].jumlah, 'Pembelian']);
-                    
-              }
-            }, function(error) {
-              app.dialog.alert('insert error: ' + error.message);
-            });
-          }
-
-          /*var formData = app.form.convertToData('.stock');
-          formData.Authorization = app.data.token;
-          
-          app.request.post('http://localhost/dagang/pulsa', formData, function (res) {
-            
-            // app.preloader.hide();
-            
-            var data = JSON.parse(res);
-        
-            if (data.status) {
-              // setTimeout(function () {
-                app.router.back();
-              // }, 500);
-            } else {
-
-              $$(this).prop("disabled", false);
-              if (data.message !== '') {
-                app.dialog.alert(data.message, 'Pulsa HP');
-              }
-            }
-          });*/
-        });            
-      
-        if ( AdMob ) {
-          AdMob.hideBanner();
-        }
-      },
-      pageAfterOut: function (event, page) {
-      
-        app.data.currentDate = null;
-
-        if ( AdMob ) {
-          AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-        }
-      }
-    },
-  },
-  {
     path: '/lap-jual/',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
@@ -794,7 +530,8 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      app.request.get("http://localhost/askitchenweb/api/v1/category/sample/"+kode, function(res) {
+      // app.request.get("http://localhost/askitchenweb/api/v1/category/sample/"+kode, function(res) {
+      app.request.get("https://askitchen.com/api/v1/category/sample/"+kode, function(res) {
           
         var data = JSON.parse(res);
         // console.log(data)
@@ -826,8 +563,9 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      app.request.get("http://localhost/askitchenweb/api/v1/subcategory/sample/"+kode, function(res) {
-          
+      // app.request.get("http://localhost/askitchenweb/api/v1/subcategory/sample/"+kode, function(res) {
+      app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
+        
         var data = JSON.parse(res);
         // console.log(data)
 
@@ -858,10 +596,11 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      app.request.get("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
+      // app.request.get("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
+      app.request.get("https://askitchen.com/api/v1/products/"+kode, function(res) {
           
         var data = JSON.parse(res);
-        // console.log(data)
+        console.log('products:'+res)
 
         resolve(
           { componentUrl: './pages/product.html' },
@@ -886,18 +625,21 @@ routes = [
       // kode item
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
+      console.log('kode:'+kode)
+      console.log('nama:'+nama)
 
       // var db = app.data.db;
       var data = null;
       
-      app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
-          
+      // app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
+        
         var data = JSON.parse(res);
-        // console.log(res)
+        console.log('detail:'+res)
 
         resolve(
           { componentUrl: './pages/detail.html' },
-          { context: { data: data.data, title: nama } }
+          { context: { data: data.data, hjual: data.hjualf, stok: data.stok, title: nama } }
         );
         app.preloader.hide();
       });
@@ -937,11 +679,12 @@ routes = [
       formData.tgltrx = app.data.currentDate;
       formData.Authorization = app.data.token;
       
-      app.request.post("http://localhost/askitchenweb/api/v1/member/histori", formData, function(res) {
+      // app.request.post("http://localhost/askitchenweb/api/v1/member/histori", formData, function(res) {
+      app.request.post("https://askitchen.com/api/v1/member/histori", formData, function(res) {
           
         var data = JSON.parse(res);
 
-        resolve(
+        resolve (
           { componentUrl: './pages/histori.html' },
           { context: { data: data } }
         );

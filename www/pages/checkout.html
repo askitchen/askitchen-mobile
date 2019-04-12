@@ -189,10 +189,28 @@
         </div>
       </div>
       <div id="tab3" class="page-content tab">
-        <div class="content-block">
-          <div class="block">
-          </div>
-        </div>
+        <!-- <div class="content-block">
+          <div class="block"> -->
+              <div class="data-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="label-cell">Product</th>
+                      <th class="numeric-cell">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each data}}
+                    <tr>
+                      <td class="label-cell">Frozen yogurt</td>
+                      <td class="numeric-cell">159</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+          <!-- </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -210,10 +228,10 @@
 
           $$('#carrier').html('');
           for (var i = 0; i < data.length; i++) {
-              $$('#carrier').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+              $$('#carrier').append('<option value="'+data[i].code+'">'+data[i].name+'</option>')
           }
         });
-										
+
         $$('#province').on('change', function(e){
           var provid = $$(this).val();
           // updateList(opr);
@@ -243,6 +261,19 @@
             });
 
           });
+        });
+
+        $$('#carrier').on('change', function(e){
+          var city = $$('#regency option:selected').val();
+
+          app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
+              var data = json.data,
+                  total = parseFloat( $$('#total').val()),
+                  cost  = parseFloat(data[0].cost[0].value);
+              $$('#post_code').val(data.postal_code);
+
+          });
+
         });
       }
     }

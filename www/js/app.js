@@ -32,7 +32,9 @@ var app  = new Framework7({
       pwd: null,
 
       endpoint: null,
-      context: null,
+      context: 1,
+
+      total_items: 3,
 
       total: 0,
       tax: 0,

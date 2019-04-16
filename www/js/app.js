@@ -34,23 +34,15 @@ var app  = new Framework7({
       endpoint: null,
       context: 1,
 
-      total_items: 3,
+      total_items: 0,
 
       total: 0,
       tax: 0,
       shipcost: 0,
-
       gtotal: 0,
 
       // currentGroup: 0,
       currentDate: null,
-      tglAwal: null,
-      tglAkhir: null,
-      
-      // for editing
-      // currentCode: null,
-      // currentPos: null,
-      // currentNom: 0,
       
       bLogedIn: false,
       token: null,

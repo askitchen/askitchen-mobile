@@ -16,21 +16,18 @@
         
       {{#each data}}
       <div class="card item-detail">
-          <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+          <div style="background-image:url(https://askitchen.com/upload/gambar/{{this.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
           background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
-          <input type="hidden" class="item-code"  value="{{data.kdbar}}" />
-          <input type="hidden" class="item-name"  value="{{data.nama}}" />
-          <input type="hidden" class="item-price" value="{{data.hjual}}" />
-          <input type="hidden" class="last-value" value="{{stok}}" />
+          <input type="hidden" class="item-code"  value="{{this.kdbar}}" />
+          <input type="hidden" class="item-name"  value="{{this.nama}}" />
+          <input type="hidden" class="item-price" value="{{this.hjual}}" />
+          <!-- <input type="hidden" class="last-value" value="" /> -->
           
           <div class="card-footer">
-            <div class="product-name">{{data.nama}}</div>
+            <div class="product-name">{{this.nama}}</div>
           </div>
           <div class="card-footer">
-            <div class="">{{data.deskripsi}}</div>
-          </div>
-          <div class="card-footer">
-            <div class="product-price">Rp{{hjualf}}</div>
+            <div class="product-price">Rp{{this.hargaf}}</div>
             <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
           </div>
       </div>
@@ -39,10 +36,11 @@
       <div class="card">
         <div class="card-footer">
           <div class="product-name">Total:</div>
-          <div class="product-price">Rp{{app.data.total.toLocaleString('ID')}}</div>
+          <div class="product-price">Rp{{$root.total.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
-          <div class="content-block"><a href="/checkout/" class="button button-raised button-fill larger btn-order">Proceed to checkout</a></div>
+          <!-- <div class="content-block"> -->
+            <a href="/checkout/" class="button button-raised button-fill larger btn-order">Proceed to checkout</a>
         </div>
       </div>
     </div>
@@ -54,16 +52,10 @@
     on: {
       pageInit: function(e, page) {
         
-        $$('.btn-order').on('click', function (e) {
-          
-          app.dialog.alert('Order now!');
-          return;
-
-          app.request.post("http://localhost/askitchenweb/api/v1/checkout", formData, function(res) {
-              
-            var data = JSON.parse(res);
-          });
-        });
+        // $$('.btn-order').on('click', function (e) {
+        //   app.dialog.alert('Order now!');
+        //   return;
+        // });
           
         // $$('.btn-cart').on('click', function (e) {
         //   app.dialog.alert('Add to cart!');

@@ -24,6 +24,16 @@ routes = [
       },
       pageInit: function (event, page) {
         
+        app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+          
+          var data = JSON.parse(res);
+          
+          if (data.status)
+          {
+            app.data.total_items = data.totqty;
+            $$('.badge').text(app.data.total_items);
+          }
+        });
       }
     }
   },
@@ -77,7 +87,7 @@ routes = [
             },
             {
               context: {
-                data: user,
+                data: data.data,
               }
             }
           );
@@ -512,7 +522,32 @@ routes = [
   },
   {
     path: '/checkout/',
-    componentUrl: './pages/checkout.html',
+    // componentUrl: './pages/checkout.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+        
+      app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
+      // app.request.get("https://askitchen.com/api/v1/cart", function(res) {
+          
+        var data = JSON.parse(res);
+        // console.log(res)
+        app.data.total  = data.total;
+        app.data.gtotal = data.total;
+
+        resolve (
+          { componentUrl: './pages/checkout.html' },
+          { context: { data: data.data } }
+        );
+        app.preloader.hide();
+      });
+    }
   },
   {
     path: '/histori/',

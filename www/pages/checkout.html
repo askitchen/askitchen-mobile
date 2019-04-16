@@ -147,14 +147,6 @@
                     </div>
                   </div>
                 </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Password</div>
-                    <div class="item-input-wrap">
-                      <input type="password" id="password-reg" name="password" placeholder="Password"/>
-                    </div>
-                  </div>
-                </li>
               </ul>
             </div>
           </div>
@@ -191,7 +183,7 @@
       <div id="tab3" class="page-content tab">
         <!-- <div class="content-block">
           <div class="block"> -->
-              <div class="data-table">
+              <div class="card data-table">
                 <table>
                   <thead>
                     <tr>
@@ -202,26 +194,157 @@
                   <tbody>
                     {{#each data}}
                     <tr>
-                      <td class="label-cell">Frozen yogurt</td>
-                      <td class="numeric-cell">159</td>
+                      <td class="label-cell">{{this.nama}}</td>
+                      <td class="numeric-cell">{{this.hargaf}}</td>
                     </tr>
                     {{/each}}
                   </tbody>
                 </table>
+                <div class="card-footer">
+                  <div class="product-name">Subtotal</div>
+                  <div class="product-price">{{$root.total.toLocaleString('ID')}}</div>
+                </div>
+                <div class="card-footer">
+                  <div class="product-name">Tax</div>
+                  <div class="product-price">{{$root.tax.toLocaleString('ID')}}</div>
+                </div>
+                <div class="card-footer">
+                  <div class="product-name">Shipping</div>
+                  <div class="product-price">{{$root.shipcost.toLocaleString('ID')}}</div>
+                </div>
+                <div class="card-footer">
+                  <div class="product-name">Total</div>
+                  <div class="product-price">{{$root.gtotal.toLocaleString('ID')}}</div>
+                </div>
               </div>
           <!-- </div>
         </div> -->
+        <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-pay">Pay</a></div>
       </div>
     </div>
   </div>
 </div>
 </template>
+
+<form id="payment-form" method="post" action="http://localhost/askitchenweb/api/v1/snap/finish">
+  <input type="hidden" name="result_type" id="result-type" value=""></div>
+  <input type="hidden" name="result_data" id="result-data" value=""></div>
+</form>
+
 <script>
   return {
     // Page Events
     on: {
       pageInit: function(e, page) {
 
+        $$('#pay-button').click(function(event) {
+            
+            event.preventDefault();
+            // $$(this).attr("disabled", "disabled");
+            
+            if ($$('#first_name').val() == '')
+            {
+                alert('Please enter first name.');
+                $$( "#first_name" ).focus();
+                return;
+            }
+            else if ($$('#last_name').val() == '')
+            {
+                alert('Please enter last name.');
+                $$( "#last_name" ).focus();
+                return;
+            }
+            else if ($$('#company').val() == '')
+            {
+                alert('Please enter company.');
+                $$( "#company" ).focus();
+                return;
+            }
+            else if ($$('#address').val() == '')
+            {
+                alert('Please enter address.');
+                $$( "#address" ).focus();
+                return;
+            }
+            else if ($$('#province').val() == '')
+            {
+                alert('Please enter province.');
+                $$( "#province" ).focus();
+                return;
+            }
+            else if ($$('#regency').val() == '')
+            {
+                alert('Please enter regency.');
+                $$( "#regency" ).focus();
+                return;
+            }
+            else if ($$('#district').val() == '')
+            {
+                alert('Please enter district.');
+                $$( "#district" ).focus();
+                return;
+            }
+            else if ($$('#phone').val() == '')
+            {
+                alert('Please enter phone number.');
+                $$( "#phone" ).focus();
+                return;
+            }
+            else if ($$('#email').val() == '')
+            {
+                alert('Please enter email address.');
+                $$( "#email" ).focus();
+                return;
+            }
+
+            // var form = $$('#frmOrder');
+            formData = [];
+            formData.first_name = $$('#first_name').val();
+            formData.last_name  = $$('#last_name').val();
+            formData.company    = $$('#copany').val();
+            formData.address    = $$('#address').val();
+            formData.province   = $$('#province').val();
+            formData.regency    = $$('#regency').val();
+            formData.district   = $$('#district').val();
+            formData.phone      = $$('#phone').val();
+            formData.email      = $$('#email').val();
+            formData.note       = $$('#note').val();
+    
+            app.request.post("http://localhost/askitchenweb/api/v1/snap/token", formData, function(data) {
+
+              console.log('token = '+data); // snap token
+              
+              var resultType = document.getElementById('result-type');
+              var resultData = document.getElementById('result-data');
+
+              function changeResult(type, data){
+                  $$("#result-type").val(type);
+                  $$("#result-data").val(JSON.stringify(data));
+                  //resultType.innerHTML = type;
+                  //resultData.innerHTML = JSON.stringify(data);
+              }
+
+              snap.pay(data, {
+              
+                  onSuccess: function(result){
+                      changeResult('success', result);
+                      console.log(result.status_message);
+                      console.log(result);
+                      $$("#payment-form").submit();
+                  },
+                  onPending: function(result){
+                      changeResult('pending', result);
+                      console.log(result.status_message);
+                      $$("#payment-form").submit();
+                  },
+                  onError: function(result){
+                      changeResult('error', result);
+                      console.log(result.status_message);
+                      $$("#payment-form").submit();
+                  }
+              });
+            });
+        });
 
         app.request.json("http://localhost/askitchenweb/api/v1/checkout/carrier", function(json) {
           var data = json.data;
@@ -239,6 +362,7 @@
           app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+provid, function(json) {
             
             var data = json.data, firstid = data[0].id;
+            // console.log('firstid: '+firstid)
 
             $$('#regency').html('');
             for (var i = 0; i < data.length; i++) {
@@ -259,7 +383,23 @@
               $$('#post_code').val(data.postal_code);
 
             });
+          
+            var carrier = $$('#carrier').val();
 
+            app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+carrier+"/"+firstid, function(json) {
+                
+              var data = json.data; 
+                  // total = parseFloat( $$('#total').val()),
+                  // cost  = parseFloat(data[0].cost[0].value);
+              
+              // console.log('data: '+data)
+
+              $$('#package').html('');
+              for (var i = 0; i < data.length; i++) {
+                  $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+              }
+              // $$('#svcname').val( $$('#package').text()); // nama service/layanan
+            });
           });
         });
 
@@ -297,13 +437,13 @@
           });
         });
 
-        
-        
+
         $$('#carrier').on('change', function(e){
           // var city = $$('#regency option:selected').val();
           var city = $$('#regency').val();
 
           app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
+            
             var data  = json.data,
                 total = parseFloat( $$('#total').val()),
                 cost  = parseFloat(data[0].cost[0].value);
@@ -318,6 +458,10 @@
 
           });
 
+        });
+          
+        $$('.btn-pay').on('click', function (e) {
+          app.dialog.alert('Pay now!');
         });
       }
     }

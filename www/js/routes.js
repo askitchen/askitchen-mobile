@@ -2,10 +2,89 @@ routes = [
   {
     path: '/',
     url: './index.html',
+    on: {
+      pageBeforeIn: function (event, page) {
+        
+        if (app.data.total_items > 0)
+          $$('.badge').text(app.data.total_items);
+
+          // app.request.get('http://localhost/abc/member/saldo/'+ app.data.mbrid, function (res) {
+          
+          //   var data = JSON.parse(res);
+        
+          //   if (data.status) {
+          //     $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
+          //     app.data.saldo = parseInt(data.saldo);
+          //     $$('.bonus').text(parseInt(data.bonus).toLocaleString('ID'));
+          //     app.data.bonus = parseInt(data.bonus);
+          //   } else {
+          //     app.dialog.alert(data.message, 'ABC');
+          //   }
+          // });
+      },
+      pageInit: function (event, page) {
+        
+      }
+    }
   },
   {
     path: '/cart/',
-    componentUrl: './pages/cart.html',
+    // componentUrl: './pages/cart.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+
+      // User ID from request
+      // var userId = routeTo.params.userId;
+
+      // Simulate Ajax Request
+      // setTimeout(function () {
+      //   // We got user data from request
+      //   var user = {
+      //     firstName: 'Vladimir',
+      //     lastName: 'Kharlampidi',
+      //     about: 'Hello, i am creator of Framework7! Hope you like it!',
+      //     links: [
+      //       {
+      //         title: 'Framework7 Website',
+      //         url: 'http://framework7.io',
+      //       },
+      //       {
+      //         title: 'Framework7 Forum',
+      //         url: 'http://forum.framework7.io',
+      //       },
+      //     ]
+      //   };
+
+        app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
+
+          // Hide Preloader
+          app.preloader.hide();
+
+          console.log(res)
+          var data = JSON.parse(res)
+
+          // Resolve route to load page
+          resolve(
+            {
+              componentUrl: './pages/cart.html',
+            },
+            {
+              context: {
+                data: user,
+              }
+            }
+          );
+
+        });
+      // }, 1000);
+    },
   },
   {
     path: '/profile/',
@@ -263,247 +342,6 @@ routes = [
     }
   },
   {
-    path: '/supplier-list/',
-    componentUrl: './pages/supplier-list.html',
-  },
-  {
-    path: '/supplier/',
-    url: './pages/supplier.html',
-    on: {
-      pageInit: function (event, page) {
-        
-        $$('.contact').on('click', function(e){
-     
-          navigator.contacts.pickContact(function(contact){
-              //console.log('The following contact has been selected:' + JSON.stringify(contact));
-              var nomor = contact.phoneNumbers[0].value;
-              $$('#nama').val(contact.name.givenName);
-              $$('#telepon').val(nomor.replace('+62','0').replace(/-/g,'').replace(/ /g,''));
-              $$('#email').val(contact.emails[0].value);
-          },function(err){
-              //console.log('Error: ' + err);
-              // alert('Error: ' + err);
-          });
-        });
-        
-        $$('#awal').on('blur', function(e){
-          var awal = parseFloat($$('#awal').val());
-          $$('#saldo').val(awal)
-        });
-      
-        $$('.btnSimpan').on('click', function(e){
-          //e.preventDefault();
-          
-          var nama = $$('#nama').val();
-          if (nama === '') {
-            app.dialog.alert('Masukkan data nama supplier.', 'Supplier');
-            return;
-          }
-
-          var awal = parseFloat($$('#awal').val());
-
-          var alamat = $$('#alamat').val();
-          var telepon = $$('#telepon').val();
-          var email = $$('#email').val();
-          var notes = $$('#notes').val();
-          
-          // app.preloader.show();
-          $$(this).prop("disabled", true);
-          
-          var db = app.data.db;
-          
-          if (db) {
-
-            db.transaction(function(tx) {
-              tx.executeSql('insert into supplier (nama, alamat, telepon, email, awal, saldo, notes) ' +
-              'values (?, ?, ?, ?, ?, ?, ?);', [nama, alamat, telepon, email, awal, awal, notes]);
-            }, function(error) {
-              app.dialog.alert('insert error: ' + error.message);
-            });
-          }
-          
-          /*var formData = app.form.convertToData('.trxdata');
-          formData.Authorization = app.data.token;
-          
-          app.request.post('http://localhost/askitchenweb/api/v1/data', formData, function (res) {
-            
-            // app.preloader.hide();
-            
-            var data = JSON.parse(res);
-        
-            if (data.status) {
-              // setTimeout(function () {
-                app.router.back();
-              // }, 500);
-            } else {
-
-              $$(this).prop("disabled", false);
-              if (data.message !== '') {
-                app.dialog.alert(data.message, 'Paket Data');
-              }
-            }
-          });*/
-        });            
-      
-        if ( AdMob ) {
-          AdMob.hideBanner();
-        }
-      },
-      pageAfterOut: function (event, page) {
-      
-        if ( AdMob ) {
-          AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-        }
-      }
-    }
-  },
-  {
-    path: '/supplier/:kode',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-
-      // kode supplier
-      var kode = routeTo.params.kode;
-
-      var db = app.data.db;
-      var data = null;
-      
-      if (db) {
-        db.transaction(function(tx) {
-          tx.executeSql('select kdsup, nama, alamat, telepon, email, awal, saldo, notes from supplier where kdsup = ?;', [kode], function(ignored, res) {
-
-            data = { kdsup: res.rows.item(0).kdsup,
-                        nama: res.rows.item(0).nama,
-                        alamat: res.rows.item(0).alamat,
-                        telepon: res.rows.item(0).telepon,
-                        email: res.rows.item(0).email,
-                        awal: res.rows.item(0).awal,
-                        saldo: res.rows.item(0).saldo,
-                        notes: res.rows.item(0).notes };
-          });
-        }, function(error) {
-          app.dialog.alert('select error: ' + error.message);
-        });
-      }
-
-      resolve(
-        { componentUrl: './pages/supplier2.html' },
-        { context: { data: data } }
-      );
-      app.preloader.hide();
-    }
-  },
-  {
-    path: '/lap-jual/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-        
-      if (!app.data.tglAwal) {
-      
-        var now = new Date();
-        
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        
-        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-        app.data.tglAwal  = today;
-        app.data.tglAkhir = today;
-      }
-        
-      // var formData = [];
-
-      // formData.Authorization = app.data.token;
-      
-      // app.request.post("http://localhost/askitchenweb/api/v1/adjustment", formData, function(res) {
-          
-        var db = app.data.db;
-        var data = [];
-        var total = 0;
-        var discrp = 0;
-        var gtotal = 0;
-        
-        if (db) {
-          db.transaction(function(tx) {
-            tx.executeSql('select nofak, tglfak, total, disc, discrp, gtotal from jual ' +
-              'where tglfak between ? and ? order by tglfak, nofak;', [app.data.tglAwal, app.data.tglAkhir], function(ignored, res) {
-  
-              for (var i = 0; i < res.rows.length; i++) {
-                data.push({ nofak: res.rows.item(i).nofak,
-                            tglfak: res.rows.item(i).tglfak,
-                            total: res.rows.item(i).total,
-                            disc: res.rows.item(i).disc,
-                            discrp: res.rows.item(i).discrp,
-                            gtotal: res.rows.item(i).gtotal
-                          });
-                total += res.rows.item(i).total;
-                discrp += res.rows.item(i).discrp;
-                gtotal += res.rows.item(i).gtotal;
-              }
-              
-            });
-          }, function(error) {
-            app.dialog.alert('select error: ' + error.message);
-          });
-        }
-
-        resolve(
-          { componentUrl: './pages/lap-jual.html' },
-          { context: { data: data, total: total, discrp: discrp, gtotal: gtotal } }
-        );
-        app.preloader.hide();
-      // });
-    },
-    on: {
-      pageInit: function (event, page) {
-        
-        $$('#tgl1').val(app.data.tglAwal);
-        $$('#tgl2').val(app.data.tglAkhir);
-      
-        $$('#tgl1').on('change', function(e){
-
-          app.data.tglAwal = $$('#tgl1').val();
-          app.router.navigate('/lap-jual/', {
-            reloadCurrent: true,
-            ignoreCache: true,
-          });
-        });
-      
-        $$('#tgl2').on('change', function(e){
-
-          app.data.tglAkhir = $$('#tgl2').val();
-          app.router.navigate('/lap-jual/', {
-            reloadCurrent: true,
-            ignoreCache: true,
-          });
-        });
-      
-      },
-      pageAfterOut: function (event, page) {
-      
-        app.data.tglAwal  = null;
-        app.data.tglAkhir = null;
-
-        if ( AdMob ) {
-          AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-        }
-      }
-    }
-  },
-  {
     path: '/notifications/',
     componentUrl: './pages/notifications.html',
   },
@@ -534,7 +372,6 @@ routes = [
       app.request.get("https://askitchen.com/api/v1/category/sample/"+kode, function(res) {
           
         var data = JSON.parse(res);
-        // console.log(data)
 
         resolve(
           { componentUrl: './pages/category.html' },
@@ -542,6 +379,13 @@ routes = [
         );
         app.preloader.hide();
       });
+    },
+    on: {
+      pageBeforeIn: function (event, page) {
+        
+        if (app.data.total_items > 0)
+          $$('.badge').text(app.data.total_items);
+      }
     }
   },
   {
@@ -575,6 +419,13 @@ routes = [
         );
         app.preloader.hide();
       });
+    },
+    on: {
+      pageBeforeIn: function (event, page) {
+        
+        if (app.data.total_items > 0)
+          $$('.badge').text(app.data.total_items);
+      }
     }
   },
   {
@@ -600,7 +451,7 @@ routes = [
       app.request.get("https://askitchen.com/api/v1/products/"+kode, function(res) {
           
         var data = JSON.parse(res);
-        console.log('products:'+res)
+        // console.log('products:'+res)
 
         resolve(
           { componentUrl: './pages/product.html' },
@@ -608,6 +459,13 @@ routes = [
         );
         app.preloader.hide();
       });
+    },
+    on: {
+      pageBeforeIn: function (event, page) {
+        
+        if (app.data.total_items > 0)
+          $$('.badge').text(app.data.total_items);
+      }
     }
   },
   {
@@ -625,17 +483,17 @@ routes = [
       // kode item
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
-      console.log('kode:'+kode)
-      console.log('nama:'+nama)
+      // console.log('kode:'+kode)
+      // console.log('nama:'+nama)
 
       // var db = app.data.db;
       var data = null;
       
-      // app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
-      app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
+      app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      // app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         var data = JSON.parse(res);
-        console.log('detail:'+res)
+        // console.log('detail:'+res)
 
         resolve(
           { componentUrl: './pages/detail.html' },
@@ -643,6 +501,13 @@ routes = [
         );
         app.preloader.hide();
       });
+    },
+    on: {
+      pageBeforeIn: function (event, page) {
+        
+        if (app.data.total_items > 0)
+          $$('.badge').text(app.data.total_items);
+      }
     }
   },
   {

@@ -52,6 +52,7 @@ var app  = new Framework7({
       // currentPos: null,
       // currentNom: 0,
       
+      bLogedIn: false,
       token: null,
       push: null,
       // admobid: {}
@@ -597,6 +598,7 @@ $$('#my-login-screen .login-button').on('click', function () {
 
       app.loginScreen.close('#my-login-screen');
       
+      app.data.bLogedIn = true;
       app.data.mbrid = data.mbrid;
       app.data.email = email;
       app.data.pwd   = password;

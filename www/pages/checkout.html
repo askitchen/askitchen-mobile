@@ -254,7 +254,7 @@
               }
             });
 
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+provid, function(json) {
+            app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+firstid, function(json) {
               var data = json.data;
               $$('#post_code').val(data.postal_code);
 
@@ -263,14 +263,58 @@
           });
         });
 
+        $$('#regency').on('change', function(e){
+          
+          app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+$$(this).val(), function(json) {
+            var data = json.data;
+
+            $$('#district').html('');
+            for (var i = 0; i < data.length; i++) {
+                $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+            }
+          });
+
+          app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+$$(this).val(), function(json) {
+            var data = json.data;
+            $$('#post_code').val(data.postal_code);
+          });
+          
+          var carrier = $$('#carrier').val();
+
+          app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+carrier+"/"+$$(this).val(), function(json) {
+              
+            var data  = json.data,
+                total = parseFloat( $$('#total').val()),
+                cost  = parseFloat(data[0].cost[0].value);
+            
+            // console.log('data: '+data)
+
+            $$('#package').html('');
+            for (var i = 0; i < data.length; i++) {
+                $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+            }
+            // $$('#svcname').val( $$('#package').text()); // nama service/layanan
+          });
+        });
+
+        
+        
         $$('#carrier').on('change', function(e){
-          var city = $$('#regency option:selected').val();
+          // var city = $$('#regency option:selected').val();
+          var city = $$('#regency').val();
 
           app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
-              var data = json.data,
-                  total = parseFloat( $$('#total').val()),
-                  cost  = parseFloat(data[0].cost[0].value);
-              $$('#post_code').val(data.postal_code);
+            var data  = json.data,
+                total = parseFloat( $$('#total').val()),
+                cost  = parseFloat(data[0].cost[0].value);
+
+            // console.log('cost: '+cost)
+
+            $$('#package').html('');
+            for (var i = 0; i < data.length; i++) {
+                $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+            }
+            // $$('#svcname').val( $$('#package').text()); // nama service/layanan
 
           });
 

@@ -55,41 +55,48 @@
       pageInit: function(e, page) {
         
         $$('.btn-order').on('click', function (e) {
+          
           app.dialog.alert('Order now!');
-        });
-          
-        $$('.btn-cart').on('click', function (e) {
-          app.dialog.alert('Add to cart!');
-          
-          var db = app.data.db;
-          if (db) {
-            var card  = $$('.item-detail');
-            var kdbar = card.find('.item-code').val();
-            var nama  = card.find('.item-name').val();
-            var gambar= card.find('.item-picture').val();
-            var harga = card.find('.item-price').val();
-            
-            db.transaction(function(tx) {
+          return;
+
+          app.request.post("http://localhost/askitchenweb/api/v1/checkout", formData, function(res) {
               
-              // save to local db
-              tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
-
-              var formData = [];
-
-              formData.kdbar = kdbar;
-              formData.Authorization = app.data.token;
-
-              app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
-                  
-                var data = JSON.parse(res);
-              });
-            }, function(error) {
-              app.dialog.alert('INSERT error: ' + error.message);
-            }, function() {
-              // console.log('Sukses!.');
-            });
-          }
+            var data = JSON.parse(res);
+          });
         });
+          
+        // $$('.btn-cart').on('click', function (e) {
+        //   app.dialog.alert('Add to cart!');
+          
+        //   var db = app.data.db;
+        //   if (db) {
+        //     var card  = $$('.item-detail');
+        //     var kdbar = card.find('.item-code').val();
+        //     var nama  = card.find('.item-name').val();
+        //     var gambar= card.find('.item-picture').val();
+        //     var harga = card.find('.item-price').val();
+            
+        //     db.transaction(function(tx) {
+              
+        //       // save to local db
+        //       tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+
+        //       var formData = [];
+
+        //       formData.kdbar = kdbar;
+        //       formData.Authorization = app.data.token;
+
+        //       app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+                  
+        //         var data = JSON.parse(res);
+        //       });
+        //     }, function(error) {
+        //       app.dialog.alert('INSERT error: ' + error.message);
+        //     }, function() {
+        //       // console.log('Sukses!.');
+        //     });
+        //   }
+        // });
       }
     }
   }

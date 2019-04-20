@@ -143,7 +143,15 @@
                   <div class="item-inner">
                     <div class="item-title item-label">E-Mail</div>
                     <div class="item-input-wrap">
-                      <input type="text" id="email-reg" name="email" placeholder="E-Mail" autocomplete="off"/>
+                      <input type="text" id="email" name="email" placeholder="E-Mail" autocomplete="off"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Note</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="note" name="note" placeholder="Note" autocomplete="off"/>
                     </div>
                   </div>
                 </li>
@@ -187,6 +195,9 @@
                 <table>
                   <thead>
                     <tr>
+                      <input type="hidden" name="kode" value="{{this.kdbar}}">
+                      <input type="hidden" name="qty" value="{{this.qty}}">
+                      <input type="hidden" name="harga" value="{{this.harga}}">
                       <th class="label-cell">Product</th>
                       <th class="numeric-cell">Total</th>
                     </tr>
@@ -237,62 +248,62 @@
     on: {
       pageInit: function(e, page) {
 
-        $$('#pay-button').click(function(event) {
+        $$('.btn-pay').click(function(event) {
             
             event.preventDefault();
             // $$(this).attr("disabled", "disabled");
             
             if ($$('#first_name').val() == '')
             {
-                alert('Please enter first name.');
+                app.dialog.alert('Please enter first name.');
                 $$( "#first_name" ).focus();
                 return;
             }
             else if ($$('#last_name').val() == '')
             {
-                alert('Please enter last name.');
+                app.dialog.alert('Please enter last name.');
                 $$( "#last_name" ).focus();
                 return;
             }
-            else if ($$('#company').val() == '')
-            {
-                alert('Please enter company.');
-                $$( "#company" ).focus();
-                return;
-            }
+            // else if ($$('#company').val() == '')
+            // {
+            //     app.dialog.alert('Please enter company.');
+            //     $$( "#company" ).focus();
+            //     return;
+            // }
             else if ($$('#address').val() == '')
             {
-                alert('Please enter address.');
+                app.dialog.alert('Please enter address.');
                 $$( "#address" ).focus();
                 return;
             }
             else if ($$('#province').val() == '')
             {
-                alert('Please enter province.');
+                app.dialog.alert('Please enter province.');
                 $$( "#province" ).focus();
                 return;
             }
             else if ($$('#regency').val() == '')
             {
-                alert('Please enter regency.');
+                app.dialog.alert('Please enter regency.');
                 $$( "#regency" ).focus();
                 return;
             }
             else if ($$('#district').val() == '')
             {
-                alert('Please enter district.');
+                app.dialog.alert('Please enter district.');
                 $$( "#district" ).focus();
                 return;
             }
             else if ($$('#phone').val() == '')
             {
-                alert('Please enter phone number.');
+                app.dialog.alert('Please enter phone number.');
                 $$( "#phone" ).focus();
                 return;
             }
             else if ($$('#email').val() == '')
             {
-                alert('Please enter email address.');
+                app.dialog.alert('Please enter email address.');
                 $$( "#email" ).focus();
                 return;
             }
@@ -301,7 +312,7 @@
             formData = [];
             formData.first_name = $$('#first_name').val();
             formData.last_name  = $$('#last_name').val();
-            formData.company    = $$('#copany').val();
+            formData.company    = $$('#company').val();
             formData.address    = $$('#address').val();
             formData.province   = $$('#province').val();
             formData.regency    = $$('#regency').val();
@@ -458,10 +469,6 @@
 
           });
 
-        });
-          
-        $$('.btn-pay').on('click', function (e) {
-          app.dialog.alert('Pay now!');
         });
       }
     }

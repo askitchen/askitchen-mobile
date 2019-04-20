@@ -50,50 +50,30 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      // User ID from request
-      // var userId = routeTo.params.userId;
+      app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
 
-      // Simulate Ajax Request
-      // setTimeout(function () {
-      //   // We got user data from request
-      //   var user = {
-      //     firstName: 'Vladimir',
-      //     lastName: 'Kharlampidi',
-      //     about: 'Hello, i am creator of Framework7! Hope you like it!',
-      //     links: [
-      //       {
-      //         title: 'Framework7 Website',
-      //         url: 'http://framework7.io',
-      //       },
-      //       {
-      //         title: 'Framework7 Forum',
-      //         url: 'http://forum.framework7.io',
-      //       },
-      //     ]
-      //   };
+        // Hide Preloader
+        app.preloader.hide();
 
-        app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
+        // console.log(res)
+        var data = JSON.parse(res)
+        
+        app.data.total  = data.total;
+        app.data.gtotal = data.total;
 
-          // Hide Preloader
-          app.preloader.hide();
-
-          console.log(res)
-          var data = JSON.parse(res)
-
-          // Resolve route to load page
-          resolve(
-            {
-              componentUrl: './pages/cart.html',
-            },
-            {
-              context: {
-                data: data.data,
-              }
+        // Resolve route to load page
+        resolve(
+          {
+            componentUrl: './pages/cart.html',
+          },
+          {
+            context: {
+              data: data.data,
             }
-          );
+          }
+        );
 
-        });
-      // }, 1000);
+      });
     },
   },
   {
@@ -503,7 +483,7 @@ routes = [
       // app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         var data = JSON.parse(res);
-        // console.log('detail:'+res)
+        console.log('detail:'+res)
 
         resolve(
           { componentUrl: './pages/detail.html' },

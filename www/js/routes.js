@@ -495,8 +495,19 @@ routes = [
     on: {
       pageBeforeIn: function (event, page) {
         
-        if (app.data.total_items > 0)
-          $$('.badge').text(app.data.total_items);
+        app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+          
+          var data = JSON.parse(res);
+          
+          if (data.status)
+          {
+            app.data.total_items = data.totqty;
+            $$('.badge').text(app.data.total_items);
+          }
+        });
+        
+        // if (app.data.total_items > 0)
+        //   $$('.badge').text(app.data.total_items);
       }
     }
   },

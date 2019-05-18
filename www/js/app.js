@@ -27,14 +27,14 @@ var app  = new Framework7({
   data: function () {
     return {
       db: null,
-      mbrid: null,
+      mbrid: 6, //null,
       email: null,
       pwd: null,
 
       endpoint: null,
       context: 1,
 
-      total_items: 0,
+      total_items: 0, // total item cart
 
       total: 0,
       tax: 0,

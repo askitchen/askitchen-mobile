@@ -32,11 +32,11 @@
         <div class="card-footer">
           <div class="product-name">{{data.nama}}</div>
         </div>
-        {{#if data.deskripsi}}
+        {{#js_if 'data.deskripsi !== "<div><br><\/div>" && data.deskripsi !== "<div><br>" && data.deskripsi !== ""'}}
         <div class="card-footer">
           <div class="">{{data.deskripsi}}</div>
         </div>
-        {{/if}}
+        {{/js_if}}
         {{#if data.pnj}}
         <div class="card-footer">
           <div class="">Size: {{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>

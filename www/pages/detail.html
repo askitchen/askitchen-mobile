@@ -19,9 +19,20 @@
     </div>
     <div class="page-content">
         
+      <div class="block header">
+        <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init swiper-detail">
+          <div class="swiper-pagination detail"></div>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+          </div>
+        </div>
+      </div>
+      
       <div class="card item-detail">
-        <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
-        background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{data.kdbar}}</div>
+        <!-- <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+        background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{data.kdbar}}</div> -->
         <input type="hidden" class="item-code"    value="{{data.kdbar}}" />
         <input type="hidden" class="item-name"    value="{{data.nama}}" />
         <input type="hidden" class="item-price"   value="{{data.hjual}}" />
@@ -29,27 +40,113 @@
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
         <input type="hidden" class="item-qty"     value="1">
           
-        <div class="card-footer">
+        <div class="card-footer detail">
           <div class="product-name">{{data.nama}}</div>
         </div>
-        {{#js_if 'data.deskripsi !== "<div><br><\/div>" && data.deskripsi !== "<div><br>" && data.deskripsi !== ""'}}
-        <div class="card-footer">
-          <div class="">{{data.deskripsi}}</div>
-        </div>
-        {{/js_if}}
-        {{#if data.pnj}}
-        <div class="card-footer">
-          <div class="">Size: {{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
-        </div>
-        {{/if}}
-        <div class="card-footer">
-          <div class="product-price">Rp{{data.hjual}}</div>
+        <div class="card-footer detail">
+          <div class="product-price">Rp{{data.hjualf}}</div>
           <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
         </div>
+        {{#if data.pnj}}
+        <div class="product-size">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+        {{/if}}
+        <div class="product-code">{{data.kdbar}}</div>
       </div>
-      <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-buy">Buy it now</a></div>
+
+      <div class="block">
+        <div class="block-title detail">Description</div>
+        <p class="product-desc">{{data.deskripsi}}</p>
+      </div>
+      
+      <div class="block">
+        <div class="block-title detail">Reviews</div>
+        <div class="">{{data.deskripsi}}</div>
+      </div>
+    
+      <div class="block">
+        <div class="block-title detail">Related Products</div>
+        <!-- <div class="">{{data.deskripsi}}</div>
+        <div class="block-title">3 Slides Per View, 10px Between</div> -->
+        <div data-space-between="10" data-slides-per-view="3" class="swiper-container swiper-init swiper-related">
+          <!-- <div class="swiper-pagination"></div> -->
+          <div class="swiper-wrapper">
+            
+            <div class="swiper-slide">
+              <div>
+                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <!-- image -->
+              </div>
+              <div class="product-name-rel">{{data.nama}}</div>
+              <div class="product-price-rel">Rp{{data.hjualf}}</div>
+              {{#if data.pnj}}
+              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              {{/if}}
+              <div class="product-code-rel">{{data.kdbar}}</div>
+            </div>
+            <!-- slide -->
+            <div class="swiper-slide">
+              <div>
+                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <!-- image -->
+              </div>
+              <div class="product-name-rel">{{data.nama}}</div>
+              <div class="product-price-rel">Rp{{data.hjualf}}</div>
+              {{#if data.pnj}}
+              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              {{/if}}
+              <div class="product-code-rel">{{data.kdbar}}</div>
+            </div>
+            <!-- slide -->
+            <div class="swiper-slide">
+              <div>
+                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <!-- image -->
+              </div>
+              <div class="product-name-rel">{{data.nama}}</div>
+              <div class="product-price-rel">Rp{{data.hjualf}}</div>
+              {{#if data.pnj}}
+              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              {{/if}}
+              <div class="product-code-rel">{{data.kdbar}}</div>
+            </div>
+            <!-- slide -->
+            <div class="swiper-slide">
+              <div>
+                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <!-- image -->
+              </div>
+              <div class="product-name-rel">{{data.nama}}</div>
+              <div class="product-price-rel">Rp{{data.hjualf}}</div>
+              {{#if data.pnj}}
+              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              {{/if}}
+              <div class="product-code-rel">{{data.kdbar}}</div>
+            </div>
+            <!-- slide -->
+            <div class="swiper-slide">
+              <div>
+                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <!-- image -->
+              </div>
+              <div class="product-name-rel">{{data.nama}}</div>
+              <div class="product-price-rel">Rp{{data.hjualf}}</div>
+              {{#if data.pnj}}
+              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              {{/if}}
+              <div class="product-code-rel">{{data.kdbar}}</div>
+            </div>
+
+            <!-- <div class="swiper-slide">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            <div class="swiper-slide">Slide 10</div> -->
+          </div>
+        </div>
+      </div>
+      <!-- <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-buy">Buy it now</a></div>
       <div class="content-block"><a href="#" class="button button-raised larger btn-cart">Add to cart</a></div>
-      <div class="content-block"><a href="#" class="button button-raised larger btn-wish">Add to wish list</a></div>
+      <div class="content-block"><a href="#" class="button button-raised larger btn-wish">Add to wish list</a></div> -->
     </div>
   </div>
 </template>
@@ -59,6 +156,19 @@
     on: {
       pageInit: function(e, page) {
         
+        $$('.page-content').on('scroll', function (e) {
+          // var scrollTop = e.srcElement.scrollTop;
+          var scrollTop = $$('.card.item-detail').offset().top;
+          var card = $$('.card.item-detail');
+          
+          // console.log(scrollTop)
+          if (window.pageYOffset >= 56) {
+            card.removeClass("sticky")
+          } else {
+            card.addClass("sticky");
+          }
+        })
+
         $$('.btn-buy').on('click', function (e) {
           // app.dialog.alert('Buy now!');
           if (!app.data.bLogedIn) {
@@ -83,7 +193,7 @@
           // app.dialog.alert($$('.badge').text())
           // return;
           
-          // var db = app.this.db;
+          // var db = app.data.db;
           // if (db) {
             var card  = $$('.item-detail');
             var kode  = card.find('.item-code').val();
@@ -101,7 +211,7 @@
 
               formData.kode = kode;
               formData.qty  = qty;
-              // formData.Authorization = app.this.token;
+              // formData.Authorization = app.data.token;
 
               app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
                   
@@ -150,7 +260,7 @@
           // app.dialog.alert(kdbar);
           // return;
           
-          var db = app.this.db;
+          var db = app.data.db;
           if (db) {
             var card  = $$('.item-detail');
             var kdbar = card.find('.item-code').val();
@@ -170,7 +280,7 @@
               var formData = [];
 
               formData.kdbar = kdbar;
-              formData.Authorization = app.this.token;
+              formData.Authorization = app.data.token;
 
               app.request.post("http://localhost/askitchenweb/api/v1/wishlist", formData, function(res) {
                   

@@ -479,8 +479,8 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      // app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
-      app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
+      app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      // app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         var data = JSON.parse(res);
         console.log('detail:'+res)

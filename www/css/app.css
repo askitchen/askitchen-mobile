@@ -167,6 +167,12 @@ p {
   padding-top: 166px;
 }
 
+.md .block-title.detail {
+  margin: 32px 16px 16px 0px;
+  font-weight: 700;
+  color: #000;
+}
+
 /*.md .block-title { // judul grup transaksi dan laporan
   color: #fff;
   margin: 16px 16px 16px;
@@ -176,8 +182,18 @@ p {
   background-color: #2196f3;
 } */
 
-#tab1, #tab2, #tab3, .swiper-container {
+/* , .swiper-container */
+#tab1, #tab2, #tab3 {
   height: 100%;
+}
+
+div.swiper-detail {
+  height: 400px;
+  margin: 40px 0;
+}
+
+div.swiper-related {
+  height: 280px;
 }
 
 .page-content.home {
@@ -250,6 +266,11 @@ p {
   background-color: #55acee;
 }*/
 
+.md .card-footer.detail {
+  color: #000;
+  min-height: 36px;
+}
+
 .card {
   box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 0.3); /*, 0px 0px 3px 0px rgba(0, 0, 0, 0.24);*/
 }
@@ -307,16 +328,42 @@ p {
   margin: 20px auto 28px auto;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  /* width: 100%; */
+}
+
+.card.item-detail {
+  margin: 0;
+  box-shadow: 0px 5px 7px 0px rgba(175,175,175,1);
+  border-radius: 0;
+  height: 150px;
+}
+
 .product-name,
 .product-total,
 .item-title.product {
-  color: #607d8b;
+  /* color: #607d8b; */
   font-weight: 700;
+}
+
+.product-name-rel,
+.product-size-rel,
+.product-code-rel {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.product-price-rel {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .item-after.product,
 .product-price {
-  color: #8bc34a;
+  /* color: #8bc34a; */
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -325,14 +372,33 @@ p {
   font-size: 16px;
 }
 
+.product-size, .product-code {
+  font-weight: 600;
+  font-size: 10px;
+  padding: 0 16px;
+}
+
+.product-code {
+  margin-bottom: 18px;
+}
+.product-desc {
+  text-align: justify;
+  color: #000;
+}
+
 /* img.header {
   height: 100%;
 } */
+
 @media (min-width: 360px) {
-  .swiper-container-horizontal>.swiper-pagination-bullets {
+  /*.swiper-container-horizontal>.swiper-pagination-bullets {*/
+  .swiper-pagination.dashboard.swiper-pagination-bullets {
     bottom: 40px;
   }
-
+  .swiper-pagination.detail.swiper-pagination-bullets {
+    bottom: 0px;
+  }
+    
   img.header {
     width: 100%;
   }

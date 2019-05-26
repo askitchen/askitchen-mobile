@@ -38,6 +38,10 @@ routes = [
     }
   },
   {
+    path: '/search',
+    url: './pages/search.html',
+  },
+  {
     path: '/cart/',
     // componentUrl: './pages/cart.html',
     async: function (routeTo, routeFrom, resolve, reject) {

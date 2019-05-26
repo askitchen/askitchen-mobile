@@ -142,9 +142,8 @@
   font-feature-settings: 'liga';
 }
 
-
-i.material-icons {
-  padding-top: 5px;
+.md .navbar {
+  background: #03274e;
 }
 
 a {
@@ -330,8 +329,9 @@ div.swiper-related {
 
 .sticky {
   position: fixed;
-  top: 0;
-  /* width: 100%; */
+  top: 56px;
+  width: 100%;
+  z-index: 1000;
 }
 
 .card.item-detail {

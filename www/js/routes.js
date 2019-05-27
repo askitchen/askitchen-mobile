@@ -39,7 +39,7 @@ routes = [
   },
   {
     path: '/search',
-    url: './pages/search.html',
+    componentUrl: './pages/search.html',
   },
   {
     path: '/cart/',
@@ -87,7 +87,7 @@ routes = [
       pageInit: function (event, page) {
         
         var db = app.data.db;
-        $$('#nama').val('CV. ELANG PERKASA');
+        // $$('#nama').val('NAMA USAHA');
 
         if (db) {
           //app.dialog.alert('db not initialized!');
@@ -397,6 +397,7 @@ routes = [
       // kode golongan
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
+      console.log('kode: '+kode)
 
       // var db = app.data.db;
       var data = null;

@@ -36,6 +36,8 @@ var app  = new Framework7({
 
       total_items: 0, // total item cart
 
+      data_01: null,
+
       total: 0,
       tax: 0,
       shipcost: 0,
@@ -233,6 +235,13 @@ var app  = new Framework7({
         // error! :(
         console.log(err);
       }); //*/
+
+      // this.router.app.request.get("https://askitchen.com/api/v1/category/sample/01", function(res) {
+      //   // console.log(res);
+      //   var data = JSON.parse(res);
+      //   app.data.data01 = data.data;
+      //   console.log(app.data.data01)
+      // });
       
       /*
       var virtualList = app.virtualList.create({
@@ -354,18 +363,23 @@ var app  = new Framework7({
   },
 });
 
+app.request.get("https://askitchen.com/api/v1/category/sample/01", function(res) {
+  var data = JSON.parse(res);
+  app.data.data01 = data.data;
+  // console.log(app.data.data01)
+});
 
 // Init/Create left panel view
-var mainView = app.views.create('.view-left', {
-  url: '/'
-});
+// var mainView = app.views.create('.view-left', {
+//   url: '/'
+// });
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var swiper = app.swiper.create('.swiper-container', {
+var swiper = app.swiper.create('.swiper-container.swiper-init.demo-swiper', {
     speed: 400,
     //slidesPerView: auto,
     loop: true,

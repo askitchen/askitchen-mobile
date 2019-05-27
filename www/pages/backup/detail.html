@@ -1,0 +1,153 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">{{title}}</div>
+        <div class="right">
+          <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
+            <i class="icon f7-icons ios-only">shopping_cart</i>
+            <i class="icon material-icons md-only">shopping_cart</i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+        
+      <div class="card item-detail">
+          <div style="background-image:url(https://askitchen.com/upload/gambar/{{data.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
+          <input type="hidden" class="item-code"  value="{{data.kdbar}}" />
+          <input type="hidden" class="item-qty"   value="1">
+          <input type="hidden" class="item-name"  value="{{data.nama}}" />
+          <input type="hidden" class="item-price" value="{{data.hjual}}" />
+          <input type="hidden" class="last-value" value="{{data.stok}}" />
+          
+          <div class="card-footer">
+            <div class="product-name">{{data.nama}}</div>
+          </div>
+          <div class="card-footer">
+            <div class="">{{data.deskripsi}}</div>
+          </div>
+          {{#if data.pnj !== ''}}
+          <div class="card-footer">
+            <div class="">Size: {{data.pnj}} x {{data.lbr}}{{#if data.tgi !== ''}} x {{data.lbr}}{{#/if}}</div>
+          </div>
+          {{#/if}}
+          <div class="card-footer">
+            <div class="product-price">Rp{{data.hjual.toLocaleString('ID')}}</div>
+            <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
+          </div>
+      </div>
+
+      <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-buy">Buy it now</a></div>
+      <div class="content-block"><a href="#" class="button button-raised larger btn-cart">Add to cart</a></div>
+      <div class="content-block"></div><a href="#" class="button button-raised larger btn-wish">Add to wish list</a></div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      pageInit: function(e, page) {
+        
+        $$('.btn-buy').on('click', function (e) {
+          app.dialog.alert('Buy now!');
+        });
+          
+        $$('.btn-cart').on('click', function (e) {
+          
+          // app.dialog.alert('Add to cart!');
+          
+          var db = app.data.db;
+          if (db) {
+            var card  = $$('.item-detail');
+            var kode  = card.find('.item-code').val();
+            var qty   = card.find('.item-qty').val();
+            // var nama  = card.find('.item-name').val();
+            // var gambar= card.find('.item-picture').val();
+            // var harga = card.find('.item-price').val();
+            
+            // db.transaction(function(tx) {
+              
+              // save to local db
+              // tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+
+              var formData = [];
+
+              formData.kode = kode;
+              formData.qty  = qty;
+              formData.Authorization = app.data.token;
+
+              app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+                  
+                var data = JSON.parse(res);
+                if (data.status)
+                {
+                  
+                }
+              });
+            // }, function(error) {
+            //   app.dialog.alert('INSERT error: ' + error.message);
+            // }, function() {
+            //   // console.log('Sukses!.');
+            // });
+          }
+        });
+          
+        $$('.btn-wish').on('click', function (e) {
+          
+          // app.dialog.alert('Add to wish list!');
+          
+          var db = app.data.db;
+          if (db) {
+            var card  = $$('.item-detail');
+            var kdbar = card.find('.item-code').val();
+            var nama  = card.find('.item-name').val();
+            var gambar= card.find('.item-picture').val();
+            var harga = card.find('.item-price').val();
+            
+            db.transaction(function(tx) {
+
+              var now  = new Date();
+              var date = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+              var time = date + " " + now.getHours() + ":" + now.getMinutes()
+              
+              // save to local db
+              tx.executeSql('INSERT INTO wishlist (kdbar, nama, gambar, hjual, tglinput) VALUES (?,?,?,?,?);', [kdbar, nama, gambar, harga, time]);
+
+              var formData = [];
+
+              formData.kdbar = kdbar;
+              formData.Authorization = app.data.token;
+
+              app.request.post("http://localhost/askitchenweb/api/v1/wishlist", formData, function(res) {
+                  
+                var data = JSON.parse(res);
+                if (data.status)
+                {
+                  app.dialog.alert('Sukses!')
+                }
+                else
+                {
+                  app.dialog.alert(data.message);
+                }
+              });
+
+            }, function(error) {
+              app.dialog.alert('INSERT error: ' + error.message);
+            }, function() {
+              // console.log('Sukses!.');
+            });
+          }
+        });
+      }
+    }
+  }
+</script>

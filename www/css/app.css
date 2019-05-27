@@ -85,7 +85,11 @@
   }
 }
 
-.swiper-slide {
+.swiper-slide.detail {
+  height: 168px;
+}
+
+.swiper-slide.detail {
   height: 168px;
 }
 
@@ -142,8 +146,18 @@
   font-feature-settings: 'liga';
 }
 
-.md .navbar {
+/* search bar input */
+.left.search {
+  width: 100%;
+}
+
+.md .navbar,
+.md .subnavbar {
   background: #03274e;
+}
+
+.md .navbar.search {
+  background: #fff;
 }
 
 a {
@@ -566,6 +580,29 @@ img.responsive-card {
 img.responsive {
   max-width: 100%;
   height: auto;
+}
+
+img.responsive.profile {
+  border-radius: 50px;
+  display: inline;
+}
+div.member-picture,
+div.member-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+div.member-info {
+  margin-left: 10px;
+}
+div.member-status {
+  font-size: 12px;
+  color: #ababab;
+}
+div.member-edit {
+  font-size: 12px;
+}
+img.responsive.search {
+  margin-top: 14px;
 }
 
 .article-title,

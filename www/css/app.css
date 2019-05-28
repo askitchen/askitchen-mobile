@@ -227,6 +227,12 @@ div.swiper-related {
   display: block;
 }
 
+div.block.main {
+  height: 120px;
+  padding: 15px;
+  overflow: auto;
+}
+
 .total-label {
   padding-left: 73px;
   font-size: 11px;

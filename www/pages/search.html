@@ -61,46 +61,87 @@
   return {
     // Page Events
     on: {
-      /*pageInit*/ pageBeforeIn: function(e, page) {
+      // pageBeforeIn: function(e, page) {
       
-        app.preloader.show();
+      //   app.preloader.show();
     
-        var db = app.data.db;
-        // var items = [];
+      //   var db = app.data.db;
+      //   // var items = [];
 
-        if (db) {
+      //   if (db) {
         
-          db.transaction(function(tx) {
+      //     db.transaction(function(tx) {
             
-            tx.executeSql('select kdbar, nama, satuan, hbeli, hpokok2, hjual, stawal, saldo, mstock from stock order by nama;', [], function(ignored, res) {
+      //       tx.executeSql('select kdbar, nama, satuan, hbeli, hpokok2, hjual, stawal, saldo, mstock from stock order by nama;', [], function(ignored, res) {
 
-              for (var i = 0; i < res.rows.length; i++) {
-                items.push({ kdbar: res.rows.item(i).kdbar,
-                            nama: res.rows.item(i).nama,
-                            satuan: res.rows.item(i).satuan,
-                            hbeli: res.rows.item(i).hbeli,
-                            hpokok: res.rows.item(i).hpokok,
-                            hpokok2: res.rows.item(i).hpokok2,
-                            hjual: res.rows.item(i).hjual,
-                            stawal: res.rows.item(i).stawal,
-                            saldo: res.rows.item(i).saldo,
-                            mstock: res.rows.item(i).mstock });
-              }
-            });
-          }, function(error) {
-            app.preloader.hide();
-            app.dialog.alert('select error: ' + error.message);
-          });
-        }
+      //         for (var i = 0; i < res.rows.length; i++) {
+      //           items.push({ kdbar: res.rows.item(i).kdbar,
+      //                       nama: res.rows.item(i).nama,
+      //                       satuan: res.rows.item(i).satuan,
+      //                       hbeli: res.rows.item(i).hbeli,
+      //                       hpokok: res.rows.item(i).hpokok,
+      //                       hpokok2: res.rows.item(i).hpokok2,
+      //                       hjual: res.rows.item(i).hjual,
+      //                       stawal: res.rows.item(i).stawal,
+      //                       saldo: res.rows.item(i).saldo,
+      //                       mstock: res.rows.item(i).mstock });
+      //         }
+      //       });
+      //     }, function(error) {
+      //       app.preloader.hide();
+      //       app.dialog.alert('select error: ' + error.message);
+      //     });
+      //   }
+      // },
+
+      pageInit: function(e, page) {
 
         // create searchbar
         var searchbar = app.searchbar.create({
           el: '.list-stock', //.searchbar',
+          customSearch: true,
           searchContainer: '.list',
-          searchIn: '.item-title',
+          // searchIn: '.item-title',
           on: {
             search(sb, query, previousQuery) {
               // console.log(query, previousQuery);
+              app.request.get("http://localhost/askitchenweb/api/v1/search?q="+query, function(res) {
+                
+                var data = JSON.parse(res);
+                var items = [];
+                console.log(data.data)
+
+                for (var i = 0; i < data.data.length; i++) {
+                  items.push({ kdbar: data.data(i).kdbar,
+                              nama: data.data(i).nama,
+                              hjual: data.data(i).hjual,
+                              hpromof: data.data(i).hpromof,
+                              gambar: data.data(i).gambar });
+                }
+                var virtualList = app.virtualList.create({
+                  // List Element
+                  el: '.virtual-stock',
+                  // Pass array with items
+                  items: items,
+                  // List item Template7 template
+                  itemTemplate:
+                    '<li>' +
+                      '<a href="/detail/{{kdbar}}/{{nama}}" class="item-link item-content">' +
+                        '<div class="item-media"><img class="material-icons" src="https://askitchen.com/upload/gambar/{{gambar}}" /></div>' +
+                        '<div class="item-inner">' +
+                          '<div class="item-title-row">' +
+                            '<div class="item-title">{{nama}}</div>' +
+                          '</div>' +
+                          //'<div class="item-subtitle">{{subtitle}}</div>' +
+                        '</div>' +
+                        '<div class="item-after">Rp{{hjual}}</div>' +
+                      '</a>' +
+                    '</li>',
+                  // Item height
+                  //height: app.theme === 'ios' ? 63 : 73,
+                });
+
+              });
             },
             disable(sb) {
               // console.log('Search canceled!');
@@ -110,43 +151,40 @@
         });
 
         // console.log('items: ', items)
-        var virtualList = app.virtualList.create({
-          // List Element
-          el: '.virtual-stock',
-          // Pass array with items
-          items: items,
-          // Custom search function for searchbar
-          searchAll: function (query, items) {
-            var found = [];
-            for (var i = 0; i < items.length; i++) {
-              if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-            }
-            return found; //return array with mathced indexes
-          },
-          // List item Template7 template
-          itemTemplate:
-            '<li>' +
-              '<a href="/stock/{{kdbar}}" class="item-link item-content">' +
-                '<div class="item-media"><img class="material-icons" src="img/stock.png" /></div>' +
-                '<div class="item-inner">' +
-                  '<div class="item-title-row">' +
-                    '<div class="item-title">{{nama}}</div>' +
-                  '</div>' +
-                  //'<div class="item-subtitle">{{subtitle}}</div>' +
-                '</div>' +
-                '<div class="item-after">Rp{{hjual}}<br>{{saldo}} {{satuan}}</div>' +
-              '</a>' +
-            '</li>',
-          // Item height
-          //height: app.theme === 'ios' ? 63 : 73,
-        });
+        // var virtualList = app.virtualList.create({
+        //   // List Element
+        //   el: '.virtual-stock',
+        //   // Pass array with items
+        //   items: items,
+        //   // Custom search function for searchbar
+        //   searchAll: function (query, items) {
+        //     var found = [];
+        //     for (var i = 0; i < items.length; i++) {
+        //       if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+        //     }
+        //     return found; //return array with mathced indexes
+        //   },
+        //   // List item Template7 template
+        //   itemTemplate:
+        //     '<li>' +
+        //       '<a href="/detail/{{kdbar}}/{{nama}}" class="item-link item-content">' +
+        //         '<div class="item-media"><img class="material-icons" src="https://askitchen.com/upload/gambar/{{gambar}}" /></div>' +
+        //         '<div class="item-inner">' +
+        //           '<div class="item-title-row">' +
+        //             '<div class="item-title">{{nama}}</div>' +
+        //           '</div>' +
+        //           //'<div class="item-subtitle">{{subtitle}}</div>' +
+        //         '</div>' +
+        //         '<div class="item-after">Rp{{hjual}}</div>' +
+        //       '</a>' +
+        //     '</li>',
+        //   // Item height
+        //   //height: app.theme === 'ios' ? 63 : 73,
+        // });
         
         app.preloader.hide();
      
-      },
-      pageBeforeOut: function (e, page) {
-        // to do
-      },
+      }
     }
   }
 </script>

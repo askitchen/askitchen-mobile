@@ -36,7 +36,23 @@ var app  = new Framework7({
 
       total_items: 0, // total item cart
 
+      data_21: null,
+      data_22: null,
+      data_23: null,
+      data_24: null,
+      data_25: null,
+      data_26: null,
+      data_27: null,
+      data_28: null,
+
       data_01: null,
+      data_02: null,
+      data_03: null,
+      data_04: null,
+      data_05: null,
+      data_06: null,
+      data_07: null,
+      data_08: null,
 
       total: 0,
       tax: 0,
@@ -180,7 +196,48 @@ var app  = new Framework7({
   on: {
 
     init: function () { // sama dengan onDeviceReady
-
+      
+      this.request.get("https://askitchen.com/api/v1/category/sample/21", function(res) {
+        var data = JSON.parse(res);
+        app.data.data_01 = data.data;
+        // console.log(app.data.data_01);
+      
+        app.request.get("https://askitchen.com/api/v1/category/sample/22", function(res) {
+          var data = JSON.parse(res);
+          app.data.data_02 = data.data;
+      
+          app.request.get("https://askitchen.com/api/v1/category/sample/23", function(res) {
+            var data = JSON.parse(res);
+            app.data.data_03 = data.data;
+      
+            app.request.get("https://askitchen.com/api/v1/category/sample/24", function(res) {
+              var data = JSON.parse(res);
+              app.data.data_04 = data.data;
+              
+              app.request.get("https://askitchen.com/api/v1/category/sample/25", function(res) {
+                var data = JSON.parse(res);
+                app.data.data_05 = data.data;
+                
+                app.request.get("https://askitchen.com/api/v1/category/sample/26", function(res) {
+                  var data = JSON.parse(res);
+                  app.data.data_06 = data.data;
+                  
+                  app.request.get("https://askitchen.com/api/v1/category/sample/27", function(res) {
+                    var data = JSON.parse(res);
+                    app.data.data_07 = data.data;
+                    
+                    app.request.get("https://askitchen.com/api/v1/category/sample/28", function(res) {
+                      var data = JSON.parse(res);
+                      app.data.data_08 = data.data;
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+      
       /*
       function copyDatabaseFile(dbName) {
 
@@ -363,29 +420,19 @@ var app  = new Framework7({
   },
 });
 
-app.request.get("https://askitchen.com/api/v1/category/sample/01", function(res) {
-  var data = JSON.parse(res);
-  app.data.data01 = data.data;
-  // console.log(app.data.data01)
-});
-
-// Init/Create left panel view
-// var mainView = app.views.create('.view-left', {
-//   url: '/'
-// });
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var swiper = app.swiper.create('.swiper-container.swiper-init.demo-swiper', {
+var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
     speed: 400,
     //slidesPerView: auto,
     loop: true,
     //autoHeight: true,
-    shortSwipes: false,
-    longSwipes: false,
+    // shortSwipes: false,
+    // longSwipes: false,
     //effect:'fade'
     //spaceBetween: 100
 });

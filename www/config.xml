@@ -3,16 +3,16 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.app.askitchen"
+        id        = "com.ask.upload.foto"
         version   = "1.0.0">
 
-  <name>ASKITCHEN</name>
+  <name>Upload Foto</name>
 
   <description>
-      Aplikasi e-commerce ASKITCHEN.
+      Aplikasi upload foto delivery note.
   </description>
 
-  <author href="https://github.com/askitchen/askitchen-mobile.git" email="askitchen@gmail.com">
+  <author href="https://github.com/askitchen/askitchen-upload-foto.git" email="askitchen@gmail.com">
       ASKITCHEN
   </author>
 
@@ -42,7 +42,8 @@
   
   <!--<plugin name="phonegap-plugin-portrait-barcodescanner" source="npm" />-->
   <!-- <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner#6.0.1" /> -->
-  <!--<plugin name="cordova-plugin-camera" source="npm" />-->
+  
+  <plugin name="cordova-plugin-camera" source="npm" />
 
   <!--<plugin name="cordova-plugin-ble-central" source="npm" />-->
   

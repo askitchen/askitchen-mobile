@@ -1,0 +1,181 @@
+<template>
+    <!-- Page, data-name contains page name which can be used in callbacks -->
+    <div class="page" data-name="home">
+        
+        <!-- Top Navbar -->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left">
+              <a href="#" class="link icon-only panel-open" data-panel="left">
+                <i class="icon f7-icons ios-only">menu</i>
+                <i class="icon material-icons md-only">menu</i>
+              </a>
+            </div>
+            <div class="title sliding"><img class="responsive" src="img/logo.png" /></div>
+            <div class="right">
+              <a href="/chat/" data-view=".view-main" class="link icon-only">
+                <i class="icon f7-icons ios-only">chat</i>
+                <i class="icon material-icons md-only">chat</i>
+              </a>
+              <a href="/cart/" data-view=".view-main" class="link icon-only ac-more1">
+                <i class="icon f7-icons ios-only">shopping_cart<span class="badge color-red"></span></i>
+                <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
+              </a>
+              <a href="#" class="link icon-only panel-open" data-panel="right">
+                <i class="icon f7-icons ios-only">more_vert</i>
+                <i class="icon material-icons md-only">more_vert</i>
+              </a>
+                </div>
+          </div>
+          <div class="subnavbar">
+            <div class="title"><a href="/search/" data-view=".view-main"><img class="responsive search" src="img/search.png" /></a></div>
+          </div>
+        </div>
+                
+        <!-- Scrollable page content-->
+        <div class="page-content">
+          <div class="block header">
+            <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init demo-swiper">
+              <div class="swiper-pagination dashboard"></div>
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban1.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban2.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban3.jpg" /></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- <div class="block-title">Categories</div> -->
+          <div class="list accordion-list">
+            <ul>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title">APPAREL</div>
+                  </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <div data-space-between="10" data-slides-per-view="3" class="swiper-container swiper-init swiper-category">
+                      <!-- <div class="swiper-pagination"></div> -->
+                      <div class="swiper-wrapper">
+                        
+                        {{$root.data_01}}
+                        <a href="/subcategory/{{kdgol2}}" class="item-link item-content">
+                        <div class="swiper-slide">
+                          <div>
+                            <!-- <img class="lazy header" src="https://askitchen.com/images/noimage2.png" /> -->
+                            <!-- <img class="lazy header" src="https://askitchen.com/upload/gambar" /> -->
+                            <!-- image -->
+                          </div>
+                          <div class="product-name-rel">{{nama}}</div>
+                        </div></a>
+                        <!-- slide -->
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title">BAKEWARE</div>
+                  </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">BAR TOOLS</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">CONTAINER &amp; PANTRY</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">COOKWARE &amp; KNIVES</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">CUTLERY &amp; TABLETOP</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">UTENSIL</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                <div class="item-inner">
+                  <div class="item-title">UNITS</div>
+                </div></a>
+                <div class="accordion-item-content">
+                  <div class="block">
+                    <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- <div class="block-title">Categories</div>
+          <div class="card">
+            <div class="card-content">
+              <div class="list links-list no-safe-areas">
+                  <ul>
+                  <li><a href="/category/01/Refrigeration">REFRIGERATION</a></li>
+                  <li><a href="/category/02/Ice">ICE</a></li>
+                  <li><a href="/category/03/Food Cooking">FOOD COOKING</a></li>
+                  <li><a href="/category/04/Meat, Fruit &amp; Vegetable">MEAT, FRUIT &amp; VEGETABLE</a></li>
+                  <li><a href="/category/05/Bar Kiosk">BAR KIOSKS</a></li>
+                  <li><a href="/category/06/Bakery">BAKERY</a></li>
+                  <li><a href="/category/07/Accessories">ACCESSORIES</a></li>
+                  <li><a href="/category/08/Stainless Steel">STAINLESS STEEL</a></li>
+                  <li><a href="/category/21/Apparel">APPAREL</a></li>
+                  <li><a href="/category/22/Bakeware">BAKEWARE</a></li>
+                  <li><a href="/category/23/Bar Tools">BAR TOOLS</a></li>
+                  <li><a href="/category/24/Container &amp; Pantry">CONTAINER &amp; PANTRY</a></li>
+                  <li><a href="/category/25/Cookware &amp; Knives">COOKWARE &amp; KNIVES</a></li>
+                  <li><a href="/category/26/Cutlery &amp; Tabletop">CUTLERY &amp; TABLETOP</a></li>
+                  <li><a href="/category/27/Utensil">UTENSIL</a></li>
+                  <li><a href="/category/28/Units">UNITS</a></li>
+                  </ul>
+              </div>
+            </div>
+          </div> -->
+          
+
+        </div>
+    </div>
+</template>

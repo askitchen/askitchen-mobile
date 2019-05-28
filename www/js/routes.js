@@ -1,26 +1,12 @@
 routes = [
   {
     path: '/',
-    url: './index.html',
+    templateUrl: './pages/home.html',
     on: {
       pageBeforeIn: function (event, page) {
-        
+                
         if (app.data.total_items > 0)
           $$('.badge').text(app.data.total_items);
-
-          // app.request.get('http://localhost/abc/member/saldo/'+ app.data.mbrid, function (res) {
-          
-          //   var data = JSON.parse(res);
-        
-          //   if (data.status) {
-          //     $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
-          //     app.data.saldo = parseInt(data.saldo);
-          //     $$('.bonus').text(parseInt(data.bonus).toLocaleString('ID'));
-          //     app.data.bonus = parseInt(data.bonus);
-          //   } else {
-          //     app.dialog.alert(data.message, 'ABC');
-          //   }
-          // });
       },
       pageInit: function (event, page) {
         
@@ -34,6 +20,18 @@ routes = [
             $$('.badge').text(app.data.total_items);
           }
         });
+
+
+        // app.request.get("https://askitchen.com/api/v1/category/sample/21", function(res) {
+        //   var data = JSON.parse(res);
+        //   app.data.data_21 = data.data;
+        //   // console.log(app.data.data_01);
+        
+        //   app.request.get("https://askitchen.com/api/v1/category/sample/22", function(res) {
+        //     var data = JSON.parse(res);
+        //     app.data.data_22 = data.data;
+        //   });
+        // });
       }
     }
   },
@@ -488,7 +486,7 @@ routes = [
       // app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         var data = JSON.parse(res);
-        console.log('detail:'+res)
+        // console.log('detail:'+res)
 
         resolve(
           { componentUrl: './pages/detail.html' },
@@ -593,20 +591,6 @@ routes = [
         
         // console.log('#tgltrx_val: ', $$('#tgltrx').val());
         $$('#tgltrx').val(app.data.currentDate);
-        
-        // var tglval = $$('#tgltrx').val();
-        
-        // if (tglval == '') {
-          // $$('#tgltrx').val(app.data.currentDate);
-          // var now = new Date();
-          
-          // var day = ("0" + now.getDate()).slice(-2);
-          // var month = ("0" + (now.getMonth() + 1)).slice(-2);
-          
-          // var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-          
-          // $$('#tgltrx').val(today);
-        // }
       
         $$('#tgltrx').on('change', function(e){
 
@@ -617,17 +601,10 @@ routes = [
           });
         });
       
-        // if ( AdMob ) {
-          // AdMob.hideBanner();
-        // }
       },
       pageAfterOut: function (event, page) {
       
         app.data.currentDate = null;
-
-        // if ( AdMob ) {
-          // AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-        // }
       }
     },
   },

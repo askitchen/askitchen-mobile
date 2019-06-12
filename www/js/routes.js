@@ -5,8 +5,8 @@ routes = [
     on: {
       pageBeforeIn: function (event, page) {
                 
-        if (app.data.total_items > 0)
-          $$('.badge').text(app.data.total_items);
+        // if (app.data.total_items > 0)
+        //   $$('.badge').text(app.data.total_items);
       },
       pageInit: function (event, page) {
         
@@ -462,7 +462,7 @@ routes = [
     }
   },
   {
-    path: '/detail/:kode/:nama',
+    path: '/detail/:kode',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -475,22 +475,20 @@ routes = [
 
       // kode item
       var kode = routeTo.params.kode;
-      var nama = routeTo.params.nama;
-      // console.log('kode:'+kode)
-      // console.log('nama:'+nama)
+      // var nama = routeTo.params.nama;
 
       // var db = app.data.db;
       var data = null;
       
-      app.request.get("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
-      // app.request.get("https://askitchen.com/api/v1/items/"+kode, function(res) {
+      app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
-        var data = JSON.parse(res);
-        // console.log('detail:'+res)
+        // var data = JSON.parse(res);
+        console.log('detail:'+res)
 
         resolve(
           { componentUrl: './pages/detail.html' },
-          { context: { data: data.data, hjual: data.hjualf, stok: data.stok, title: nama } }
+          { context: { data: res.data, hjual: res.data.hjualf, stok: res.data.stok, title: res.data.nama } }
         );
         app.preloader.hide();
       });

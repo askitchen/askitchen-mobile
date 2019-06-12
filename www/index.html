@@ -9,7 +9,7 @@
       * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
       * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
       * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-          * Enable inline JS: add 'unsafe-inline' to default-src
+      * Enable inline JS: add 'unsafe-inline' to default-src
   -->
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
@@ -51,7 +51,7 @@
                   <!-- <div><img class="responsive profile" src="img/star.png" /></div> -->
                 </div>
                 <div class="member-info">
-                  <div class="member-name">PUTU WIRYA</div>
+                  <div class="member-name">GUEST</div>
                   <div class="member-status">Member</div>
                   <div class="member-edit">
                       <a href="/profile/" data-view=".view-main" class="panel-close">Edit Profile</a>
@@ -196,7 +196,7 @@
     </div>
   
     <!-- Login Screen -->
-    <div class="login-screen modal-in" id="my-login-screen">
+    <div class="login-screen modal" id="my-login-screen">
       <div class="view">
         <div class="page">
           <div class="page-content">

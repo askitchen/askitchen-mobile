@@ -426,18 +426,18 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
-    speed: 400,
-    //slidesPerView: auto,
-    loop: true,
-    //autoHeight: true,
-    // shortSwipes: false,
-    // longSwipes: false,
-    //effect:'fade'
-    //spaceBetween: 100
-});
+// var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
+//     speed: 400,
+//     slidesPerView: 3,
+//     loop: true,
+//     //autoHeight: true,
+//     // shortSwipes: false,
+//     // longSwipes: false,
+//     //effect:'fade'
+//     //spaceBetween: 100
+// });
 
-swiper.autoplay.start();
+// swiper.autoplay.start();
 
 // $$('.barcode-scan1').on('click', function () {
      

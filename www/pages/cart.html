@@ -18,7 +18,7 @@
       <div class="card item-detail">
           <div style="background-image:url(https://askitchen.com/upload/gambar/{{this.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
           background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
-          <input type="hidden" class="item-code"  value="{{this.kdbar}}" />
+          <input type="hidden" class="item-code" value="{{this.kdbar}}" />
           <input type="hidden" class="item-qty"  value="{{this.qty}}" />
           <!-- <input type="hidden" class="item-name"  value="{{this.nama}}" />
           <input type="hidden" class="item-price" value="{{this.hjual}}" />
@@ -59,7 +59,7 @@
           var card  = $$(this).parents('.item-detail');
           var kode  = card.find('.item-code').val();
           var qty   = card.find('.item-qty').val();
-          console.log('remove item '+ kode);
+          // console.log('remove item '+ kode);
 
           var formData = [];
 

@@ -3,11 +3,6 @@
     <div class="navbar search">
       <div class="navbar-inner sliding">
         <div class="left search">
-          <!-- <a href="#" class="link back">
-            <i class="icon icon-back"></i>
-            <span class="ios-only">Back</span>
-          </a> -->
-          <!-- <div class="title"></div> -->
           
           <!-- Searchbar with auto init -->
           <form class="searchbar list-stock">
@@ -24,25 +19,7 @@
           <!-- Searchbar backdrop -->
           <div class="searchbar-backdrop"></div>
         </div>
-        <!-- <div class="right">
-          <a href="#" class="link icon-only">
-            <i class="icon f7-icons ios-only">more_vert</i>
-            <i class="icon material-icons md-only">more_vert</i>
-          </a>
-        </div> -->
       </div>
-      <!-- <div class="subnavbar">
-        <form class="searchbar list-stock">
-          <div class="searchbar-inner">
-            <div class="searchbar-input-wrap">
-              <input type="search" placeholder="Search for">
-              <i class="searchbar-icon"></i>
-              <span class="input-clear-button"></span>
-            </div>
-            <span class="searchbar-disable-button">Cancel</span>
-          </div>
-        </form>
-      </div> -->
     </div>
     
     <div class="page-content">
@@ -52,7 +29,7 @@
         <div class="block-inner">Item tidak ditemukan!</div>
       </div>
 
-      <div class="list virtual-list virtual-stock searchbar-found">
+      <div class="list media-list virtual-list virtual-stock searchbar-found">
       </div>
     </div>
   </div>
@@ -61,39 +38,7 @@
   return {
     // Page Events
     on: {
-      // pageBeforeIn: function(e, page) {
       
-      //   app.preloader.show();
-    
-      //   var db = app.data.db;
-      //   // var items = [];
-
-      //   if (db) {
-        
-      //     db.transaction(function(tx) {
-            
-      //       tx.executeSql('select kdbar, nama, satuan, hbeli, hpokok2, hjual, stawal, saldo, mstock from stock order by nama;', [], function(ignored, res) {
-
-      //         for (var i = 0; i < res.rows.length; i++) {
-      //           items.push({ kdbar: res.rows.item(i).kdbar,
-      //                       nama: res.rows.item(i).nama,
-      //                       satuan: res.rows.item(i).satuan,
-      //                       hbeli: res.rows.item(i).hbeli,
-      //                       hpokok: res.rows.item(i).hpokok,
-      //                       hpokok2: res.rows.item(i).hpokok2,
-      //                       hjual: res.rows.item(i).hjual,
-      //                       stawal: res.rows.item(i).stawal,
-      //                       saldo: res.rows.item(i).saldo,
-      //                       mstock: res.rows.item(i).mstock });
-      //         }
-      //       });
-      //     }, function(error) {
-      //       app.preloader.hide();
-      //       app.dialog.alert('select error: ' + error.message);
-      //     });
-      //   }
-      // },
-
       pageInit: function(e, page) {
 
         // create searchbar
@@ -104,20 +49,12 @@
           // searchIn: '.item-title',
           on: {
             search(sb, query, previousQuery) {
-              // console.log(query, previousQuery);
-              app.request.get("http://localhost/askitchenweb/api/v1/search?q="+query, function(res) {
+              
+              app.request.getJSON("http://localhost/askitchenweb/api/v1/search?q="+query, function(res) {
                 
-                var data = JSON.parse(res);
-                var items = [];
-                console.log(data.data)
+                // var data = JSON.parse(res);
+                var items = res.data;
 
-                for (var i = 0; i < data.data.length; i++) {
-                  items.push({ kdbar: data.data(i).kdbar,
-                              nama: data.data(i).nama,
-                              hjual: data.data(i).hjual,
-                              hpromof: data.data(i).hpromof,
-                              gambar: data.data(i).gambar });
-                }
                 var virtualList = app.virtualList.create({
                   // List Element
                   el: '.virtual-stock',
@@ -126,15 +63,16 @@
                   // List item Template7 template
                   itemTemplate:
                     '<li>' +
-                      '<a href="/detail/{{kdbar}}/{{nama}}" class="item-link item-content">' +
-                        '<div class="item-media"><img class="material-icons" src="https://askitchen.com/upload/gambar/{{gambar}}" /></div>' +
+                      '<a href="/detail/{{kdurl}}" class="item-link item-content">' +
+                        '<div class="item-media"><img src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" width="70" /></div>' +
                         '<div class="item-inner">' +
                           '<div class="item-title-row">' +
                             '<div class="item-title">{{nama}}</div>' +
                           '</div>' +
-                          //'<div class="item-subtitle">{{subtitle}}</div>' +
+                          '<div class="item-text product-price">Rp{{hjual}}</div>' +
+                          '{{#if pnj}}<div class="item-text product-size2">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>{{/if}}' +
+                          '<div class="item-text">{{kdbar}}</div>' +
                         '</div>' +
-                        '<div class="item-after">Rp{{hjual}}</div>' +
                       '</a>' +
                     '</li>',
                   // Item height
@@ -145,42 +83,12 @@
             },
             disable(sb) {
               // console.log('Search canceled!');
-              app.router.back('/', {force: true});
+              // app.router.back('/', {force: true});
+              var view = app.views.current;
+              view.router.back(view.history[0], { force: true });
             }
           }
         });
-
-        // console.log('items: ', items)
-        // var virtualList = app.virtualList.create({
-        //   // List Element
-        //   el: '.virtual-stock',
-        //   // Pass array with items
-        //   items: items,
-        //   // Custom search function for searchbar
-        //   searchAll: function (query, items) {
-        //     var found = [];
-        //     for (var i = 0; i < items.length; i++) {
-        //       if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-        //     }
-        //     return found; //return array with mathced indexes
-        //   },
-        //   // List item Template7 template
-        //   itemTemplate:
-        //     '<li>' +
-        //       '<a href="/detail/{{kdbar}}/{{nama}}" class="item-link item-content">' +
-        //         '<div class="item-media"><img class="material-icons" src="https://askitchen.com/upload/gambar/{{gambar}}" /></div>' +
-        //         '<div class="item-inner">' +
-        //           '<div class="item-title-row">' +
-        //             '<div class="item-title">{{nama}}</div>' +
-        //           '</div>' +
-        //           //'<div class="item-subtitle">{{subtitle}}</div>' +
-        //         '</div>' +
-        //         '<div class="item-after">Rp{{hjual}}</div>' +
-        //       '</a>' +
-        //     '</li>',
-        //   // Item height
-        //   //height: app.theme === 'ios' ? 63 : 73,
-        // });
         
         app.preloader.hide();
      

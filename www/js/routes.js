@@ -40,6 +40,164 @@ routes = [
     componentUrl: './pages/search.html',
   },
   {
+    path: '/login/',
+    url: './pages/login.html',
+    on: {
+      pageInit: function (event, page) {
+        
+        $$('.login-button').on('click', function () {
+  
+          var email = $$('input [name="email"]').val();
+          if (email == '') {
+              app.dialog.alert('Masukkan alamat email anda.', 'Login');
+              return;
+          }
+        
+          var password = $$('input [name="password"]').val();
+          if (password == '') {
+              app.dialog.alert('Masukkan password anda.', 'Login');
+              return;
+          }
+          
+          app.preloader.show();
+        
+          var formData = app.form.convertToData('.login-form');
+        
+          // var regId = localStorage.getItem('RegId');
+          // formData.gcmid = regId;
+        
+          
+          // http://localhost/
+          app.request.post('http://localhost/askitchenweb/api/v1/auth/login', formData, function (res) {
+            
+            app.preloader.hide();
+            
+            var data = JSON.parse(res);
+        
+            if (data.status) {
+            
+              localStorage.setItem('email', email);
+              localStorage.setItem('password', password);
+        
+              // app.loginScreen.close('#my-login-screen');
+              
+              app.data.bLogedIn = true;
+              app.data.mbrid = data.mbrid;
+              app.data.email = email;
+              app.data.pwd   = password;
+              app.data.token = data.token;
+              
+              // kosongkan isian nomor pin
+              $$('input [name="password"]').val('');
+        
+            } else {
+              app.dialog.alert(data.message, 'Login');
+            }
+          });
+        });
+
+        $$('.login-button').on('click', function () {
+  
+          var view = app.views.current;
+          view.router.back(view.history[0], { force: true });
+        });
+        
+      }
+    }
+  },
+  {
+    path: '/register/',
+    url: './pages/register.html',
+    on: {
+      pageInit: function (event, page) {
+        
+        $$('.register-button').on('click', function () {
+  
+          var first_name = $$('input [name="first_name"]').val();
+          if (first_name == '') {
+              app.dialog.alert('Masukkan nama depan anda.', 'Daftar');
+              return;
+          }
+          
+          var last_name = $$('input [name="last_name"]').val();
+          if (last_name == '') {
+              app.dialog.alert('Masukkan nama belakang anda.', 'Daftar');
+              return;
+          }
+          
+          // var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
+          // var namax = nama.trim().match(rgx_nama);
+          // if (!namax) {
+          //   app.dialog.alert('Input data nama belum benar.', 'Daftar');
+          //   return;
+          // }
+        
+          var email = $$('input [name="email"]').val();
+          if (email == '') {
+              app.dialog.alert('Masukkan email anda.', 'Daftar');
+              return;
+          }
+        
+          var password = $$('input [name="password"]').val();
+          if (password == '') {
+            app.dialog.alert('Masukkan password anda.', 'Daftar');
+            return;
+          }
+        
+          var pconfirm = $$('input [name="password_confirm"]').val();
+          if (pconfirm == '') {
+            app.dialog.alert('Masukkan password confirm anda.', 'Daftar');
+            return;
+          }
+        
+          app.preloader.show();
+          
+          // var regId = localStorage.getItem('RegId');
+          var formData = app.form.convertToData('.register-form');
+        
+          // formData.gcmid = regId;
+          
+          app.request.post('http://localhost/askitchenweb/api/v1/register', formData, function (res) {
+            
+            app.preloader.hide();
+            
+            var data = JSON.parse(res);
+        
+            if (data.status) {
+              
+              // simpan data nomor handphone
+              localStorage.setItem('email', email);
+              localStorage.setItem('password', password);
+        
+              app.data.email    = email;
+              app.data.password = password;
+        
+              // set data ke form login
+              $$('input [name="email"]').val(email);
+        
+              // app.loginScreen.close('#my-reg-screen');
+            
+              // setTimeout(function () {
+                app.dialog.alert(data.message, 'Daftar');
+              // }, 2000);
+        
+            } else {
+              app.dialog.alert(data.message, 'Daftar');
+            }
+          });
+        });
+
+        $$('.login-button').on('click', function () {
+  
+          var view = app.views.current;
+          view.router.back(view.history[0], { force: true });
+        });
+        
+      }
+    }
+  },
+        
+  {
     path: '/cart/',
     // componentUrl: './pages/cart.html',
     async: function (routeTo, routeFrom, resolve, reject) {
@@ -48,6 +206,17 @@ routes = [
 
       // App instance
       var app = router.app;
+
+      if (!app.data.bLogedIn) {
+        
+        resolve(
+          {
+            url: './pages/login.html',
+          }
+        );
+
+        return;
+      }
 
       // Show Preloader
       app.preloader.show();
@@ -521,6 +690,14 @@ routes = [
 
       // App instance
       var app = router.app;
+
+      if (!app.data.bLogedIn) {
+        
+        app.router.navigate('/login/', {
+          reloadCurrent: true,
+          ignoreCache: true,
+        });
+      }
 
       // Show Preloader
       app.preloader.show();

@@ -44,7 +44,7 @@
                 </ul>
             </div>
         </div>
-        <div class="content-block"><a href="#" @click="doLogin" class="button button-raised button-fill larger login-button">LOGIN</a></div>
+        <div class="content-block"><a href="#" class="button button-raised button-fill larger login-button">LOGIN</a></div>
         </form>
     </div>
   </div>
@@ -104,10 +104,6 @@
                 reloadCurrent: true,
                 ignoreCache: true,
               });
-            } else {
-              
-              var view = app.views.current;
-              view.router.back(view.history[0], { force: true });
             }
       
           } else {

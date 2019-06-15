@@ -41,7 +41,7 @@
         </div>
         <div class="card-footer">
           <!-- <div class="content-block"> -->
-            <a href="/checkout/" class="button button-raised button-fill larger btn-order">Proceed to checkout</a>
+            <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
         </div>
       </div>
     </div>
@@ -49,6 +49,24 @@
 </template>
 <script>
   return {
+    // Component Methods
+    methods: {
+      
+      doCheckout: function (e) {
+        
+        if (app.data.total == 0) {
+          app.dialog.alert('Keranjang belanja anda masih kosong.');
+          return;
+        }
+
+        app.router.navigate('/checkout/', {
+          reloadCurrent: true,
+          ignoreCache: true,
+        });
+
+      }
+    },
+        
     // Page Events
     on: {
       pageInit: function(e, page) {

@@ -3,16 +3,16 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.ask.upload.foto"
+        id        = "com.app.askitchen.mobile"
         version   = "1.0.0">
 
   <name>ASKITCHEN</name>
 
   <description>
-      Aplikasi upload foto delivery note.
+      Aplikasi mobile e-commerce.
   </description>
 
-  <author href="https://github.com/askitchen/askitchen-upload-foto.git" email="askitchen@gmail.com">
+  <author href="https://github.com/askitchen/askitchen-mobile.git" email="askitchen@gmail.com">
       ASKITCHEN
   </author>
 
@@ -43,35 +43,39 @@
   <!--<plugin name="phonegap-plugin-portrait-barcodescanner" source="npm" />-->
   <!-- <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner#6.0.1" /> -->
   
+  <!-- <plugin name="cordova-plugin-device" source="npm" />
   <plugin name="cordova-plugin-camera" source="npm" />
+
+    <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
+    </config-file> -->
 
   <!--<plugin name="cordova-plugin-ble-central" source="npm" />-->
   
-  <!--<plugin name="cordova-plugin-media-capture" spec="^6.3.0" />
-  <plugin name="cordova-plugin-admobpro" source="npm" />-->
+  <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
+  <plugin name="cordova-plugin-inappbrowser" source="npm" />
 
   <plugin name="cordova-plugin-console" source="npm" />
   <plugin name="cordova-plugin-contacts" spec="~2.3.1" /> <!-- cli-6.5.0 -->
-  <plugin name="cordova-plugin-device" source="npm" />
 
   <!-- android v4
   <plugin name="cordova-plugin-crosswalk-webview" source="npm" spec="~2.4.0" />
   <plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.4" source="git" />
   -->
   
+  <!--
   <plugin name="cordova-plugin-dialogs" source="npm" />
   <plugin name="cordova-plugin-file" source="npm" spec="~4.3.3" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
-  <!--
   <plugin name="cordova-plugin-file-transfer" source="npm" />
-  <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />-->
-  <plugin name="cordova-plugin-globalization" source="npm" />
-  <plugin name="cordova-plugin-inappbrowser" source="npm" />
-  <!--<plugin name="cordova-plugin-media" spec="^6.3.0" />-->
   <plugin name="cordova-plugin-network-information" source="npm" />
-  <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
+  <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
+  <plugin name="cordova-plugin-globalization" source="npm" />-->
+  <!--<plugin name="cordova-plugin-media" spec="^6.3.0" />-->
   <plugin name="cordova-plugin-vibration" source="npm" />
   <plugin name="cordova-plugin-whitelist" source="npm" />
   

@@ -151,6 +151,7 @@
   width: 100%;
 }
 
+.md a.checkout,
 .md .navbar,
 .md .subnavbar {
   background: #03274e;
@@ -351,6 +352,16 @@ div.block.main {
   font-weight: 500;
   line-height: 31px;
 }*/
+
+a.button-add {
+  width: 80%;
+  margin: 0px auto 0px auto;
+  background-color: #ababab;
+  color: #000;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 5px;
+}
 
 .button.larger {
   width: 80%;
@@ -598,10 +609,16 @@ img.responsive {
   height: auto;
 }
 
-img.responsive.profile {
+img.responsive.profile,
+img.responsive.profile2 {
   border-radius: 50px;
   display: inline;
 }
+
+img.responsive.profile2 {
+  width: 100px;
+}
+
 div.member-picture,
 div.member-info {
   display: inline-block;

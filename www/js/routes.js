@@ -41,75 +41,87 @@ routes = [
   },
   {
     path: '/login/',
-    url: './pages/login.html',
-    on: {
-      pageInit: function (event, page) {
+    componentUrl: './pages/login.html',
+    // on: {
+    //   pageInit: function (event, page) {
         
-        $$('.login-button').on('click', function () {
-  
-          var email = $$('input [name="email"]').val();
-          if (email == '') {
-              app.dialog.alert('Masukkan alamat email anda.', 'Login');
-              return;
-          }
-        
-          var password = $$('input [name="password"]').val();
-          if (password == '') {
-              app.dialog.alert('Masukkan password anda.', 'Login');
-              return;
-          }
-          
-          app.preloader.show();
-        
-          var formData = app.form.convertToData('.login-form');
-        
-          // var regId = localStorage.getItem('RegId');
-          // formData.gcmid = regId;
-        
-          
-          // http://localhost/
-          app.request.post('http://localhost/askitchenweb/api/v1/auth/login', formData, function (res) {
-            
-            app.preloader.hide();
-            
-            var data = JSON.parse(res);
-        
-            if (data.status) {
-            
-              localStorage.setItem('email', email);
-              localStorage.setItem('password', password);
-        
-              // app.loginScreen.close('#my-login-screen');
-              
-              app.data.bLogedIn = true;
-              app.data.mbrid = data.mbrid;
-              app.data.email = email;
-              app.data.pwd   = password;
-              app.data.token = data.token;
-              
-              // kosongkan isian nomor pin
-              $$('input [name="password"]').val('');
-        
-            } else {
-              app.dialog.alert(data.message, 'Login');
-            }
-          });
-        });
+    //     $$('i.icon.icon-back').on('click', function () {
+    //       // app.dialog.alert('Tes.', 'Login');
+    //       var view = app.views.current;
+    //       view.router.back(view.history[0], { force: true });
+    //     });
 
-        $$('.login-button').on('click', function () {
-  
-          var view = app.views.current;
-          view.router.back(view.history[0], { force: true });
-        });
+    //     $$('.login-button').on('click', function () {
+          
+    //       var email = $$('input [name="email"]').val();
+    //       if (email == '') {
+    //           app.dialog.alert('Masukkan alamat email anda.', 'Login');
+    //           return;
+    //       }
         
-      }
-    }
+    //       var password = $$('input [name="password"]').val();
+    //       if (password == '') {
+    //           app.dialog.alert('Masukkan password anda.', 'Login');
+    //           return;
+    //       }
+          
+    //       app.preloader.show();
+        
+    //       var formData = app.form.convertToData('.login-form');
+        
+    //       // var regId = localStorage.getItem('RegId');
+    //       // formData.gcmid = regId;
+        
+          
+    //       // http://localhost/
+    //       app.request.post('http://localhost/askitchenweb/api/v1/auth/login', formData, function (res) {
+            
+    //         app.preloader.hide();
+            
+    //         var data = JSON.parse(res);
+        
+    //         if (data.status) {
+            
+    //           localStorage.setItem('email', email);
+    //           localStorage.setItem('password', password);
+              
+    //           app.data.bLogedIn = true;
+    //           app.data.mbrid = data.mbrid;
+    //           app.data.email = email;
+    //           app.data.pwd   = password;
+    //           app.data.token = data.token;
+              
+    //           // kosongkan isian nomor pin
+    //           $$('input [name="password"]').val('');
+        
+    //           // app.loginScreen.close('#my-login-screen');
+    //           if (app.data.lastURL) {
+                
+    //             app.router.navigate(app.data.lastURL, {
+    //               reloadCurrent: true,
+    //               ignoreCache: true,
+    //             });
+    //           }
+        
+    //         } else {
+    //           app.dialog.alert(data.message, 'Login');
+    //         }
+    //       });
+    //     });
+        
+    //   }
+    // }
   },
   {
     path: '/register/',
     url: './pages/register.html',
     on: {
       pageInit: function (event, page) {
+        
+        $$('i.icon.icon-back').on('click', function () {
+          var view = app.views.current;
+          view.router.back(view.history[0], { force: true });
+        });
         
         $$('.register-button').on('click', function () {
   
@@ -211,10 +223,9 @@ routes = [
         
         resolve(
           {
-            url: './pages/login.html',
+            componentUrl: './pages/login.html',
           }
         );
-
         return;
       }
 
@@ -251,6 +262,7 @@ routes = [
     path: '/profile/',
     url: './pages/profile.html',
     on: {
+      
       pageInit: function (event, page) {
         
         var db = app.data.db;
@@ -275,6 +287,34 @@ routes = [
           });      
         }
         
+        $$('.take-photo').on('click', function () {
+          
+          app.dialog.alert('Take photo!')
+          
+          // var options = {
+          //   quality: 50,
+          //   destinationType: destinationType.DATA_URL,
+          //   sourceType: pictureSource.CAMERA,
+          //   encodingType: Camera.EncodingType.JPEG,
+          //   mediaType: Camera.MediaType.PICTURE,
+          //   targetWidth: 150, // 360
+          //   targetHeight: 75, // 360
+          //   // allowEdit: true,
+          //   correctOrientation: true  //Corrects Android orientation quirks
+          //   // popoverOptions: CameraPopoverOptions,
+          //   // saveToPhotoAlbum: false
+          // };
+        
+          // // update camera image directive
+          // navigator.camera.getPicture(function cameraSuccess(imageData) {
+          //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+          //   localStorage.setItem('profile', imageData);
+          // }, function cameraError(err) {
+          //   // console.log('Failed because: ');
+          //   app.dialog.alert(err);
+          // }, options);
+        });
+
         $$('.btnSimpan').on('click', function () {
           
           var nama = $$('#nama').val();
@@ -693,6 +733,8 @@ routes = [
 
       if (!app.data.bLogedIn) {
         
+        app.data.lastURL = '/checkout/';
+
         app.router.navigate('/login/', {
           reloadCurrent: true,
           ignoreCache: true,

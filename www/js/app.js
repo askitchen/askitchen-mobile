@@ -61,6 +61,7 @@ var app  = new Framework7({
 
       // currentGroup: 0,
       currentDate: null,
+      lastURL: null,
       
       bLogedIn: false,
       token: null,
@@ -535,7 +536,7 @@ var ac_share = app.actions.create({
     '</div></li></ul></div>',
       onClick: function () {
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
-        'https://play.google.com/store/apps/details?id=com.app.askitchen';
+        'https://play.google.com/store/apps/details?id=com.app.askitchen.mobile';
         window.plugins.socialsharing.shareViaWhatsApp(msg, null, null, null, function(e){
           app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
@@ -553,7 +554,7 @@ var ac_share = app.actions.create({
     '</div></li></ul></div>',
       onClick: function () {
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
-        'https://play.google.com/store/apps/details?id=com.app.askitchen';
+        'https://play.google.com/store/apps/details?id=com.app.askitchen.mobile';
         window.plugins.socialsharing.shareVia('org.telegram.messenger', msg, null, null, null, null, function(e){
           app.dialog.alert('Sharing failed with message: ' + e, 'ASKITCHEN');
         })
@@ -571,7 +572,7 @@ var ac_share = app.actions.create({
     '</div></li></ul></div>',
       onClick: function () {
         var msg = 'Download this app for all your kitchen equipments!\n\n' +
-        'https://play.google.com/store/apps/details?id=com.app.askitchen';
+        'https://play.google.com/store/apps/details?id=com.app.askitchen.mobile';
         window.plugins.socialsharing.shareViaFacebook(msg, null, null, null, function(e){
           app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
@@ -589,7 +590,7 @@ var ac_share = app.actions.create({
     '</div></li></ul></div>',
       onClick: function () {
         var msg = 'Download this app for all your kitchen equipments!' +
-        'https://play.google.com/store/apps/details?id=com.app.askitchen';
+        'https://play.google.com/store/apps/details?id=com.app.askitchen.mobile';
         window.plugins.socialsharing.shareViaTwitter(msg, null, 'https://twitter.com/', null, function(e){
           app.dialog.alert("Sharing failed with message: " + e, 'ASKITCHEN');
         })
@@ -635,6 +636,11 @@ $$(document).on('backbutton', function (e) {
         }
       })
     } else {
+      
+      if (app.data.bLogedIn) {
+        request.get("https://askitchen.com/api/v1/auth/logout", function(res) {});
+      }
+
       navigator.app.exitApp();
     }
   } //else {

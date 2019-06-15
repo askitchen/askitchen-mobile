@@ -39,12 +39,16 @@
         <input type="hidden" class="item-picture" value="{{data.gambar}}" />
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
         <input type="hidden" class="item-qty"     value="1">
-          
+        
+        <input type="hidden" id="maxqty" value="">
+        <input type="hidden" id="minqty" value="">
+
         <div class="card-footer detail">
           <div class="product-name">{{data.nama}}</div>
         </div>
         <div class="card-footer detail">
           <div class="product-price">Rp{{data.hjualf}}</div>
+          <div class="product-price"><a href="#" class="button-add">Add To Cart</a></div>
           <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
         </div>
         {{#if data.pnj}}

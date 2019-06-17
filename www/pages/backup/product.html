@@ -23,14 +23,14 @@
           <ul>
             {{#each data}}
             <li>
-              <a href="/product/{{kdgol2}}/{{nama}}" class="item-link item-content">
-              <div class="item-media"><img src="https://askitchen.com/upload/gambar/{{gbr}}" width="70"></div>
+              <a href="/detail/{{kdurl}}" class="item-link product">
+              <div class="item-media"><img src="https://askitchen.com/upload/gambar/{{gambar}}" width="70" /></div></a>
               <div class="item-inner">
                 <div class="item-title-row">
-                  <div class="item-title">{{nama}}</div>
-                </div>
-                <div class="item-text">{{info}}</div>
-              </div></a>
+                <div class="item-title">{{nama}}</div>
+              </div>
+              <div class="item-text">{{info}}</div>
+              </div>
             </li>
             {{/each}}
           </ul>

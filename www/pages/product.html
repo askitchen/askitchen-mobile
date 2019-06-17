@@ -9,32 +9,48 @@
           </a>
         </div>
         <div class="title">{{title}}</div>
-        <div class="right">
+        <!-- <div class="right">
           <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
             <i class="icon f7-icons ios-only">shopping_cart</i>
             <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="page-content">
         
-      <div class="list media-list">
-          <ul>
-            {{#each data}}
-            <li>
-              <a href="/detail/{{kdurl}}" class="item-link item-content">
-              <div class="item-media"><img src="https://askitchen.com/upload/gambar/{{gambar}}" width="70" /></div>
-              <div class="item-inner">
-                <div class="item-title-row">
-                <div class="item-title">{{nama}}</div>
-              </div>
-              <div class="item-text">{{info}}</div>
-              </div></a>
-            </li>
-            {{/each}}
-          </ul>
-      </div>
+      <div class="block">
+          
+        <div class="row no-gutter">
+          {{#each data}}
+          <div class="col-50 product">
+            <a href="/detail/{{kdurl}}" class="item-link">
+            <div>
+              <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
+            </div></a>
+            <div class="product-name">{{nama}}</div>
+            <div class="product-price">Rp{{hjual}}</div>
+            {{#if pnj}}
+            <div class="product-size">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
+            {{/if}}
+            <div class="product-code">{{kdbar}}</div>
+          </div>
+          {{/each}}
+        </div>
+    </div>
     </div>
   </div>
 </template>
+<script>
+  return {
+        
+    // Page Events
+    on: {
+      pageBeforeIn: function (event, page) {
+                
+        // if (app.total_items > 0)
+        //   $$('.badge').text(app.total_items);
+      },
+    }
+  }
+</script>

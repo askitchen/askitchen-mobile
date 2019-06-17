@@ -179,65 +179,10 @@ var app  = new Framework7({
       }
       app.methods.calcTotal();
     },
-    editItem: function(kode) {
-      var db = app.data.db;
-      
-      db.transaction(function(tx) {
-        tx.executeSql('select kdbar from stock where kdbar = ?;', [kode], function(ignored, res) {
-
-          if (res.rows.length > 0) {
-            app.router.navigate('/stock/'+kode+'/');
-          }
-        }, function(error) {
-          app.dialog.alert('select error: ' + error.message);
-        });
-      });
-    },
   },
   on: {
 
     init: function () { // sama dengan onDeviceReady
-      
-      this.request.get("https://askitchen.com/api/v1/category/sample/21", function(res) {
-        var data = JSON.parse(res);
-        app.data.data_01 = data.data;
-        // console.log(app.data.data_01);
-      
-        app.request.get("https://askitchen.com/api/v1/category/sample/22", function(res) {
-          var data = JSON.parse(res);
-          app.data.data_02 = data.data;
-      
-          app.request.get("https://askitchen.com/api/v1/category/sample/23", function(res) {
-            var data = JSON.parse(res);
-            app.data.data_03 = data.data;
-      
-            app.request.get("https://askitchen.com/api/v1/category/sample/24", function(res) {
-              var data = JSON.parse(res);
-              app.data.data_04 = data.data;
-              
-              app.request.get("https://askitchen.com/api/v1/category/sample/25", function(res) {
-                var data = JSON.parse(res);
-                app.data.data_05 = data.data;
-                
-                app.request.get("https://askitchen.com/api/v1/category/sample/26", function(res) {
-                  var data = JSON.parse(res);
-                  app.data.data_06 = data.data;
-                  
-                  app.request.get("https://askitchen.com/api/v1/category/sample/27", function(res) {
-                    var data = JSON.parse(res);
-                    app.data.data_07 = data.data;
-                    
-                    app.request.get("https://askitchen.com/api/v1/category/sample/28", function(res) {
-                      var data = JSON.parse(res);
-                      app.data.data_08 = data.data;
-                    });
-                  });
-                });
-              });
-            });
-          });
-        });
-      });
       
       /*
       function copyDatabaseFile(dbName) {
@@ -293,13 +238,6 @@ var app  = new Framework7({
         // error! :(
         console.log(err);
       }); //*/
-
-      // this.router.app.request.get("https://askitchen.com/api/v1/category/sample/01", function(res) {
-      //   // console.log(res);
-      //   var data = JSON.parse(res);
-      //   app.data.data01 = data.data;
-      //   console.log(app.data.data01)
-      // });
       
       /*
       var virtualList = app.virtualList.create({
@@ -347,7 +285,7 @@ var app  = new Framework7({
       /*
       this.data.push = PushNotification.init({
         "android": {
-            "senderID": "857182253756" //"597497239727"
+            "senderID": "857182251234"
         },
         "ios": {
             "sound": true,
@@ -393,23 +331,6 @@ var app  = new Framework7({
         // show message
         app.dialog.alert(data.message, 'ASKITCHEN');
         
-        // update info saldo
-        // setTimeout(function () {
-
-        //   // http://localhost/
-        //   app.request.get('http://localhost/askitchenweb/api/v1/member/saldo/'+ app.data.mbrid, function (res) {
-          
-        //     var data = JSON.parse(res);
-        
-        //     if (data.status) {
-        //       $$('.saldo').text(parseInt(data.saldo).toLocaleString('ID'));
-        //       app.data.saldo = parseInt(data.saldo);
-        //       app.data.bonus = parseInt(data.bonus);
-        //     } else {
-        //       app.dialog.alert(data.message, 'ASKITCHEN');
-        //     }
-        //   });
-        // }, 1000);
       });//*/
     },     
   },

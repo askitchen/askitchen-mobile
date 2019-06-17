@@ -1,39 +1,39 @@
 routes = [
   {
     path: '/',
-    templateUrl: './pages/home.html',
-    on: {
-      pageBeforeIn: function (event, page) {
-                
-        // if (app.data.total_items > 0)
-        //   $$('.badge').text(app.data.total_items);
-      },
-      pageInit: function (event, page) {
+    // templateUrl: './pages/home.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+
+      app.request.getJSON("http://localhost/askitchenweb/api/v1/categories", function(res) {
+
+        // Hide Preloader
+        app.preloader.hide();
+
+        // console.log(res)
+        // var data = JSON.parse(res)
         
-        app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
-          
-          var data = JSON.parse(res);
-          
-          if (data.status)
+        // Resolve route to load page
+        resolve(
           {
-            app.data.total_items = data.totqty;
-            $$('.badge').text(app.data.total_items);
+            componentUrl: './pages/home.html',
+          },
+          {
+            context: {
+              data: res.data,
+            }
           }
-        });
+        );
 
-
-        // app.request.get("https://askitchen.com/api/v1/category/sample/21", function(res) {
-        //   var data = JSON.parse(res);
-        //   app.data.data_21 = data.data;
-        //   // console.log(app.data.data_01);
-        
-        //   app.request.get("https://askitchen.com/api/v1/category/sample/22", function(res) {
-        //     var data = JSON.parse(res);
-        //     app.data.data_22 = data.data;
-        //   });
-        // });
-      }
-    }
+      });
+    },
   },
   {
     path: '/search',
@@ -354,195 +354,6 @@ routes = [
     }
   },
   {
-    path: '/stock/',
-    url: './pages/stock.html',
-    on: {
-      pageInit: function (event, page) {
-
-        $$('.barcode').on('click', function(e){
-
-          cordova.plugins.barcodeScanner.scan(
-            function (result) {
-                $$('#barcode').val(result.text);
-                // alert("We got a barcode\n" +
-                      // "Result: " + result.text + "\n" +
-                      // "Format: " + result.format + "\n" +
-                      // "Cancelled: " + result.cancelled);
-            },
-            function (error) {
-                app.dialog.alert("Scanning failed: " + error);
-            },
-            {
-                preferFrontCamera : false, // iOS and Android
-                showFlipCameraButton : false, // iOS and Android
-                showTorchButton : true, // iOS and Android
-                torchOn: true, // Android, launch with the torch switched on (if available)
-                saveHistory: false, // Android, save scan history (default false)
-                prompt : "Place a barcode inside the scan area", // Android
-                resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                formats : "EAN_13,CODE_128,QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-                orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-                disableAnimations : true, // iOS
-                disableSuccessBeep: false // iOS and Android
-            }
-          );
-        });
-        
-        $$('#awal').on('blur', function(e){
-          var awal = parseFloat($$('#awal').val());
-          $$('#saldo').val(awal)
-        });
-      
-        $$('#mstock').on('change', function(e){
-          //e.preventDefault();
-          if ($$(this).prop('checked')){
-            $$('#awal').prop('disabled', false);
-          } else {
-            $$('#awal').prop('disabled', true);
-            $$('#awal').val('0');
-          }
-        });
-      
-        $$('.btnSimpan').on('click', function(e){
-          //e.preventDefault();
-          
-          var nama = $$('#nama').val();
-          if (nama === '') {
-            app.dialog.alert('Masukkan data nama barang.', 'Item Barang');
-            return;
-          }
-          
-          var barcode = $$('#barcode').val();
-          if (barcode === '') {
-            app.dialog.alert('Masukkan data kode barang.', 'Item Barang');
-            return;
-          }
-          
-          var satuan = $$('#satuan').val();
-          if (satuan === '') {
-            app.dialog.alert('Masukkan data satuan.', 'Item Barang');
-            return;
-          }
-          
-          var mstock = 'Y';
-          if ($$('#mstock').prop('checked')){
-            mstock = 'M';
-          }
-          
-          var awal = parseFloat($$('#awal').val());
-          // if (awal === 0) {
-          //   app.dialog.alert('Masukkan data saldo awal barang.', 'Item Barang');
-          //   return;
-          // }
-          
-          var hpokok = parseFloat($$('#hpokok').val());
-          if (hpokok === 0) {
-            app.dialog.alert('Masukkan data harga pokok.', 'Item Barang');
-            return;
-          }
-          
-          var hjual = parseFloat($$('#hjual').val());
-          if (hjual === 0) {
-            app.dialog.alert('Masukkan data harga jual.', 'Item Barang');
-            return;
-          }
-          
-          // app.preloader.show();
-          $$(this).prop("disabled", true);
-          
-          var db = app.data.db;
-          
-          if (db) {
-
-            db.transaction(function(tx) {
-              tx.executeSql('insert into stock (kdbar, nama, satuan, hbeli, hpokok, hpokok2, hjual, stawal, saldo, mstock) ' +
-              'values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [barcode, nama, satuan, hpokok, hpokok, hpokok, hjual, awal, awal, mstock]);
-            }, function(error) {
-              app.dialog.alert('insert error: ' + error.message);
-            });
-          }
-
-          /*var formData = app.form.convertToData('.stock');
-          formData.Authorization = app.data.token;
-          
-          app.request.post('http://localhost/askitchenweb/api/v1/pulsa', formData, function (res) {
-            
-            // app.preloader.hide();
-            
-            var data = JSON.parse(res);
-        
-            if (data.status) {
-              // setTimeout(function () {
-                app.router.back();
-              // }, 500);
-            } else {
-
-              $$(this).prop("disabled", false);
-              if (data.message !== '') {
-                app.dialog.alert(data.message, 'Pulsa HP');
-              }
-            }
-          });*/
-        });            
-      
-        if ( AdMob ) {
-          AdMob.hideBanner();
-        }
-      },
-      pageAfterOut: function (event, page) {
-      
-        if ( AdMob ) {
-          AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-        }
-      }
-    }
-  },
-  {
-    path: '/stock/:kode/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-
-      // kode barang
-      var kode = routeTo.params.kode;
-
-      var db = app.data.db;
-      var data = null;
-      
-      if (db) {
-        db.transaction(function(tx) {
-          tx.executeSql('select kdbar, nama, satuan, hbeli, hpokok, hpokok2, hjual, stawal, saldo, mstock from stock where kdbar = ?;', [kode], function(ignored, res) {
-
-            data = { kdbar: res.rows.item(0).kdbar,
-                        nama: res.rows.item(0).nama,
-                        satuan: res.rows.item(0).satuan,
-                        hbeli: res.rows.item(0).hbeli,
-                        hpokok: res.rows.item(0).hpokok,
-                        hpokok2: res.rows.item(0).hpokok2,
-                        hjual: res.rows.item(0).hjual,
-                        stawal: res.rows.item(0).stawal,
-                        saldo: res.rows.item(0).saldo,
-                        mstock: res.rows.item(0).mstock };
-          });
-        }, function(error) {
-          app.dialog.alert('select error: ' + error.message);
-        });
-      }
-
-      resolve(
-        { componentUrl: './pages/stock2.html' },
-        { context: { data: data } }
-      );
-      app.preloader.hide();
-    }
-  },
-  {
     path: '/notifications/',
     componentUrl: './pages/notifications.html',
   },
@@ -604,7 +415,7 @@ routes = [
       // kode golongan
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
-      console.log('kode: '+kode)
+      // console.log('kode: '+kode)
 
       // var db = app.data.db;
       var data = null;
@@ -649,26 +460,18 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      // app.request.get("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
-      app.request.get("https://askitchen.com/api/v1/products/"+kode, function(res) {
+      app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
+      // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode, function(res) {
           
-        var data = JSON.parse(res);
         // console.log('products:'+res)
 
         resolve(
           { componentUrl: './pages/product.html' },
-          { context: { data: data.data, title: nama } }
+          { context: { data: res.data, title: nama } }
         );
         app.preloader.hide();
       });
     },
-    on: {
-      pageBeforeIn: function (event, page) {
-        
-        if (app.data.total_items > 0)
-          $$('.badge').text(app.data.total_items);
-      }
-    }
   },
   {
     path: '/detail/:kode',
@@ -692,14 +495,13 @@ routes = [
       app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
       // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
-        // var data = JSON.parse(res);
-        console.log('detail:'+res)
+        console.log('detail:'+res.data.kdbar)
+        app.preloader.hide();
 
         resolve(
           { componentUrl: './pages/detail.html' },
-          { context: { data: res.data, hjual: res.data.hjualf, stok: res.data.stok, title: res.data.nama } }
+          { context: { data: res.data } } //, hjual: res.data.hjualf, stok: res.data.stok, title: res.data.nama
         );
-        app.preloader.hide();
       });
     },
     on: {

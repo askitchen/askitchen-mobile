@@ -8,7 +8,7 @@
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div class="title">{{title}}</div>
+        <div class="title">{{data.nama}}</div>
         <div class="right">
           <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
             <i class="icon f7-icons ios-only">shopping_cart</i>
@@ -52,9 +52,16 @@
           <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
         </div>
         {{#if data.pnj}}
-        <div class="product-size">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+        <div class="product-size2">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
         {{/if}}
-        <div class="product-code">{{data.kdbar}}</div>
+        <div class="product-code2">{{data.kdbar}}</div>
+        <!-- <div class="starbox">
+          <i class="f7-icons">star_fill</i>
+          <i class="f7-icons">star_fill</i>
+          <i class="f7-icons">star_fill</i>
+          <i class="f7-icons">star</i>
+          <i class="f7-icons">star</i>
+        </div> -->
       </div>
 
       <div class="block">
@@ -71,80 +78,26 @@
         <div class="block-title detail">Related Products</div>
         <!-- <div class="">{{data.deskripsi}}</div>
         <div class="block-title">3 Slides Per View, 10px Between</div> -->
-        <div data-space-between="10" data-slides-per-view="2" class="swiper-container swiper-init swiper-related">
+        <div data-space-between="10" data-slides-per-view="3" class="swiper-container swiper-init swiper-related">
           <!-- <div class="swiper-pagination"></div> -->
           <div class="swiper-wrapper">
             
+            {{#each data.related}}
             <div class="swiper-slide detail">
+              <a href="/detail/{{kdurl}}" class="item-link">
               <div>
-                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
+                <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
                 <!-- image -->
-              </div>
-              <div class="product-name-rel">{{data.nama}}</div>
-              <div class="product-price-rel">Rp{{data.hjualf}}</div>
-              {{#if data.pnj}}
-              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
+              </div></a>
+              <div class="product-name-rel">{{nama}}</div>
+              <div class="product-price-rel">Rp{{hjual}}</div>
+              {{#if pnj}}
+              <div class="product-size-rel">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
               {{/if}}
-              <div class="product-code-rel">{{data.kdbar}}</div>
+              <div class="product-code-rel">{{kdbar}}</div>
             </div>
-            <!-- slide -->
-            <div class="swiper-slide">
-              <div>
-                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
-                <!-- image -->
-              </div>
-              <div class="product-name-rel">{{data.nama}}</div>
-              <div class="product-price-rel">Rp{{data.hjualf}}</div>
-              {{#if data.pnj}}
-              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
-              {{/if}}
-              <div class="product-code-rel">{{data.kdbar}}</div>
-            </div>
-            <!-- slide -->
-            <div class="swiper-slide">
-              <div>
-                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
-                <!-- image -->
-              </div>
-              <div class="product-name-rel">{{data.nama}}</div>
-              <div class="product-price-rel">Rp{{data.hjualf}}</div>
-              {{#if data.pnj}}
-              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
-              {{/if}}
-              <div class="product-code-rel">{{data.kdbar}}</div>
-            </div>
-            <!-- slide -->
-            <div class="swiper-slide">
-              <div>
-                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
-                <!-- image -->
-              </div>
-              <div class="product-name-rel">{{data.nama}}</div>
-              <div class="product-price-rel">Rp{{data.hjualf}}</div>
-              {{#if data.pnj}}
-              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
-              {{/if}}
-              <div class="product-code-rel">{{data.kdbar}}</div>
-            </div>
-            <!-- slide -->
-            <div class="swiper-slide">
-              <div>
-                <img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" />
-                <!-- image -->
-              </div>
-              <div class="product-name-rel">{{data.nama}}</div>
-              <div class="product-price-rel">Rp{{data.hjualf}}</div>
-              {{#if data.pnj}}
-              <div class="product-size-rel">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
-              {{/if}}
-              <div class="product-code-rel">{{data.kdbar}}</div>
-            </div>
+            {{/each}}
 
-            <!-- <div class="swiper-slide">Slide 6</div>
-            <div class="swiper-slide">Slide 7</div>
-            <div class="swiper-slide">Slide 8</div>
-            <div class="swiper-slide">Slide 9</div>
-            <div class="swiper-slide">Slide 10</div> -->
           </div>
         </div>
       </div>
@@ -166,21 +119,23 @@
           var card = $$('.card.item-detail');
           
           // console.log(scrollTop)
-          if (scrollTop >= 56) {
-            card.removeClass("sticky")
-          } else {
-            card.addClass("sticky");
-          }
+          // if (scrollTop >= 56) {
+          //   card.removeClass("sticky")
+          // } else {
+          //   card.addClass("sticky");
+          // }
         })
 
-        $$('.btn-buy').on('click', function (e) {
-          // app.dialog.alert('Buy now!');
-          if (!app.data.bLogedIn) {
-            app.router.navigate('/login/', {
-              reloadCurrent: true,
-              ignoreCache: true,
-            });
-          }
+        $$('.button-add').on('click', function (e) {
+          
+          app.dialog.alert('Add to cart!');
+          
+          // if (!app.data.bLogedIn) {
+          //   app.router.navigate('/login/', {
+          //     reloadCurrent: true,
+          //     ignoreCache: true,
+          //   });
+          // }
         });
           
         $$('.btn-cart').on('click', function (e) {
@@ -221,7 +176,7 @@
                   
                 var data = JSON.parse(res);
                 
-                console.log('return data: '+res)
+                // console.log('return data: '+res)
 
                 if (data.status)
                 {

@@ -1,5 +1,15 @@
 /* Your app styles here */
 
+@font-face {
+	font-family: 'futuraMediumBT';
+	src: url('../fonts/futuraMediumBT.eot');
+	src: local('futuraMediumBT'), url('../fonts/futuraMediumBT.woff') format('woff'), url('../fonts/futuraMediumBT.ttf') format('truetype');
+}
+
+.md body {
+  font-family: futuraMediumBT,Roboto,Noto,Helvetica,Arial,sans-serif
+}
+
 /* Left Panel right border when it is visible by breakpoint */
 .panel-left.panel-visible-by-breakpoint:before {
   position: absolute;
@@ -175,6 +185,7 @@ p {
 
 .md .list .item-text {
   font-size: 10px;
+  color: #000;
 }
 
 .md .list .item-text.product-size2 {
@@ -296,6 +307,10 @@ div.block.main {
   background-color: #55acee;
 }*/
 
+.md .card-footer {
+  color: #000;
+}
+
 .md .card-footer.detail {
   color: #000;
   min-height: 36px;
@@ -340,8 +355,9 @@ div.block.main {
   line-height: 0;
 }*/
 
+.material-icons.remove-item,
 .material-icons.product-detail {
-  color: #55acee;
+  color: #000; /*55acee;*/
   line-height: 0;
 }
 
@@ -356,14 +372,41 @@ div.block.main {
   line-height: 31px;
 }*/
 
-a.button-add {
-  width: 80%;
-  margin: 0px auto 0px auto;
-  background-color: #ababab;
+.md a > .product-name,
+.md a > .product-price,
+.md a > .product-size,
+.md a > .product-code {
   color: #000;
-  font-size: 14px;
-  padding: 10px;
-  border-radius: 5px;
+  text-decoration: none;
+}
+
+img.button-buy {
+  max-width: 100%;
+}
+
+div.stock-avail {
+  color: #47AC0A;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+img.cart-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.button-add {
+  /* width: 80%;
+  margin: 0px auto 0px auto; */
+  background-color: #ffb61a;
+  color: #000;
+  font-size: 10px;
+  padding: 15px 7px;
+  border-radius: 50px;
+  position: absolute;
+  right: 14px;
+  top: 0px;
 }
 
 .button.larger {
@@ -450,6 +493,13 @@ div.product-size2, div.product-code2 {
     
   img.header {
     width: 100%;
+  }    
+  
+  img.product {
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

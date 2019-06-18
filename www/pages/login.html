@@ -100,10 +100,13 @@
             // app.loginScreen.close('#my-login-screen');
             if (app.data.lastURL) {
               
+              app.data.lastURL = '';
+              
               app.router.navigate(app.data.lastURL, {
                 reloadCurrent: true,
                 ignoreCache: true,
               });
+
             } else {
               
               var view = app.views.current;

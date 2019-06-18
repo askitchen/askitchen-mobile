@@ -36,37 +36,17 @@ var app  = new Framework7({
 
       total_items: 0, // total item cart
 
-      data_21: null,
-      data_22: null,
-      data_23: null,
-      data_24: null,
-      data_25: null,
-      data_26: null,
-      data_27: null,
-      data_28: null,
-
-      data_01: null,
-      data_02: null,
-      data_03: null,
-      data_04: null,
-      data_05: null,
-      data_06: null,
-      data_07: null,
-      data_08: null,
-
       total: 0,
       tax: 0,
       shipcost: 0,
       gtotal: 0,
 
-      // currentGroup: 0,
       currentDate: null,
       lastURL: null,
       
       bLogedIn: false,
       token: null,
       push: null,
-      // admobid: {}
     };
   },
   // App root methods
@@ -240,36 +220,6 @@ var app  = new Framework7({
       }); //*/
       
       /*
-      var virtualList = app.virtualList.create({
-        // List Element
-        el: '.virtual-list',
-        // Pass array with items
-        items: items,
-        // Custom search function for searchbar
-        searchAll: function (query, items) {
-          var found = [];
-          for (var i = 0; i < items.length; i++) {
-            if (items[i].nama.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-          }
-          return found; //return array with mathced indexes
-        },
-        // List item Template7 template
-        itemTemplate:
-          '<li><input type="hidden" value="{{kdbar}}">' +
-            '<a href="#" class="item-link item-content item-basket">' +
-              '<div class="item-media"><img class="material-icons" src="img/stock.png" /></div>' +
-              '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                  '<div class="item-title">{{nama}}</div>' +
-                '</div>' +
-                //'<div class="item-subtitle">{{subtitle}}</div>' +
-              '</div>' +
-              '<div class="item-after">Rp{{hjual}}<br>{{saldo}} {{satuan}}</div>' +
-            '</a>' +
-          '</li>',
-        // Item height
-        //height: app.theme === 'ios' ? 63 : 73,
-      });
 
       $$('.item-basket').on('click', function () {
         var li = $$(this).parents("li");
@@ -347,19 +297,6 @@ var app  = new Framework7({
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
-
-// var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
-//     speed: 400,
-//     slidesPerView: 3,
-//     loop: true,
-//     //autoHeight: true,
-//     // shortSwipes: false,
-//     // longSwipes: false,
-//     //effect:'fade'
-//     //spaceBetween: 100
-// });
-
-// swiper.autoplay.start();
 
 // $$('.barcode-scan1').on('click', function () {
      

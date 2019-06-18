@@ -1,243 +1,243 @@
 <template>
-<div data-page="tabs-swipeable" class="page toolbar-fixed">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="left"><a href="#" class="back link icon-only"><i class="icon icon-back"></i></a></div>
-      <div class="center">Checkout</div>
-      <div class="right"><a href="#" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>
+  <div data-page="tabs-swipeable" class="page toolbar-fixed">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="left"><a href="#" class="back link icon-only"><i class="icon icon-back"></i></a></div>
+        <div class="center">Checkout</div>
+        <div class="right"><a href="#" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>
+      </div>
     </div>
-  </div>
-  <div class="toolbar tabbar">
-    <div class="toolbar-inner">
-      <a href="#tab1" class="active tab-link checkout">Address</a>
-      <a href="#tab2" class="tab-link checkout">Delivery</a>
-      <a href="#tab3" class="tab-link checkout">Order Detail</a></div>
-  </div>
-  <div class="tabs-swipeable-wrap">
-    <div class="tabs">
-      <div id="tab1" class="page-content tab active">
-        <div class="content-block">
-          <div class="block">
-            <div class="list no-hairlines-md">
-              <ul>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">First Name</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="first_name" name="first_name" placeholder="First Name"/>
+    <div class="toolbar tabbar">
+      <div class="toolbar-inner">
+        <a href="#tab1" class="active tab-link checkout">Address</a>
+        <a href="#tab2" class="tab-link checkout">Delivery</a>
+        <a href="#tab3" class="tab-link checkout">Order Detail</a></div>
+    </div>
+    <div class="tabs-swipeable-wrap">
+      <div class="tabs">
+        <div id="tab1" class="page-content tab active">
+          <div class="content-block">
+            <div class="block">
+              <div class="list no-hairlines-md">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">First Name</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="first_name" name="first_name" placeholder="First Name"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Last Name</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="last_name" name="last_name" placeholder="Last Name"/>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Last Name</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="last_name" name="last_name" placeholder="Last Name"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Company</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="company" name="company" placeholder="Company"/>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Company</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="company" name="company" placeholder="Company"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Address</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="address" name="address" placeholder="Address"/>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Address</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="address" name="address" placeholder="Address"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Province</div>
-                    <div class="item-input-wrap">
-                      <select id="province" name="province">
-                        <option value="" selected>-</option>
-                        <option value="1">BALI</option>
-                        <option value="2">BANGKA BELITUNG</option>
-                        <option value="3">BANTEN</option>
-                        <option value="4">BENGKULU</option>
-                        <option value="5">DI YOGYAKARTA</option>
-                        <option value="6">DKI JAKARTA</option>
-                        <option value="7">GORONTALO</option>
-                        <option value="8">JAMBI</option>
-                        <option value="9">JAWA BARAT</option>
-                        <option value="10">JAWA TENGAH</option>
-                        <option value="11">JAWA TIMUR</option>
-                        <option value="12">KALIMANTAN BARAT</option>
-                        <option value="13">KALIMANTAN SELATAN</option>
-                        <option value="14">KALIMANTAN TENGAH</option>
-                        <option value="15">KALIMANTAN TIMUR</option>
-                        <option value="16">KALIMANTAN UTARA</option>
-                        <option value="17">KEPULAUAN RIAU</option>
-                        <option value="18">LAMPUNG</option>
-                        <option value="19">MALUKU</option>
-                        <option value="20">MALUKU UTARA</option>
-                        <option value="21">NANGGROE ACEH DARUSSALAM (NAD)</option>
-                        <option value="22">NUSA TENGGARA BARAT (NTB)</option>
-                        <option value="23">NUSA TENGGARA TIMUR (NTT)</option>
-                        <option value="24">PAPUA</option>
-                        <option value="25">PAPUA BARAT</option>
-                        <option value="26">RIAU</option>
-                        <option value="27">SULAWESI BARAT</option>
-                        <option value="28">SULAWESI SELATAN</option>
-                        <option value="29">SULAWESI TENGAH</option>
-                        <option value="30">SULAWESI TENGGARA</option>
-                        <option value="31">SULAWESI UTARA</option>
-                        <option value="32">SUMATERA BARAT</option>
-                        <option value="33">SUMATERA SELATAN</option>
-                        <option value="34">SUMATERA UTARA</option>
-                      </select>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Province</div>
+                      <div class="item-input-wrap">
+                        <select id="province" name="province">
+                          <option value="" selected>-</option>
+                          <option value="1">BALI</option>
+                          <option value="2">BANGKA BELITUNG</option>
+                          <option value="3">BANTEN</option>
+                          <option value="4">BENGKULU</option>
+                          <option value="5">DI YOGYAKARTA</option>
+                          <option value="6">DKI JAKARTA</option>
+                          <option value="7">GORONTALO</option>
+                          <option value="8">JAMBI</option>
+                          <option value="9">JAWA BARAT</option>
+                          <option value="10">JAWA TENGAH</option>
+                          <option value="11">JAWA TIMUR</option>
+                          <option value="12">KALIMANTAN BARAT</option>
+                          <option value="13">KALIMANTAN SELATAN</option>
+                          <option value="14">KALIMANTAN TENGAH</option>
+                          <option value="15">KALIMANTAN TIMUR</option>
+                          <option value="16">KALIMANTAN UTARA</option>
+                          <option value="17">KEPULAUAN RIAU</option>
+                          <option value="18">LAMPUNG</option>
+                          <option value="19">MALUKU</option>
+                          <option value="20">MALUKU UTARA</option>
+                          <option value="21">NANGGROE ACEH DARUSSALAM (NAD)</option>
+                          <option value="22">NUSA TENGGARA BARAT (NTB)</option>
+                          <option value="23">NUSA TENGGARA TIMUR (NTT)</option>
+                          <option value="24">PAPUA</option>
+                          <option value="25">PAPUA BARAT</option>
+                          <option value="26">RIAU</option>
+                          <option value="27">SULAWESI BARAT</option>
+                          <option value="28">SULAWESI SELATAN</option>
+                          <option value="29">SULAWESI TENGAH</option>
+                          <option value="30">SULAWESI TENGGARA</option>
+                          <option value="31">SULAWESI UTARA</option>
+                          <option value="32">SUMATERA BARAT</option>
+                          <option value="33">SUMATERA SELATAN</option>
+                          <option value="34">SUMATERA UTARA</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Regency</div>
-                    <div class="item-input-wrap">
-                      <select id="regency" name="regency">
-                      </select>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Regency</div>
+                      <div class="item-input-wrap">
+                        <select id="regency" name="regency">
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">District</div>
-                    <div class="item-input-wrap">
-                      <select id="district" name="district">
-                      </select>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">District</div>
+                      <div class="item-input-wrap">
+                        <select id="district" name="district">
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Post Code</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="post_code" name="post_code" placeholder="Post code" autocomplete="off" onkeypress="return isNumber(event)"/>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Post Code</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="post_code" name="post_code" placeholder="Post code" autocomplete="off" onkeypress="return isNumber(event)"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                              
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Phone</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="phone" name="phone" placeholder="Phone" autocomplete="off" onkeypress="return isNumber(event)"/>
+                  </li>
+                                
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Phone</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="phone" name="phone" placeholder="Phone" autocomplete="off" onkeypress="return isNumber(event)"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <script type="text/javascript">
-										
-                  function isNumber(evt) {
-                    evt = (evt) ? evt : window.event;
-                    var charCode = (evt.which) ? evt.which : evt.keyCode;
-                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                      return false;
+                  </li>
+                  <script type="text/javascript">
+                      
+                    function isNumber(evt) {
+                      evt = (evt) ? evt : window.event;
+                      var charCode = (evt.which) ? evt.which : evt.keyCode;
+                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                      }
+                      return true;
                     }
-                    return true;
-                  }
-                </script>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">E-Mail</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="email" name="email" placeholder="E-Mail" autocomplete="off"/>
+                  </script>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">E-Mail</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="email" name="email" placeholder="E-Mail" autocomplete="off"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Note</div>
-                    <div class="item-input-wrap">
-                      <input type="text" id="note" name="note" placeholder="Note" autocomplete="off"/>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Note</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="note" name="note" placeholder="Note" autocomplete="off"/>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="tab2" class="page-content tab">
-        <div class="content-block">
-          <div class="block">
-            <div class="list no-hairlines-md">
-              <ul>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Carrier</div>
-                    <div class="item-input-wrap">
-                      <select id="carrier" name="carrier">
-                      </select>
-                    </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Package</div>
-                    <div class="item-input-wrap">
-                      <select id="package" name="package">
-                      </select>
-                    </div>
-                  </div>
-                </li>
-              <ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="tab3" class="page-content tab">
-        <!-- <div class="content-block">
-          <div class="block"> -->
-              <div class="card data-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <input type="hidden" name="kode" value="{{this.kdbar}}">
-                      <input type="hidden" name="qty" value="{{this.qty}}">
-                      <input type="hidden" name="harga" value="{{this.harga}}">
-                      <th class="label-cell">Product</th>
-                      <th class="numeric-cell">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each data}}
-                    <tr>
-                      <td class="label-cell">{{this.nama}}</td>
-                      <td class="numeric-cell">{{this.hargaf}}</td>
-                    </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-                <div class="card-footer">
-                  <div class="product-name">Subtotal</div>
-                  <div class="product-price">{{$root.total.toLocaleString('ID')}}</div>
-                </div>
-                <div class="card-footer">
-                  <div class="product-name">Tax</div>
-                  <div class="product-price">{{$root.tax.toLocaleString('ID')}}</div>
-                </div>
-                <div class="card-footer">
-                  <div class="product-name">Shipping</div>
-                  <div class="product-price">{{$root.shipcost.toLocaleString('ID')}}</div>
-                </div>
-                <div class="card-footer">
-                  <div class="product-name">Total</div>
-                  <div class="product-price">{{$root.gtotal.toLocaleString('ID')}}</div>
-                </div>
+                  </li>
+                </ul>
               </div>
-          <!-- </div>
-        </div> -->
-        <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-pay">Pay</a></div>
+            </div>
+          </div>
+        </div>
+        <div id="tab2" class="page-content tab">
+          <div class="content-block">
+            <div class="block">
+              <div class="list no-hairlines-md">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Carrier</div>
+                      <div class="item-input-wrap">
+                        <select id="carrier" name="carrier">
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Package</div>
+                      <div class="item-input-wrap">
+                        <select id="package" name="package">
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                <ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab3" class="page-content tab">
+          <!-- <div class="content-block">
+            <div class="block"> -->
+                <div class="card data-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <input type="hidden" name="kode" value="{{this.kdbar}}">
+                        <input type="hidden" name="qty" value="{{this.qty}}">
+                        <input type="hidden" name="harga" value="{{this.harga}}">
+                        <th class="label-cell">Product</th>
+                        <th class="numeric-cell">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each data}}
+                      <tr>
+                        <td class="label-cell">{{this.nama}}</td>
+                        <td class="numeric-cell">{{this.hargaf}}</td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                  <div class="card-footer">
+                    <div class="product-name">Subtotal</div>
+                    <div class="product-price">{{$root.total.toLocaleString('ID')}}</div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="product-name">Tax</div>
+                    <div class="product-price">{{$root.tax.toLocaleString('ID')}}</div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="product-name">Shipping</div>
+                    <div class="product-price">{{$root.shipcost.toLocaleString('ID')}}</div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="product-name">Total</div>
+                    <div class="product-price">{{$root.gtotal.toLocaleString('ID')}}</div>
+                  </div>
+                </div>
+            <!-- </div>
+          </div> -->
+          <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-pay">Pay</a></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <form id="payment-form" method="post" action="http://localhost/askitchenweb/api/v1/snap/finish">

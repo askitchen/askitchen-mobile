@@ -15,9 +15,10 @@
     <div class="page-content">
         
       {{#each data}}
-      <div class="card item-detail">
-          <div style="background-image:url(https://askitchen.com/upload/gambar/{{this.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
-          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div>
+      <div class="card item-cart">
+          <!-- <div style="background-image:url(https://askitchen.com/upload/gambar/{{this.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
+          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div> -->
+          <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <input type="hidden" class="item-code" value="{{this.kdbar}}" />
           <input type="hidden" class="item-qty"  value="{{this.qty}}" />
           <!-- <input type="hidden" class="item-name"  value="{{this.nama}}" />
@@ -26,14 +27,16 @@
           
           <div class="card-footer">
             <div class="product-name">{{this.nama}}</div>
+            <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
           </div>
           <div class="card-footer">
+            <div></div>
             <div class="product-price">Rp{{this.hargaf}}</div>
-            <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons product-detail">delete</i></a></div>
           </div>
       </div>
       {{/each}}
 
+      {{#js_if "app.data.total > 0"}}
       <div class="card">
         <div class="card-footer">
           <div class="product-name">Total:</div>
@@ -44,6 +47,7 @@
             <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
         </div>
       </div>
+      {{/js_if}}
     </div>
   </div>
 </template>
@@ -75,7 +79,7 @@
         $$('.btn-delete').on('click', function (e) {
           // app.dialog.alert('Delete item!');
 
-          var card  = $$(this).parents('.item-detail');
+          var card  = $$(this).parents('.item-cart');
           var kode  = card.find('.item-code').val();
           var qty   = card.find('.item-qty').val();
           // console.log('remove item '+ kode);
@@ -88,7 +92,14 @@
 
           app.request.post("http://localhost/askitchenweb/api/v1/cart/remove", formData, function(res) {
               
-            var data = JSON.parse(res);
+            // var data = JSON.parse(res);
+            // console.log(card);
+            card.remove();
+
+            app.router.navigate('/cart/', {
+              reloadCurrent: true,
+              ignoreCache: true,
+            });
           });
         });
           

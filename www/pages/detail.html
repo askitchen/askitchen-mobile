@@ -11,8 +11,8 @@
         <div class="title">{{data.nama}}</div>
         <div class="right">
           <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
-            <i class="icon f7-icons ios-only">shopping_cart</i>
-            <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
+            <i class="icon f7-icons ios-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
+            <i class="icon material-icons md-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
           </a>
         </div>
       </div>
@@ -23,9 +23,9 @@
         <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init swiper-detail">
           <div class="swiper-pagination detail"></div>
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
-            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
-            <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+            <div class="swiper-slide"><img class="lazy product" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+            <div class="swiper-slide"><img class="lazy product" src="https://askitchen.com/upload/gambar/{{#if data.gambar2}}{{data.gambar2}}{{else}}{{data.gambar}}{{/if}}" /></div>
+            <div class="swiper-slide"><img class="lazy product" src="https://askitchen.com/upload/gambar/{{#if data.gambar3}}{{data.gambar3}}{{else}}{{data.gambar}}{{/if}}" /></div>
           </div>
         </div>
       </div>
@@ -40,15 +40,18 @@
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
         <input type="hidden" class="item-qty"     value="1">
         
-        <input type="hidden" id="maxqty" value="">
+        <input type="hidden" id="maxqty" value="{{data.stok}}">
         <input type="hidden" id="minqty" value="">
 
         <div class="card-footer detail">
           <div class="product-name">{{data.nama}}</div>
+          <div class="stock-avail">Stock Available</div>
         </div>
         <div class="card-footer detail">
           <div class="product-price">Rp{{data.hjualf}}</div>
-          <div class="product-price"><a href="#" class="button-add">Add To Cart</a></div>
+          <div class="product-price">
+            <a href="#" class="button-add"><img src="img/cart.png" class="cart-img" /><span class="cart-label">Add To Cart</span></a>
+          </div>
           <!-- <div class="delete"><a href="#" class="link icon-only"><i class="material-icons product-detail">delete</i></a></div> -->
         </div>
         {{#if data.pnj}}
@@ -71,13 +74,11 @@
       
       <div class="block">
         <div class="block-title detail">Reviews</div>
-        <div class="">{{data.deskripsi}}</div>
+        <div class=""></div>
       </div>
     
       <div class="block">
         <div class="block-title detail">Related Products</div>
-        <!-- <div class="">{{data.deskripsi}}</div>
-        <div class="block-title">3 Slides Per View, 10px Between</div> -->
         <div data-space-between="10" data-slides-per-view="3" class="swiper-container swiper-init swiper-related">
           <!-- <div class="swiper-pagination"></div> -->
           <div class="swiper-wrapper">
@@ -111,6 +112,24 @@
   return {
     // Page Events
     on: {
+      
+      // pageBeforeIn: function (event, page) {
+        
+      //   app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+          
+      //     var data = JSON.parse(res);
+
+      //     if (data.status)
+      //     {
+      //       app.data.total_items = data.totqty;
+      //       // $$('.badge').text(app.data.total_items);
+      //     }
+      //   });
+        
+      //   // if (app.data.total_items > 0)
+      //     $$('.badge').text(app.data.total_items);
+      // },
+
       pageInit: function(e, page) {
         
         $$('.page-content').on('scroll', function (e) {
@@ -128,72 +147,65 @@
 
         $$('.button-add').on('click', function (e) {
           
-          app.dialog.alert('Add to cart!');
-          
-          // if (!app.data.bLogedIn) {
-          //   app.router.navigate('/login/', {
-          //     reloadCurrent: true,
-          //     ignoreCache: true,
-          //   });
-          // }
-        });
-          
-        $$('.btn-cart').on('click', function (e) {
-          
-          // app.dialog.alert('Add to cart!');
-          // if (!app.data.bLogedIn) {
-          //   app.router.navigate('/login/', {
-          //     reloadCurrent: true,
-          //     ignoreCache: true,
-          //   });
-          // }
-          
-          // $$('.badge').text('10');
-          // app.dialog.alert($$('.badge').text())
-          // return;
-          
-          // var db = app.data.db;
-          // if (db) {
-            var card  = $$('.item-detail');
-            var kode  = card.find('.item-code').val();
-            var qty   = card.find('.item-qty').val();
-            // var nama  = card.find('.item-name').val();
-            // var gambar= card.find('.item-picture').val();
-            // var harga = card.find('.item-price').val();
+          if (!app.data.bLogedIn) {
             
-            // db.transaction(function(tx) {
+            // app.data.lastURL = app.views.main.router.url;
+            // console.log('Current url: ' + app.views.main.router.url)
+
+            app.router.navigate('/login/', {
+              reloadCurrent: true,
+              ignoreCache: true,
+            });
+            return;
+          }
+          
+          var card  = $$('.item-detail');
+          var kode  = card.find('.item-code').val();
+          var qty   = card.find('.item-qty').val();
+          
+          var formData = [];
+
+          formData.kode = kode;
+          formData.qty  = qty;
+          // formData.Authorization = app.data.token;
+
+          app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
               
-              // save to local db
-              // tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
+            var data = JSON.parse(res);
+            
+            // console.log('return data: '+res)
 
-              var formData = [];
+            if (data.status)
+            {
+              // console.log('request success!')
 
-              formData.kode = kode;
-              formData.qty  = qty;
-              // formData.Authorization = app.data.token;
+              if (app.data.total_items == 0) {
+                // reload
+                app.router.navigate(app.views.main.router.url, {
+                  reloadCurrent: true,
+                  ignoreCache: true,
+                });
+              
+              } else {
 
-              app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+                app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+                      
+                  var data = JSON.parse(res);
                   
-                var data = JSON.parse(res);
-                
-                // console.log('return data: '+res)
+                  if (data.status)
+                  {
+                    app.data.total_items = data.totqty;
+                    $$('.badge').text(data.totqty);
+                  }
+                });
+              }
+            }
+            else
+            {
+              // show error message
+            }
+          });
 
-                if (data.status)
-                {
-                  app.data.total_items = data.totqty;
-                  $$('.badge').text(data.totqty);
-                }
-                else
-                {
-                  // 
-                }
-              });
-            // }, function(error) {
-            //   app.dialog.alert('INSERT error: ' + error.message);
-            // }, function() {
-            //   // console.log('Sukses!.');
-            // });
-          // }
         });
           
         $$('.btn-wish').on('click', function (e) {
@@ -205,6 +217,7 @@
           //     ignoreCache: true,
           //   });
           // }
+
           var card  = $$('.item-detail');
           var kdbar = card.find('.item-code').val();
           var nama  = card.find('.item-name').val();
@@ -221,11 +234,6 @@
           
           var db = app.data.db;
           if (db) {
-            var card  = $$('.item-detail');
-            var kdbar = card.find('.item-code').val();
-            var nama  = card.find('.item-name').val();
-            var gambar= card.find('.item-picture').val();
-            var harga = card.find('.item-price').val();
             
             db.transaction(function(tx) {
 

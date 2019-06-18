@@ -42,75 +42,6 @@ routes = [
   {
     path: '/login/',
     componentUrl: './pages/login.html',
-    // on: {
-    //   pageInit: function (event, page) {
-        
-    //     $$('i.icon.icon-back').on('click', function () {
-    //       // app.dialog.alert('Tes.', 'Login');
-    //       var view = app.views.current;
-    //       view.router.back(view.history[0], { force: true });
-    //     });
-
-    //     $$('.login-button').on('click', function () {
-          
-    //       var email = $$('input [name="email"]').val();
-    //       if (email == '') {
-    //           app.dialog.alert('Masukkan alamat email anda.', 'Login');
-    //           return;
-    //       }
-        
-    //       var password = $$('input [name="password"]').val();
-    //       if (password == '') {
-    //           app.dialog.alert('Masukkan password anda.', 'Login');
-    //           return;
-    //       }
-          
-    //       app.preloader.show();
-        
-    //       var formData = app.form.convertToData('.login-form');
-        
-    //       // var regId = localStorage.getItem('RegId');
-    //       // formData.gcmid = regId;
-        
-          
-    //       // http://localhost/
-    //       app.request.post('http://localhost/askitchenweb/api/v1/auth/login', formData, function (res) {
-            
-    //         app.preloader.hide();
-            
-    //         var data = JSON.parse(res);
-        
-    //         if (data.status) {
-            
-    //           localStorage.setItem('email', email);
-    //           localStorage.setItem('password', password);
-              
-    //           app.data.bLogedIn = true;
-    //           app.data.mbrid = data.mbrid;
-    //           app.data.email = email;
-    //           app.data.pwd   = password;
-    //           app.data.token = data.token;
-              
-    //           // kosongkan isian nomor pin
-    //           $$('input [name="password"]').val('');
-        
-    //           // app.loginScreen.close('#my-login-screen');
-    //           if (app.data.lastURL) {
-                
-    //             app.router.navigate(app.data.lastURL, {
-    //               reloadCurrent: true,
-    //               ignoreCache: true,
-    //             });
-    //           }
-        
-    //         } else {
-    //           app.dialog.alert(data.message, 'Login');
-    //         }
-    //       });
-    //     });
-        
-    //   }
-    // }
   },
   {
     path: '/register/',
@@ -211,7 +142,6 @@ routes = [
         
   {
     path: '/cart/',
-    // componentUrl: './pages/cart.html',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -259,34 +189,30 @@ routes = [
     },
   },
   {
+    path: '/settings/',
+    url: './pages/settings.html',
+  },
+  {
     path: '/profile/',
     url: './pages/profile.html',
     on: {
       
       pageInit: function (event, page) {
         
-        var db = app.data.db;
-        // $$('#nama').val('NAMA USAHA');
+        app.request.getJSON("http://localhost/askitchenweb/api/v1/member/"+app.data.mbrid, function(res) {
+                    
+          $$('#first_name').val(res.data.first_name);
+          $$('#last_name').val(res.data.last_name);
+          $$('#alamat').val(res.data.address);
+          $$('#email').val(res.data.email);  
+          $$('#telepon').val(res.data.phone);  
 
-        if (db) {
-          //app.dialog.alert('db not initialized!');
-          db.transaction(function(tx) {
-            tx.executeSql('select nama, alamat, kota, kodepos, telepon, fax, email, npwp from setup;',
-            [], function(ignored, res) {
-              $$('#nama').val(res.rows.item(0).nama);  
-              $$('#alamat').val(res.rows.item(0).alamat);  
-              $$('#kota').val(res.rows.item(0).kota);  
-              $$('#kodepos').val(res.rows.item(0).kodepos);  
-              $$('#telepon').val(res.rows.item(0).telepon);  
-              $$('#fax').val(res.rows.item(0).fax);  
-              $$('#email').val(res.rows.item(0).email);  
-              $$('#npwp').val(res.rows.item(0).npwp);              
-            });
-          }, function(error) {
-            app.dialog.alert('insert error: ' + error.message);
-          });      
-        }
-        
+          // $$('#kota').val(res.data.kota);
+          // $$('#kodepos').val(res.data.kodepos);
+          // $$('#fax').val(res.data.fax);
+          // $$('#npwp').val(res.data.npwp);
+        });
+       
         $$('.take-photo').on('click', function () {
           
           app.dialog.alert('Take photo!')
@@ -317,37 +243,26 @@ routes = [
 
         $$('.btnSimpan').on('click', function () {
           
-          var nama = $$('#nama').val();
+          var nama_dpn = $$('#first_name').val();
           
           // validasi input
           if (nama === "") {
-            app.dialog.alert("Masukkan nama perusahaan.","Profil Perusahaan");
-            $$('.page-content').scrollTop($$('#nama').offset().top);
+            app.dialog.alert("Masukkan nama depan.","Profil");
+            $$('.page-content').scrollTop($$('#first_name').offset().top);
             //$$('#nama').focus();
             return;
           }
 
+          var nama_blk = $$('#last_name').val();
+
           var alamat = $$('alamat').val();
-          var kota = $$('#kota').val();
-          var kodepos = $$('#kodepos').val();
-          var telepon = $$('#telepon').val();
-          var fax = $$('#fax').val();
           var email = $$('#email').val();
-          var npwp = $$('#npwp').val();
-
-          var db = app.data.db;
+          var telepon = $$('#telepon').val();
           
-          // app.dialog.alert(nama, 'Profil Perusahaan');
-
-          if (db) {
-            db.transaction(function(tx) {
-              tx.executeSql('update setup set nama = ?, alamat = ?, kota = ?, kodepos = ?, ' +
-              'telepon = ?, fax = ?, email = ?, npwp = ?;',
-              [nama, alamat, kota, kodepos, telepon, fax, email, npwp]);
-            }, function(error) {
-              app.dialog.alert('insert error: ' + error.message);
-            });      
-          }
+          // var kota = $$('#kota').val();
+          // var kodepos = $$('#kodepos').val();
+          // var fax = $$('#fax').val();
+          // var npwp = $$('#npwp').val();
           
         });
       }
@@ -495,7 +410,6 @@ routes = [
       app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
       // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
-        console.log('detail:'+res.data.kdbar)
         app.preloader.hide();
 
         resolve(
@@ -504,24 +418,6 @@ routes = [
         );
       });
     },
-    on: {
-      pageBeforeIn: function (event, page) {
-        
-        app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
-          
-          var data = JSON.parse(res);
-          
-          if (data.status)
-          {
-            app.data.total_items = data.totqty;
-            $$('.badge').text(app.data.total_items);
-          }
-        });
-        
-        // if (app.data.total_items > 0)
-        //   $$('.badge').text(app.data.total_items);
-      }
-    }
   },
   {
     path: '/checkout/',

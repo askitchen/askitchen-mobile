@@ -17,9 +17,9 @@
                 <i class="icon f7-icons ios-only">chat</i>
                 <i class="icon material-icons md-only">chat</i>
               </a>
-              <a href="/cart/" data-view=".view-main" class="link icon-only ac-more1">
-                <i class="icon f7-icons ios-only">shopping_cart<span class="badge color-red"></span></i>
-                <i class="icon material-icons md-only">shopping_cart<!--<span class="badge color-red"></span>--></i>
+              <a href="/cart/" data-view=".view-main" class="link icon-only">
+                <i class="icon f7-icons ios-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
+                <i class="icon material-icons md-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
               </a>
               <a href="#" class="link icon-only panel-open" data-panel="right">
                 <i class="icon f7-icons ios-only">more_vert</i>
@@ -86,9 +86,21 @@
     // Page Events
     on: {
       pageBeforeIn: function (event, page) {
-                
-        // if (app.data.total_items > 0)
-        //   $$('.badge').text(app.data.total_items);
+        
+        if (app.data.bLogedIn) {
+
+          app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+                    
+            var data = JSON.parse(res);
+            
+            if (data.status)
+            {
+              app.data.total_items = data.totqty;
+            }
+          });
+        }
+
+        $$('.badge').text(app.data.total_items);
       },
               
       pageInit: function(e, page) {

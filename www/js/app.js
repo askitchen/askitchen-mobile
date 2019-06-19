@@ -89,76 +89,6 @@ var app  = new Framework7({
       app.data.gtotal = app.data.total;
       $$('.gtotal').text(app.data.gtotal.toLocaleString('ID'));
     },
-    findItem: function(kode, ctx) {
-
-      var db = app.data.db;
-      
-      if (db) {
-        db.transaction(function(tx) {
-          tx.executeSql('select kdbar, mstock from stock where kdbar = ?;', [kode], function(ignored, res) {
-
-            if (res.rows.length > 0) {
-              if (ctx == 1) {
-                addSalesItem(kode);
-              } else {
-                addPurchaseItem(kode);
-              }
-            }
-          });
-        }, function(error) {
-          app.dialog.alert('select error: ' + error.message);
-        });
-      }
-    },
-    addSalesItem: function(kode) {
-      
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      // console.log('found: ', found)
-      var found2 = details.filter(cekKode);
-      // console.log('found2: ', found2)
-
-      if (found2.length) {
-        found2[0].qty++;
-        // found2[0].jumlah = found2[0].qty * found2[0].hjual;
-      } else
-      {
-        details.push({ kdbar: found[0].kdbar,
-                                nama: found[0].nama,
-                                qty: 1,
-                                hpokok: found[0].hpokok2,
-                                hjual: found[0].hjual,
-                                disc: 0,
-                                discrp: 0.0,
-                                net: 0.0,
-                                jumlah: found[0].hjual })
-        // console.log(details)
-      }
-      
-      // hitung total
-      app.methods.calcTotal();
-
-    },
-    decSalesItem: function(kode) {
-      
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      // console.log('found: ', found)
-      var found2 = details.filter(cekKode);
-      // console.log('found2: ', found2)
-
-      if (found2.length) {
-        found2[0].qty--;
-        // found2[0].jumlah = found2[0].qty * found2[0].hjual;
-      }
-      app.methods.calcTotal();
-    },
   },
   on: {
 
@@ -219,18 +149,6 @@ var app  = new Framework7({
         console.log(err);
       }); //*/
       
-      /*
-
-      $$('.item-basket').on('click', function () {
-        var li = $$(this).parents("li");
-        var kode = li.find('input').val();
-        // console.log(kode)
-        app.methods.addSalesItem(kode)
-        // app.dialog.alert('Tes')
-      });//*/
-      
-      // $$('#my-login-screen [name="mbrid"]').val(localStorage.getItem('mbrid'));
-      // $$('#my-login-screen [name="nohp"]').val(localStorage.getItem('nohp'));
 
       /*
       this.data.push = PushNotification.init({
@@ -329,56 +247,6 @@ var mainView = app.views.create('.view-main', {
 //   );
 // });
 
-var ac_more = app.actions.create({
-  grid: true,
-  buttons: [
-    [
-      {
-        text: 'Pending',
-        icon: '<img src="img/histori.png" width="42"/>',
-        onClick: function () {
-          app.dialog.alert('Pending clicked')
-        }
-      },
-      {
-        text: 'Load Pending',
-        icon: '<img src="img/histori.png" width="42"/>',
-        onClick: function () {
-          app.dialog.alert('Load pending clicked')
-        }
-      },
-      {
-        text: 'Bayar',
-        icon: '<img src="img/payment.png" width="42">',
-        onClick: function () {
-          app.dialog.alert('Bayar clicked')
-        }
-      },
-    ],
-    [
-      {
-        text: 'Batal',
-        icon: '<img src="img/cancel.png" width="42"/>',
-        onClick: function () {
-          details = [];
-          app.methods.calcTotal();
-        }
-      },
-      {
-        text: 'Button 2',
-        icon: '<img src="http://lorempixel.com/96/96/fashion/5" width="42">'
-      },
-      {
-        text: 'Button 3',
-        icon: '<img src="http://lorempixel.com/96/96/fashion/6" width="42">'
-      },
-    ]
-  ]
-});
-
-// $$('.ac-more1').on('click', function () {
-//   ac_more.open();
-// });
 
 var ac_share = app.actions.create({
   buttons: [

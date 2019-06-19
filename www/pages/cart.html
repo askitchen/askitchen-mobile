@@ -16,14 +16,11 @@
         
       {{#each data}}
       <div class="card item-cart">
-          <!-- <div style="background-image:url(https://askitchen.com/upload/gambar/{{this.gambar}}); width: 70%; height: 200px; margin: 0 auto;  background-size: cover;
-          background-position: center; background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border">{{this.kdbar}}</div> -->
           <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <input type="hidden" class="item-code" value="{{this.kdbar}}" />
           <input type="hidden" class="item-qty"  value="{{this.qty}}" />
           <!-- <input type="hidden" class="item-name"  value="{{this.nama}}" />
-          <input type="hidden" class="item-price" value="{{this.hjual}}" />
-          <input type="hidden" class="last-value" value="" /> -->
+          <input type="hidden" class="item-price" value="{{this.hjual}}" /> -->
           
           <div class="card-footer">
             <div class="product-name">{{this.nama}}</div>
@@ -43,8 +40,7 @@
           <div class="product-price">Rp{{$root.total.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
-          <!-- <div class="content-block"> -->
-            <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
+          <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
         </div>
       </div>
       {{/js_if}}
@@ -77,7 +73,6 @@
       pageInit: function(e, page) {
         
         $$('.btn-delete').on('click', function (e) {
-          // app.dialog.alert('Delete item!');
 
           var card  = $$(this).parents('.item-cart');
           var kode  = card.find('.item-code').val();
@@ -92,8 +87,9 @@
 
           app.request.post("http://localhost/askitchenweb/api/v1/cart/remove", formData, function(res) {
               
-            // var data = JSON.parse(res);
-            // console.log(card);
+            var data = JSON.parse(res);
+            app.data.total_items = data.totqty;
+
             card.remove();
 
             app.router.navigate('/cart/', {
@@ -102,39 +98,6 @@
             });
           });
         });
-          
-        // $$('.btn-cart').on('click', function (e) {
-        //   app.dialog.alert('Add to cart!');
-          
-        //   var db = app.data.db;
-        //   if (db) {
-        //     var card  = $$('.item-detail');
-        //     var kdbar = card.find('.item-code').val();
-        //     var nama  = card.find('.item-name').val();
-        //     var gambar= card.find('.item-picture').val();
-        //     var harga = card.find('.item-price').val();
-            
-        //     db.transaction(function(tx) {
-              
-        //       // save to local db
-        //       tx.executeSql('INSERT INTO cart (kdbar, nama, gambar, hjual) VALUES (?,?,?,?)', [kdbar, nama, gambar, harga]);
-
-        //       var formData = [];
-
-        //       formData.kdbar = kdbar;
-        //       formData.Authorization = app.data.token;
-
-        //       app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
-                  
-        //         var data = JSON.parse(res);
-        //       });
-        //     }, function(error) {
-        //       app.dialog.alert('INSERT error: ' + error.message);
-        //     }, function() {
-        //       // console.log('Sukses!.');
-        //     });
-        //   }
-        // });
       }
     }
   }

@@ -18,8 +18,8 @@
                 <i class="icon material-icons md-only">chat</i>
               </a>
               <a href="/cart/" data-view=".view-main" class="link icon-only">
-                <i class="icon f7-icons ios-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
-                <i class="icon material-icons md-only">shopping_cart{{#js_if "app.data.total_items > 0"}}<span class="badge color-red"></span>{{/js_if}}</i>
+                <i class="icon f7-icons ios-only">shopping_cart<span class="badge color-red"></span></i>
+                <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
               </a>
               <a href="#" class="link icon-only panel-open" data-panel="right">
                 <i class="icon f7-icons ios-only">more_vert</i>
@@ -100,7 +100,12 @@
           });
         }
 
-        $$('.badge').text(app.data.total_items);
+        if (app.data.total_items > 0) {
+          $$('.badge').text(app.data.total_items);
+          $$('.badge').css("display", "block");
+        } else {
+          $$('.badge').css("display", "none");
+        }
       },
               
       pageInit: function(e, page) {

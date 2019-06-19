@@ -198,7 +198,74 @@ routes = [
     on: {
       
       pageInit: function (event, page) {
-        
+
+        var ac_photo = app.actions.create({
+          buttons: [
+            {
+              text: 'Gunakan kamera',
+              onClick: function () {
+                    
+                // app.dialog.alert('Camera!');
+                var options = {
+                  quality: 20,
+                  destinationType: destinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.CAMERA,
+                  encodingType: Camera.EncodingType.JPEG,
+                  mediaType: Camera.MediaType.PICTURE,
+                  targetWidth: 320, // 360
+                  targetHeight: 480, // 360
+                  // allowEdit: true,
+                  correctOrientation: true  //Corrects Android orientation quirks
+                  // popoverOptions: CameraPopoverOptions,
+                  // saveToPhotoAlbum: false
+                };
+
+                // update camera image directive
+                navigator.camera.getPicture(function cameraSuccess(imageData) {
+                  $$('#cameraimage').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('#filedata').val(imageData);
+                }, function cameraError(err) {
+                  // console.log('Failed because: ');
+                  app.dialog.alert(err);
+                }, options);
+              }
+            },
+            {
+              text: 'Ambil dari gallery',
+              onClick: function () {
+                    
+                // app.dialog.alert('You choose gallery!');
+                var options = {
+                  quality: 20,
+                  destinationType: destinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                  encodingType: Camera.EncodingType.JPEG,
+                  mediaType: Camera.MediaType.PICTURE,
+                  targetWidth: 320, // 360
+                  targetHeight: 480, // 360
+                  // allowEdit: true,
+                  correctOrientation: true  //Corrects Android orientation quirks
+                  // popoverOptions: CameraPopoverOptions,
+                  // saveToPhotoAlbum: false
+                };
+
+                // update camera image directive
+                navigator.camera.getPicture(function cameraSuccess(imageData) {
+                  $$('#cameraimage').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('#filedata').val(imageData);
+                }, function cameraError(err) {
+                  // console.log('Failed because: ');
+                  app.dialog.alert(err);
+                }, options);
+              }
+            },
+            {
+              text: 'Cancel',
+              color: 'red',
+            },
+          ]
+        });
+      
         app.request.getJSON("http://localhost/askitchenweb/api/v1/member/"+app.data.mbrid, function(res) {
                     
           $$('#first_name').val(res.data.first_name);
@@ -272,10 +339,10 @@ routes = [
     path: '/notifications/',
     componentUrl: './pages/notifications.html',
   },
-  {
-    path: '/wish-list/',
-    componentUrl: './pages/wish-list.html',
-  },
+  // {
+  //   path: '/wish-list/',
+  //   componentUrl: './pages/wish-list.html',
+  // },
   {
     path: '/category/:kode/:nama',
     async: function (routeTo, routeFrom, resolve, reject) {
@@ -292,9 +359,6 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
 
-      // var db = app.data.db;
-      var data = null;
-      
       // app.request.get("http://localhost/askitchenweb/api/v1/category/sample/"+kode, function(res) {
       app.request.get("https://askitchen.com/api/v1/category/sample/"+kode, function(res) {
           
@@ -315,47 +379,43 @@ routes = [
       }
     }
   },
-  {
-    path: '/subcategory/:kode/:nama',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
+  // {
+  //   path: '/subcategory/:kode/:nama',
+  //   async: function (routeTo, routeFrom, resolve, reject) {
+  //     // Router instance
+  //     var router = this;
 
-      // App instance
-      var app = router.app;
+  //     // App instance
+  //     var app = router.app;
 
-      // Show Preloader
-      app.preloader.show();
+  //     // Show Preloader
+  //     app.preloader.show();
 
-      // kode golongan
-      var kode = routeTo.params.kode;
-      var nama = routeTo.params.nama;
-      // console.log('kode: '+kode)
+  //     // kode golongan
+  //     var kode = routeTo.params.kode;
+  //     var nama = routeTo.params.nama;
+  //     // console.log('kode: '+kode)
 
-      // var db = app.data.db;
-      var data = null;
-      
-      // app.request.get("http://localhost/askitchenweb/api/v1/subcategory/sample/"+kode, function(res) {
-      app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
+  //     // app.request.get("http://localhost/askitchenweb/api/v1/subcategory/sample/"+kode, function(res) {
+  //     app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
         
-        var data = JSON.parse(res);
-        // console.log(data)
+  //       var data = JSON.parse(res);
 
-        resolve(
-          { componentUrl: './pages/subcategory.html' },
-          { context: { data: data.data, title: nama } }
-        );
-        app.preloader.hide();
-      });
-    },
-    on: {
-      pageBeforeIn: function (event, page) {
+  //       resolve(
+  //         { componentUrl: './pages/subcategory.html' },
+  //         { context: { data: data.data, title: nama } }
+  //       );
+  //       app.preloader.hide();
+  //     });
+  //   },
+  //   on: {
+  //     pageBeforeIn: function (event, page) {
         
-        if (app.data.total_items > 0)
-          $$('.badge').text(app.data.total_items);
-      }
-    }
-  },
+  //       if (app.data.total_items > 0)
+  //         $$('.badge').text(app.data.total_items);
+  //     }
+  //   }
+  // },
   {
     path: '/product/:kode/:nama',
     async: function (routeTo, routeFrom, resolve, reject) {
@@ -372,13 +432,8 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
 
-      // var db = app.data.db;
-      var data = null;
-      
       app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
       // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode, function(res) {
-          
-        // console.log('products:'+res)
 
         resolve(
           { componentUrl: './pages/product.html' },

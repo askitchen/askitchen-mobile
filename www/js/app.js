@@ -8,8 +8,6 @@ var items   = [];
 
 var bBackPressed = false;
 
-// Framework7.use(Framework7Keypad);
-
 // Framework7 App main instance
 var app  = new Framework7({
   root: '#app', // App root element
@@ -26,8 +24,8 @@ var app  = new Framework7({
   // App root data
   data: function () {
     return {
-      db: null,
-      mbrid: 6, //null,
+      // db: null,
+      mbrid: null,
       email: null,
       pwd: null,
 
@@ -41,7 +39,7 @@ var app  = new Framework7({
       shipcost: 0,
       gtotal: 0,
 
-      currentDate: null,
+      // currentDate: null,
       lastURL: null,
       
       bLogedIn: false,
@@ -51,9 +49,41 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
-    // helloWorld: function () {
-      // app.dialog.alert('Hello World!');
-    // },
+    
+    addItem: function(kode) {
+      
+      function cekKode(xkode) {
+        return xkode.kdbar == kode;
+      }
+      
+      var found = items.filter(cekKode);
+      // console.log('found: ', found)
+
+      if (found.length) {
+        found[0].qty++;
+      } else
+      {
+        items.push({ kdbar: kode, qty: 1 })
+        // console.log(items)
+      }
+      
+      // hitung total
+      // app.methods.calcTotal();
+    },
+    deleteItem: function(kode) {
+      
+      function cekKode(xkode) {
+        return xkode.kdbar == kode;
+      }
+      
+      var found = items.filter(cekKode);
+      // console.log('found: ', found)
+
+      if (found.length) {
+        // found[0].qty--;
+      }
+      // app.methods.calcTotal();
+    },
     calcTotal: function(kode) {
 
       app.data.total = 0;

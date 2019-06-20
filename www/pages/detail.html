@@ -176,8 +176,7 @@
           
           if (!app.data.bLogedIn) {
             
-            // app.data.lastURL = app.views.main.router.url;
-            // console.log('Current url: ' + app.views.main.router.url)
+            app.data.lastURL = app.views.main.router.url;
 
             app.router.navigate('/login/', {
               reloadCurrent: true,
@@ -186,15 +185,17 @@
             return;
           }
 
-          var card  = $$('.item-detail');
-          var kode  = card.find('.item-code').val();
-          var qty   = card.find('.item-qty').val();
+          var page  = $$('.page-current');
+          // var card  = $$('.item-detail');
+          var kode  = page.find('.item-code').val();
+          var qty   = page.find('.item-qty').val();
           
           var formData = [];
 
           formData.kode = kode;
           formData.qty  = qty;
           // formData.Authorization = app.data.token;
+          // app.methods.addItem(kode);
 
           app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
               

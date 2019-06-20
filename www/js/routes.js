@@ -1,7 +1,6 @@
 routes = [
   {
     path: '/',
-    // templateUrl: './pages/home.html',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -47,6 +46,7 @@ routes = [
     path: '/register/',
     url: './pages/register.html',
     on: {
+      
       pageInit: function (event, page) {
         
         $$('i.icon.icon-back').on('click', function () {
@@ -151,6 +151,8 @@ routes = [
 
       if (!app.data.bLogedIn) {
         
+        app.data.lastURL = app.views.main.router.url;
+
         resolve(
           {
             componentUrl: './pages/login.html',
@@ -172,6 +174,7 @@ routes = [
         
         app.data.total  = data.total;
         app.data.gtotal = data.total;
+        // $$('#spangt').text(app.data.gtotal.toLocaleString());
 
         // Resolve route to load page
         resolve(
@@ -501,6 +504,7 @@ routes = [
       // app.request.get("https://askitchen.com/api/v1/cart", function(res) {
           
         var data = JSON.parse(res);
+        
         // console.log(res)
         app.data.total  = data.total;
         app.data.gtotal = data.total;
@@ -512,71 +516,6 @@ routes = [
         app.preloader.hide();
       });
     }
-  },
-  {
-    path: '/histori/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-        
-      if (!app.data.currentDate) {
-      
-        var now = new Date();
-        
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        
-        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-        app.data.currentDate = today;
-      }
-        
-      // console.log('app.data.currentDate: ',app.data.currentDate);
-      
-      var formData = [];
-
-      formData.tgltrx = app.data.currentDate;
-      formData.Authorization = app.data.token;
-      
-      // app.request.post("http://localhost/askitchenweb/api/v1/member/histori", formData, function(res) {
-      app.request.post("https://askitchen.com/api/v1/member/histori", formData, function(res) {
-          
-        var data = JSON.parse(res);
-
-        resolve (
-          { componentUrl: './pages/histori.html' },
-          { context: { data: data } }
-        );
-        app.preloader.hide();
-      });
-    },
-    
-    on: {
-      pageInit: function (event, page) {
-        
-        // console.log('#tgltrx_val: ', $$('#tgltrx').val());
-        $$('#tgltrx').val(app.data.currentDate);
-      
-        $$('#tgltrx').on('change', function(e){
-
-          app.data.currentDate = $$('#tgltrx').val();
-          app.router.navigate('/histori/', {
-            reloadCurrent: true,
-            ignoreCache: true,
-          });
-        });
-      
-      },
-      pageAfterOut: function (event, page) {
-      
-        app.data.currentDate = null;
-      }
-    },
   },
   // Default route (404 page). MUST BE THE LAST
   {

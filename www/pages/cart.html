@@ -16,19 +16,18 @@
         
       {{#each data}}
       <div class="card item-cart">
-          <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
-          <input type="hidden" class="item-code" value="{{this.kdbar}}" />
-          <input type="hidden" class="item-qty"  value="{{this.qty}}" />
-          <!-- <input type="hidden" class="item-name"  value="{{this.nama}}" />
-          <input type="hidden" class="item-price" value="{{this.hjual}}" /> -->
+          <img class="responsive-product lazy" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
+          <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
+          <input type="hidden" class="item-qty"   value="{{qty}}" />
+          <input type="hidden" class="item-price" value="{{harga}}" />
           
           <div class="card-footer">
-            <div class="product-name">{{this.nama}}</div>
-            <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
+            <div class="product-name">{{nama}}</div>
+            <div>x {{qty}}</div>
           </div>
           <div class="card-footer">
-            <div></div>
-            <div class="product-price">Rp{{this.hargaf}}</div>
+            <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
+            <div class="product-price">Rp{{jumlah.toLocaleString('ID')}}</div>
           </div>
       </div>
       {{/each}}
@@ -77,7 +76,6 @@
           var card  = $$(this).parents('.item-cart');
           var kode  = card.find('.item-code').val();
           var qty   = card.find('.item-qty').val();
-          // console.log('remove item '+ kode);
 
           var formData = [];
 

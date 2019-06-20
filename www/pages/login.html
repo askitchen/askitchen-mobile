@@ -97,21 +97,18 @@
             // kosongkan isian nomor pin
             $$('input [name="password"]').val('');
       
-            // app.loginScreen.close('#my-login-screen');
             if (app.data.lastURL) {
-              
-              app.data.lastURL = '';
               
               app.router.navigate(app.data.lastURL, {
                 reloadCurrent: true,
                 ignoreCache: true,
               });
-
-            } else {
+              app.data.lastURL = '';
+            } //else {
               
-              var view = app.views.current;
-              view.router.back(view.history[0], { force: true });
-            }
+            //   var view = app.views.current;
+            //   view.router.back(view.history[0], { force: true });
+            // }
       
           } else {
             app.dialog.alert(data.message, 'Login');

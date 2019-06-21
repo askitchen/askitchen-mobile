@@ -36,10 +36,10 @@
         <input type="hidden" class="item-price"   value="{{data.hjual}}" />
         <input type="hidden" class="item-picture" value="{{data.gambar}}" />
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
-        <input type="hidden" class="item-qty"     value="1">
+        <!-- <input type="hidden" class="item-qty"     value="1"> -->
         
         <input type="hidden" id="maxqty" value="{{data.stok}}">
-        <input type="hidden" id="minqty" value="">
+        <!-- <input type="hidden" id="minqty" value=""> -->
 
         <div class="card-footer detail">
           <div class="product-name">{{data.nama}}</div>
@@ -61,7 +61,7 @@
         <div class="product-size2">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
         {{/if}}
         <div class="product-code2">{{data.kdbar}}</div>
-        <span id="rater" class="rating golden" data-default-rating="3"></span>
+        <!-- <span id="rater" class="rating golden" data-default-rating="3"></span> -->
         <!-- <div class="starbox">
           <i class="f7-icons">star_fill</i>
           <i class="f7-icons">star_fill</i>
@@ -69,6 +69,15 @@
           <i class="f7-icons">star</i>
           <i class="f7-icons">star</i>
         </div> -->
+        <div class="card-footer detail">
+          <div class="stepper stepper-fill stepper-init" data-wraps="false" data-autorepeat="true" data-autorepeat-dynamic="true" data-decimal-point="2" data-manual-input-mode="true">
+            <div class="stepper-button-minus"></div>
+            <div class="stepper-input-wrap">
+              <input class="item-qty" type="text" value="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" min="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" max="{{data.stok}}" step="1">
+            </div>
+            <div class="stepper-button-plus"></div>
+          </div>
+        </div>
       </div>
 
       <div class="block">
@@ -173,7 +182,16 @@
         })
 
         $$('.button-add').on('click', function (e) {
+
+          var page  = $$('.page-current');
+          // var card  = $$('.item-detail');
+          var kode  = page.find('.item-code').val();
+          var qty   = page.find('.item-qty').val();
+
+          var maxVal = parseInt($$('#maxqty').val());
+
           
+          // cek login
           if (!app.data.bLogedIn) {
             
             app.data.lastURL = app.views.main.router.url;
@@ -184,11 +202,35 @@
             });
             return;
           }
+          
 
-          var page  = $$('.page-current');
-          // var card  = $$('.item-detail');
-          var kode  = page.find('.item-code').val();
-          var qty   = page.find('.item-qty').val();
+          var bFound = false;
+
+          for (var i =0; i < items.length; i++)
+          if (items[i].kdbar === kode) {
+            
+            bFound = true;
+
+            if (items[i].qty >= maxVal) {
+              // console.log('item.qty >= maxVal')
+              return;
+            }
+            
+            // var x = parseInt(items[i].qty) + parseInt(qty);
+            
+            if (parseInt(items[i].qty) + parseInt(qty) > maxVal) {
+              // console.log('maxVal: '+ maxVal)
+              // console.log('item.qty + qty > maxVal')
+              return;
+            } else {
+              items[i].qty += parseInt(qty);
+            }
+          }
+
+          if (!bFound) {
+            app.methods.addItem(kode, qty);
+          }
+
           
           var formData = [];
 

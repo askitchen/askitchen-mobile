@@ -16,19 +16,22 @@
         
       {{#each data}}
       <div class="card item-cart">
-          <img class="responsive-product lazy" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
-          <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
-          <input type="hidden" class="item-qty"   value="{{qty}}" />
-          <input type="hidden" class="item-price" value="{{harga}}" />
-          
-          <div class="card-footer">
-            <div class="product-name">{{nama}}</div>
-            <div>x {{qty}}</div>
-          </div>
-          <div class="card-footer">
-            <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
-            <div class="product-price">Rp{{jumlah.toLocaleString('ID')}}</div>
-          </div>
+        <img class="responsive-product lazy" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
+        <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
+        <input type="hidden" class="item-qty"   value="{{qty}}" />
+        <input type="hidden" class="item-price" value="{{harga}}" />
+        
+        <div class="card-footer">
+          <div class="product-name">{{nama}}</div>
+          <div>x {{qty}}</div>
+        </div>
+        <div class="card-footer">
+          <div>@Rp{{hargaf}}</div>
+          <div class="product-price">Rp{{jumlah.toLocaleString('ID')}}</div>
+        </div>
+        <div class="card-footer">
+          <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
+        </div>
       </div>
       {{/each}}
 
@@ -88,12 +91,19 @@
             var data = JSON.parse(res);
             app.data.total_items = data.totqty;
 
+            app.methods.deleteItem(kode);
             card.remove();
 
-            app.router.navigate('/cart/', {
-              reloadCurrent: true,
-              ignoreCache: true,
-            });
+            if (app.data.total_items == 0) { // cart empty - back to home
+              var view = app.views.current;
+              view.router.back(view.history[0], { force: true });
+
+            } else {
+              app.router.navigate('/cart/', {
+                reloadCurrent: true,
+                ignoreCache: true,
+              });
+            }
           });
         });
       }

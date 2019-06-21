@@ -358,7 +358,7 @@ div.block.main {
 .material-icons.remove-item,
 .material-icons.product-detail {
   color: #000; /*55acee;*/
-  line-height: 0;
+  line-height: 1.5;
 }
 
 /*.button {

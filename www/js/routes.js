@@ -148,6 +148,11 @@ routes = [
 
       // App instance
       var app = router.app;
+      
+      if (app.data.total_items == 0) {
+        app.dialog.alert('Keranjang belanja anda masih kosong!');
+        return;
+      }
 
       if (!app.data.bLogedIn) {
         
@@ -317,7 +322,7 @@ routes = [
           
           // validasi input
           if (nama === "") {
-            app.dialog.alert("Masukkan nama depan.","Profil");
+            app.dialog.alert("Masukkan nama depan.");
             $$('.page-content').scrollTop($$('#first_name').offset().top);
             //$$('#nama').focus();
             return;

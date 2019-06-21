@@ -30,7 +30,6 @@ var app  = new Framework7({
       pwd: null,
 
       endpoint: null,
-      context: 1,
 
       total_items: 0, // total item cart
 
@@ -50,21 +49,30 @@ var app  = new Framework7({
   // App root methods
   methods: {
     
-    addItem: function(kode) {
+    // findItem: function(kode) {
       
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      // console.log('found: ', found)
+    //   for (var i =0; i < items.length; i++)
+    //   if (items[i].kdbar === kode) {
+    //     return items[i];
+    //   }
 
-      if (found.length) {
-        found[0].qty++;
-      } else
-      {
-        items.push({ kdbar: kode, qty: 1 })
-        // console.log(items)
+    //   return null;
+    // },
+    addItem: function(kode, qty) {
+      
+      var bFound = false;
+
+      for (var i =0; i < items.length; i++)
+      if (items[i].kdbar === kode) {
+         
+        bFound = true;
+        items[i].qty += parseInt(qty);
+        break;
+      }
+
+      if (!bFound) {
+        items.push({ kdbar: kode, qty: parseInt(qty) })
+        console.log('item pushed to the stack!')
       }
       
       // hitung total
@@ -72,15 +80,10 @@ var app  = new Framework7({
     },
     deleteItem: function(kode) {
       
-      function cekKode(xkode) {
-        return xkode.kdbar == kode;
-      }
-      
-      var found = items.filter(cekKode);
-      // console.log('found: ', found)
-
-      if (found.length) {
-        // found[0].qty--;
+      for (var i =0; i < items.length; i++)
+      if (items[i].kdbar === kode) {
+         items.splice(i,1);
+         break;
       }
       // app.methods.calcTotal();
     },

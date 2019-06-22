@@ -127,6 +127,11 @@ var app  = new Framework7({
 
     init: function () { // sama dengan onDeviceReady
       
+      if (!this.data.bLogedIn) {
+        $$('.member-status').css('display', 'none');
+        $$('.member-edit').css('display', 'none');
+      }
+
       /*
       function copyDatabaseFile(dbName) {
 

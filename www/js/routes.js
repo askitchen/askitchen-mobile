@@ -274,6 +274,7 @@ routes = [
           ]
         });
       
+        // get member detail
         app.request.getJSON("http://localhost/askitchenweb/api/v1/member/"+app.data.mbrid, function(res) {
                     
           $$('#first_name').val(res.data.first_name);
@@ -291,6 +292,8 @@ routes = [
         $$('.take-photo').on('click', function () {
           
           app.dialog.alert('Take photo!')
+            
+          // ac_photo.open();
           
           // var options = {
           //   quality: 50,
@@ -425,7 +428,7 @@ routes = [
   //   }
   // },
   {
-    path: '/product/:kode/:nama',
+    path: '/product/:kode/:nama/:page',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -439,13 +442,25 @@ routes = [
       // kode golongan
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
+      var page = routeTo.params.page;
 
-      app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode, function(res) {
-      // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode, function(res) {
+      app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode+"?p="+page, function(res) {
+      // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
 
+        // total rows
+        var total = res.total;
+        
+        var url = '/product/' + kode + '/' + nama + '/'
+        
+        var total_page = Math.ceil(total/10)
+        var pages = [];
+
+        for (var i=0; i < total_page; i++)
+          pages.push({page : i+1, kode: kode, nama: nama})
+        
         resolve(
           { componentUrl: './pages/product.html' },
-          { context: { data: res.data, title: nama } }
+          { context: { data: res.data, title: nama, pages: pages, total_page: total_page, curr_page: page } }
         );
         app.preloader.hide();
       });
@@ -521,6 +536,18 @@ routes = [
         app.preloader.hide();
       });
     }
+  },
+  {
+    path: '/about-us/',
+    url: './pages/about-us.html',
+  },
+  {
+    path: '/term/',
+    url: './pages/term.html',
+  },
+  {
+    path: '/faq/',
+    url: './pages/faq.html',
   },
   // Default route (404 page). MUST BE THE LAST
   {

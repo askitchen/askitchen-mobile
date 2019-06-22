@@ -38,6 +38,45 @@
           </div>
           {{/each}}
         </div>
+        <div class="data-table-footer">
+          <ul class="pagination">
+            <li>
+              <a href="#" class="link disabled">
+              <i class="icon icon-prev color-gray"></i>
+              </a>
+            </li>
+            {{#js_if 'this.total_page < 10'}}
+              {{#each pages}}
+              <li>
+                {{#js_if 'this.page == this.curr_page'}}
+                <a href="#" class="link disabled">
+                {{else}}
+                <a href="/product/{{kode}}/{{nama}}/{{page}}" class="link">
+                {{/js_if}}
+                <span class="">{{page}}</span>
+                </a>
+              </li>
+              {{/each}}
+            {{else}}
+              {{#each pages}}
+              <li>
+                {{#js_if 'this.page == this.curr_page'}}
+                <a href="#" class="link disabled">
+                {{else}}
+                <a href="/product/{{kode}}/{{nama}}/{{page}}" class="link">
+                {{/js_if}}
+                <span class="">{{page}}</span>
+                </a>
+              </li>
+              {{/each}}
+            {{/js_if}}
+            <li>
+              <a href="#" class="link">
+              <i class="icon icon-next color-gray"></i>
+              </a>
+            </li> Current page: {{curr_page}}
+          </ul>
+        </div>
     </div>
     </div>
   </div>

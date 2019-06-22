@@ -105,6 +105,9 @@
               });
               app.data.lastURL = '';
             } //else {
+            
+            $$('.member-status').css('display', 'block');
+            $$('.member-edit').css('display', 'block');
               
             //   var view = app.views.current;
             //   view.router.back(view.history[0], { force: true });
@@ -114,9 +117,18 @@
             app.dialog.alert(data.message, 'Login');
           }
         });
-
       }
     }
+                
+    // app.request.getJSON("http://localhost/askitchenweb/api/v1/member/" + app.data.mbrid, function(res) {
+    //           $$('#first_name').val(res.first_name);
+    //           $$('#last_name').val(res.last_name);
+    //           $$('#company').val(res.company);
+    //           $$('#address').val(res.address);
+    //           $$('#phone').val(res.phone);
+    //           $$('#email').val(res.email);
+    //         });
+
   }
         
 </script>

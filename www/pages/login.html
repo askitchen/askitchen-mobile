@@ -89,10 +89,11 @@
             localStorage.setItem('password', password);
             
             app.data.bLogedIn = true;
-            app.data.mbrid = data.mbrid;
-            app.data.email = email;
-            app.data.pwd   = password;
-            app.data.token = data.token;
+            app.data.mbrid    = data.mbrid;
+            app.data.email    = email;
+            app.data.pwd      = password;
+            app.data.nama     = data.nama;
+            app.data.token    = data.token;
             
             // kosongkan isian nomor pin
             $$('input [name="password"]').val('');
@@ -106,6 +107,8 @@
               app.data.lastURL = '';
             } //else {
             
+            // tampilkan nama dan status
+            $$('.member-name').text(app.data.nama);
             $$('.member-status').css('display', 'block');
             $$('.member-edit').css('display', 'block');
               

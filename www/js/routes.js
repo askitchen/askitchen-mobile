@@ -277,11 +277,11 @@ routes = [
         // get member detail
         app.request.getJSON("http://localhost/askitchenweb/api/v1/member/"+app.data.mbrid, function(res) {
                     
-          $$('#first_name').val(res.data.first_name);
-          $$('#last_name').val(res.data.last_name);
-          $$('#alamat').val(res.data.address);
-          $$('#email').val(res.data.email);  
-          $$('#telepon').val(res.data.phone);  
+          $$('#first_name').val(res.first_name);
+          $$('#last_name').val(res.last_name);
+          $$('#alamat').val(res.address);
+          $$('#email').val(res.email);  
+          $$('#telepon').val(res.phone);  
 
           // $$('#kota').val(res.data.kota);
           // $$('#kodepos').val(res.data.kodepos);
@@ -324,7 +324,7 @@ routes = [
           var nama_dpn = $$('#first_name').val();
           
           // validasi input
-          if (nama === "") {
+          if (nama_dpn === "") {
             app.dialog.alert("Masukkan nama depan.");
             $$('.page-content').scrollTop($$('#first_name').offset().top);
             //$$('#nama').focus();
@@ -332,15 +332,29 @@ routes = [
           }
 
           var nama_blk = $$('#last_name').val();
-
-          var alamat = $$('alamat').val();
-          var email = $$('#email').val();
-          var telepon = $$('#telepon').val();
+          var alamat   = $$('#alamat').val();
+          var email    = $$('#email').val();
+          var telepon  = $$('#telepon').val();
           
           // var kota = $$('#kota').val();
           // var kodepos = $$('#kodepos').val();
           // var fax = $$('#fax').val();
           // var npwp = $$('#npwp').val();
+          
+          var formData = [];
+          
+          formData.mbrid      = app.data.mbrid;
+          formData.first_name = nama_dpn;
+          formData.last_name  = nama_blk;
+          formData.address    = alamat;
+          formData.email      = email;
+          formData.phone      = telepon;
+          
+          app.request.post('http://localhost/askitchenweb/api/v1/member/edit', formData, function (res) {
+                
+            var view = app.views.current;
+            view.router.back(view.history[0], { force: true });
+          });
           
         });
       }
@@ -443,6 +457,7 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
       var page = routeTo.params.page;
+      var next_page = routeTo.params.page+1;
 
       app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode+"?p="+page, function(res) {
       // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
@@ -460,7 +475,7 @@ routes = [
         
         resolve(
           { componentUrl: './pages/product.html' },
-          { context: { data: res.data, title: nama, pages: pages, total_page: total_page, curr_page: page } }
+          { context: { data: res.data, title: nama, pages: pages, total: total, total_page: total_page, curr_page: page, next_page: next_page } }
         );
         app.preloader.hide();
       });

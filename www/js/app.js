@@ -72,7 +72,6 @@ var app  = new Framework7({
 
       if (!bFound) {
         items.push({ kdbar: kode, qty: parseInt(qty) })
-        console.log('item pushed to the stack!')
       }
       
       // hitung total

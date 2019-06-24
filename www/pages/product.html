@@ -38,18 +38,20 @@
           </div>
           {{/each}}
         </div>
+        {{#js_if 'this.total > 10'}}
         <div class="data-table-footer">
           <ul class="pagination">
-            <li>
+            <!-- <li>
               <a href="#" class="link disabled">
-              <i class="icon icon-prev color-gray"></i>
+              <i class="icon icon-prev"></i>
               </a>
-            </li>
+            </li> -->
             {{#js_if 'this.total_page < 10'}}
+              
               {{#each pages}}
               <li>
-                {{#js_if 'this.page == this.curr_page'}}
-                <a href="#" class="link disabled">
+                {{#js_if 'this.page == ../curr_page'}}
+                <a href="#" class="link active disabled">
                 {{else}}
                 <a href="/product/{{kode}}/{{nama}}/{{page}}" class="link">
                 {{/js_if}}
@@ -57,11 +59,20 @@
                 </a>
               </li>
               {{/each}}
+              {{#js_if 'this.curr_page < this.total_page'}}
+              <!-- <li>
+                <a href="/product/{{kode}}/{{nama}}/{{next_page}}" class="link">
+                <i class="icon icon-next"></i>
+                </a>
+              </li> -->
+              {{/js_if}}
+            
             {{else}}
+              
               {{#each pages}}
               <li>
-                {{#js_if 'this.page == this.curr_page'}}
-                <a href="#" class="link disabled">
+                {{#js_if 'this.page == ../curr_page'}}
+                <a href="#" class="link active disabled">
                 {{else}}
                 <a href="/product/{{kode}}/{{nama}}/{{page}}" class="link">
                 {{/js_if}}
@@ -69,15 +80,19 @@
                 </a>
               </li>
               {{/each}}
+              {{#js_if 'this.curr_page < this.total_page'}}
+              <!-- <li>
+                <a href="/product/{{kode}}/{{nama}}/{{next_page}}" class="link">
+                <i class="icon icon-next link"></i>
+                </a>
+              </li> -->
+              {{/js_if}}
             {{/js_if}}
-            <li>
-              <a href="#" class="link">
-              <i class="icon icon-next color-gray"></i>
-              </a>
-            </li> Current page: {{curr_page}}
           </ul>
+          <!-- <span class="">Current page: {{curr_page}}</span> -->
         </div>
-    </div>
+        {{/js_if}}
+      </div>
     </div>
   </div>
 </template>

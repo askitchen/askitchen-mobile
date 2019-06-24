@@ -259,6 +259,44 @@
               $$('#last_name').val(res.last_name);
               $$('#company').val(res.company);
               $$('#address').val(res.address);
+              
+              $$('#province').val(res.province);
+
+              app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+res.province, function(json) {
+            
+                var data = json.data; //, firstid = data[0].id;
+                // console.log('firstid: '+firstid)
+
+                $$('#regency').html('');
+                for (var i = 0; i < data.length; i++) {
+                  $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
+                }
+                
+                if (res.regency) {
+                  $$('#regency').val(res.regency);
+
+                  app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+res.regency, function(json) {
+                    var data = json.data;
+
+                    $$('#district').html('');
+                    for (var i = 0; i < data.length; i++) {
+                        $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+                    }
+                    $$('#district').val(res.district);
+                  });
+
+                  app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+res.regency, function(json) {
+                    var data = json.data;
+                    $$('#post_code').val(data.postal_code);
+
+                  });
+                }
+              });
+
+              // console.log(res.regency)
+              // console.log(res.district)
+
+              $$('#post_code').val(res.post_code);
               $$('#phone').val(res.phone);
               $$('#email').val(res.email);
             });
@@ -349,7 +387,7 @@
           }
 
           // var form = $$('#frmOrder');
-          formData = [];
+          var formData = [];
           formData.first_name = $$('#first_name').val();
           formData.last_name  = $$('#last_name').val();
           formData.company    = $$('#company').val();

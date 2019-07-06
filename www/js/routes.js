@@ -384,8 +384,8 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
 
-      // app.request.get("http://localhost/askitchenweb/api/v1/category/sample/"+kode, function(res) {
-      app.request.get("https://askitchen.com/api/v1/category/sample/"+kode, function(res) {
+      // app.request.get("http://localhost/askitchenweb/api/v1/categories/sample/"+kode, function(res) {
+      app.request.get("https://askitchen.com/api/v1/categories/sample/"+kode, function(res) {
           
         var data = JSON.parse(res);
 
@@ -500,8 +500,8 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
-      // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
+      // app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         app.preloader.hide();
 

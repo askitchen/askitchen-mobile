@@ -189,6 +189,7 @@
           // var card  = $$('.item-detail');
           var kode  = page.find('.item-code').val();
           var qty   = page.find('.item-qty').val();
+          var hjual = page.find('.item-price').val();
 
           var maxVal = parseInt($$('#maxqty').val());
 
@@ -236,8 +237,9 @@
           
           var formData = [];
 
-          formData.kode = kode;
-          formData.qty  = qty;
+          formData.kode  = kode;
+          formData.qty   = qty;
+          formData.hjual = hjual;
           // formData.Authorization = app.data.token;
           // app.methods.addItem(kode);
 

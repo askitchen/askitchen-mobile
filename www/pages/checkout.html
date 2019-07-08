@@ -245,7 +245,7 @@
                   </div>
                   <div class="card-footer">
                     <div class="product-name">Processing</div>
-                    <div class="product-price"><b>Rp<span id="spanproc">0</span></b></div>
+                    <div class="product-price"><b>Rp<span id="span-add">0</span></b></div>
                   </div>
                   <div class="card-footer">
                     <div class="product-name">Total</div>
@@ -307,39 +307,43 @@
 
 <script>
   return {
-    methods: {
-      getRequestDateTime: function(form) {
-        var now = new Date();
-        form.REQUESTDATETIME.value = dateFormat(now, "yyyymmddHHMMss");
-      },
-      randomString: function(len) {
+    // methods: {
+    //   doTest: function() {
+    //     var self = this;
+    //     self.$app.dialog.alert('Hello World');
+    //   },
+    //   getRequestDateTime: function(form) {
+    //     var now = new Date();
+    //     form.REQUESTDATETIME.value = dateFormat(now, "yyyymmddHHMMss");
+    //   },
+    //   randomString: function(len) {
         
-        var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-        var string_length = len;
-        var randomstring = '';
-        for (var i=0; i<string_length; i++) {
-          var rnum = Math.floor(Math.random() * chars.length);
-          randomstring += chars.substring(rnum,rnum+1);
-        }
+    //     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    //     var string_length = len;
+    //     var randomstring = '';
+    //     for (var i=0; i<string_length; i++) {
+    //       var rnum = Math.floor(Math.random() * chars.length);
+    //       randomstring += chars.substring(rnum,rnum+1);
+    //     }
 
-        return randomstring;
+    //     return randomstring;
       
-      },
-      genInvoice: function(form) {
-        form.TRANSIDMERCHANT.value = this.randomString(12);
-      },
-      genSessionID: function(form) {
-        form.SESSIONID.value = this.randomString(20);
-      },
-      genBookingCode: function(form) {
-        form.BOOKINGCODE.value = this.randomString(6);
-      },
-      getWords: function(form) {
-        // document.MerchatPaymentPage
-        var msg = form.AMOUNT.value + form.MALLID.value + form.SHAREDKEY.value + form.TRANSIDMERCHANT.value;
-        form.WORDS.value = SHA1(msg);
-      },
-    },
+    //   },
+    //   genInvoice: function(form) {
+    //     form.TRANSIDMERCHANT.value = this.randomString(12);
+    //   },
+    //   genSessionID: function(form) {
+    //     form.SESSIONID.value = this.randomString(20);
+    //   },
+    //   genBookingCode: function(form) {
+    //     form.BOOKINGCODE.value = this.randomString(6);
+    //   },
+    //   getWords: function(form) {
+    //     // document.MerchatPaymentPage
+    //     var msg = form.AMOUNT.value + form.MALLID.value + form.SHAREDKEY.value + form.TRANSIDMERCHANT.value;
+    //     form.WORDS.value = SHA1(msg);
+    //   },
+    // },
     // Page Events
     on: {
       
@@ -356,36 +360,105 @@
               
               $$('#province').val(res.province);
 
-              app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+res.province, function(json) {
-            
-                var data = json.data; //, firstid = data[0].id;
-                // console.log('firstid: '+firstid)
-
-                $$('#regency').html('');
-                for (var i = 0; i < data.length; i++) {
-                  $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
-                }
+              if (res.province) {
                 
-                if (res.regency) {
-                  $$('#regency').val(res.regency);
+                // ambil data kecamatan
+                app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+res.province, function(json) {
+              
+                  var data = json.data; //, firstid = data[0].id;
+                  // console.log('firstid: '+firstid)
 
-                  app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+res.regency, function(json) {
-                    var data = json.data;
+                  $$('#regency').html('');
+                  for (var i = 0; i < data.length; i++) {
+                    $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
+                  }
+                  
+                  if (res.regency) {
+                    
+                    $$('#regency').val(res.regency);
+                    // console.log('firstid: '+res.regency)
 
-                    $$('#district').html('');
-                    for (var i = 0; i < data.length; i++) {
-                        $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+res.regency, function(json) {
+                      
+                      var data = json.data;
+
+                      $$('#district').html('');
+                      for (var i = 0; i < data.length; i++) {
+                          $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+                      }
+                      $$('#district').val(res.district);
+                    });
+
+                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+res.regency, function(json) {
+                      var data = json.data;
+                      $$('#post_code').val(data.postal_code);
+
+                    });
+
+
+                    var frac = app.data.total - Math.floor(app.data.total * 100) / 100;
+                    // console.log('frac: ' + frac);
+
+                    if (frac == 0) { // total dikirim ke DOKU
+                      $$('#AMOUNT').val(app.data.total+'.00');
+                      $$('#PURCHASEAMOUNT').val(app.data.total+'.00');
+                    } else {
+                      $$('#AMOUNT').val(app.data.total+'.'+frac);
+                      $$('#PURCHASEAMOUNT').val(app.data.total+'.'+frac);
                     }
-                    $$('#district').val(res.district);
-                  });
+                    
+                    $$('#svcname').val('jne');
 
-                  app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+res.regency, function(json) {
-                    var data = json.data;
-                    $$('#post_code').val(data.postal_code);
+                    // get ship cost - default JNE
+                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/jne/"+res.regency, function(json) {
+            
+                      var data  = json.data,
+                          cost  = parseFloat(data[0].cost[0].value),
+                          total = app.data.total;
 
-                  });
-                }
-              });
+                      console.log('cost: '+cost)
+
+                      $$('#package').html('');
+                      for (var i = 0; i < data.length; i++) {
+                          $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+                      }                      
+                      
+                      // hitung total ongkos kirim
+                      app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+                      
+                        var data  = json.data;
+
+                        app.data.shipcost = data.shipcost;
+                        $$('#spanship').text(data.shipcost.toLocaleString());
+
+                        total += data.shipcost;
+
+                        app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
+                      
+                          var data  = json.data;
+                          // console.log('additional cost: '+data.cost)
+
+                          app.data.addcost = data.cost;
+                          
+                          $$('#add_fee').val(data.cost);
+                          $$('#span-add').text(data.cost.toLocaleString());
+
+                          // add payment gateway cost
+                          total += data.cost;
+                          
+                          $$('#gtotal').val(total);
+                          $$('#spangt').text(total.toLocaleString());
+
+                        });
+
+                        app.data.gtotal = total;
+                        $$('#spangt').text(total.toLocaleString());
+                      });
+                    });
+
+                  }
+                });
+              }
 
               // console.log(res.regency)
               // console.log(res.district)
@@ -423,6 +496,18 @@
         $$('.btn-pay').click(function(event) {
             
           event.preventDefault();
+
+          var form = $$('#frmDoku');
+
+          // fill data
+          app.methods.genInvoice(form);
+          app.methods.getWords(form);
+          app.methods.getRequestDateTime(form);
+          app.methods.genSessionID(form);
+
+          app.dialog.alert($$('#first_name').val());
+          return;
+
           // $$(this).attr("disabled", "disabled");
           
           if ($$('#first_name').val() == '')
@@ -480,33 +565,45 @@
               return;
           }
 
-          var form = $$('#frmDoku');
+          else if ($$('#payment').val() == '')
+          {
+              app.dialog.alert('Please enter payment type.');
+              $$( "#payment" ).focus();
+              return;
+          }
 
-          // fill data
-          this.genInvoice(form);
-          this.getWords(form);
-          this.getRequestDateTime(form);
-          this.genSessionID(form);
+          // var form = $$('#frmDoku');
+
+          // // fill data
+          // app.methods.genInvoice(form);
+          // app.methods.getWords(form);
+          // app.methods.getRequestDateTime(form);
+          // app.methods.genSessionID(form);
 
           var formData = [];
           
+          formData.mbrid      = app.data.mbrid;
           formData.first_name = $$('#first_name').val();
           formData.last_name  = $$('#last_name').val();
+
           formData.company    = $$('#company').val();
           formData.address    = $$('#address').val();
           formData.province   = $$('#province').val();
           formData.regency    = $$('#regency').val();
           formData.district   = $$('#district').val();
+
           formData.phone      = $$('#phone').val();
           formData.email      = $$('#email').val();
           formData.note       = $$('#note').val();
+
+          formData.carrier    = $$('#carrier').val();
+          formData.svcname    = $$('#svcname').val();
 
           formData.transidmerchant = $$('#TRANSIDMERCHANT').val()
           formData.words      = $$('#WORDS').val()
   
           formData.total      = $$('#total').val();
           formData.shipcost   = $$('#shipcost').val();
-          formData.svcname    = $$('#svcname').val();
           formData.tax        = $$('#tax').val();
           formData.add_fee    = $$('#add_fee').val();
           formData.gtotal     = $$('#gtotal').val();
@@ -514,8 +611,6 @@
           
           app.request.post("http://localhost/askitchenweb/api/v1/snap/savetrx", formData, function(data) {
 
-            console.log('token = '+ data); // snap token
-            
             var formDoku = app.form.convertToData('#frmDoku');
             app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {
 
@@ -681,6 +776,8 @@
           
           var cost  = parseFloat( $$(this).val());
             
+          $$('#svcname').val($$('#package').text()); // nama service/layanan
+
           // hitung total ongkos kirim
           app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
             
@@ -695,19 +792,40 @@
         });
 
         $$('#payment').on('change', function(e){
-          
-          var pm_mtd  = $$(this).val();
-            
+
+          var total    = app.data.total,
+              shipcost = app.data.shipcost,
+              tax      = app.data.tax;
+                
+          var pm_mtd   = $$(this).val();
+
+          $$('#PAYMENTCHANNEL').val($$(this).val());
+
+          total += shipcost + tax;
+
+          var frac = total - Math.floor(total * 100) / 100;
+          // console.log('frac: ' + frac);
+
+          if (frac == 0) { // total dikirim ke DOKU
+            $$('#AMOUNT').val(total+'.00');
+            $$('#PURCHASEAMOUNT').val(total+'.00');
+          } else {
+            $$('#AMOUNT').val(total+'.'+frac);
+            $$('#PURCHASEAMOUNT').val(total+'.'+frac);
+          }
+
           // hitung total ongkos kirim
           app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
             
             var data  = json.data;
 
-            app.data.addcost = data.shipcost;
-            $$('#spanship').text(app.data.shipcost.toLocaleString());
+            app.data.addcost = data.cost;
+            $$('#span-add').text(data.cost.toLocaleString());
 
-            app.data.gtotal   = app.data.total + data.shipcost;
-            $$('#spangt').text(app.data.gtotal.toLocaleString());
+            total += data.cost;
+            
+            app.data.gtotal  =  total;
+            $$('#spangt').text(total.toLocaleString());
           });
         });
       }

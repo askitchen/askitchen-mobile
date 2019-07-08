@@ -49,7 +49,41 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
+    // doTest: function() {
+    //   app.dialog.alert('Hello World');
+    // },
+    getRequestDateTime: function(form) {
+      var now = new Date();
+      form.REQUESTDATETIME.value = dateFormat(now, "yyyymmddHHMMss");
+    },
+    randomString: function(len) {
+      
+      var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+      var string_length = len;
+      var randomstring = '';
+      for (var i=0; i<string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum,rnum+1);
+      }
+
+      return randomstring;
     
+    },
+    genInvoice: function(form) {
+      form.TRANSIDMERCHANT.value = app.methods.randomString(12);
+    },
+    genSessionID: function(form) {
+      form.SESSIONID.value = app.methods.randomString(20);
+    },
+    genBookingCode: function(form) {
+      form.BOOKINGCODE.value = app.methods.randomString(6);
+    },
+    getWords: function(form) {
+      // document.MerchatPaymentPage
+      var msg = form.AMOUNT.value + form.MALLID.value + form.SHAREDKEY.value + form.TRANSIDMERCHANT.value;
+      form.WORDS.value = SHA1(msg);
+    },
+  
     // findItem: function(kode) {
       
     //   for (var i =0; i < items.length; i++)

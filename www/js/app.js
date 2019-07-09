@@ -8,6 +8,8 @@ var items   = [];
 
 var bBackPressed = false;
 
+var destinationType = null;
+
 // Framework7 App main instance
 var app  = new Framework7({
   root: '#app', // App root element
@@ -122,6 +124,8 @@ var app  = new Framework7({
         $$('.member-status').css('display', 'none');
         $$('.member-edit').css('display', 'none');
       }
+      
+      destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {

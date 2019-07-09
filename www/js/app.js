@@ -381,31 +381,31 @@ $$(document).on('backbutton', function (e) {
   // for example, based on what and where view you have
   if (app.views.main.router.url == '/') {
     
-    if (!bBackPressed) {
+    // if (!bBackPressed) {
       
-      bBackPressed = true;
+    //   bBackPressed = true;
 
-      // show toast
-      var toast = app.toast.create({
-        text: 'Press back once again to exit.',
-        closeTimeout: 2000,
-        on: {
-          close: function () {
-            // app.dialog.alert('Toast closed');
-            bBackPressed = false;
-          },
-        }
-      });
-      toast.open();
+    //   // show toast
+    //   var toast = app.toast.create({
+    //     text: 'Press back once again to exit.',
+    //     closeTimeout: 2000,
+    //     on: {
+    //       close: function () {
+    //         // app.dialog.alert('Toast closed');
+    //         bBackPressed = false;
+    //       },
+    //     }
+    //   });
+    //   toast.open();
       
-    } else {
+    // } else {
       
-      if (app.data.bLogedIn) {
-        request.get("https://askitchen.com/api/v1/auth/logout", function(res) {});
-      }
+      // if (app.data.bLogedIn) {
+      //   request.get("https://askitchen.com/api/v1/auth/logout", function(res) {});
+      // }
 
       navigator.app.exitApp();
-    }
+    // }
   } else {
   //   if (app.views.main.router.url == '/beli/') {
   //     app.dialog.alert('aduh')

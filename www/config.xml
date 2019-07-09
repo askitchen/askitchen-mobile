@@ -59,7 +59,7 @@
   <plugin name="cordova-plugin-inappbrowser" source="npm" />
 
   <plugin name="cordova-plugin-console" source="npm" />
-  <plugin name="cordova-plugin-contacts" spec="~2.3.1" /> <!-- cli-6.5.0 -->
+  <!-- <plugin name="cordova-plugin-contacts" spec="~2.3.1" /> --><!-- cli-6.5.0 -->
 
   <!-- android v4
   <plugin name="cordova-plugin-crosswalk-webview" source="npm" spec="~2.4.0" />

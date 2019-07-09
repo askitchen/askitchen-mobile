@@ -4,7 +4,7 @@ var $$ = Dom7;
 // var AdMob = null;
 
 // var details = [];
-// var items   = [];
+var items   = [];
 
 var bBackPressed = false;
 
@@ -321,12 +321,10 @@ $$(document).on('backbutton', function (e) {
       // show toast
       var toast = app.toast.create({
         text: 'Press back once again to exit.',
-        on: {
-          opened: function () {
-            // console.log('Toast opened')
-          }
-        }
-      })
+        closeTimeout: 2000,
+      });
+      toast.open();
+      
     } else {
       
       if (app.data.bLogedIn) {
@@ -335,12 +333,12 @@ $$(document).on('backbutton', function (e) {
 
       navigator.app.exitApp();
     }
-  } //else {
+  } else {
   //   if (app.views.main.router.url == '/beli/') {
   //     app.dialog.alert('aduh')
   //   } else
-  //   mainView.router.back();
-  // }
+    mainView.router.back();
+  }
 });
 
 app.on('pageInit', function (page) {

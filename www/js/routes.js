@@ -215,7 +215,7 @@ routes = [
                     
                 // app.dialog.alert('Camera!');
                 var options = {
-                  quality: 20,
+                  quality: 50,
                   destinationType: destinationType.DATA_URL,
                   sourceType: Camera.PictureSourceType.CAMERA,
                   encodingType: Camera.EncodingType.JPEG,
@@ -244,7 +244,7 @@ routes = [
                     
                 // app.dialog.alert('You choose gallery!');
                 var options = {
-                  quality: 20,
+                  quality: 50,
                   destinationType: destinationType.DATA_URL,
                   sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
                   encodingType: Camera.EncodingType.JPEG,
@@ -291,9 +291,9 @@ routes = [
        
         $$('.take-photo').on('click', function () {
           
-          app.dialog.alert('Take photo!')
+          // app.dialog.alert('Take photo!')
             
-          // ac_photo.open();
+          ac_photo.open();
           
           // var options = {
           //   quality: 50,

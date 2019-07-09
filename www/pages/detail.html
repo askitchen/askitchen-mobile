@@ -176,11 +176,11 @@
           var card = $$('.card.item-detail');
           
           // console.log(scrollTop)
-          // if (scrollTop >= 56) {
-          //   card.removeClass("sticky")
-          // } else {
-          //   card.addClass("sticky");
-          // }
+          if (scrollTop >= 56) {
+            card.removeClass("sticky")
+          } else {
+            card.addClass("sticky");
+          }
         })
 
         $$('.button-add').on('click', function (e) {

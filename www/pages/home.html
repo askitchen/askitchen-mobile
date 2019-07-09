@@ -38,9 +38,9 @@
             <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init demo-swiper">
               <div class="swiper-pagination dashboard"></div>
               <div class="swiper-wrapper">
-                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban1.jpg" /></div>
-                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban2.jpg" /></div>
-                <div class="swiper-slide"><img class="lazy header" src="http://localhost/askitchenweb/upload/mobile-banner/ban3.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban1.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban2.jpg" /></div>
+                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban3.jpg" /></div>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <div class="card">
                 <div class="card-content">
                   <a href="/category/{{kdgol}}/{{nama}}" class="item-link">
-                    <img class="responsive-card" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
+                    <img class="responsive-card" src="https://askitchen.com/upload/gambar/{{gambar}}" />
                     <div class="card-content-inner">{{nama}}</div>
                   </a>
                 </div>
@@ -90,7 +90,7 @@
         
         if (app.data.bLogedIn) {
 
-          app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+          app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
                     
             var data = JSON.parse(res);
             
@@ -124,7 +124,7 @@
 
         swiper.autoplay.start();
 
-        // app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+        // app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
                   
         //   var data = JSON.parse(res);
           

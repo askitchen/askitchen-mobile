@@ -11,7 +11,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.getJSON("http://localhost/askitchenweb/api/v1/categories", function(res) {
+      app.request.getJSON("https://askitchen.com/api/v1/categories", function(res) {
 
         // Hide Preloader
         app.preloader.hide();
@@ -100,7 +100,7 @@ routes = [
         
           // formData.gcmid = regId;
           
-          app.request.post('http://localhost/askitchenweb/api/v1/register', formData, function (res) {
+          app.request.post('https://askitchen.com/api/v1/register', formData, function (res) {
             
             app.preloader.hide();
             
@@ -169,7 +169,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
+      app.request.get("https://askitchen.com/api/v1/cart", function(res) {
 
         // Hide Preloader
         app.preloader.hide();
@@ -275,7 +275,7 @@ routes = [
         });
       
         // get member detail
-        app.request.getJSON("http://localhost/askitchenweb/api/v1/member/"+app.data.mbrid, function(res) {
+        app.request.getJSON("https://askitchen.com/api/v1/member/"+app.data.mbrid, function(res) {
                     
           $$('#first_name').val(res.first_name);
           $$('#last_name').val(res.last_name);
@@ -350,7 +350,7 @@ routes = [
           formData.email      = email;
           formData.phone      = telepon;
           
-          app.request.post('http://localhost/askitchenweb/api/v1/member/edit', formData, function (res) {
+          app.request.post('https://askitchen.com/api/v1/member/edit', formData, function (res) {
                 
             var view = app.views.current;
             view.router.back(view.history[0], { force: true });
@@ -384,7 +384,6 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
 
-      // app.request.get("http://localhost/askitchenweb/api/v1/categories/sample/"+kode, function(res) {
       app.request.get("https://askitchen.com/api/v1/categories/sample/"+kode, function(res) {
           
         var data = JSON.parse(res);
@@ -421,7 +420,7 @@ routes = [
   //     var nama = routeTo.params.nama;
   //     // console.log('kode: '+kode)
 
-  //     // app.request.get("http://localhost/askitchenweb/api/v1/subcategory/sample/"+kode, function(res) {
+  //     // app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
   //     app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
         
   //       var data = JSON.parse(res);
@@ -459,7 +458,7 @@ routes = [
       var page = routeTo.params.page;
       var next_page = routeTo.params.page+1;
 
-      app.request.getJSON("http://localhost/askitchenweb/api/v1/products/"+kode+"?p="+page, function(res) {
+      app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
       // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
 
         // total rows
@@ -500,7 +499,7 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      // app.request.getJSON("http://localhost/askitchenweb/api/v1/items/"+kode, function(res) {
+      // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
       app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
         
         app.preloader.hide();
@@ -535,7 +534,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
         
-      app.request.get("http://localhost/askitchenweb/api/v1/cart", function(res) {
+      app.request.get("https://askitchen.com/api/v1/cart", function(res) {
       // app.request.get("https://askitchen.com/api/v1/cart", function(res) {
           
         var data = JSON.parse(res);
@@ -546,7 +545,7 @@ routes = [
 
         resolve (
           { componentUrl: './pages/checkout.html' },
-          { context: { data: data.data } }
+          { context: { data: data } }
         );
         app.preloader.hide();
       });

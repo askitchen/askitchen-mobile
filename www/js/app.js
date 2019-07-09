@@ -3,8 +3,8 @@ var $$ = Dom7;
 
 // var AdMob = null;
 
-var details = [];
-var items   = [];
+// var details = [];
+// var items   = [];
 
 var bBackPressed = false;
 
@@ -49,113 +49,7 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
-    // doTest: function() {
-    //   app.dialog.alert('Hello World');
-    // },
-    getRequestDateTime: function(form) {
-      var now = new Date();
-      form.REQUESTDATETIME.value = dateFormat(now, "yyyymmddHHMMss");
-    },
-    randomString: function(len) {
-      
-      var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-      var string_length = len;
-      var randomstring = '';
-      for (var i=0; i<string_length; i++) {
-        var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substring(rnum,rnum+1);
-      }
-
-      return randomstring;
-    
-    },
-    genInvoice: function(form) {
-      form.TRANSIDMERCHANT.value = app.methods.randomString(12);
-    },
-    genSessionID: function(form) {
-      form.SESSIONID.value = app.methods.randomString(20);
-    },
-    genBookingCode: function(form) {
-      form.BOOKINGCODE.value = app.methods.randomString(6);
-    },
-    getWords: function(form) {
-      // document.MerchatPaymentPage
-      var msg = form.AMOUNT.value + form.MALLID.value + form.SHAREDKEY.value + form.TRANSIDMERCHANT.value;
-      form.WORDS.value = SHA1(msg);
-    },
   
-    // findItem: function(kode) {
-      
-    //   for (var i =0; i < items.length; i++)
-    //   if (items[i].kdbar === kode) {
-    //     return items[i];
-    //   }
-
-    //   return null;
-    // },
-    addItem: function(kode, qty) {
-      
-      var bFound = false;
-
-      for (var i =0; i < items.length; i++)
-      if (items[i].kdbar === kode) {
-         
-        bFound = true;
-        items[i].qty += parseInt(qty);
-        break;
-      }
-
-      if (!bFound) {
-        items.push({ kdbar: kode, qty: parseInt(qty) })
-      }
-      
-      // hitung total
-      // app.methods.calcTotal();
-    },
-    deleteItem: function(kode) {
-      
-      for (var i =0; i < items.length; i++)
-      if (items[i].kdbar === kode) {
-         items.splice(i,1);
-         break;
-      }
-      // app.methods.calcTotal();
-    },
-    calcTotal: function(kode) {
-
-      app.data.total = 0;
-
-      for (var l = 0; l < details.length; l++) {
-
-        if (details[l].disc > 0) { // diskon persen
-
-          var discrp = details[l].qty * details[l].hjual * details[l].disc / 100;
-
-          details[l].net = details[l].hjual - (discrp / details[l].qty);
-          details[l].jumlah = (details[l].qty * details[l].hjual) - discrp;
-
-        } else {
-
-          // var disc = (details[l].discrp * 100 / details[l].qty) / (details[l].qty * details[l].hjual);
-          
-          details[l].net = details[l].hjual - (details[l].discrp / details[l].qty);          
-          details[l].jumlah = (details[l].qty * details[l].hjual) - details[l].discrp;
-        }
-
-        app.data.total += details[l].jumlah;
-
-        // hitung diskon global
-        if (app.data.disc > 0) {
-          app.data.tmpdiscrp = app.data.total * app.data.disc / 100;
-          app.data.gtotal = app.data.total - app.data.tmpdiscrp;
-        } else {
-          app.data.tmpdisc = app.data.discrp * 100 / app.data.total;
-          app.data.gtotal = app.data.total - app.data.discrp;
-        }
-      }
-      app.data.gtotal = app.data.total;
-      $$('.gtotal').text(app.data.gtotal.toLocaleString('ID'));
-    },
   },
   on: {
 

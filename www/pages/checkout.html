@@ -209,141 +209,101 @@
           </div>
         </div>
         <div id="tab3" class="page-content tab">
-          <!-- <div class="content-block">
-            <div class="block"> -->
-                <div class="card data-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <!-- <input type="hidden" name="kode" value="">
-                        <input type="hidden" name="qty" value="">
-                        <input type="hidden" name="harga" value=""> -->
-                        <th class="label-cell">Product</th>
-                        <th class="numeric-cell">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {{#each data}}
-                      <tr>
-                        <td class="label-cell">{{nama}}</td>
-                        <td class="numeric-cell">{{hargaf}}</td>
-                      </tr>
-                      {{/each}}
-                    </tbody>
-                  </table>
-                  <div class="card-footer">
-                    <div class="product-name">Subtotal</div>
-                    <div class="product-price">Rp{{$root.total.toLocaleString('ID')}}</div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="product-name">Tax</div>
-                    <div class="product-price"><b>Rp<span id="spantax">0</span></b></div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="product-name">Shipping</div>
-                    <div class="product-price"><b>Rp<span id="spanship">0</span></b></div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="product-name">Processing</div>
-                    <div class="product-price"><b>Rp<span id="span-add">0</span></b></div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="product-name">Total</div>
-                    <div class="product-price"><b>Rp<span id="spangt"></span></b></div>
-                  </div>
-                </div>
-            <!-- </div>
-          </div> -->
+          <div class="card data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th class="label-cell">Product</th>
+                  <th class="numeric-cell">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each data.data}}
+                <tr>
+                  <td class="label-cell">{{nama}}</td>
+                  <td class="numeric-cell">{{hargaf}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            <div class="card-footer">
+              <div class="product-name">Subtotal</div>
+              <div class="product-price">Rp{{$root.total.toLocaleString('ID')}}</div>
+            </div>
+            <div class="card-footer">
+              <div class="product-name">Tax</div>
+              <div class="product-price"><b>Rp<span id="spantax">0</span></b></div>
+            </div>
+            <div class="card-footer">
+              <div class="product-name">Shipping</div>
+              <div class="product-price"><b>Rp<span id="spanship">0</span></b></div>
+            </div>
+            <div class="card-footer">
+              <div class="product-name">Processing</div>
+              <div class="product-price"><b>Rp<span id="span-add">0</span></b></div>
+            </div>
+            <div class="card-footer">
+              <div class="product-name">Total</div>
+              <div class="product-price"><b>Rp<span id="spangt"></span></b></div>
+            </div>
+          </div>
           <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-pay">Pay</a></div>
         </div>
       </div>
     </div>
+    
+    <!-- cart item -->
+    {{#each data.data}}
+      <input type="hidden" class="cart-item" value="{{nama}},{{harga}}.00,{{qty}},{{jumlah}}.00">
+    {{/each}}
+    <!-- cart item -->
+
+    <input type="hidden" id="total"    name="total"    value="{{data.total}}">
+    <input type="hidden" id="shipcost" name="shipcost" value="0">
+    <input type="hidden" id="svcname"  name="svcname"  value="jne">
+    <input type="hidden" id="tax"      name="tax"      value="0">
+    <input type="hidden" id="add_fee"  name="add_fee"  value="0">
+    <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total}}">
+    
+    <form action="" id="frmDoku" method="post" >
+    
+      <input name="BASKET" type="hidden" id="BASKET" value="" />
+      <input name="MALLID" type="hidden" id="MALLID" value="5338" />
+      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="XJNLey8o6u38" maxlength="12"/>
+      <input name="CHAINMERCHANT" type="hidden" id="CHAINMERCHANT" value="NA" />
+      <input name="CURRENCY" type="hidden" id="CURRENCY" value="360" maxlength="3" />
+      <input name="PURCHASECURRENCY" type="hidden" id="PURCHASECURRENCY" value="360" maxlength="3" />
+      <input name="AMOUNT" type="hidden" id="AMOUNT" value="0" />
+      <input name="PURCHASEAMOUNT" type="hidden" id="PURCHASEAMOUNT" value="0" />
+      <input name="TRANSIDMERCHANT" type="hidden" id="TRANSIDMERCHANT" />
+      <input name="WORDS" type="hidden" id="WORDS" />
+      <input name="REQUESTDATETIME" type="hidden" id="REQUESTDATETIME" maxlength="14" />
+      <input name="SESSIONID" type="hidden" id="SESSIONID" />
+      <input name="PAYMENTCHANNEL" type="hidden" id="PAYMENTCHANNEL" value="" />
+      <input name="EMAIL" type="hidden" id="EMAIL" value="" />
+      <input name="NAME" type="hidden" id="NAME" value="" maxlength="50" />
+    
+      <input name="ADDRESS" type="hidden" id="ADDRESS" value="" maxlength="50" />
+      <input name="COUNTRY" type="hidden" id="COUNTRY" value="360" maxlength="50" />
+      <input name="STATE" type="hidden" id="STATE" value="" maxlength="50" />
+      <input name="PROVINCE" type="hidden" id="PROVINCE" value="" maxlength="50" />
+      <input name="CITY" type="hidden" id="CITY" value="" maxlength="50" />
+      <input name="ZIPCODE" type="hidden" id="ZIPCODE" value="" maxlength="10" />
+    
+      <input name="SHIPPING_ADDRESS" type="hidden" id="SHIPPING_ADDRESS" value="" maxlength="10" />
+      <input name="SHIPPING_CITY" type="hidden" id="SHIPPING_CITY" value="" maxlength="10" />
+      <input name="SHIPPING_COUNTRY" type="hidden" id="SHIPPING_COUNTRY" value="ID" maxlength="10" />
+      <input name="SHIPPING_ZIPCODE" type="hidden" id="SHIPPING_ZIPCODE" value="" maxlength="10" />
+    
+      <input name="HOMEPHONE" type="hidden" id="HOMEPHONE" value="" maxlength="20" />
+      <input name="MOBILEPHONE" type="hidden" id="MOBILEPHONE" value="" maxlength="20" />
+      <input name="WORKPHONE" type="hidden" id="WORKPHONE" value="" maxlength="20" />
+      <input name="BIRTHDATE" type="hidden" id="BIRTHDATE" value="" maxlength="8" />
+    </form>
   </div>
 </template>
-
-                        
-<input type="hidden" id="total"    name="total"    value="0">
-<input type="hidden" id="shipcost" name="shipcost" value="0">
-<input type="hidden" id="svcname"  name="svcname"  value="jne">
-<input type="hidden" id="tax"      name="tax"      value="0">
-<input type="hidden" id="add_fee"  name="add_fee"  value="0">
-<input type="hidden" id="gtotal"   name="gtotal"   value="0">
-
-<form action="" id="frmDoku" method="post" >
-
-  <input name="BASKET" type="hidden" id="BASKET" value="" />
-  <input name="MALLID" type="hidden" id="MALLID" value="5338" />
-  <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="XJNLey8o6u38" maxlength="12"/>
-  <input name="CHAINMERCHANT" type="hidden" id="CHAINMERCHANT" value="NA" />
-  <input name="CURRENCY" type="hidden" id="CURRENCY" value="360" maxlength="3" />
-  <input name="PURCHASECURRENCY" type="hidden" id="PURCHASECURRENCY" value="360" maxlength="3" />
-  <input name="AMOUNT" type="hidden" id="AMOUNT" value="0" />
-  <input name="PURCHASEAMOUNT" type="hidden" id="PURCHASEAMOUNT" value="0" />
-  <input name="TRANSIDMERCHANT" type="hidden" id="TRANSIDMERCHANT" />
-  <input name="WORDS" type="hidden" id="WORDS" />
-  <input name="REQUESTDATETIME" type="hidden" id="REQUESTDATETIME" maxlength="14" />
-  <input name="SESSIONID" type="hidden" id="SESSIONID" />
-  <input name="PAYMENTCHANNEL" type="hidden" id="PAYMENTCHANNEL" value="15" />
-  <input name="EMAIL" type="hidden" id="EMAIL2" value="" />
-  <input name="NAME" type="hidden" id="NAME" value="" maxlength="50" />
-
-  <input name="ADDRESS" type="hidden" id="ADDRESS" value="" maxlength="50" />
-  <input name="COUNTRY" type="hidden" id="COUNTRY" value="360" maxlength="50" />
-  <input name="STATE" type="hidden" id="STATE" value="" maxlength="50" />
-  <input name="PROVINCE" type="hidden" id="PROVINCE2" value="" maxlength="50" />
-  <input name="CITY" type="hidden" id="CITY" value="" maxlength="50" />
-  <input name="ZIPCODE" type="hidden" id="ZIPCODE" value="" maxlength="10" />
-
-  <input name="SHIPPING_ADDRESS" type="hidden" id="SHIPPING_ADDRESS2" value="" maxlength="10" />
-  <input name="SHIPPING_CITY" type="hidden" id="SHIPPING_CITY2" value="" maxlength="10" />
-  <input name="SHIPPING_COUNTRY" type="hidden" id="SHIPPING_COUNTRY" value="ID" maxlength="10" />
-  <input name="SHIPPING_ZIPCODE" type="hidden" id="SHIPPING_ZIPCODE2" value="" maxlength="10" />
-
-  <input name="HOMEPHONE" type="hidden" id="HOMEPHONE" value="" maxlength="20" />
-  <input name="MOBILEPHONE" type="hidden" id="MOBILEPHONE2" value="" maxlength="20" />
-  <input name="WORKPHONE" type="hidden" id="WORKPHONE" value="" maxlength="20" />
-  <input name="BIRTHDATE" type="hidden" id="BIRTHDATE" value="" maxlength="8" />
-</form>
-
 <script>
   return {
-    // methods: {
-    //   doTest: function() {
-    //     var self = this;
-    //     self.$app.dialog.alert('Hello World');
-    //   },
-    //   getRequestDateTime: function(form) {
-    //     var now = new Date();
-    //     form.REQUESTDATETIME.value = dateFormat(now, "yyyymmddHHMMss");
-    //   },
-    //   randomString: function(len) {
-        
-    //     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-    //     var string_length = len;
-    //     var randomstring = '';
-    //     for (var i=0; i<string_length; i++) {
-    //       var rnum = Math.floor(Math.random() * chars.length);
-    //       randomstring += chars.substring(rnum,rnum+1);
-    //     }
-
-    //     return randomstring;
-      
-    //   },
-    //   genInvoice: function(form) {
-    //     form.TRANSIDMERCHANT.value = this.randomString(12);
-    //   },
-    //   genSessionID: function(form) {
-    //     form.SESSIONID.value = this.randomString(20);
-    //   },
-    //   genBookingCode: function(form) {
-    //     form.BOOKINGCODE.value = this.randomString(6);
-    //   },
-    //   getWords: function(form) {
-    //     // document.MerchatPaymentPage
-    //     var msg = form.AMOUNT.value + form.MALLID.value + form.SHAREDKEY.value + form.TRANSIDMERCHANT.value;
-    //     form.WORDS.value = SHA1(msg);
-    //   },
-    // },
     // Page Events
     on: {
       
@@ -351,7 +311,7 @@
         
           if (app.data.bLogedIn) {
             
-            app.request.getJSON("http://localhost/askitchenweb/api/v1/member/" + app.data.mbrid, function(res) {
+            app.request.getJSON("https://askitchen.com/api/v1/member/" + app.data.mbrid, function(res) {
               
               $$('#first_name').val(res.first_name);
               $$('#last_name').val(res.last_name);
@@ -363,7 +323,7 @@
               if (res.province) {
                 
                 // ambil data kecamatan
-                app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+res.province, function(json) {
+                app.request.json("https://askitchen.com/api/v1/checkout/regencies/"+res.province, function(json) {
               
                   var data = json.data; //, firstid = data[0].id;
                   // console.log('firstid: '+firstid)
@@ -378,7 +338,7 @@
                     $$('#regency').val(res.regency);
                     // console.log('firstid: '+res.regency)
 
-                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+res.regency, function(json) {
+                    app.request.json("https://askitchen.com/api/v1/checkout/districts/"+res.regency, function(json) {
                       
                       var data = json.data;
 
@@ -389,34 +349,23 @@
                       $$('#district').val(res.district);
                     });
 
-                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+res.regency, function(json) {
+                    app.request.json("https://askitchen.com/api/v1/checkout/post_code/"+res.regency, function(json) {
                       var data = json.data;
                       $$('#post_code').val(data.postal_code);
 
                     });
 
 
-                    var frac = app.data.total - Math.floor(app.data.total * 100) / 100;
-                    // console.log('frac: ' + frac);
-
-                    if (frac == 0) { // total dikirim ke DOKU
-                      $$('#AMOUNT').val(app.data.total+'.00');
-                      $$('#PURCHASEAMOUNT').val(app.data.total+'.00');
-                    } else {
-                      $$('#AMOUNT').val(app.data.total+'.'+frac);
-                      $$('#PURCHASEAMOUNT').val(app.data.total+'.'+frac);
-                    }
-                    
                     $$('#svcname').val('jne');
 
                     // get ship cost - default JNE
-                    app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/jne/"+res.regency, function(json) {
+                    app.request.json("https://askitchen.com/api/v1/checkout/ongkir/jne/"+res.regency, function(json) {
             
                       var data  = json.data,
                           cost  = parseFloat(data[0].cost[0].value),
                           total = app.data.total;
 
-                      console.log('cost: '+cost)
+                      // console.log('cost: '+cost)
 
                       $$('#package').html('');
                       for (var i = 0; i < data.length; i++) {
@@ -424,44 +373,56 @@
                       }                      
                       
                       // hitung total ongkos kirim
-                      app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+                      app.request.json("https://askitchen.com/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
                       
                         var data  = json.data;
 
                         app.data.shipcost = data.shipcost;
+                        $$('#shipcost').val(data.shipcost);
                         $$('#spanship').text(data.shipcost.toLocaleString());
 
                         total += data.shipcost;
-
-                        app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
-                      
-                          var data  = json.data;
-                          // console.log('additional cost: '+data.cost)
-
-                          app.data.addcost = data.cost;
-                          
-                          $$('#add_fee').val(data.cost);
-                          $$('#span-add').text(data.cost.toLocaleString());
-
-                          // add payment gateway cost
-                          total += data.cost;
-                          
-                          $$('#gtotal').val(total);
-                          $$('#spangt').text(total.toLocaleString());
-
-                        });
-
+                        
                         app.data.gtotal = total;
                         $$('#spangt').text(total.toLocaleString());
+                        
+                        var frac = app.data.gtotal - Math.floor(app.data.gtotal * 100) / 100;
+                        // console.log('frac: ' + frac);
+
+                        if (frac == 0) { // total dikirim ke DOKU
+                          $$('#AMOUNT').val(app.data.gtotal+'.00');
+                          $$('#PURCHASEAMOUNT').val(app.data.gtotal+'.00');
+                        } else {
+                          $$('#AMOUNT').val(app.data.gtotal+'.'+frac);
+                          $$('#PURCHASEAMOUNT').val(app.data.gtotal+'.'+frac);
+                        }
+
+                        // app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
+                      
+                        //   var data  = json.data;
+                        //   // console.log('additional cost: '+data.cost)
+
+                        //   app.data.addcost = data.cost;
+                          
+                        //   $$('#add_fee').val(data.cost);
+                        //   $$('#span-add').text(data.cost.toLocaleString());
+
+                        //   // add payment gateway cost
+                        //   total += data.cost;
+                          
+                        //   $$('#gtotal').val(total);
+                        //   $$('#spangt').text(total.toLocaleString());
+
+                        // });
+
+                        // app.data.gtotal = total;
+                        // $$('#spangt').text(total.toLocaleString());
                       });
                     });
 
                   }
                 });
               }
-
-              // console.log(res.regency)
-              // console.log(res.district)
 
               $$('#post_code').val(res.post_code);
               $$('#phone').val(res.phone);
@@ -470,7 +431,7 @@
 
           }
 
-          app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+          app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
             
             var data = JSON.parse(res);
   
@@ -490,6 +451,43 @@
         },
         
       pageInit: function(e, page) {
+		
+        
+        function getRequestDateTime() {
+          var now = new Date();
+
+          $$('#REQUESTDATETIME').val(dateFormat(now, "yyyymmddHHMMss"));
+        }
+
+        function randomString(STRlen) {
+          var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+          var string_length = STRlen;
+          var randomstring = '';
+          for (var i=0; i<string_length; i++) {
+            var rnum = Math.floor(Math.random() * chars.length);
+            randomstring += chars.substring(rnum,rnum+1);
+          }
+          return randomstring;
+        }
+
+        function genInvoice() {
+          $$('#TRANSIDMERCHANT').val(randomString(12));
+        }
+
+        function genSessionID() {
+          $$('#SESSIONID').val(randomString(20));
+        }
+
+        function genBookingCode() {
+          $$('#BOOKINGCODE').val(randomString(6));
+        }
+
+        function getWords() {
+          var msg = $$('#AMOUNT').val() + $$('#MALLID').val() + $$('#SHAREDKEY').val() + $$('#TRANSIDMERCHANT').val();
+          $$('#WORDS').val(SHA1(msg));
+        }
+            
+        
         
         $$('#spangt').text(app.data.gtotal.toLocaleString());
 
@@ -497,16 +495,27 @@
             
           event.preventDefault();
 
-          var form = $$('#frmDoku');
+          var strVal = '';
+
+          $$('.cart-item').forEach (function (item, index) {
+            if (index > 0) {
+              strVal += ';' + item.value;
+            } else {
+              strVal += item.value;
+            }
+          });
+          
+          // console.log(strVal)
+          $$('#BASKET').val(strVal)
 
           // fill data
-          app.methods.genInvoice(form);
-          app.methods.getWords(form);
-          app.methods.getRequestDateTime(form);
-          app.methods.genSessionID(form);
+          genInvoice();
+          getWords();
+          getRequestDateTime();
+          genSessionID();
 
-          app.dialog.alert($$('#first_name').val());
-          return;
+          // app.dialog.alert($$('#TRANSIDMERCHANT').val());
+          // return;
 
           // $$(this).attr("disabled", "disabled");
           
@@ -572,17 +581,21 @@
               return;
           }
 
-          // var form = $$('#frmDoku');
+          console.log('payment: '+$$('#payment').val())
 
-          // // fill data
-          // app.methods.genInvoice(form);
-          // app.methods.getWords(form);
-          // app.methods.getRequestDateTime(form);
-          // app.methods.genSessionID(form);
+          $$('#EMAIL').val($$('#email').val());
+          $$('#NAME').val($$('#first_name').val() + ' ' + $$('#last_name').val()); // member name
+
+          $$('#ADDRESS').val($$('#address').val());
+          $$('#PROVINCE').val($$('#province').val()); // province
+          $$('#CITY').val($$('#regency').val());
+          $$('#ZIPCODE').val($$('#post_code').val());
 
           var formData = [];
           
           formData.mbrid      = app.data.mbrid;
+          
+          // address data
           formData.first_name = $$('#first_name').val();
           formData.last_name  = $$('#last_name').val();
 
@@ -591,9 +604,10 @@
           formData.province   = $$('#province').val();
           formData.regency    = $$('#regency').val();
           formData.district   = $$('#district').val();
-
+          formData.post_code  = $$('#post_code').val();
           formData.phone      = $$('#phone').val();
           formData.email      = $$('#email').val();
+
           formData.note       = $$('#note').val();
 
           formData.carrier    = $$('#carrier').val();
@@ -609,7 +623,7 @@
           formData.gtotal     = $$('#gtotal').val();
 
           
-          app.request.post("http://localhost/askitchenweb/api/v1/snap/savetrx", formData, function(data) {
+          app.request.post("https://askitchen.com/api/v1/snap/savetrx", formData, function(data) {
 
             var formDoku = app.form.convertToData('#frmDoku');
             app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {
@@ -618,7 +632,7 @@
           });
         });
 
-        app.request.json("http://localhost/askitchenweb/api/v1/checkout/carrier", function(json) {
+        app.request.json("https://askitchen.com/api/v1/checkout/carrier", function(json) {
           
           var data = json.data;
 
@@ -632,7 +646,7 @@
           
           var provid = $$(this).val();
 
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/regencies/"+provid, function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/regencies/"+provid, function(json) {
             
             var data = json.data, firstid = data[0].id;
             // console.log('firstid: '+firstid)
@@ -642,7 +656,7 @@
               $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
             }
 
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+firstid, function(json) {
+            app.request.json("https://askitchen.com/api/v1/checkout/districts/"+firstid, function(json) {
               var data = json.data;
 
               $$('#district').html('');
@@ -651,7 +665,7 @@
               }
             });
 
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+firstid, function(json) {
+            app.request.json("https://askitchen.com/api/v1/checkout/post_code/"+firstid, function(json) {
               var data = json.data;
               $$('#post_code').val(data.postal_code);
 
@@ -660,7 +674,7 @@
             // var carrier = $$('#carrier').val();
 
             // get ship cost - default from JNE
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/jne/"+firstid, function(json) {
+            app.request.json("https://askitchen.com/api/v1/checkout/ongkir/jne/"+firstid, function(json) {
                 
               var data = json.data,
                   cost = parseFloat(data[0].cost[0].value);
@@ -668,7 +682,7 @@
               // console.log('data: '+data)
               
               // hitung total ongkos kirim
-              app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+              app.request.json("https://askitchen.com/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
               
                 var data  = json.data;
 
@@ -693,7 +707,7 @@
         $$('#regency').on('change', function(e){
           
           // get district data
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/districts/"+$$(this).val(), function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/districts/"+$$(this).val(), function(json) {
             
             var data = json.data;
 
@@ -704,7 +718,7 @@
           });
 
           // get post code
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/post_code/"+$$(this).val(), function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/post_code/"+$$(this).val(), function(json) {
             var data = json.data;
             $$('#post_code').val(data.postal_code);
           });
@@ -712,7 +726,7 @@
           var carrier = $$('#carrier').val();
 
           // get ship cost
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+carrier+"/"+$$(this).val(), function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/ongkir/"+carrier+"/"+$$(this).val(), function(json) {
               
             var data  = json.data,
                 cost  = parseFloat(data[0].cost[0].value);
@@ -720,7 +734,7 @@
             // console.log('cost: '+cost)
             
             // hitung total ongkos kirim
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+            app.request.json("https://askitchen.com/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
             
               var data  = json.data;
 
@@ -743,7 +757,7 @@
         $$('#carrier').on('change', function(e){
           var city = $$('#regency').val();
 
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
             
             var data  = json.data,
                 cost  = parseFloat(data[0].cost[0].value);
@@ -751,7 +765,7 @@
             // console.log('cost: '+cost)
             
             // hitung total ongkos kirim
-            app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+            app.request.json("https://askitchen.com/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
             
               var data  = json.data;
 
@@ -779,7 +793,7 @@
           $$('#svcname').val($$('#package').text()); // nama service/layanan
 
           // hitung total ongkos kirim
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/hitung_ongkir/"+cost, function(json) {
             
             var data  = json.data;
 
@@ -815,7 +829,7 @@
           }
 
           // hitung total ongkos kirim
-          app.request.json("http://localhost/askitchenweb/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
+          app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
             
             var data  = json.data;
 

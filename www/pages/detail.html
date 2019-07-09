@@ -23,9 +23,9 @@
         <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init swiper-detail">
           <div class="swiper-pagination detail"></div>
           <div class="swiper-wrapper"> <!-- image https://askitchen.com/upload/gambar/ -->
-            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="http://localhost/askitchenweb/upload/gambar/{{data.gambar}}" /></div>
-            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="http://localhost/askitchenweb/upload/gambar/{{#if data.gambar2}}{{data.gambar2}}{{else}}{{data.gambar}}{{/if}}" /></div>
-            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="http://localhost/askitchenweb/upload/gambar/{{#if data.gambar3}}{{data.gambar3}}{{else}}{{data.gambar}}{{/if}}" /></div>
+            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="https://askitchen.com/upload/gambar/{{data.gambar}}" /></div>
+            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="https://askitchen.com/upload/gambar/{{#if data.gambar2}}{{data.gambar2}}{{else}}{{data.gambar}}{{/if}}" /></div>
+            <div class="swiper-slide"><span class="img-helper"></span><img class="lazy product" src="https://askitchen.com/upload/gambar/{{#if data.gambar3}}{{data.gambar3}}{{else}}{{data.gambar}}{{/if}}" /></div>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@
             <div class="swiper-slide detail">
               <a href="/detail/{{kdurl}}" class="item-link">
               <div>
-                <img class="responsive-product lazy" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
+                <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
                 <!-- image https://askitchen.com/upload/gambar/ -->
               </div>
               <div class="product-name-rel">{{nama}}</div>
@@ -147,7 +147,7 @@
       
       pageBeforeIn: function (event, page) {
         
-      //   app.request.get("http://localhost/askitchenweb/api/v1/cart/total_items", function(res) {
+      //   app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
           
       //     var data = JSON.parse(res);
 
@@ -243,7 +243,7 @@
           // formData.Authorization = app.data.token;
           // app.methods.addItem(kode);
 
-          app.request.post("http://localhost/askitchenweb/api/v1/cart", formData, function(res) {
+          app.request.post("https://askitchen.com/api/v1/cart", formData, function(res) {
               
             var data = JSON.parse(res);
 

@@ -16,7 +16,7 @@
         
       {{#each data}}
       <div class="card item-cart">
-        <img class="responsive-product lazy" src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" />
+        <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
         <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
         <input type="hidden" class="item-qty"   value="{{qty}}" />
         <input type="hidden" class="item-price" value="{{harga}}" />
@@ -86,7 +86,7 @@
           formData.qty  = qty;
           // formData.Authorization = app.data.token;
 
-          app.request.post("http://localhost/askitchenweb/api/v1/cart/remove", formData, function(res) {
+          app.request.post("https://askitchen.com/api/v1/cart/remove", formData, function(res) {
               
             var data = JSON.parse(res);
             app.data.total_items = data.totqty;

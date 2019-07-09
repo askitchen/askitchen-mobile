@@ -50,7 +50,7 @@
           on: {
             search(sb, query, previousQuery) {
               
-              app.request.getJSON("http://localhost/askitchenweb/api/v1/search?q="+query, function(res) {
+              app.request.getJSON("https://askitchen.com/api/v1/search?q="+query, function(res) {
                 
                 // var data = JSON.parse(res);
                 var items = res.data;
@@ -64,7 +64,7 @@
                   itemTemplate:
                     '<li>' +
                       '<a href="/detail/{{kdurl}}" class="item-link item-content">' +
-                        '<div class="item-media"><img src="http://localhost/askitchenweb/upload/gambar/{{gambar}}" width="70" /></div>' +
+                        '<div class="item-media"><img src="https://askitchen.com/upload/gambar/{{gambar}}" width="70" /></div>' +
                         '<div class="item-inner">' +
                           '<div class="item-title-row">' +
                             '<div class="item-title">{{nama}}</div>' +

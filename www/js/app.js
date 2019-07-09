@@ -49,6 +49,69 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
+    addItem: function(kode, qty) {
+      
+      var bFound = false;
+
+      for (var i =0; i < items.length; i++)
+      if (items[i].kdbar === kode) {
+         
+        bFound = true;
+        items[i].qty += parseInt(qty);
+        break;
+      }
+
+      if (!bFound) {
+        items.push({ kdbar: kode, qty: parseInt(qty) })
+      }
+      
+      // hitung total
+      // app.methods.calcTotal();
+    },
+    deleteItem: function(kode) {
+      
+      for (var i =0; i < items.length; i++)
+      if (items[i].kdbar === kode) {
+         items.splice(i,1);
+         break;
+      }
+      // app.methods.calcTotal();
+    },
+    /*calcTotal: function(kode) {
+
+      app.data.total = 0;
+
+      for (var l = 0; l < details.length; l++) {
+
+        if (details[l].disc > 0) { // diskon persen
+
+          var discrp = details[l].qty * details[l].hjual * details[l].disc / 100;
+
+          details[l].net = details[l].hjual - (discrp / details[l].qty);
+          details[l].jumlah = (details[l].qty * details[l].hjual) - discrp;
+
+        } else {
+
+          // var disc = (details[l].discrp * 100 / details[l].qty) / (details[l].qty * details[l].hjual);
+          
+          details[l].net = details[l].hjual - (details[l].discrp / details[l].qty);          
+          details[l].jumlah = (details[l].qty * details[l].hjual) - details[l].discrp;
+        }
+
+        app.data.total += details[l].jumlah;
+
+        // hitung diskon global
+        if (app.data.disc > 0) {
+          app.data.tmpdiscrp = app.data.total * app.data.disc / 100;
+          app.data.gtotal = app.data.total - app.data.tmpdiscrp;
+        } else {
+          app.data.tmpdisc = app.data.discrp * 100 / app.data.total;
+          app.data.gtotal = app.data.total - app.data.discrp;
+        }
+      }
+      app.data.gtotal = app.data.total;
+      $$('.gtotal').text(app.data.gtotal.toLocaleString('ID'));
+    },*/
   
   },
   on: {
@@ -322,6 +385,12 @@ $$(document).on('backbutton', function (e) {
       var toast = app.toast.create({
         text: 'Press back once again to exit.',
         closeTimeout: 2000,
+        on: {
+          close: function () {
+            // app.dialog.alert('Toast closed');
+            bBackPressed = false;
+          },
+        }
       });
       toast.open();
       

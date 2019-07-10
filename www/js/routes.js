@@ -213,15 +213,14 @@ routes = [
               text: 'Gunakan kamera',
               onClick: function () {
                     
-                // app.dialog.alert('Camera!');
                 var options = {
                   quality: 50,
                   destinationType: destinationType.DATA_URL,
                   sourceType: Camera.PictureSourceType.CAMERA,
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 360,
-                  targetHeight: 360,
+                  targetWidth: 120,
+                  targetHeight: 120,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -241,15 +240,14 @@ routes = [
               text: 'Ambil dari gallery',
               onClick: function () {
                     
-                // app.dialog.alert('You choose gallery!');
                 var options = {
                   quality: 50,
                   destinationType: destinationType.DATA_URL,
                   sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 360,
-                  targetHeight: 360,
+                  targetWidth: 120,
+                  targetHeight: 120,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -290,8 +288,6 @@ routes = [
        
         $$('.take-photo').on('click', function () {
           
-          // app.dialog.alert('Take photo!')
-            
           ac_photo.open();
         });
 

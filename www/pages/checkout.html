@@ -487,43 +487,43 @@
         }
             
         
-        function executeScriptCallBack(params) {
+        // function executeScriptCallBack(params) {
 
-          if (params[0] == null) {
+        //   if (params[0] == null) {
 
-              $('#status-message').text(
-                "Sorry we couldn't open that page. Message from the server is : '"
-                + params.message + "'");
-          }
-        }
+        //       $('#status-message').text(
+        //         "Sorry we couldn't open that page. Message from the server is : '"
+        //         + params.message + "'");
+        //   }
+        // }
 
-        function onBrowserLoadStop(event){
+        // function onBrowserLoadStop(event){
           
-          var elements = $$('#frmDoku').elements;
+        //   var elements = $$('#frmDoku').elements;
             
-          var script = 'var form = document.createElement("form");';
-            script += 'var url = "https://staging.doku.com/Suite/Receive";';
-            script += 'form.method="post"';
-            script += 'form.setAttribute("action",url);';
+        //   var script = 'var form = document.createElement("form");';
+        //     script += 'var url = "https://staging.doku.com/Suite/Receive";';
+        //     script += 'form.method="post"';
+        //     script += 'form.setAttribute("action",url);';
 
-            for (var i = 0, element; element = elements[i++];) {
+        //     for (var i = 0, element; element = elements[i++];) {
               
-              // if (element.type === "text" && element.value === "")
-              //     console.log("it's an empty textfield")
+        //       // if (element.type === "text" && element.value === "")
+        //       //     console.log("it's an empty textfield")
               
-              script += 'var hiddenField = document.createElement("input");';
-              script += 'hiddenField.setAttribute("type", "hidden");';
-              script += 'hiddenField.setAttribute("name","' + element.name +'");';
-              script += 'hiddenField.setAttribute("value","' + element.value + '");';
-              script += 'form.appendChild(hiddenField);';
-            }
-            script += 'document.body.appendChild(form)';
-            script += 'form.submit();';
+        //       script += 'var hiddenField = document.createElement("input");';
+        //       script += 'hiddenField.setAttribute("type", "hidden");';
+        //       script += 'hiddenField.setAttribute("name","' + element.name +'");';
+        //       script += 'hiddenField.setAttribute("value","' + element.value + '");';
+        //       script += 'form.appendChild(hiddenField);';
+        //     }
+        //     script += 'document.body.appendChild(form)';
+        //     script += 'form.submit();';
               
-          ref.executeScript({ code: script }, executeScriptCallBack);
-          ref.close();
-          ref = undefined;
-        }
+        //   ref.executeScript({ code: script }, executeScriptCallBack);
+        //   // ref.close();
+        //   // ref = undefined;
+        // }
         
         $$('#spangt').text(app.data.gtotal.toLocaleString());
 
@@ -664,7 +664,42 @@
             // var formDoku = app.form.convertToData('#frmDoku');
             // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
 
-            ref = cordova.InAppBrowser.open("http://askitchen.com/blank", "_blank",'location=no,clearcache=yes,hardwareback=no,zoom=no');
+            function executeScriptCallBack(params) {
+
+              if (params[0] == null) {
+
+                  $('#status-message').text(
+                    "Sorry we couldn't open that page. Message from the server is : '"
+                    + params.message + "'");
+              }
+            }
+
+            function onBrowserLoadStop(event){
+
+              var elements = $$('#frmDoku').elements;
+                
+              var script = 'var form = document.createElement("form");';
+                script += 'var url = "https://staging.doku.com/Suite/Receive";';
+                script += 'form.method="post"';
+                script += 'form.setAttribute("action",url);';
+
+                for (var i = 0, element; element = elements[i++];) {
+                  
+                  script += 'var hiddenField = document.createElement("input");';
+                  script += 'hiddenField.setAttribute("type", "hidden");';
+                  script += 'hiddenField.setAttribute("name","' + element.name +'");';
+                  script += 'hiddenField.setAttribute("value","' + element.value + '");';
+                  script += 'form.appendChild(hiddenField);';
+                }
+                script += 'document.body.appendChild(form)';
+                script += 'form.submit();';
+                  
+              ref.executeScript({ code: script }, executeScriptCallBack);
+              // ref.close();
+              // ref = undefined;
+            }
+            
+            ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank",'location=no,clearcache=yes,hardwareback=no,zoom=no');
             ref.addEventListener('loadstop', onBrowserLoadStop);
           });
         });

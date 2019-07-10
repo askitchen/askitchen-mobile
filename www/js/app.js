@@ -128,6 +128,12 @@ var app  = new Framework7({
         $$('.member-edit').css('display', 'none');
       }
       
+      var imageData = localStorage.getItem('profile');
+      if (imageData) {
+        $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+        $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+      }
+      
       destinationType = navigator.camera.DestinationType;
 
       /*

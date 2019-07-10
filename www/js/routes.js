@@ -259,6 +259,7 @@ routes = [
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
                   $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);

@@ -220,8 +220,8 @@ routes = [
                   sourceType: Camera.PictureSourceType.CAMERA,
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 320, // 360
-                  targetHeight: 480, // 360
+                  targetWidth: 360,
+                  targetHeight: 360,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -230,8 +230,7 @@ routes = [
 
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  $$('#cameraimage').attr('src', "data:image/jpeg; base64," + imageData);
-                  $$('#filedata').val(imageData);
+                  $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);
@@ -249,8 +248,8 @@ routes = [
                   sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 320, // 360
-                  targetHeight: 480, // 360
+                  targetWidth: 360,
+                  targetHeight: 360,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -259,8 +258,7 @@ routes = [
 
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  $$('#cameraimage').attr('src', "data:image/jpeg; base64," + imageData);
-                  $$('#filedata').val(imageData);
+                  $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);
@@ -294,29 +292,6 @@ routes = [
           // app.dialog.alert('Take photo!')
             
           ac_photo.open();
-          
-          // var options = {
-          //   quality: 50,
-          //   destinationType: destinationType.DATA_URL,
-          //   sourceType: pictureSource.CAMERA,
-          //   encodingType: Camera.EncodingType.JPEG,
-          //   mediaType: Camera.MediaType.PICTURE,
-          //   targetWidth: 150, // 360
-          //   targetHeight: 75, // 360
-          //   // allowEdit: true,
-          //   correctOrientation: true  //Corrects Android orientation quirks
-          //   // popoverOptions: CameraPopoverOptions,
-          //   // saveToPhotoAlbum: false
-          // };
-        
-          // // update camera image directive
-          // navigator.camera.getPicture(function cameraSuccess(imageData) {
-          //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
-          //   localStorage.setItem('profile', imageData);
-          // }, function cameraError(err) {
-          //   // console.log('Failed because: ');
-          //   app.dialog.alert(err);
-          // }, options);
         });
 
         $$('.btnSimpan').on('click', function () {
@@ -341,6 +316,9 @@ routes = [
           // var fax = $$('#fax').val();
           // var npwp = $$('#npwp').val();
           
+          // update display nama
+          $$('.member-name').text(nama_dpn + ' ' + nama_blk);
+
           var formData = [];
           
           formData.mbrid      = app.data.mbrid;

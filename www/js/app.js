@@ -56,7 +56,7 @@ var app  = new Framework7({
       
       var bFound = false;
 
-      for (var i =0; i < items.length; i++)
+      for (var i=0; i < items.length; i++)
       if (items[i].kdbar === kode) {
          
         bFound = true;
@@ -121,6 +121,8 @@ var app  = new Framework7({
 
     init: function () { // sama dengan onDeviceReady
       
+      // app.statusbar.hide();
+
       if (!this.data.bLogedIn) {
         $$('.member-status').css('display', 'none');
         $$('.member-edit').css('display', 'none');

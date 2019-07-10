@@ -48,16 +48,16 @@
   <plugin name="cordova-plugin-camera" source="npm" />
 
   <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
-      <uses-permission android:name="android.permission.CAMERA" />
-      <uses-feature android:name="android.hardware.camera" />
-      <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
   </config-file>
 
   <!--<plugin name="cordova-plugin-ble-central" source="npm" />-->
   
   <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-  <plugin name="cordova-plugin-inappbrowser" source="npm" />
+  <plugin name="cordova-plugin-inappbrowser"    source="npm" />
 
   <plugin name="cordova-plugin-console" source="npm" />
   <!-- <plugin name="cordova-plugin-contacts" spec="~2.3.1" /> --><!-- cli-6.5.0 -->

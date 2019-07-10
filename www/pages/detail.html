@@ -147,17 +147,19 @@
       
       pageBeforeIn: function (event, page) {
         
-      //   app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
-          
-      //     var data = JSON.parse(res);
+        if (app.data.bLogedIn) {
 
-      //     if (data.status)
-      //     {
-      //       app.data.total_items = data.totqty;
-      //       // $$('.badge').text(app.data.total_items);
-      //     }
-      //   });
-        
+          app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
+                    
+            var data = JSON.parse(res);
+            
+            if (data.status)
+            {
+              app.data.total_items = data.totqty;
+            }
+          });
+        }
+
         if (app.data.total_items > 0) {
           $$('.badge').text(app.data.total_items);
           $$('.badge').css("display", "block");
@@ -165,7 +167,7 @@
           $$('.badge').css("display", "none");
         }
       },
-
+      
       pageInit: function(e, page) {
 
         // var starRating = new SimpleStarRating($$('#rater'));

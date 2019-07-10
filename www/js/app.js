@@ -9,6 +9,7 @@ var items   = [];
 var bBackPressed = false;
 
 var destinationType = null;
+var ref = null;
 
 // Framework7 App main instance
 var app  = new Framework7({
@@ -35,11 +36,11 @@ var app  = new Framework7({
 
       total_items: 0, // total item cart
 
-      total: 0,       // sub total
-      tax: 0,         // pajak
-      shipcost: 0,    // ongkos kirim
-      addcost: 0,     // payment gateway
-      gtotal: 0,      // total
+      // total: 0,       // sub total
+      // tax: 0,         // pajak
+      // shipcost: 0,    // ongkos kirim
+      // addcost: 0,     // payment gateway
+      // gtotal: 0,      // total
 
       // currentDate: null,
       lastURL: null,

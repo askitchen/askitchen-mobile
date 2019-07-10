@@ -336,7 +336,6 @@
                   if (res.regency) {
                     
                     $$('#regency').val(res.regency);
-                    // console.log('firstid: '+res.regency)
 
                     app.request.json("https://askitchen.com/api/v1/checkout/districts/"+res.regency, function(json) {
                       
@@ -352,7 +351,6 @@
                     app.request.json("https://askitchen.com/api/v1/checkout/post_code/"+res.regency, function(json) {
                       var data = json.data;
                       $$('#post_code').val(data.postal_code);
-
                     });
 
 
@@ -363,7 +361,7 @@
             
                       var data  = json.data,
                           cost  = parseFloat(data[0].cost[0].value),
-                          total = app.data.total;
+                          total = parseFloat($$('#total').val());
 
                       // console.log('cost: '+cost)
 
@@ -377,24 +375,25 @@
                       
                         var data  = json.data;
 
-                        app.data.shipcost = data.shipcost;
+                        // app.data.shipcost = data.shipcost;
                         $$('#shipcost').val(data.shipcost);
                         $$('#spanship').text(data.shipcost.toLocaleString());
 
                         total += data.shipcost;
                         
-                        app.data.gtotal = total;
+                        // app.data.gtotal = total;
+                        $$('#gtotal').val(total);
                         $$('#spangt').text(total.toLocaleString());
                         
-                        var frac = app.data.gtotal - Math.floor(app.data.gtotal * 100) / 100;
+                        var frac = parseFloat($$('#gtotal').val()) - Math.floor(parseFloat($$('#gtotal').val()) * 100) / 100;
                         // console.log('frac: ' + frac);
 
                         if (frac == 0) { // total dikirim ke DOKU
-                          $$('#AMOUNT').val(app.data.gtotal+'.00');
-                          $$('#PURCHASEAMOUNT').val(app.data.gtotal+'.00');
+                          $$('#AMOUNT').val($$('#gtotal').val()+'.00');
+                          $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.00');
                         } else {
-                          $$('#AMOUNT').val(app.data.gtotal+'.'+frac);
-                          $$('#PURCHASEAMOUNT').val(app.data.gtotal+'.'+frac);
+                          $$('#AMOUNT').val($$('#gtotal').val()+'.'+frac);
+                          $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.'+frac);
                         }
 
                         // app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
@@ -488,6 +487,43 @@
         }
             
         
+        function executeScriptCallBack(params) {
+
+          if (params[0] == null) {
+
+              $('#status-message').text(
+                "Sorry we couldn't open that page. Message from the server is : '"
+                + params.message + "'");
+          }
+        }
+
+        function onBrowserLoadStop(event){
+          
+          var elements = $$('#frmDoku').elements;
+            
+          var script = 'var form = document.createElement("form");';
+            script += 'var url = "https://staging.doku.com/Suite/Receive";';
+            script += 'form.method="post"';
+            script += 'form.setAttribute("action",url);';
+
+            for (var i = 0, element; element = elements[i++];) {
+              
+              // if (element.type === "text" && element.value === "")
+              //     console.log("it's an empty textfield")
+              
+              script += 'var hiddenField = document.createElement("input");';
+              script += 'hiddenField.setAttribute("type", "hidden");';
+              script += 'hiddenField.setAttribute("name","' + element.name +'");';
+              script += 'hiddenField.setAttribute("value","' + element.value + '");';
+              script += 'form.appendChild(hiddenField);';
+            }
+            script += 'document.body.appendChild(form)';
+            script += 'form.submit();';
+              
+          ref.executeScript({ code: script }, executeScriptCallBack);
+          ref.close();
+          ref = undefined;
+        }
         
         $$('#spangt').text(app.data.gtotal.toLocaleString());
 
@@ -581,7 +617,7 @@
               return;
           }
 
-          console.log('payment: '+$$('#payment').val())
+          // console.log('payment: '+$$('#payment').val())
 
           $$('#EMAIL').val($$('#email').val());
           $$('#NAME').val($$('#first_name').val() + ' ' + $$('#last_name').val()); // member name
@@ -625,10 +661,11 @@
           
           app.request.post("https://askitchen.com/api/v1/snap/savetrx", formData, function(data) {
 
-            var formDoku = app.form.convertToData('#frmDoku');
-            app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {
+            // var formDoku = app.form.convertToData('#frmDoku');
+            // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
 
-            });
+            ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank",'location=no,clearcache=yes,hardwareback=no,zoom=no');
+            ref.addEventListener('loadstop', onBrowserLoadStop);
           });
         });
 
@@ -676,8 +713,9 @@
             // get ship cost - default from JNE
             app.request.json("https://askitchen.com/api/v1/checkout/ongkir/jne/"+firstid, function(json) {
                 
-              var data = json.data,
-                  cost = parseFloat(data[0].cost[0].value);
+              var data  = json.data,
+                  cost  = parseFloat(data[0].cost[0].value),
+                  total = parseFloat($$('#total').val());
               
               // console.log('data: '+data)
               
@@ -686,13 +724,34 @@
               
                 var data  = json.data;
 
-                app.data.shipcost = data.shipcost;
-                $$('#spanship').text(app.data.shipcost.toLocaleString());
-                // console.log('shipcost: '+data.shipcost)
+                $$('#shipcost').val(data.shipcost);
+                $$('#spanship').text(data.shipcost.toLocaleString());
 
-                app.data.gtotal   = app.data.total + data.shipcost;
-                $$('#spangt').text(app.data.gtotal.toLocaleString());
-                // console.log('total: '+app.data.gtotal)
+                total += data.shipcost;
+            
+                var pm_mtd = $$('#payment').val();
+
+                if (pm_mtd) {
+
+                  // hitung additional charge
+                  app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
+                    
+                    var data  = json.data;
+
+                    $$('#add_fee').val(data.cost);
+                    $$('#span-add').text(data.cost.toLocaleString());
+
+                    total += data.cost;
+                    
+                    $$('#gtotal').val(total);
+                    $$('#spangt').text(total.toLocaleString());
+                  });
+
+                } else {
+
+                  $$('#gtotal').val(total);
+                  $$('#spangt').text(total.toLocaleString());
+                }
               });
 
               $$('#package').html('');
@@ -729,7 +788,8 @@
           app.request.json("https://askitchen.com/api/v1/checkout/ongkir/"+carrier+"/"+$$(this).val(), function(json) {
               
             var data  = json.data,
-                cost  = parseFloat(data[0].cost[0].value);
+                cost  = parseFloat(data[0].cost[0].value),
+                total = parseFloat($$('#total').val());
 
             // console.log('cost: '+cost)
             
@@ -738,11 +798,34 @@
             
               var data  = json.data;
 
-              app.data.shipcost = data.shipcost;
-              $$('#spanship').text(app.data.shipcost.toLocaleString());
+              $$('#shipcost').val(data.shipcost);
+              $$('#spanship').text(data.shipcost.toLocaleString());
 
-              app.data.gtotal   = app.data.total + data.shipcost;
-              $$('#spangt').text(app.data.gtotal.toLocaleString());
+              total += data.shipcost;
+            
+              var pm_mtd = $$('#payment').val();
+
+              if (pm_mtd) {
+              
+                // hitung additional charge
+                app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
+                  
+                  var data  = json.data;
+
+                  $$('#add_fee').val(data.cost);
+                  $$('#span-add').text(data.cost.toLocaleString());
+
+                  total += data.cost;
+                  
+                  $$('#gtotal').val(total);
+                  $$('#spangt').text(total.toLocaleString());
+                });
+              
+              } else {
+
+                $$('#gtotal').val(total);
+                $$('#spangt').text(total.toLocaleString());
+              }
             });
 
             $$('#package').html('');
@@ -760,7 +843,8 @@
           app.request.json("https://askitchen.com/api/v1/checkout/ongkir/"+$$(this).val()+"/"+city, function(json) {
             
             var data  = json.data,
-                cost  = parseFloat(data[0].cost[0].value);
+                cost  = parseFloat(data[0].cost[0].value),
+                total = parseFloat($$('#total').val());
 
             // console.log('cost: '+cost)
             
@@ -769,11 +853,34 @@
             
               var data  = json.data;
 
-              app.data.shipcost = data.shipcost;
-              $$('#spanship').text(app.data.shipcost.toLocaleString());
+              $$('#shipcost').val(data.shipcost);
+              $$('#spanship').text(data.shipcost.toLocaleString());
 
-              app.data.gtotal   = app.data.total + data.shipcost;
-              $$('#spangt').text(app.data.gtotal.toLocaleString());
+              total += data.shipcost;
+            
+              var pm_mtd = $$('#payment').val();
+
+              if (pm_mtd) {
+              
+                // hitung additional charge
+                app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
+                  
+                  var data  = json.data;
+
+                  $$('#add_fee').val(data.cost);
+                  $$('#span-add').text(data.cost.toLocaleString());
+
+                  total += data.cost;
+                  
+                  $$('#gtotal').val(total);
+                  $$('#spangt').text(total.toLocaleString());
+                });
+              
+              } else {
+
+                $$('#gtotal').val(total);
+                $$('#spangt').text(total.toLocaleString());
+              }
             });
 
             $$('#package').html('');
@@ -788,8 +895,9 @@
 
         $$('#package').on('change', function(e){
           
-          var cost  = parseFloat( $$(this).val());
-            
+          var cost  = parseFloat( $$(this).val()),
+              total = parseFloat($$('#total').val());
+
           $$('#svcname').val($$('#package').text()); // nama service/layanan
 
           // hitung total ongkos kirim
@@ -797,19 +905,41 @@
             
             var data  = json.data;
 
-            app.data.shipcost = data.shipcost;
-            $$('#spanship').text(app.data.shipcost.toLocaleString());
+            $$('#shipcost').val(data.shipcost);
+            $$('#spanship').text(data.shipcost.toLocaleString());
 
-            app.data.gtotal   = app.data.total + data.shipcost;
-            $$('#spangt').text(app.data.gtotal.toLocaleString());
+            total += data.shipcost;
+            
+            var pm_mtd = $$('#payment').val();
+
+            if (pm_mtd) {
+              
+              // hitung additional charge
+              app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/"+pm_mtd+"/"+total, function(json) {
+                
+                var data  = json.data;
+
+                $$('#add_fee').val(data.cost);
+                $$('#span-add').text(data.cost.toLocaleString());
+
+                total += data.cost;
+                
+                $$('#gtotal').val(total);
+                $$('#spangt').text(total.toLocaleString());
+              });
+            
+            } else {
+              $$('#gtotal').val(total);
+              $$('#spangt').text(total.toLocaleString());
+            }
           });
         });
 
         $$('#payment').on('change', function(e){
 
-          var total    = app.data.total,
-              shipcost = app.data.shipcost,
-              tax      = app.data.tax;
+          var total    = parseFloat($$('#total').val()),
+              shipcost = parseFloat($$('#shipcost').val()),
+              tax      = parseFloat($$('#tax').val());
                 
           var pm_mtd   = $$(this).val();
 
@@ -833,12 +963,12 @@
             
             var data  = json.data;
 
-            app.data.addcost = data.cost;
+            $$('#add_fee').val(data.cost);
             $$('#span-add').text(data.cost.toLocaleString());
 
             total += data.cost;
             
-            app.data.gtotal  =  total;
+            $$('#gtotal').val(total);
             $$('#spangt').text(total.toLocaleString());
           });
         });

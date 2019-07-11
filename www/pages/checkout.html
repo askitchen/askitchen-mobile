@@ -659,18 +659,17 @@
               // console.log(script)
               // return;
                 
-            //     // script += 'var hiddenField = document.createElement("input");';
-            //     // script += 'hiddenField.setAttribute("type", "hidden");';
-            //     // script += 'hiddenField.setAttribute("name","' + element.name +'");';
-            //     // script += 'hiddenField.setAttribute("value","' + element.value + '");';
-            //     // script += 'form.appendChild(hiddenField);';
-            //     script += 'document.getElementById("' + element.name + '").value = "' + element.value + '";';
-            //     // script += 'hiddenField.setAttribute("value","' + element.value + '");';
-            //   }
-            //   // script += 'document.body.appendChild(form)';
-            //   script += 'document.getElementById("frmDoku").submit();';
+                // script += 'var hiddenField = document.createElement("input");';
+                // script += 'hiddenField.setAttribute("type", "hidden");';
+                // script += 'hiddenField.setAttribute("name","' + element.name +'");';
+                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
+                // script += 'form.appendChild(hiddenField);';
+                // script += 'document.getElementById("' + element.name + '").value = "' + element.value + '";';
+                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
+              // }
+              // script += 'document.body.appendChild(form)';
+              // script += 'document.getElementById("frmDoku").submit();';
 
-              app.dialog.alert(script);
               
               function executeScriptCallBack(params) {
 
@@ -683,8 +682,8 @@
               }
 
               ref.executeScript({ code: script }, executeScriptCallBack);
-            //   // ref.close();
-            //   // ref = undefined;
+              // ref.close();
+              // ref = undefined;
 
             });
           });

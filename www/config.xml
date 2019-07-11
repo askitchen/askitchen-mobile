@@ -46,6 +46,7 @@
   
   <plugin name="cordova-plugin-device" source="npm" />
   <plugin name="cordova-plugin-camera" source="npm" />
+  <plugin name="cordova-plugin-crop" source="npm" />
 
   <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
     <uses-permission android:name="android.permission.CAMERA" />

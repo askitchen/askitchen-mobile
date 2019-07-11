@@ -220,7 +220,7 @@ routes = [
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
                   targetWidth: 120,
-                  targetHeight: 120,
+                  targetHeight: 160,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -229,7 +229,15 @@ routes = [
 
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  
+                  plugins.crop(function success (data) {
+                    $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + data);
+                    $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + data);
+                  }, 
+                  function fail () {
+           
+                  }, imageData, {quality:50});
+                  
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);
@@ -247,7 +255,7 @@ routes = [
                   encodingType: Camera.EncodingType.JPEG,
                   mediaType: Camera.MediaType.PICTURE,
                   targetWidth: 120,
-                  targetHeight: 120,
+                  targetHeight: 160,
                   // allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
@@ -256,8 +264,8 @@ routes = [
 
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
-                  $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);

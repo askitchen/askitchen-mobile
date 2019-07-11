@@ -279,7 +279,7 @@
       <input name="WORDS" type="hidden" id="WORDS" />
       <input name="REQUESTDATETIME" type="hidden" id="REQUESTDATETIME" maxlength="14" />
       <input name="SESSIONID" type="hidden" id="SESSIONID" />
-      <input name="PAYMENTCHANNEL" type="hidden" id="PAYMENTCHANNEL" value="" />
+      <input name="PAYMENTCHANNEL" type="hidden" id="PAYMENTCHANNEL" value="15" />
       <input name="EMAIL" type="hidden" id="EMAIL" value="" />
       <input name="NAME" type="hidden" id="NAME" value="" maxlength="50" />
     
@@ -396,26 +396,26 @@
                           $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.'+frac);
                         }
 
-                        // app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
+                        app.request.json("https://askitchen.com/api/v1/checkout/hitung_biaya/15/"+total, function(json) {
                       
-                        //   var data  = json.data;
-                        //   // console.log('additional cost: '+data.cost)
+                          var data  = json.data;
+                          // console.log('additional cost: '+data.cost)
 
-                        //   app.data.addcost = data.cost;
+                          app.data.addcost = data.cost;
                           
-                        //   $$('#add_fee').val(data.cost);
-                        //   $$('#span-add').text(data.cost.toLocaleString());
+                          $$('#add_fee').val(data.cost);
+                          $$('#span-add').text(data.cost.toLocaleString());
 
-                        //   // add payment gateway cost
-                        //   total += data.cost;
+                          // add payment gateway cost
+                          total += data.cost;
                           
-                        //   $$('#gtotal').val(total);
-                        //   $$('#spangt').text(total.toLocaleString());
+                          $$('#gtotal').val(total);
+                          $$('#spangt').text(total.toLocaleString());
 
-                        // });
+                        });
 
-                        // app.data.gtotal = total;
-                        // $$('#spangt').text(total.toLocaleString());
+                        app.data.gtotal = total;
+                        $$('#spangt').text(total.toLocaleString());
                       });
                     });
 
@@ -515,7 +515,6 @@
           // app.dialog.alert($$('#TRANSIDMERCHANT').val());
           // return;
 
-          // $$(this).attr("disabled", "disabled");
           
           if ($$('#first_name').val() == '')
           {
@@ -621,18 +620,29 @@
           formData.gtotal     = $$('#gtotal').val();
 
           
+          
           app.request.post("https://askitchen.com/api/v1/snap/savetrx", formData, function(data) {
+            
+            // var elements = $$('#frmDoku')[0].elements;
+                
+            // var script = '';
+
+            // for (var i = 0; i < elements.length; i++) {
+            //   script += 'document.getElementById("' + elements[i].name + '").value = "' + elements[i].value + '";';
+            // }
+            // script += 'document.getElementById("frmDoku").submit();';
+
 
             // var formDoku = app.form.convertToData('#frmDoku');
             // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
 
             ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
-            // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+            // // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
             
-            // ref.addEventListener('loadstop', onBrowserLoadStop);
+            // // ref.addEventListener('loadstop', onBrowserLoadStop);
             ref.addEventListener('loadstop', function(event) {
               
-              var elements = $$('#frmDoku').elements;
+              var elements = $$('#frmDoku')[0].elements;
                 
               // var script = 'var form = document.createElement("form");';
               //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
@@ -641,20 +651,23 @@
 
               var script = '';
 
-              for (var i = 0, element; element = elements[i++];) {
-                
-                // script += 'var hiddenField = document.createElement("input");';
-                // script += 'hiddenField.setAttribute("type", "hidden");';
-                // script += 'hiddenField.setAttribute("name","' + element.name +'");';
-                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
-                // script += 'form.appendChild(hiddenField);';
-                script += 'document.getElementById("' + element.name + '").value = "' + element.value + '";';
-                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
+              for (var i = 0; i < elements.length; i++) {
+                script += 'document.getElementById("' + elements[i].name + '").value = "' + elements[i].value + '";';
               }
-              // script += 'document.body.appendChild(form)';
               script += 'document.getElementById("frmDoku").submit();';
+                
+            //     // script += 'var hiddenField = document.createElement("input");';
+            //     // script += 'hiddenField.setAttribute("type", "hidden");';
+            //     // script += 'hiddenField.setAttribute("name","' + element.name +'");';
+            //     // script += 'hiddenField.setAttribute("value","' + element.value + '");';
+            //     // script += 'form.appendChild(hiddenField);';
+            //     script += 'document.getElementById("' + element.name + '").value = "' + element.value + '";';
+            //     // script += 'hiddenField.setAttribute("value","' + element.value + '");';
+            //   }
+            //   // script += 'document.body.appendChild(form)';
+            //   script += 'document.getElementById("frmDoku").submit();';
 
-              app.dialog.alert(script);
+            //   app.dialog.alert(script);
               
               ref.executeScript({ code: script }, executeScriptCallBack);
               
@@ -667,10 +680,10 @@
                       + params.message + "'");
                 }
               }
-              // ref.close();
-              // ref = undefined;
+            //   // ref.close();
+            //   // ref = undefined;
 
-            });
+            // });
           });
         });
 

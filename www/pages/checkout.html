@@ -637,9 +637,9 @@
             // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
 
             ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
-            // // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+            // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
             
-            // // ref.addEventListener('loadstop', onBrowserLoadStop);
+            // ref.addEventListener('loadstop', onBrowserLoadStop);
             ref.addEventListener('loadstop', function(event) {
               
               var elements = $$('#frmDoku')[0].elements;
@@ -670,6 +670,12 @@
               // script += 'document.body.appendChild(form)';
               // script += 'document.getElementById("frmDoku").submit();';
 
+              // display message
+              var toast = app.toast.create({
+                text: 'Processing, please wait..',
+                closeTimeout: 2000,
+              });
+              toast.open();
               
               function executeScriptCallBack(params) {
 

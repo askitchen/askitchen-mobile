@@ -9,7 +9,7 @@ var items   = [];
 var bBackPressed = false;
 
 var destinationType = null;
-var ref = null;
+// var ref = null;
 
 // Framework7 App main instance
 var app  = new Framework7({
@@ -52,6 +52,7 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
+    
     addItem: function(kode, qty) {
       
       var bFound = false;

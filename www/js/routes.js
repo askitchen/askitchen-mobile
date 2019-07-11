@@ -488,7 +488,6 @@ routes = [
   },
   {
     path: '/checkout/',
-    // componentUrl: './pages/checkout.html',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -515,8 +514,8 @@ routes = [
         var data = JSON.parse(res);
         
         // console.log(res)
-        app.data.total  = data.total;
-        app.data.gtotal = data.total;
+        // app.data.total  = data.total;
+        // app.data.gtotal = data.total;
 
         resolve (
           { componentUrl: './pages/checkout.html' },

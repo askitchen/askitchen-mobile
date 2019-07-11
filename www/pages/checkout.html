@@ -486,45 +486,7 @@
           $$('#WORDS').val(SHA1(msg));
         }
             
-        
-        // function executeScriptCallBack(params) {
-
-        //   if (params[0] == null) {
-
-        //       $('#status-message').text(
-        //         "Sorry we couldn't open that page. Message from the server is : '"
-        //         + params.message + "'");
-        //   }
-        // }
-
-        // function onBrowserLoadStop(event){
-          
-        //   var elements = $$('#frmDoku').elements;
-            
-        //   var script = 'var form = document.createElement("form");';
-        //     script += 'var url = "https://staging.doku.com/Suite/Receive";';
-        //     script += 'form.method="post"';
-        //     script += 'form.setAttribute("action",url);';
-
-        //     for (var i = 0, element; element = elements[i++];) {
-              
-        //       // if (element.type === "text" && element.value === "")
-        //       //     console.log("it's an empty textfield")
-              
-        //       script += 'var hiddenField = document.createElement("input");';
-        //       script += 'hiddenField.setAttribute("type", "hidden");';
-        //       script += 'hiddenField.setAttribute("name","' + element.name +'");';
-        //       script += 'hiddenField.setAttribute("value","' + element.value + '");';
-        //       script += 'form.appendChild(hiddenField);';
-        //     }
-        //     script += 'document.body.appendChild(form)';
-        //     script += 'form.submit();';
-              
-        //   ref.executeScript({ code: script }, executeScriptCallBack);
-        //   // ref.close();
-        //   // ref = undefined;
-        // }
-        
+                
         $$('#spangt').text(app.data.gtotal.toLocaleString());
 
         $$('.btn-pay').click(function(event) {
@@ -664,15 +626,15 @@
             // var formDoku = app.form.convertToData('#frmDoku');
             // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
 
-            // function executeScriptCallBack(params) {
+            function executeScriptCallBack(params) {
 
-            //   if (params[0] == null) {
+              if (params[0] == null) {
 
-            //       $('#status-message').text(
-            //         "Sorry we couldn't open that page. Message from the server is : '"
-            //         + params.message + "'");
-            //   }
-            // }
+                  $('#status-message').text(
+                    "Sorry we couldn't open that page. Message from the server is : '"
+                    + params.message + "'");
+              }
+            }
 
             
             // ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank",'location=no,clearcache=yes,hardwareback=no,zoom=no');
@@ -683,7 +645,8 @@
               
               var elements = $$('#frmDoku').elements;
                 
-              var pageContent = '<html><head></head><body><form id="dokuForm" action="www.thesite.dummy" method="post">';
+              var pageContent = '<html><head></head><body><form id="dokuForm" action="https://staging.doku.com/Suite/Receive" method="post">';
+              
               // var script = 'var form = document.createElement("form");';
               //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
               //   script += 'form.method="post"';
@@ -701,13 +664,14 @@
               // script += 'document.body.appendChild(form)';
               // script += 'form.submit();';
               
-              pageContent += '</form> <script type="text/javascript">document.getElementById("dokuForm").submit();</script></body></html>';
+              pageContent += "</form></body></html>";
 
               var pageContentUrl = 'data:text/html;base64,' + btoa(pageContent);
                   
-              cordova.InAppBrowser.open(pageContentUrl, "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+              var ref = cordova.InAppBrowser.open(pageContentUrl, "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+              var script = 'document.getElementById("dokuForm").submit();';
 
-              // ref.executeScript({ code: script }, executeScriptCallBack);
+              ref.executeScript({ code: script }, executeScriptCallBack);
               // ref.close();
               // ref = undefined;
 

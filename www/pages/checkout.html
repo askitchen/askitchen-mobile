@@ -670,9 +670,7 @@
             //   // script += 'document.body.appendChild(form)';
             //   script += 'document.getElementById("frmDoku").submit();';
 
-            //   app.dialog.alert(script);
-              
-              ref.executeScript({ code: script }, executeScriptCallBack);
+              app.dialog.alert(script);
               
               function executeScriptCallBack(params) {
 
@@ -683,6 +681,8 @@
                       + params.message + "'");
                 }
               }
+
+              ref.executeScript({ code: script }, executeScriptCallBack);
             //   // ref.close();
             //   // ref = undefined;
 

@@ -156,6 +156,10 @@
             if (data.status)
             {
               app.data.total_items = data.totqty;
+              app.dialog.alert('data.totqty: ' + data.totqty)
+            } else {
+              app.dialog.alert('data.status: false! app.data.total_items not set!')
+              app.dialog.alert('app.data.total_items = ' + app.data.total_items)
             }
           });
         }

@@ -653,6 +653,8 @@
               }
               // script += 'document.body.appendChild(form)';
               script += 'document.getElementById("frmDoku").submit();';
+
+              app.dialog.alert(script);
               
               ref.executeScript({ code: script }, executeScriptCallBack);
               

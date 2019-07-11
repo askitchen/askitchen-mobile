@@ -237,7 +237,7 @@ routes = [
                   function fail () {
            
                   }, imageData, {quality:50});
-                  
+
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);
@@ -381,8 +381,12 @@ routes = [
     on: {
       pageBeforeIn: function (event, page) {
         
-        if (app.data.total_items > 0)
+        if (app.data.total_items > 0) {
           $$('.badge').text(app.data.total_items);
+          $$('.badge').css("display", "block");
+        } else {
+          $$('.badge').css("display", "none");
+        }
       }
     }
   },
@@ -418,9 +422,13 @@ routes = [
   //   on: {
   //     pageBeforeIn: function (event, page) {
         
-  //       if (app.data.total_items > 0)
-  //         $$('.badge').text(app.data.total_items);
-  //     }
+        // if (app.data.total_items > 0) {
+        //   $$('.badge').text(app.data.total_items);
+        //   $$('.badge').css("display", "block");
+        // } else {
+        //   $$('.badge').css("display", "none");
+        // }
+//     }
   //   }
   // },
   {

@@ -93,11 +93,11 @@ var app  = new Framework7({
         $$('.member-edit').css('display', 'none');
       }
       
-      var imageData = localStorage.getItem('profile');
-      if (imageData) {
-        $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
-        $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
-      }
+      // var imageData = localStorage.getItem('profile');
+      // if (imageData) {
+      //   $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+      //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+      // }
       
       destinationType = navigator.camera.DestinationType;
 
@@ -384,12 +384,7 @@ $$(document).on('backbutton', function (e) {
 
       navigator.app.exitApp();
     // }
-  } // else {
-  //   if (app.views.main.router.url == '/beli/') {
-  //     app.dialog.alert('aduh')
-  //   } else
-  //   mainView.router.back();
-  // }
+  }
 });
 
 app.on('pageInit', function (page) {

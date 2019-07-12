@@ -16,36 +16,36 @@
     </div>
     <div class="page-content">
         
-        <form class="login-form form-ajax-submit">
+      <form class="login-form form-ajax-submit">
         <div class="block">
-            <input type="hidden" name="remember" value="0">
-            <div class="list no-hairlines-md">
-                <ul>
-                <li>
-                    <div class="item-content item-input">
-                    <div class="item-inner">
-                        <div class="item-title item-label">E-Mail</div>
-                        <div class="item-input-wrap">
-                        <input type="text" id="email" name="identity" placeholder="E-Mail" />
-                        </div>
-                    </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content item-input">
-                    <div class="item-inner">
-                        <div class="item-title item-label">Password</div>
-                        <div class="item-input-wrap">
-                        <input type="password" id="password" name="password" placeholder="Password"/>
-                        </div>
-                    </div>
-                    </div>
-                </li>
-                </ul>
-            </div>
+          <input type="hidden" name="remember" value="0">
+          <div class="list no-hairlines-md">
+            <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">E-Mail</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="email" name="identity" placeholder="E-Mail" />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Password</div>
+                  <div class="item-input-wrap">
+                    <input type="password" id="password" name="password" placeholder="Password"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            </ul>
+          </div>
         </div>
         <div class="content-block"><a href="#" @click="doLogin" class="button button-raised button-fill larger login-button">LOGIN</a></div>
-        </form>
+      </form>
     </div>
   </div>
 </template>
@@ -74,9 +74,7 @@
       
         // var regId = localStorage.getItem('RegId');
         // formData.gcmid = regId;
-      
         
-        // http://localhost/
         app.request.post( app.data.endpoint + 'auth/login', formData, function (res) {
           
           app.preloader.hide();
@@ -111,6 +109,12 @@
             $$('.member-name').text(data.nama);
             $$('.member-status').css('display', 'block');
             $$('.member-edit').css('display', 'block');
+            
+            var imageData = localStorage.getItem('profile');
+            if (imageData) {
+              $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+              $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+            }
               
             //   var view = app.views.current;
             //   view.router.back(view.history[0], { force: true });

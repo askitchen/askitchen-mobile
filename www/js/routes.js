@@ -150,7 +150,6 @@ routes = [
       var app = router.app;
       
       if (app.data.total_items == 0) {
-        console.log(routeFrom)
         app.dialog.alert('Keranjang belanja anda masih kosong!');
         return;
       }
@@ -203,142 +202,39 @@ routes = [
   },
   {
     path: '/profile/',
-    url: './pages/profile.html',
-    on: {
-      
-      pageInit: function (event, page) {
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
 
-        var ac_photo = app.actions.create({
-          buttons: [
-            {
-              text: 'Gunakan kamera',
-              onClick: function () {
-                    
-                var options = {
-                  quality: 50,
-                  destinationType: destinationType.DATA_URL,
-                  sourceType: Camera.PictureSourceType.CAMERA,
-                  encodingType: Camera.EncodingType.JPEG,
-                  mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 120,
-                  targetHeight: 160,
-                  allowEdit: true,
-                  correctOrientation: true  //Corrects Android orientation quirks
-                  // popoverOptions: CameraPopoverOptions,
-                  // saveToPhotoAlbum: false
-                };
+      // App instance
+      var app = router.app;
 
-                // update camera image directive
-                navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  
-                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
-                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+      // console.log('bLogedIn: '+app.data.bLogedIn)
+      if (!app.data.bLogedIn) {
+        
+        app.data.lastURL = '/profile/';
 
-                }, function cameraError(err) {
-                  // console.log('Failed because: ');
-                  app.dialog.alert(err);
-                }, options);
-              }
-            },
-            {
-              text: 'Ambil dari gallery',
-              onClick: function () {
-                    
-                var options = {
-                  quality: 50,
-                  destinationType: destinationType.DATA_URL,
-                  sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-                  encodingType: Camera.EncodingType.JPEG,
-                  mediaType: Camera.MediaType.PICTURE,
-                  targetWidth: 120,
-                  targetHeight: 160,
-                  allowEdit: true,
-                  correctOrientation: true  //Corrects Android orientation quirks
-                  // popoverOptions: CameraPopoverOptions,
-                  // saveToPhotoAlbum: false
-                };
-
-                // update camera image directive
-                navigator.camera.getPicture(function cameraSuccess(imageData) {
-                  
-                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
-                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
-                  
-                }, function cameraError(err) {
-                  // console.log('Failed because: ');
-                  app.dialog.alert(err);
-                }, options);
-              }
-            },
-            {
-              text: 'Cancel',
-              color: 'red',
-            },
-          ]
-        });
-      
-        // get member detail
-        app.request.getJSON( app.data.endpoint + "member/"+app.data.mbrid, function(res) {
-                    
-          $$('#first_name').val(res.first_name);
-          $$('#last_name').val(res.last_name);
-          $$('#alamat').val(res.address);
-          $$('#email').val(res.email);  
-          $$('#telepon').val(res.phone);  
-
-          // $$('#kota').val(res.data.kota);
-          // $$('#kodepos').val(res.data.kodepos);
-          // $$('#fax').val(res.data.fax);
-          // $$('#npwp').val(res.data.npwp);
-        });
-       
-        $$('.take-photo').on('click', function () {
-          
-          ac_photo.open();
-        });
-
-        $$('.btnSimpan').on('click', function () {
-          
-          var nama_dpn = $$('#first_name').val();
-          
-          // validasi input
-          if (nama_dpn === "") {
-            app.dialog.alert("Masukkan nama depan.");
-            $$('.page-content').scrollTop($$('#first_name').offset().top);
-            //$$('#nama').focus();
-            return;
+        resolve(
+          {
+            componentUrl: './pages/login.html',
           }
-
-          var nama_blk = $$('#last_name').val();
-          var alamat   = $$('#alamat').val();
-          var email    = $$('#email').val();
-          var telepon  = $$('#telepon').val();
-          
-          // var kota = $$('#kota').val();
-          // var kodepos = $$('#kodepos').val();
-          // var fax = $$('#fax').val();
-          // var npwp = $$('#npwp').val();
-          
-          // update display nama
-          $$('.member-name').text(nama_dpn + ' ' + nama_blk);
-
-          var formData = [];
-          
-          formData.mbrid      = app.data.mbrid;
-          formData.first_name = nama_dpn;
-          formData.last_name  = nama_blk;
-          formData.address    = alamat;
-          formData.email      = email;
-          formData.phone      = telepon;
-          
-          app.request.post( app.data.endpoint + 'member/edit', formData, function (res) {
-                
-            var view = app.views.current;
-            view.router.back(view.history[0], { force: true });
-          });
-          
-        });
+        );
+        return;
       }
+
+      // Show Preloader
+      app.preloader.show();
+        
+      app.request.getJSON( app.data.endpoint + 'member/'+app.data.mbrid, function(res) {
+          
+        // var data = JSON.parse(res);
+
+        resolve (
+          { componentUrl: './pages/profile.html' },
+          { context: { data: res } }
+        );
+        app.preloader.hide();
+      });
     }
   },
   {
@@ -430,7 +326,7 @@ routes = [
         // } else {
         //   $$('.badge').css("display", "none");
         // }
-//     }
+  //     }
   //   }
   // },
   {
@@ -493,7 +389,7 @@ routes = [
       var data = null;
       
       // app.request.getJSON( app.data.endpoint + "items/"+kode, function(res) {
-      app.request.getJSON( app.data.endpoint + "items/"+kode, function(res) {
+      app.request.getJSON( app.data.endpoint + 'items/'+kode, function(res) {
         
         app.preloader.hide();
 
@@ -526,7 +422,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
         
-      app.request.get( app.data.endpoint + "cart", function(res) {
+      app.request.get( app.data.endpoint + 'cart', function(res) {
       // app.request.get( app.data.endpoint + "cart", function(res) {
           
         var data = JSON.parse(res);

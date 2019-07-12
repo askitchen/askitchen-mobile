@@ -309,145 +309,145 @@
       
       pageBeforeIn: function (event, page) {
         
-          if (app.data.bLogedIn) {
+        if (app.data.bLogedIn) {
+          
+          app.request.getJSON( app.data.endpoint + 'member/'+app.data.mbrid, function(res) {
             
-            app.request.getJSON( app.data.endpoint + 'member/'+app.data.mbrid, function(res) {
-              
-              $$('#first_name').val(res.first_name);
-              $$('#last_name').val(res.last_name);
-              $$('#company').val(res.company);
-              $$('#address').val(res.address);
-              
-              $$('#province').val(res.province);
+            $$('#first_name').val(res.first_name);
+            $$('#last_name').val(res.last_name);
+            $$('#company').val(res.company);
+            $$('#address').val(res.address);
+            
+            $$('#province').val(res.province);
 
-              if (res.province) {
+            if (res.province) {
+              
+              // ambil data kecamatan
+              app.request.json( app.data.endpoint + 'checkout/regencies/'+res.province, function(json) {
+            
+                var data = json.data; //, firstid = data[0].id;
+                // console.log('firstid: '+firstid)
+
+                $$('#regency').html('');
+                for (var i = 0; i < data.length; i++) {
+                  $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
+                }
                 
-                // ambil data kecamatan
-                app.request.json( app.data.endpoint + 'checkout/regencies/'+res.province, function(json) {
-              
-                  var data = json.data; //, firstid = data[0].id;
-                  // console.log('firstid: '+firstid)
-
-                  $$('#regency').html('');
-                  for (var i = 0; i < data.length; i++) {
-                    $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
-                  }
+                if (res.regency) {
                   
-                  if (res.regency) {
+                  $$('#regency').val(res.regency);
+
+                  app.request.json( app.data.endpoint + 'checkout/districts/'+res.regency, function(json) {
                     
-                    $$('#regency').val(res.regency);
+                    var data = json.data;
 
-                    app.request.json( app.data.endpoint + 'checkout/districts/'+res.regency, function(json) {
+                    $$('#district').html('');
+                    for (var i = 0; i < data.length; i++) {
+                        $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+                    }
+                    $$('#district').val(res.district);
+                  });
+
+                  app.request.json( app.data.endpoint + 'checkout/post_code/'+res.regency, function(json) {
+                    var data = json.data;
+                    $$('#post_code').val(data.postal_code);
+                  });
+
+
+                  $$('#svcname').val('jne');
+
+                  // get ship cost - default JNE
+                  app.request.json( app.data.endpoint + 'checkout/ongkir/jne/'+res.regency, function(json) {
+          
+                    var data  = json.data,
+                        cost  = parseFloat(data[0].cost[0].value),
+                        total = parseFloat($$('#total').val());
+
+                    // console.log('cost: '+cost)
+
+                    $$('#package').html('');
+                    for (var i = 0; i < data.length; i++) {
+                        $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+                    }                      
+                    
+                    // hitung total ongkos kirim
+                    app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
+                    
+                      var data  = json.data;
+
+                      // app.data.shipcost = data.shipcost;
+                      $$('#shipcost').val(data.shipcost);
+                      $$('#spanship').text(data.shipcost.toLocaleString());
+
+                      total += data.shipcost;
                       
-                      var data = json.data;
+                      // app.data.gtotal = total;
+                      $$('#gtotal').val(total);
+                      $$('#spangt').text(total.toLocaleString());
+                      
+                      var frac = parseFloat($$('#gtotal').val()) - Math.floor(parseFloat($$('#gtotal').val()) * 100) / 100;
+                      // console.log('frac: ' + frac);
 
-                      $$('#district').html('');
-                      for (var i = 0; i < data.length; i++) {
-                          $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+                      if (frac == 0) { // total dikirim ke DOKU
+                        $$('#AMOUNT').val($$('#gtotal').val()+'.00');
+                        $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.00');
+                      } else {
+                        $$('#AMOUNT').val($$('#gtotal').val()+'.'+frac);
+                        $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.'+frac);
                       }
-                      $$('#district').val(res.district);
-                    });
 
-                    app.request.json( app.data.endpoint + 'checkout/post_code/'+res.regency, function(json) {
-                      var data = json.data;
-                      $$('#post_code').val(data.postal_code);
-                    });
-
-
-                    $$('#svcname').val('jne');
-
-                    // get ship cost - default JNE
-                    app.request.json( app.data.endpoint + 'checkout/ongkir/jne/'+res.regency, function(json) {
-            
-                      var data  = json.data,
-                          cost  = parseFloat(data[0].cost[0].value),
-                          total = parseFloat($$('#total').val());
-
-                      // console.log('cost: '+cost)
-
-                      $$('#package').html('');
-                      for (var i = 0; i < data.length; i++) {
-                          $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
-                      }                      
-                      
-                      // hitung total ongkos kirim
-                      app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
-                      
+                      app.request.json( app.data.endpoint + 'checkout/hitung_biaya/15/'+total, function(json) {
+                    
                         var data  = json.data;
+                        // console.log('additional cost: '+data.cost)
 
-                        // app.data.shipcost = data.shipcost;
-                        $$('#shipcost').val(data.shipcost);
-                        $$('#spanship').text(data.shipcost.toLocaleString());
-
-                        total += data.shipcost;
+                        app.data.addcost = data.cost;
                         
-                        // app.data.gtotal = total;
+                        $$('#add_fee').val(data.cost);
+                        $$('#span-add').text(data.cost.toLocaleString());
+
+                        // add payment gateway cost
+                        total += data.cost;
+                        
                         $$('#gtotal').val(total);
                         $$('#spangt').text(total.toLocaleString());
-                        
-                        var frac = parseFloat($$('#gtotal').val()) - Math.floor(parseFloat($$('#gtotal').val()) * 100) / 100;
-                        // console.log('frac: ' + frac);
 
-                        if (frac == 0) { // total dikirim ke DOKU
-                          $$('#AMOUNT').val($$('#gtotal').val()+'.00');
-                          $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.00');
-                        } else {
-                          $$('#AMOUNT').val($$('#gtotal').val()+'.'+frac);
-                          $$('#PURCHASEAMOUNT').val($$('#gtotal').val()+'.'+frac);
-                        }
-
-                        app.request.json( app.data.endpoint + 'checkout/hitung_biaya/15/'+total, function(json) {
-                      
-                          var data  = json.data;
-                          // console.log('additional cost: '+data.cost)
-
-                          app.data.addcost = data.cost;
-                          
-                          $$('#add_fee').val(data.cost);
-                          $$('#span-add').text(data.cost.toLocaleString());
-
-                          // add payment gateway cost
-                          total += data.cost;
-                          
-                          $$('#gtotal').val(total);
-                          $$('#spangt').text(total.toLocaleString());
-
-                        });
-
-                        app.data.gtotal = total;
-                        $$('#spangt').text(total.toLocaleString());
                       });
+
+                      app.data.gtotal = total;
+                      $$('#spangt').text(total.toLocaleString());
                     });
+                  });
 
-                  }
-                });
-              }
-
-              $$('#post_code').val(res.post_code);
-              $$('#phone').val(res.phone);
-              $$('#email').val(res.email);
-            });
-
-          }
-
-          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
-            
-            var data = JSON.parse(res);
-  
-            if (data.status)
-            {
-              app.data.total_items = data.totqty;
-              // $$('.badge').text(app.data.total_items);
+                }
+              });
             }
+
+            $$('#post_code').val(res.post_code);
+            $$('#phone').val(res.phone);
+            $$('#email').val(res.email);
           });
+
+        }
+
+        app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
           
-          if (app.data.total_items > 0) {
-            $$('.badge').text(app.data.total_items);
-            $$('.badge').css("display", "block");
-          } else {
-            $$('.badge').css("display", "none");
+          var data = JSON.parse(res);
+
+          if (data.status)
+          {
+            app.data.total_items = data.totqty;
+            // $$('.badge').text(app.data.total_items);
           }
-        },
+        });
+        
+        if (app.data.total_items > 0) {
+          $$('.badge').text(app.data.total_items);
+          $$('.badge').css("display", "block");
+        } else {
+          $$('.badge').css("display", "none");
+        }
+      },
         
       pageInit: function(e, page) {
 		
@@ -511,9 +511,6 @@
           getWords();
           getRequestDateTime();
           genSessionID();
-
-          // app.dialog.alert($$('#TRANSIDMERCHANT').val());
-          // return;
 
           
           if ($$('#first_name').val() == '')
@@ -693,6 +690,18 @@
               // ref = undefined;
 
             });
+
+            ref.addEventListener('exit', function(event) {
+              // check transaction status
+
+              // clear cart data
+              // app.request.post( app.data.endpoint + 'cart/clear', formData, function(res) {
+              // });
+              
+              var view = app.views.current;
+              view.router.back(view.history[0], { force: true });
+            });
+
           });
         });
 

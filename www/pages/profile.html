@@ -1,111 +1,256 @@
-<div class="page" data-name="profile">
-  <div class="navbar">
-    <div class="navbar-inner sliding">
-      <div class="left">
-        <a href="#" class="link back">
-          <i class="icon icon-back"></i>
-          <span class="ios-only">Back</span>
-        </a>
-      </div>
-      <div class="title">Profil</div>
-    </div>
-  </div>
-  <div class="fab fab-right-top">
-    <a href="#" class="take-photo">
-      <i class="icon f7-icons ios-only">photo_camera</i>
-      <i class="icon material-icons md-only">photo_camera</i>
-    </a>
-  </div>
-  <div class="page-content">
-    <div class="block">
-      <div class="member-picture">
-        <img class="responsive profile2" src="img/user.png">
+<template>
+  <div class="page" data-name="profile">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Profil</div>
       </div>
     </div>
-    <div class="block">
-      <!-- <div class="block-title">Masukkan detail data perusahaan anda.</div> -->
-      <div class="list no-hairlines-md">
-        <ul>
-          <li class="item-content item-input">
-            <!-- <div class="item-media">
-              <i class="icon f7-icons ios-only">person</i>
-              <i class="icon material-icons md-only">person</i>
-            </div> -->
-            <div class="item-inner">
-              <div class="item-title item-label">Nama Depan</div>
-              <div class="item-input-wrap">
-                <input type="text" id="first_name" name="first_name" placeholder="Nama Depan">
-                <span class="input-clear-button"></span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Nama Belakang</div>
-                <div class="item-input-wrap">
-                  <input type="text" id="last_name" name="last_name" placeholder="Nama Belakang"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Alamat</div>
-                <div class="item-input-wrap">
-                  <input type="text" id="alamat" name="address" placeholder="Alamat"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">E-Mail</div>
-                <div class="item-input-wrap">
-                  <input type="email" id="email" name="email" placeholder="E-Mail"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Telepon</div>
-                <div class="item-input-wrap">
-                  <input type="text" id="telepon" name="phone" placeholder="Telepon"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!-- <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Kota</div>
-                <div class="item-input-wrap">
-                  <input id="kota" type="text" placeholder="Kota"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Kode Pos</div>
-                <div class="item-input-wrap">
-                  <input id="kodepos" type="text" placeholder="Kode pos"/>
-                </div>
-              </div>
-            </div>
-          </li> -->
-        </ul>
+    <div class="fab fab-right-top">
+      <a href="#" class="take-photo">
+        <i class="icon f7-icons ios-only">photo_camera</i>
+        <i class="icon material-icons md-only">photo_camera</i>
+      </a>
+    </div>
+    <div class="page-content">
+      <div class="block">
+        <div class="member-picture">
+          <img class="responsive profile2" src="img/user.png">
+        </div>
       </div>
-      <div class="block block-strong">
-          <a href="#" class="col button button-raised button-fill larger btnSimpan">Simpan</a>
-      </div>
-      <div class="kb">
+      <div class="block">
+        <!-- <div class="block-title">Masukkan detail data perusahaan anda.</div> -->
+        <div class="list no-hairlines-md">
+          <ul>
+            <li class="item-content item-input">
+              <!-- <div class="item-media">
+                <i class="icon f7-icons ios-only">person</i>
+                <i class="icon material-icons md-only">person</i>
+              </div> -->
+              <div class="item-inner">
+                <div class="item-title item-label">Nama Depan</div>
+                <div class="item-input-wrap">
+                  <input type="text" id="first_name" name="first_name" value="{{data.first_name}}" placeholder="Nama Depan">
+                  <span class="input-clear-button"></span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama Belakang</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="last_name" name="last_name" value="{{data.last_name}}" placeholder="Nama Belakang"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Alamat</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="alamat" name="address" value="{{data.address}}" placeholder="Alamat"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">E-Mail</div>
+                  <div class="item-input-wrap">
+                    <input type="email" id="email" name="email" value="{{data.email}}" placeholder="E-Mail"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Telepon</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="telepon" name="phone" value="{{data.phone}}" placeholder="Telepon"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Kota</div>
+                  <div class="item-input-wrap">
+                    <input id="kota" type="text" placeholder="Kota"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Kode Pos</div>
+                  <div class="item-input-wrap">
+                    <input id="kodepos" type="text" placeholder="Kode pos"/>
+                  </div>
+                </div>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+        <div class="block block-strong">
+            <a href="#" class="col button button-raised button-fill larger btnSimpan">Simpan</a>
+        </div>
+        <div class="kb">
+        </div>
       </div>
     </div>
   </div>
-</div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      
+      pageInit: function (event, page) {
+
+        var ac_photo = app.actions.create({
+          buttons: [
+            {
+              text: 'Gunakan kamera',
+              onClick: function () {
+                    
+                var options = {
+                  quality: 50,
+                  destinationType: destinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.CAMERA,
+                  encodingType: Camera.EncodingType.JPEG,
+                  mediaType: Camera.MediaType.PICTURE,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  allowEdit: true,
+                  correctOrientation: true  //Corrects Android orientation quirks
+                  // popoverOptions: CameraPopoverOptions,
+                  // saveToPhotoAlbum: false
+                };
+
+                // update camera image directive
+                navigator.camera.getPicture(function cameraSuccess(imageData) {
+                  
+                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+                  localStorage.setItem('profile', imageData);
+
+                }, function cameraError(err) {
+                  // console.log('Failed because: ');
+                  app.dialog.alert(err);
+                }, options);
+              }
+            },
+            {
+              text: 'Ambil dari gallery',
+              onClick: function () {
+                    
+                var options = {
+                  quality: 50,
+                  destinationType: destinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                  encodingType: Camera.EncodingType.JPEG,
+                  mediaType: Camera.MediaType.PICTURE,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  allowEdit: true,
+                  correctOrientation: true  //Corrects Android orientation quirks
+                  // popoverOptions: CameraPopoverOptions,
+                  // saveToPhotoAlbum: false
+                };
+
+                // update camera image directive
+                navigator.camera.getPicture(function cameraSuccess(imageData) {
+                  
+                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+                  localStorage.setItem('profile', imageData);
+                  
+                }, function cameraError(err) {
+                  // console.log('Failed because: ');
+                  app.dialog.alert(err);
+                }, options);
+              }
+            },
+            {
+              text: 'Cancel',
+              color: 'red',
+            },
+          ]
+        });
+
+        // get member detail
+        // app.request.getJSON( app.data.endpoint + "member/"+app.data.mbrid, function(res) {
+                    
+        //   $$('#first_name').val(res.first_name);
+        //   $$('#last_name').val(res.last_name);
+        //   $$('#alamat').val(res.address);
+        //   $$('#email').val(res.email);  
+        //   $$('#telepon').val(res.phone);  
+
+        //   // $$('#kota').val(res.data.kota);
+        //   // $$('#kodepos').val(res.data.kodepos);
+        //   // $$('#fax').val(res.data.fax);
+        //   // $$('#npwp').val(res.data.npwp);
+        // });
+
+        $$('.take-photo').on('click', function () {
+          
+          ac_photo.open();
+        });
+
+        $$('.btnSimpan').on('click', function () {
+          
+          var nama_dpn = $$('#first_name').val();
+          
+          // validasi input
+          if (nama_dpn === "") {
+            app.dialog.alert("Masukkan nama depan.");
+            $$('.page-content').scrollTop($$('#first_name').offset().top);
+            //$$('#nama').focus();
+            return;
+          }
+
+          var nama_blk = $$('#last_name').val();
+          var alamat   = $$('#alamat').val();
+          var email    = $$('#email').val();
+          var telepon  = $$('#telepon').val();
+          
+          // var kota = $$('#kota').val();
+          // var kodepos = $$('#kodepos').val();
+          // var fax = $$('#fax').val();
+          // var npwp = $$('#npwp').val();
+          
+          // update display nama
+          $$('.member-name').text(nama_dpn + ' ' + nama_blk);
+
+          var formData = [];
+          
+          formData.mbrid      = app.data.mbrid;
+          formData.first_name = nama_dpn;
+          formData.last_name  = nama_blk;
+          formData.address    = alamat;
+          formData.email      = email;
+          formData.phone      = telepon;
+          
+          app.request.post( app.data.endpoint + 'member/edit', formData, function (res) {
+                
+            var view = app.views.current;
+            view.router.back(view.history[0], { force: true });
+          });
+          
+        });
+      }
+    }
+  }
+</script>

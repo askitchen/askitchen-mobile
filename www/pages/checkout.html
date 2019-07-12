@@ -632,6 +632,13 @@
             // }
             // script += 'document.getElementById("frmDoku").submit();';
 
+            // display message
+            var toast = app.toast.create({
+              text: 'Processing, please wait..',
+              closeTimeout: 2000,
+            });
+            toast.open();
+
 
             // var formDoku = app.form.convertToData('#frmDoku');
             // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
@@ -670,12 +677,6 @@
               // script += 'document.body.appendChild(form)';
               // script += 'document.getElementById("frmDoku").submit();';
 
-              // display message
-              var toast = app.toast.create({
-                text: 'Processing, please wait..',
-                closeTimeout: 2000,
-              });
-              toast.open();
               
               function executeScriptCallBack(params) {
 

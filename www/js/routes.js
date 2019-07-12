@@ -150,6 +150,7 @@ routes = [
       var app = router.app;
       
       if (app.data.total_items == 0) {
+        console.log(routeFrom)
         app.dialog.alert('Keranjang belanja anda masih kosong!');
         return;
       }
@@ -230,8 +231,8 @@ routes = [
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
                   
-                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + data);
-                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + data);
+                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
 
                 }, function cameraError(err) {
                   // console.log('Failed because: ');

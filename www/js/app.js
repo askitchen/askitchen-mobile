@@ -1,8 +1,6 @@
 // Dom7
 var $$ = Dom7;
 
-// var AdMob = null;
-
 // var details = [];
 var items   = [];
 
@@ -101,7 +99,7 @@ var app  = new Framework7({
         $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
       }
       
-      // destinationType = navigator.camera.DestinationType;
+      destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {
@@ -358,6 +356,7 @@ $$(document).on('backbutton', function (e) {
   // if (app.views.main.router.url == '/') {
   if (app.view.main.history.length > 0) {
     
+    app.data.alert(app.views.main.router.url)
     mainView.router.back();
     
   } else {

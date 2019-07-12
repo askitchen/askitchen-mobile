@@ -631,7 +631,7 @@
 
             // display message
             var toast = app.toast.create({
-              text: 'Processing, please wait..',
+              text: 'Loading, please wait..',
               closeTimeout: 2000,
             });
             toast.open();
@@ -648,11 +648,6 @@
               
               var elements = $$('#frmDoku')[0].elements;
                 
-              // var script = 'var form = document.createElement("form");';
-              //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
-              //   script += 'form.method="post"';
-              //   script += 'form.setAttribute("action",url);';
-
               var script = '';
 
               for (var i = 0; i < elements.length; i++) {
@@ -662,6 +657,12 @@
 
               // console.log(script)
               // return;
+              
+              // var script = 'var form = document.createElement("form");';
+              //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
+              //   script += 'form.method="post"';
+              //   script += 'form.setAttribute("action",url);';
+
                 
                 // script += 'var hiddenField = document.createElement("input");';
                 // script += 'hiddenField.setAttribute("type", "hidden");';
@@ -698,6 +699,7 @@
               // app.request.post( app.data.endpoint + 'cart/clear', formData, function(res) {
               // });
               
+              // back to main page
               var view = app.views.current;
               view.router.back(view.history[0], { force: true });
             });
@@ -744,7 +746,6 @@
 
             });
           
-            // var carrier = $$('#carrier').val();
 
             // get ship cost - default from JNE
             app.request.json( app.data.endpoint + 'checkout/ongkir/jne/'+firstid, function(json) {

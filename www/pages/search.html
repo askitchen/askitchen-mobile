@@ -50,7 +50,7 @@
           on: {
             search(sb, query, previousQuery) {
               
-              app.request.getJSON("https://askitchen.com/api/v1/search?q="+query, function(res) {
+              app.request.getJSON( app.data.endpoint + 'search?q='+query, function(res) {
                 
                 // var data = JSON.parse(res);
                 var items = res.data;

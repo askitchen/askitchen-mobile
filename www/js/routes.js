@@ -11,7 +11,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.getJSON("https://askitchen.com/api/v1/categories", function(res) {
+      app.request.getJSON( app.data.endpoint + "categories", function(res) {
 
         // Hide Preloader
         app.preloader.hide();
@@ -100,7 +100,7 @@ routes = [
         
           // formData.gcmid = regId;
           
-          app.request.post('https://askitchen.com/api/v1/register', formData, function (res) {
+          app.request.post( app.data.endpoint + 'register', formData, function (res) {
             
             app.preloader.hide();
             
@@ -169,7 +169,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.get("https://askitchen.com/api/v1/cart", function(res) {
+      app.request.get( app.data.endpoint + "cart", function(res) {
 
         // Hide Preloader
         app.preloader.hide();
@@ -221,7 +221,7 @@ routes = [
                   mediaType: Camera.MediaType.PICTURE,
                   targetWidth: 120,
                   targetHeight: 160,
-                  // allowEdit: true,
+                  allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
                   // saveToPhotoAlbum: false
@@ -230,13 +230,8 @@ routes = [
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
                   
-                  plugins.crop(function success (data) {
-                    $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + data);
-                    $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + data);
-                  }, 
-                  function fail () {
-           
-                  }, imageData, {quality:50});
+                  $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + data);
+                  $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + data);
 
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
@@ -256,7 +251,7 @@ routes = [
                   mediaType: Camera.MediaType.PICTURE,
                   targetWidth: 120,
                   targetHeight: 160,
-                  // allowEdit: true,
+                  allowEdit: true,
                   correctOrientation: true  //Corrects Android orientation quirks
                   // popoverOptions: CameraPopoverOptions,
                   // saveToPhotoAlbum: false
@@ -264,8 +259,10 @@ routes = [
 
                 // update camera image directive
                 navigator.camera.getPicture(function cameraSuccess(imageData) {
+                  
                   $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
                   $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+                  
                 }, function cameraError(err) {
                   // console.log('Failed because: ');
                   app.dialog.alert(err);
@@ -280,7 +277,7 @@ routes = [
         });
       
         // get member detail
-        app.request.getJSON("https://askitchen.com/api/v1/member/"+app.data.mbrid, function(res) {
+        app.request.getJSON( app.data.endpoint + "member/"+app.data.mbrid, function(res) {
                     
           $$('#first_name').val(res.first_name);
           $$('#last_name').val(res.last_name);
@@ -333,7 +330,7 @@ routes = [
           formData.email      = email;
           formData.phone      = telepon;
           
-          app.request.post('https://askitchen.com/api/v1/member/edit', formData, function (res) {
+          app.request.post( app.data.endpoint + 'member/edit', formData, function (res) {
                 
             var view = app.views.current;
             view.router.back(view.history[0], { force: true });
@@ -371,7 +368,7 @@ routes = [
       var kode = routeTo.params.kode;
       var nama = routeTo.params.nama;
 
-      app.request.get("https://askitchen.com/api/v1/categories/sample/"+kode, function(res) {
+      app.request.get( app.data.endpoint + 'categories/sample/'+kode, function(res) {
           
         var data = JSON.parse(res);
 
@@ -411,8 +408,8 @@ routes = [
   //     var nama = routeTo.params.nama;
   //     // console.log('kode: '+kode)
 
-  //     // app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
-  //     app.request.get("https://askitchen.com/api/v1/subcategory/sample/"+kode, function(res) {
+  //     // app.request.get( app.data.endpoint + "subcategory/sample/"+kode, function(res) {
+  //     app.request.get( app.data.endpoint + "subcategory/sample/"+kode, function(res) {
         
   //       var data = JSON.parse(res);
 
@@ -453,8 +450,8 @@ routes = [
       var page = routeTo.params.page;
       var next_page = routeTo.params.page+1;
 
-      app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
-      // app.request.getJSON("https://askitchen.com/api/v1/products/"+kode+"?p="+page, function(res) {
+      app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
+      // app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
 
         // total rows
         var total = res.total;
@@ -494,8 +491,8 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      // app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
-      app.request.getJSON("https://askitchen.com/api/v1/items/"+kode, function(res) {
+      // app.request.getJSON( app.data.endpoint + "items/"+kode, function(res) {
+      app.request.getJSON( app.data.endpoint + "items/"+kode, function(res) {
         
         app.preloader.hide();
 
@@ -528,8 +525,8 @@ routes = [
       // Show Preloader
       app.preloader.show();
         
-      app.request.get("https://askitchen.com/api/v1/cart", function(res) {
-      // app.request.get("https://askitchen.com/api/v1/cart", function(res) {
+      app.request.get( app.data.endpoint + "cart", function(res) {
+      // app.request.get( app.data.endpoint + "cart", function(res) {
           
         var data = JSON.parse(res);
         

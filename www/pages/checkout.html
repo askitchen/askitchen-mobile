@@ -260,7 +260,7 @@
 
     <input type="hidden" id="total"    name="total"    value="{{data.total}}">
     <input type="hidden" id="shipcost" name="shipcost" value="0">
-    <input type="hidden" id="svcname"  name="svcname"  value="jne">
+    <!-- <input type="hidden" id="svcname"  name="svcname"  value="jne"> -->
     <input type="hidden" id="tax"      name="tax"      value="0">
     <input type="hidden" id="add_fee"  name="add_fee"  value="0">
     <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total}}">
@@ -354,7 +354,7 @@
                   });
 
 
-                  $$('#svcname').val('jne');
+                  // $$('#svcname').val('jne');
 
                   // get ship cost - default JNE
                   app.request.json( app.data.endpoint + 'checkout/ongkir/jne/'+res.regency, function(json) {
@@ -493,6 +493,8 @@
             
           event.preventDefault();
 
+          $$(this).prop("disabled", true);
+
           var strVal = '';
 
           $$('.cart-item').forEach (function (item, index) {
@@ -605,7 +607,7 @@
           formData.note       = $$('#note').val();
 
           formData.carrier    = $$('#carrier').val();
-          formData.svcname    = $$('#svcname').val();
+          formData.svcname    = $$('#package').text();
 
           formData.transidmerchant = $$('#TRANSIDMERCHANT').val()
           formData.words      = $$('#WORDS').val()
@@ -620,15 +622,6 @@
           
           app.request.post( app.data.endpoint + 'snap/savetrx', formData, function(data) {
             
-            // var elements = $$('#frmDoku')[0].elements;
-                
-            // var script = '';
-
-            // for (var i = 0; i < elements.length; i++) {
-            //   script += 'document.getElementById("' + elements[i].name + '").value = "' + elements[i].value + '";';
-            // }
-            // script += 'document.getElementById("frmDoku").submit();';
-
             // display message
             var toast = app.toast.create({
               text: 'Loading, please wait..',
@@ -637,11 +630,9 @@
             toast.open();
 
 
-            // var formDoku = app.form.convertToData('#frmDoku');
-            // app.request.post("https://staging.doku.com/Suite/Receive", formDoku, function(data) {});
-
             ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
             // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+            
             
             // ref.addEventListener('loadstop', onBrowserLoadStop);
             ref.addEventListener('loadstop', function(event) {
@@ -655,8 +646,10 @@
               }
               script += 'document.getElementById("frmDoku").submit();';
 
+              
               // console.log(script)
               // return;
+              
               
               // var script = 'var form = document.createElement("form");';
               //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
@@ -692,6 +685,7 @@
 
             });
 
+            
             ref.addEventListener('exit', function(event) {
               // check transaction status
 
@@ -793,7 +787,7 @@
 
               $$('#package').html('');
               for (var i = 0; i < data.length; i++) {
-                  $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
+                $$('#package').append('<option value="'+data[i].cost[0].value+'">'+data[i].service+'</option>')
               }
               // $$('#svcname').val( $$('#package').text()); // nama service/layanan
             });
@@ -809,7 +803,7 @@
 
             $$('#district').html('');
             for (var i = 0; i < data.length; i++) {
-                $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
+              $$('#district').append('<option value="'+data[i].subdistrict_id+'">'+data[i].subdistrict_name+'</option>')
             }
           });
 
@@ -935,7 +929,7 @@
           var cost  = parseFloat( $$(this).val()),
               total = parseFloat($$('#total').val());
 
-          $$('#svcname').val($$('#package').text()); // nama service/layanan
+          // $$('#svcname').val($$('#package').text()); // nama service/layanan
 
           // hitung total ongkos kirim
           app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {

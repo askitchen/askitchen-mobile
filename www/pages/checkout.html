@@ -214,6 +214,7 @@
               <thead>
                 <tr>
                   <th class="label-cell">Product</th>
+                  <th class="numeric-cell"></th>
                   <th class="numeric-cell">Total</th>
                 </tr>
               </thead>
@@ -221,6 +222,7 @@
                 {{#each data.data}}
                 <tr>
                   <td class="label-cell">{{nama}}</td>
+                  <td class="label-cell" style="white-space: nowrap">x {{qty}}</td>
                   <td class="numeric-cell">{{hargaf}}</td>
                 </tr>
                 {{/each}}

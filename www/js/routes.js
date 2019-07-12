@@ -151,6 +151,7 @@ routes = [
       
       if (app.data.total_items == 0) {
         app.dialog.alert('Keranjang belanja anda masih kosong!');
+        reject();
         return;
       }
 

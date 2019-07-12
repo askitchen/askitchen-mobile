@@ -90,7 +90,7 @@
         
         if (app.data.bLogedIn) {
 
-          app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
+          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
                     
             var data = JSON.parse(res);
             
@@ -127,7 +127,7 @@
 
         swiper.autoplay.start();
 
-        // app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
+        // app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
                   
         //   var data = JSON.parse(res);
           

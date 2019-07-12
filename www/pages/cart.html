@@ -86,7 +86,7 @@
           formData.qty  = qty;
           // formData.Authorization = app.data.token;
 
-          app.request.post("https://askitchen.com/api/v1/cart/remove", formData, function(res) {
+          app.request.post( app.data.endpoint + 'cart/remove', formData, function(res) {
               
             var data = JSON.parse(res);
             app.data.total_items = data.totqty;

@@ -149,7 +149,7 @@
         
         if (app.data.bLogedIn) {
 
-          app.request.get("https://askitchen.com/api/v1/cart/total_items", function(res) {
+          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
                     
             var data = JSON.parse(res);
             
@@ -178,15 +178,19 @@
         // var starRating = new SimpleStarRating($$('#rater'));
 
         $$('.page-content').on('scroll', function (e) {
+          
           // var scrollTop = e.srcElement.scrollTop;
-          var scrollTop = $$('.card.item-detail').offset().top;
           var card = $$('.card.item-detail');
+          var scrollTop = card.offsetTop; // $$('.card.item-detail').offsetTop;
           
           // console.log(scrollTop)
           if (scrollTop >= 56) {
             card.removeClass("sticky")
+            // card.css('position', 'relative');
           } else {
             card.addClass("sticky");
+            // card.css('position', 'sticky');
+            // card.css('top', '0');
           }
         })
 

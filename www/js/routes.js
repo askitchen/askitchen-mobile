@@ -344,6 +344,10 @@ routes = [
     }
   },
   {
+    path: '/chat/',
+    componentUrl: './pages/chat.html',
+  },
+  {
     path: '/notifications/',
     componentUrl: './pages/notifications.html',
   },

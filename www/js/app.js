@@ -29,10 +29,11 @@ var app  = new Framework7({
     return {
       // db: null,
       mbrid: null,
+      username: null,
       email: null,
-      pwd: null,
+      password: null,
 
-      endpoint: null,
+      endpoint: 'https://askitchen.com/api/v1/',
 
       total_items: 0, // total item cart
 
@@ -354,7 +355,12 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
-  if (app.views.main.router.url == '/') {
+  // if (app.views.main.router.url == '/') {
+  if (app.view.main.history.length > 0) {
+    
+    mainView.router.back();
+    
+  } else {
     
     // if (!bBackPressed) {
       
@@ -375,18 +381,18 @@ $$(document).on('backbutton', function (e) {
       
     // } else {
       
-      // if (app.data.bLogedIn) {
-      //   request.get("https://askitchen.com/api/v1/auth/logout", function(res) {});
-      // }
+      if (app.data.bLogedIn) {
+        app.request.get( app.data.endpoint + 'auth/logout', function(res) {});
+      }
 
       navigator.app.exitApp();
     // }
-  } else {
+  } // else {
   //   if (app.views.main.router.url == '/beli/') {
   //     app.dialog.alert('aduh')
   //   } else
-    mainView.router.back();
-  }
+  //   mainView.router.back();
+  // }
 });
 
 app.on('pageInit', function (page) {

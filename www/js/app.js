@@ -353,10 +353,8 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
-  // if (app.views.main.router.url == '/') {
-  if (app.view.main.history.length > 0) {
+  if (app.views.main.router.url !== '/') {
     
-    app.data.alert(app.views.main.router.url)
     mainView.router.back();
     
   } else {

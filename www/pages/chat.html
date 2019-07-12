@@ -94,8 +94,16 @@
           });
         } else {
         
+          var strMsg = null;
+          
+          if (app.data.username) {
+            strMsg = 'Halo, ' + app.data.username + '...';
+          } else {
+            strMsg = 'Halo...';
+          }
+
           messages.addMessage({
-            text: 'Halo, ' + app.data.username + '...',
+            text: strMsg,
             textHeader: '07.00',
             type: 'received'
             // name: person.name,

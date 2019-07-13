@@ -331,7 +331,7 @@ routes = [
   //   }
   // },
   {
-    path: '/product/:kode/:nama/:page',
+    path: '/product/:kode/:page',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -344,27 +344,27 @@ routes = [
 
       // kode golongan
       var kode = routeTo.params.kode;
-      var nama = routeTo.params.nama;
+      // var nama = routeTo.params.nama;
       var page = routeTo.params.page;
       var next_page = routeTo.params.page+1;
 
       app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
-      // app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
+      // app.request.getJSON( "http://localhost/askitchenweb/api/v1/products/"+kode+"?p="+page, function(res) {
 
         // total rows
         var total = res.total;
         
-        var url = '/product/' + kode + '/' + nama + '/'
+        // var url = '/product/' + kode + '/' + nama + '/'
         
         var total_page = Math.ceil(total/10)
         var pages = [];
 
         for (var i=0; i < total_page; i++)
-          pages.push({page : i+1, kode: kode, nama: nama})
+          pages.push({page : i+1, kode: kode, nama: res.title})
         
         resolve(
           { componentUrl: './pages/product.html' },
-          { context: { data: res.data, title: nama, pages: pages, total: total, total_page: total_page, curr_page: page, next_page: next_page } }
+          { context: { data: res.data, title: res.title, pages: pages, total: total, total_page: total_page, curr_page: page, next_page: next_page } }
         );
         app.preloader.hide();
       });

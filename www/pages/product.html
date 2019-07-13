@@ -9,12 +9,12 @@
           </a>
         </div>
         <div class="title">{{title}}</div>
-        <!-- <div class="right">
+        <div class="right">
           <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
             <i class="icon f7-icons ios-only">shopping_cart</i>
             <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
           </a>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="page-content">
@@ -103,9 +103,31 @@
     on: {
       pageBeforeIn: function (event, page) {
                 
-        // if (app.total_items > 0)
-        //   $$('.badge').text(app.total_items);
-      },
+        if (app.data.bLogedIn) {
+
+          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
+                    
+            var data = JSON.parse(res);
+            
+            if (data.status)
+            {
+              app.data.total_items = data.totqty;
+            }
+            else
+            {
+              $$('.badge').css("display", "none");
+              app.data.total_items = 0;
+            }
+          });
+        }
+
+        if (app.data.total_items > 0) {
+          $$('.badge').text(app.data.total_items);
+          $$('.badge').css("display", "block");
+        } else {
+          $$('.badge').css("display", "none");
+        }
+      }
     }
   }
 </script>

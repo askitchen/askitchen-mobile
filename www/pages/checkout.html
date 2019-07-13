@@ -196,8 +196,8 @@
                         <select id="payment" name="payment">
                           <!-- <option value="" selected>-</option> -->
                           <option value="15">Credit Card (Visa &amp; Mastercard)</option>
-                          <option value="31">Indomaret</option>
-                          <option value="35">Alfamart</option>
+                          <!-- <option value="31">Indomaret</option>
+                          <option value="35">Alfamart</option> -->
                         </select>
                       </div>
                     </div>
@@ -609,7 +609,7 @@
           formData.note       = $$('#note').val();
 
           formData.carrier    = $$('#carrier').val();
-          formData.svcname    = $$('#package').text();
+          formData.svcname    = $$('#package')[0].selectedOptions[0].text;
 
           formData.transidmerchant = $$('#TRANSIDMERCHANT').val()
           formData.words      = $$('#WORDS').val()
@@ -620,7 +620,6 @@
           formData.add_fee    = $$('#add_fee').val();
           formData.gtotal     = $$('#gtotal').val();
 
-          
           
           app.request.post( app.data.endpoint + 'snap/savetrx', formData, function(data) {
             

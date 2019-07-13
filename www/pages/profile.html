@@ -124,6 +124,8 @@
         if (imageData) {
           // $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
           $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+        } else {
+          app.dialog.alert('imageData is empty!');
         }
 
         var ac_photo = app.actions.create({

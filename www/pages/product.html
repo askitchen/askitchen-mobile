@@ -1,20 +1,31 @@
 <template>
   <div class="page">
     <div class="navbar">
-      <div class="navbar-inner sliding">
+      <div class="navbar-inner">
         <div class="left">
-          <a href="#" class="link back">
+          <!-- <a href="#" class="link back">
             <i class="icon icon-back"></i>
             <span class="ios-only">Back</span>
+          </a> -->
+          <a href="#" class="link icon-only panel-open" data-panel="left">
+            <i class="icon f7-icons ios-only">menu</i>
+            <i class="icon material-icons md-only">menu</i>
           </a>
         </div>
-        <div class="title">{{title}}</div>
+        <div class="title sliding"><img class="responsive" src="img/logo.png" /></div>
         <div class="right">
-          <a href="/cart/" data-view=".view-main" class="link icon-only panel-close ac-more1">
-            <i class="icon f7-icons ios-only">shopping_cart</i>
+          <a href="/cart/" data-view=".view-main" class="link icon-only">
+            <i class="icon f7-icons ios-only">shopping_cart<span class="badge color-red"></span></i>
             <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
           </a>
+          <a href="#" class="link icon-only panel-open" data-panel="right">
+            <i class="icon f7-icons ios-only">more_vert</i>
+            <i class="icon material-icons md-only">more_vert</i>
+          </a>
         </div>
+      </div>
+      <div class="subnavbar">
+        <div class="title"><a href="/search/" data-view=".view-main"><img class="responsive search" src="img/search.png" /></a></div>
       </div>
     </div>
     <div class="page-content">

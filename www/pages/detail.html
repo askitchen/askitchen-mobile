@@ -36,10 +36,8 @@
         <input type="hidden" class="item-price"   value="{{data.hjual}}" />
         <input type="hidden" class="item-picture" value="{{data.gambar}}" />
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
-        <!-- <input type="hidden" class="item-qty"     value="1"> -->
         
         <input type="hidden" id="maxqty" value="{{data.stok}}">
-        <!-- <input type="hidden" id="minqty" value=""> -->
 
         <div class="card-footer product">
           <div class="product-name">{{data.nama}}</div>
@@ -134,9 +132,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-buy">Buy it now</a></div>
-      <div class="content-block"><a href="#" class="button button-raised larger btn-cart">Add to cart</a></div>
-      <div class="content-block"><a href="#" class="button button-raised larger btn-wish">Add to wish list</a></div> -->
     </div>
   </div>
 </template>
@@ -179,11 +174,11 @@
 
         $$('.page-content').on('scroll', function (e) {
           
-          // var scrollTop = e.srcElement.scrollTop;
           var card = $$('.card.item-detail');
           var scrollTop = card.offsetTop; // $$('.card.item-detail').offsetTop;
           
           // console.log(scrollTop)
+          
           if (scrollTop >= 56) {
             card.removeClass("sticky")
             // card.css('position', 'relative');
@@ -196,7 +191,7 @@
 
         $$('.button-add').on('click', function (e) {
 
-          var page  = $$('.page-current');
+          var page  = $$('.page-current'); // get current page
           // var card  = $$('.item-detail');
           var kode  = page.find('.item-code').val();
           var qty   = page.find('.item-qty').val();
@@ -254,7 +249,7 @@
           // formData.Authorization = app.data.token;
           // app.methods.addItem(kode);
 
-          app.request.post("https://askitchen.com/api/v1/cart", formData, function(res) {
+          app.request.post( app.data.endpoint + 'cart', formData, function(res) {
               
             var data = JSON.parse(res);
 

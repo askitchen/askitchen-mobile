@@ -289,47 +289,6 @@ routes = [
       }
     }
   },
-  // {
-  //   path: '/subcategory/:kode/:nama',
-  //   async: function (routeTo, routeFrom, resolve, reject) {
-  //     // Router instance
-  //     var router = this;
-
-  //     // App instance
-  //     var app = router.app;
-
-  //     // Show Preloader
-  //     app.preloader.show();
-
-  //     // kode golongan
-  //     var kode = routeTo.params.kode;
-  //     var nama = routeTo.params.nama;
-  //     // console.log('kode: '+kode)
-
-  //     // app.request.get( app.data.endpoint + "subcategory/sample/"+kode, function(res) {
-  //     app.request.get( app.data.endpoint + "subcategory/sample/"+kode, function(res) {
-        
-  //       var data = JSON.parse(res);
-
-  //       resolve(
-  //         { componentUrl: './pages/subcategory.html' },
-  //         { context: { data: data.data, title: nama } }
-  //       );
-  //       app.preloader.hide();
-  //     });
-  //   },
-  //   on: {
-  //     pageBeforeIn: function (event, page) {
-        
-        // if (app.data.total_items > 0) {
-        //   $$('.badge').text(app.data.total_items);
-        //   $$('.badge').css("display", "block");
-        // } else {
-        //   $$('.badge').css("display", "none");
-        // }
-  //     }
-  //   }
-  // },
   {
     path: '/product/:kode/:page',
     async: function (routeTo, routeFrom, resolve, reject) {
@@ -346,10 +305,9 @@ routes = [
       var kode = routeTo.params.kode;
       // var nama = routeTo.params.nama;
       var page = routeTo.params.page;
-      var next_page = routeTo.params.page+1;
+      var next_page = parseInt(routeTo.params.page)+1;
 
       app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
-      // app.request.getJSON( "http://localhost/askitchenweb/api/v1/products/"+kode+"?p="+page, function(res) {
 
         // total rows
         var total = res.total;
@@ -364,7 +322,7 @@ routes = [
         
         resolve(
           { componentUrl: './pages/product.html' },
-          { context: { data: res.data, title: res.title, pages: pages, total: total, total_page: total_page, curr_page: page, next_page: next_page } }
+          { context: { data: res.data, title: res.title, pages: pages, total: total, total_page: total_page, curr_page: page, next_page: next_page, kode: kode } }
         );
         app.preloader.hide();
       });
@@ -389,7 +347,6 @@ routes = [
       // var db = app.data.db;
       var data = null;
       
-      // app.request.getJSON( app.data.endpoint + "items/"+kode, function(res) {
       app.request.getJSON( app.data.endpoint + 'items/'+kode, function(res) {
         
         app.preloader.hide();
@@ -424,13 +381,8 @@ routes = [
       app.preloader.show();
         
       app.request.get( app.data.endpoint + 'cart', function(res) {
-      // app.request.get( app.data.endpoint + "cart", function(res) {
           
         var data = JSON.parse(res);
-        
-        // console.log(res)
-        // app.data.total  = data.total;
-        // app.data.gtotal = data.total;
 
         resolve (
           { componentUrl: './pages/checkout.html' },

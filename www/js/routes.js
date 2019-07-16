@@ -345,7 +345,6 @@ routes = [
       // var nama = routeTo.params.nama;
 
       // var db = app.data.db;
-      var data = null;
       
       app.request.getJSON( app.data.endpoint + 'items/'+kode, function(res) {
         
@@ -353,7 +352,7 @@ routes = [
 
         resolve(
           { componentUrl: './pages/detail.html' },
-          { context: { data: res.data } } //, hjual: res.data.hjualf, stok: res.data.stok, title: res.data.nama
+          { context: { data: res.data } }
         );
       });
     },

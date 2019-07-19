@@ -11,12 +11,12 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.getJSON( app.data.endpoint + "categories", function(res) {
+      app.request.getJSON( app.data.endpoint + 'dashboard', function(res) {
 
         // Hide Preloader
         app.preloader.hide();
 
-        // console.log(res)
+        console.log(res)
         // var data = JSON.parse(res)
         
         // Resolve route to load page
@@ -26,7 +26,8 @@ routes = [
           },
           {
             context: {
-              data: res.data,
+              banner: res.banner,
+              data: res.categories,
             }
           }
         );
@@ -139,7 +140,6 @@ routes = [
       }
     }
   },
-        
   {
     path: '/cart/',
     async: function (routeTo, routeFrom, resolve, reject) {
@@ -170,7 +170,7 @@ routes = [
       // Show Preloader
       app.preloader.show();
 
-      app.request.get( app.data.endpoint + "cart", function(res) {
+      app.request.get( app.data.endpoint + 'cart', function(res) {
 
         // Hide Preloader
         app.preloader.hide();
@@ -307,7 +307,7 @@ routes = [
       var page = routeTo.params.page;
       var next_page = parseInt(routeTo.params.page)+1;
 
-      app.request.getJSON( app.data.endpoint + "products/"+kode+"?p="+page, function(res) {
+      app.request.getJSON( app.data.endpoint + 'products/'+kode+'?p='+page, function(res) {
 
         // total rows
         var total = res.total;

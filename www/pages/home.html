@@ -38,9 +38,9 @@
             <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init demo-swiper">
               <div class="swiper-pagination dashboard"></div>
               <div class="swiper-wrapper">
-                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban1.jpg" /></div>
-                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban2.jpg" /></div>
-                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/ban3.jpg" /></div>
+                {{#each banner}}
+                <div class="swiper-slide"><img class="lazy header" src="https://askitchen.com/upload/mobile-banner/{{filename}}" /></div>
+                {{/each}}
               </div>
             </div>
           </div>
@@ -65,23 +65,6 @@
 </template>
 <script>
   return {
-    // Component Methods
-    // methods: {
-      
-    //   todo: function (e) {
-        
-    //     if () {
-    //       app.dialog.alert('');
-    //       return;
-    //     }
-
-    //     app.router.navigate('//', {
-    //       reloadCurrent: true,
-    //       ignoreCache: true,
-    //     });
-
-    //   }
-    // },
         
     // Page Events
     on: {

@@ -16,7 +16,7 @@ routes = [
         // Hide Preloader
         app.preloader.hide();
 
-        console.log(res)
+        // console.log(res)
         // var data = JSON.parse(res)
         
         // Resolve route to load page
@@ -82,6 +82,12 @@ routes = [
               return;
           }
         
+          var phone = $$('input [name="phone"]').val();
+          if (phone == '') {
+              app.dialog.alert('Masukkan nomor handphone anda.', 'Daftar');
+              return;
+          }
+        
           var password = $$('input [name="password"]').val();
           if (password == '') {
             app.dialog.alert('Masukkan password anda.', 'Daftar');
@@ -111,6 +117,7 @@ routes = [
               
               // simpan data nomor handphone
               localStorage.setItem('email', email);
+              // localStorage.setItem('phone', phone);
               localStorage.setItem('password', password);
         
               app.data.email    = email;

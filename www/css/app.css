@@ -939,3 +939,10 @@ FOLLOWING - FOLLOWERS
   background-position: center;
   background-repeat: no-repeat;
 } */
+
+li.term, div.block.about {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  text-align: justify;
+  margin-top: 15px;
+}

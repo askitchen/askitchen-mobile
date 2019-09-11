@@ -48,17 +48,14 @@
         <div class="card-footer detail">
           <div class="product-price">Rp{{data.hjualf}}</div>
           <div class="product-price">
-            {{#if data.stok}}
             <a href="#" class="button-add"><img src="img/cart.png" class="cart-img" /><span class="cart-label">Add To Cart</span></a>
-            {{else}}
-            <a href="#" class="button-coming"><span class="cart-label">Pre Order</span></a>
-            {{/if}}
+            <!-- <a href="#" class="button-coming"><span class="cart-label">Pre Order</span></a> -->
           </div>
         </div>
         {{#if data.pnj}}
         <div class="product-size2">{{data.pnj}} x {{data.lbr}}{{#if data.tgi}} x {{data.tgi}}{{/if}}</div>
         {{/if}}
-        <div class="product-code2">{{data.kdbar}}</div>
+        <div class="product-code2">{{data.kdbar}}</div><!-- Note: jika kode berbeda dgn link, maka data adalah master -->
         <!-- <span id="rater" class="rating golden" data-default-rating="3"></span> -->
         <!-- <div class="starbox">
           <i class="f7-icons">star_fill</i>
@@ -67,17 +64,15 @@
           <i class="f7-icons">star</i>
           <i class="f7-icons">star</i>
         </div> -->
-        {{#if data.stok}}
         <div class="card-footer detail">
           <div class="stepper stepper-fill stepper-init" data-wraps="false" data-autorepeat="true" data-autorepeat-dynamic="true" data-decimal-point="2" data-manual-input-mode="true">
             <div class="stepper-button-minus"></div>
             <div class="stepper-input-wrap">
-              <input class="item-qty" type="text" value="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" min="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" max="{{data.stok}}" step="1">
+              <input class="item-qty" type="text" value="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" min="{{#js_if 'this.data.minimum > 0'}}{{data.minimum}}{{else}}1{{/js_if}}" max="{{#js_if 'this.data.stok > 0'}}{{data.stok}}{{else}}100{{/js_if}}" step="1">
             </div>
             <div class="stepper-button-plus"></div>
           </div>
         </div>
-        {{/if}}
       </div>
 
       <div class="block">

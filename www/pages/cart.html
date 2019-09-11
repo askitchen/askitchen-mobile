@@ -16,23 +16,26 @@
         
       {{#each data}}
       <div class="card item-cart">
-        <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
+        
         <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
         <input type="hidden" class="item-qty"   value="{{qty}}" />
         <input type="hidden" class="item-price" value="{{harga}}" />
         
         <div class="card-footer">
+          <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <div class="product-name">{{nama}}</div>
           <div>x {{qty}}</div>
-        </div>
-        <div class="card-footer">
-          <div>@Rp{{hargaf}}</div>
-          <div>Disc. {{disc}}%</div>
-          <div class="product-price">Rp{{jumlah.toLocaleString('ID')}}</div>
-        </div>
-        <div class="card-footer">
           <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
         </div>
+        <div class="card-footer">
+          <img class="cart lazy" src="img/none.png" />
+          <div>@Rp{{hargaf}}</div>
+          <div>Disc. {{disc}}%</div>
+          <div>Rp{{jumlah.toLocaleString('ID')}}</div>
+        </div>
+        <!-- <div class="card-footer">
+          <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
+        </div> -->
       </div>
       {{/each}}
 

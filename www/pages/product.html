@@ -25,7 +25,13 @@
         </div>
       </div>
       <div class="subnavbar">
-        <div class="title"><a href="/search/" data-view=".view-main"><img class="responsive search" src="img/search.png" /></a></div>
+        <div class="title" style="width: 100%; font-size: 16px;">
+          <!-- <a href="/search/" data-view=".view-main"><img class="responsive search" src="img/search.png" /></a> -->
+          <div class="search">
+              <div class="searchButton"><i class="fa fa-search"></i></div>
+              <input type="text" class="searchTerm" placeholder="Search for">
+          </div>
+        </div>
       </div>
     </div>
     <div class="page-content">
@@ -138,6 +144,20 @@
         } else {
           $$('.badge').css("display", "none");
         }
+      },
+      
+      pageInit: function(e, page) {
+                
+        $$('.searchTerm').on('focus', function (e) {
+          
+          e.preventDefault();
+          
+          app.router.navigate('/search/', {
+            reloadCurrent: true,
+            ignoreCache: true,
+          });
+
+        });
       }
     }
   }

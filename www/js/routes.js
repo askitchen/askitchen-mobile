@@ -40,6 +40,10 @@ routes = [
     componentUrl: './pages/search.html',
   },
   {
+    path: '/forget',
+    componentUrl: './pages/forget.html',
+  },
+  {
     path: '/login/',
     componentUrl: './pages/login.html',
   },

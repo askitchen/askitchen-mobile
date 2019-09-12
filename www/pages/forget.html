@@ -1,0 +1,83 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Lupa Password</div>
+        <div class="right">
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+        
+      <form class="forget-form form-ajax-submit">
+        <div class="block">
+          <div class="list no-hairlines-md">
+            <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Masukkan E-Mail untuk mereset password</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="email" name="email" placeholder="E-Mail" autofocus />
+                  </div>
+                </div>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-block"><a href="#" @click="doSubmit" class="button button-raised button-fill larger login-button">KIRIM</a></div>
+
+      </form>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Component Methods
+    methods: {
+      
+        doSubmit: function (e) {
+        
+        var email = $$('input [name="email"]').val();
+        if (email == '') {
+            app.dialog.alert('Masukkan alamat email anda.', 'Lupa Password');
+            return;
+        }
+        
+        app.preloader.show();
+      
+        var formData = app.form.convertToData('.forget-form');
+      
+        // var regId = localStorage.getItem('RegId');
+        // formData.gcmid = regId;
+        
+        app.request.post( app.data.endpoint + 'auth/forgot_password', formData, function (res) {
+          
+          app.preloader.hide();
+          
+          var data = JSON.parse(res);
+      
+          if (data.status) {
+          
+            app.dialog.alert('Email telah dikirim.', 'Lupa Password');
+            
+            var view = app.views.current;
+            view.router.back(view.history[view.history.length-2], { force: true });
+      
+          } else {
+            app.dialog.alert(data.message, 'Lupa Password');
+          }
+        });
+      }
+    }
+
+  }
+        
+</script>

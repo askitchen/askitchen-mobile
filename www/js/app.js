@@ -355,7 +355,7 @@ $$(document).on('backbutton', function (e) {
   // for example, based on what and where view you have
   if (app.views.main.router.url == 'home') {
     
-    if (!bBackPressed) {
+    /*if (!bBackPressed) {
       
       bBackPressed = true;
 
@@ -372,18 +372,18 @@ $$(document).on('backbutton', function (e) {
       });
       toast.open();
       
-    } else {
+    } else {*/
       
       if (app.data.bLogedIn) {
         app.request.get( app.data.endpoint + 'auth/logout', function(res) {});
       }
 
       navigator.app.exitApp();
-      console.log('navigator.app.exitApp();')
-    }
+      // console.log('navigator.app.exitApp();')
+    // }
   } else {
   
-    console.log('url => '+app.views.main.router.url)
+    // console.log('url => '+app.views.main.router.url)
     mainView.router.back();
   }
 

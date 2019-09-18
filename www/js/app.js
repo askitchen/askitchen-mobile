@@ -353,7 +353,7 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
-  if (app.views.main.router.url == 'home') {
+  if (app.views.main.router.url == '/') {
     
     /*if (!bBackPressed) {
       

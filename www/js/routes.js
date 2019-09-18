@@ -36,11 +36,11 @@ routes = [
     },
   },
   {
-    path: '/search',
+    path: '/search/',
     componentUrl: './pages/search.html',
   },
   {
-    path: '/forget',
+    path: '/forget/',
     componentUrl: './pages/forget.html',
   },
   {

@@ -353,38 +353,40 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
-  if (app.views.main.router.url !== '/') {
+  if (app.views.main.router.url == 'home') {
     
-    mainView.router.back();
-    
-  } else {
-    
-    // if (!bBackPressed) {
+    if (!bBackPressed) {
       
-    //   bBackPressed = true;
+      bBackPressed = true;
 
-    //   // show toast
-    //   var toast = app.toast.create({
-    //     text: 'Press back once again to exit.',
-    //     closeTimeout: 2000,
-    //     on: {
-    //       close: function () {
-    //         // app.dialog.alert('Toast closed');
-    //         bBackPressed = false;
-    //       },
-    //     }
-    //   });
-    //   toast.open();
+      // show toast
+      var toast = app.toast.create({
+        text: 'Press back once again to exit.',
+        closeTimeout: 2000,
+        on: {
+          close: function () {
+            // app.dialog.alert('Toast closed');
+            bBackPressed = false;
+          },
+        }
+      });
+      toast.open();
       
-    // } else {
+    } else {
       
       if (app.data.bLogedIn) {
         app.request.get( app.data.endpoint + 'auth/logout', function(res) {});
       }
 
       navigator.app.exitApp();
-    // }
+      console.log('navigator.app.exitApp();')
+    }
+  } else {
+  
+    console.log('url => '+app.views.main.router.url)
+    mainView.router.back();
   }
+
 });
 
 app.on('pageInit', function (page) {

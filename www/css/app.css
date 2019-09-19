@@ -163,27 +163,22 @@
   display: flex;
 }
 
-input.searchTerm {
+.searchTerm {
   width: 100%;
   background: #fff;
-  /* border: 3px solid #00B4CC; */
   border: none;
   padding: 5px;
-  height: 36px;
-  border-radius: 0 17px 17px 0;
-  outline: none;
-  color: #9DBFAF;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 0 16px 16px 0;
+  color: #ababab;
 }
-
-/* .searchTerm:focus{
-  color: #000;
-} */
 
 i.fa.fa-search {
   font-size: 16px;
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 9px;
 }
 .searchButton {
   width: 40px;
@@ -244,7 +239,7 @@ p {
 }
 
 .md .list .item-text.product-price {
-  color: #000;
+  color: #f00;
   font-size: 20px;
   font-weight: 700;
 }
@@ -435,10 +430,14 @@ div.block.main {
 }*/
 
 .md a > .product-name,
-.md a > .product-price,
 .md a > .product-size,
 .md a > .product-code {
   color: #000;
+  text-decoration: none;
+}
+
+.md a > .product-price {
+  color: #f00;
   text-decoration: none;
 }
 
@@ -605,16 +604,16 @@ span.golden {
 .product-price-rel {
   font-size: 14px;
   font-weight: 600;
-  color: #000;
+  color: #f00;
   text-decoration: none;
   text-align: left;
 }
 
 .item-after.product,
 .product-price {
-  /* color: #8bc34a; */
   font-size: 20px;
   font-weight: 700;
+  color: #f00;
 }
 
 .product-price.total {
@@ -999,7 +998,7 @@ FOLLOWING - FOLLOWERS
 li.term, div.block.about,
 div.block.faq {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   text-align: justify;
   margin-top: 15px;
 }

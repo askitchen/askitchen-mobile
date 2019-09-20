@@ -14,7 +14,7 @@ var app  = new Framework7({
   root: '#app', // App root element
   id: 'io.framework7.askitchen', // App bundle ID
   name: 'ASKITCHEN', // App name
-  theme: 'auto', // Automatic theme detection
+  theme: 'md', // Automatic theme detection
   init: true,
   initOnDeviceReady: true,
   

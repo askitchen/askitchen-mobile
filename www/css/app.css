@@ -434,6 +434,10 @@ div.block.main {
 .md a > .product-code {
   color: #000;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
 }
 
 .md a > .product-price {
@@ -575,6 +579,9 @@ span.golden {
   top: 0;
   width: 100%;
   z-index: 1000;
+}
+.card-header:after {
+  border-top: solid 1px #c0c0c0;
 }
 
 .card.item-detail {
@@ -774,7 +781,7 @@ div[class*="col-"] {
   text-align: center;
 }
 
-.col-50.product {
+.col-50.tablet-33.product {
   text-align: left;
 }
 
@@ -868,6 +875,16 @@ img.responsive.profile2 {
 
 img.responsive.profile2 {
   width: 100px;
+}
+
+div.member-account {
+  display: block;
+  margin: 0 auto;
+}
+div.member-info-account {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
 }
 
 div.member-picture,

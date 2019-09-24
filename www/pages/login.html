@@ -105,9 +105,16 @@
                 reloadCurrent: true,
                 ignoreCache: true,
               });
-              app.data.lastURL = '';
-            } //else {
+            } else {
+              
+              app.router.navigate('/', {
+                reloadCurrent: true,
+                ignoreCache: true,
+              });
+            }
             
+            app.data.lastURL = '';
+
             // tampilkan nama dan status
             $$('.member-name').text(data.nama);
             $$('.member-status').css('display', 'block');

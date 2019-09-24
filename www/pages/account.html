@@ -1,0 +1,49 @@
+<template>
+  <div class="page" data-name="profile">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">My Account</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block">
+        <div class="member-account">
+          <img class="responsive profile2" src="img/user.png" style="display: block; margin: 0 auto;">
+        </div>
+        <div class="member-info-account">
+            <div class="member-name">GUEST</div>
+            <div class="member-status">Member</div>
+            <div class="member-edit">
+                <a href="/profile/" data-view=".view-main">Edit Profile</a>
+            </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="list links-list no-safe-areas">
+          <ul>
+            <li><a href="/wish-list/" data-view=".view-main">Wishlist</a></li>
+            <li><a href="/order-status/" data-view=".view-main">Order Status</a></li>
+            <li><a href="/order-history/" data-view=".view-main">Order History</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Page Events
+    on: {
+      
+      pageInit: function (event, page) {
+            
+      }
+    }
+  }
+</script>

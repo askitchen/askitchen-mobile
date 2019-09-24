@@ -213,6 +213,48 @@ routes = [
     url: './pages/settings.html',
   },
   {
+    path: '/account/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // console.log('bLogedIn: '+app.data.bLogedIn)
+      if (!app.data.bLogedIn) {
+        
+        app.data.lastURL = '/account/';
+
+        resolve(
+          {
+            componentUrl: './pages/login.html',
+          }
+        );
+        return;
+      }
+      
+      resolve(
+        {
+          componentUrl: './pages/account.html',
+        }
+      );
+      return;
+    }
+  },
+  {
+    path: '/wish-list/',
+    componentUrl: './pages/wish-list.html',
+  },
+  {
+    path: '/order-status/',
+    componentUrl: './pages/order-status.html',
+  },
+  {
+    path: '/order-history/',
+    componentUrl: './pages/order-history.html',
+  },
+  {
     path: '/profile/',
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
@@ -257,10 +299,6 @@ routes = [
     path: '/notifications/',
     componentUrl: './pages/notifications.html',
   },
-  // {
-  //   path: '/wish-list/',
-  //   componentUrl: './pages/wish-list.html',
-  // },
   {
     path: '/category/:kode/:nama',
     async: function (routeTo, routeFrom, resolve, reject) {

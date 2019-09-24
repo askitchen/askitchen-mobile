@@ -38,6 +38,7 @@
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
         
         <input type="hidden" id="maxqty" value="{{data.stok}}">
+        <input type="hidden" id="context" value="{{data.context}}">
 
         <div class="card-footer product">
           <div class="product-name">{{data.nama}}</div>
@@ -192,7 +193,8 @@
           var qty   = page.find('.item-qty').val();
           var hjual = page.find('.item-price').val();
 
-          var maxVal = parseInt($$('#maxqty').val());
+          var maxVal  = parseInt($$('#maxqty').val());
+          var context = parseInt($$('#context').val());
 
           
           // cek login
@@ -215,20 +217,23 @@
             
             bFound = true;
 
-            if (items[i].qty >= maxVal) {
-              // console.log('item.qty >= maxVal')
-              return;
-            }
+            if (context == 2)
+              if (items[i].qty >= maxVal) {
+                console.log('item.qty >= maxVal')
+                return;
+              }
             
             // var x = parseInt(items[i].qty) + parseInt(qty);
             
+            if (context == 2)
             if (parseInt(items[i].qty) + parseInt(qty) > maxVal) {
               // console.log('maxVal: '+ maxVal)
-              // console.log('item.qty + qty > maxVal')
+              console.log('item.qty + qty > maxVal')
               return;
-            } else {
+            } //else {
+              
               items[i].qty += parseInt(qty);
-            }
+            // }
           }
 
           if (!bFound) {

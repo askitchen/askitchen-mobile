@@ -98,7 +98,25 @@
             
             // kosongkan isian nomor pin
             $$('input [name="password"]').val('');
-      
+
+            // get last total item
+            app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
+                    
+              var data = JSON.parse(res);
+              
+              if (data.status)
+              {
+                app.data.total_items = data.totqty;
+                $$('.badge').text(data.totqty);
+              }
+              else
+              {
+                $$('.badge').css("display", "none");
+                app.data.total_items = 0;
+              }
+            });
+
+
             if (app.data.lastURL) {
               
               app.router.navigate(app.data.lastURL, {

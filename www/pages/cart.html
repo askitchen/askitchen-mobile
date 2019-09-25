@@ -14,39 +14,72 @@
     
     <div class="page-content">
         
-      {{#each data}}
+      {{#js_if "app.data.tot_equipment > 0"}}
       <div class="card item-cart">
         
-        <input type="hidden" class="item-code"  value="{{kdbar}}" /> <!-- https://askitchen.com/ -->
-        <input type="hidden" class="item-qty"   value="{{qty}}" />
-        <input type="hidden" class="item-price" value="{{harga}}" />
-        
         <div class="card-header">
-          <div class="product-name">Equipment</div>
+          <div class="product-name"><b>Equipment Items</b></div>
         </div>
-        <div class="card-footer">
+        {{#each equipment}}
+        <div class="card-footer top">
+          <!-- data used to remove item -->
+          <input type="hidden" class="item-code"  value="{{kdbar}}" />
+          <input type="hidden" class="item-qty"   value="{{qty}}" />
+          <input type="hidden" class="item-price" value="{{harga}}" />
+          
           <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <div class="product-name">{{nama}}</div>
           <div>x {{qty}}</div>
           <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer bottom">
           <img class="cart lazy" src="img/none.png" />
           <div>@Rp{{hargaf}}</div>
           <div>Disc. {{disc}}%</div>
           <div>Rp{{jumlah.toLocaleString('ID')}}</div>
         </div>
-        <!-- <div class="card-footer">
-          <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
-        </div> -->
-      </div>
-      {{/each}}
-
-      {{#js_if "app.data.total > 0"}}
-      <div class="card">
-        <div class="card-footer">
+        {{/each}}
+        <!-- total equipment -->
+        <div class="card-footer total">
           <div class="product-name">Total:</div>
-          <div class="product-price">Rp{{$root.total.toLocaleString('ID')}}</div>
+          <div class="product-price">Rp{{$root.tot_equipment.toLocaleString('ID')}}</div>
+        </div>
+        <div class="card-footer">
+          <a href="#" @click="doInquiry" class="button button-raised button-fill larger btn-inquiry">Request Quotation</a>
+        </div>
+      </div>
+      {{/js_if}}
+
+      {{#js_if "app.data.tot_utensil > 0"}}
+      <div class="card item-cart">
+        
+        <div class="card-header">
+          <div class="product-name"><b>Utensil Items</b></div>
+        </div>
+        {{#each utensil}}
+        <div class="card-footer top">
+          <!-- data used to remove item -->
+          <input type="hidden" class="item-code"  value="{{kdbar}}" />
+          <input type="hidden" class="item-qty"   value="{{qty}}" />
+          <input type="hidden" class="item-price" value="{{harga}}" />
+          
+          <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
+          <div class="product-name">{{nama}}</div>
+          <div>x {{qty}}</div>
+          <div class="delete"><a href="#" class="link icon-only btn-delete"><i class="material-icons remove-item">delete</i></a></div>
+        </div>
+        <div class="card-footer bottom">
+          <img class="cart lazy" src="img/none.png" />
+          <div>@Rp{{hargaf}}</div>
+          <div>Disc. {{disc}}%</div>
+          <div>Rp{{jumlah.toLocaleString('ID')}}</div>
+        </div>
+        {{/each}}
+        
+        <!-- total utensil -->
+        <div class="card-footer total">
+          <div class="product-name">Total:</div>
+          <div class="product-price">Rp{{$root.tot_utensil.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
           <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
@@ -61,12 +94,21 @@
     // Component Methods
     methods: {
       
+      doInquiry: function (e) {
+        // var formData = app.form.convertToData('.komplain');
+        // formData.Authorization = app.data.token;
+        
+        app.request.post(app.data.endpoint + 'req-inquiry', [], function (res) {
+            
+        });
+      },
+
       doCheckout: function (e) {
         
-        if (app.data.total == 0) {
-          app.dialog.alert('Keranjang belanja anda masih kosong.');
-          return;
-        }
+        // if (app.data.total == 0) {
+        //   app.dialog.alert('Keranjang belanja anda masih kosong.');
+        //   return;
+        // }
 
         app.router.navigate('/checkout/', {
           reloadCurrent: true,
@@ -83,8 +125,10 @@
         
         $$('.btn-delete').on('click', function (e) {
 
-          var card  = $$(this).parents('.item-cart');
+          var card  = $$(this).parents('.card-footer.top');
+          console.log(card)
           var kode  = card.find('.item-code').val();
+          console.log(kode)
           var qty   = card.find('.item-qty').val();
 
           var formData = [];

@@ -35,11 +35,13 @@ var app  = new Framework7({
 
       total_items: 0, // total item cart
 
-      // total: 0,       // sub total
+      tot_equipment: 0,  // total equipment
+      tot_utensil: 0,    // total utensil
+
       // tax: 0,         // pajak
       // shipcost: 0,    // ongkos kirim
       // addcost: 0,     // payment gateway
-      // gtotal: 0,      // total
+      gtotal: 0,      // total
 
       // currentDate: null,
       lastURL: null,

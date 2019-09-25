@@ -189,8 +189,8 @@ routes = [
         // console.log(res)
         var data = JSON.parse(res)
         
-        app.data.total  = data.total;
-        app.data.gtotal = data.total;
+        app.data.tot_equipment = data.total_equipment;
+        app.data.tot_utensil   = data.total_utensil;
         // $$('#spangt').text(app.data.gtotal.toLocaleString());
 
         // Resolve route to load page
@@ -200,13 +200,52 @@ routes = [
           },
           {
             context: {
-              data: data.data,
+              equipment: data.equipment,
+              utensil: data.utensil,
             }
           }
         );
 
       });
     },
+  },
+  {
+    path: '/checkout/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      if (!app.data.bLogedIn) {
+        
+        app.data.lastURL = '/checkout/';
+
+        app.router.navigate('/login/', {
+          reloadCurrent: true,
+          ignoreCache: true,
+        });
+      }
+
+      // Show Preloader
+      app.preloader.show();
+        
+      app.request.get( app.data.endpoint + 'cart', function(res) {
+          
+        var data = JSON.parse(res);
+        // app.data.tot_equipment = data.total_equipment;
+        app.data.tot_utensil   = data.total_utensil;
+        // console.log(data.total_utensil)
+        // console.log(data.utensil)
+
+        resolve (
+          { componentUrl: './pages/checkout.html' },
+          { context: { data: data } }
+        );
+        app.preloader.hide();
+      });
+    }
   },
   {
     path: '/settings/',
@@ -405,40 +444,6 @@ routes = [
         );
       });
     },
-  },
-  {
-    path: '/checkout/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      if (!app.data.bLogedIn) {
-        
-        app.data.lastURL = '/checkout/';
-
-        app.router.navigate('/login/', {
-          reloadCurrent: true,
-          ignoreCache: true,
-        });
-      }
-
-      // Show Preloader
-      app.preloader.show();
-        
-      app.request.get( app.data.endpoint + 'cart', function(res) {
-          
-        var data = JSON.parse(res);
-
-        resolve (
-          { componentUrl: './pages/checkout.html' },
-          { context: { data: data } }
-        );
-        app.preloader.hide();
-      });
-    }
   },
   {
     path: '/about-us/',

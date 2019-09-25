@@ -1,13 +1,13 @@
 /* Your app styles here */
 
-@font-face {
+/* @font-face {
 	font-family: 'futuraMediumBT';
 	src: url('../fonts/futuraMediumBT.eot');
 	src: local('futuraMediumBT'), url('../fonts/futuraMediumBT.woff') format('woff'), url('../fonts/futuraMediumBT.ttf') format('truetype');
-}
-
+} */
+/*futuraMediumBT,*/
 .md body {
-  font-family: futuraMediumBT,Roboto,Noto,Helvetica,Arial,sans-serif
+  font-family: 'Segoe UI', Roboto,Noto,Helvetica,Arial,sans-serif
 }
 
 /* Left Panel right border when it is visible by breakpoint */
@@ -571,7 +571,8 @@ span.golden {
 
 .button.larger {
   width: 80%;
-  margin: 20px auto 28px auto;
+  /* margin: 20px auto 28px auto; */
+  margin: 5px auto 20px auto;
 }
 
 .sticky {
@@ -580,8 +581,20 @@ span.golden {
   width: 100%;
   z-index: 1000;
 }
-.card-header:after {
-  border-top: solid 1px #c0c0c0;
+.card-footer.top {
+  height: 55px;
+}
+.card-footer.bottom {
+  height: 40px;
+}
+/* .card-header:after, */
+.card-footer.top:before {
+  border-top: solid 1px #ababab;
+}
+
+.card-footer.total:before {
+  border-top: solid 1px #81848b;
+  border-bottom: solid 1px #ababab;
 }
 
 .card.item-detail {

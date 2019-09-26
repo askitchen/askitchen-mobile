@@ -17,6 +17,9 @@
       <div class="tabs">
         <div id="tab1" class="page-content tab active">
           <div class="content-block">
+
+            <form id="frmDetail" method="post" >
+
             <div class="block">
               <div class="list no-hairlines-md">
                 <ul>
@@ -161,8 +164,17 @@
                 </ul>
               </div>
             </div>
+            
+            <input type="hidden" id="total"    name="total"    value="{{data.total_utensil}}">
+            <input type="hidden" id="shipcost" name="shipcost" value="0">
+            <!-- <input type="hidden" id="svcname"  name="svcname"  value="jne"> -->
+            <input type="hidden" id="tax"      name="tax"      value="0">
+            <input type="hidden" id="add_fee"  name="add_fee"  value="0">
+            <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total_utensil}}">
+            </form>
+        
           </div>
-          <a href="#" @click="showNextTab" class="button button-raised button-fill larger btn-checkout">Next</a>
+          <a href="#" @click="onNext1Click" class="button button-raised button-fill larger btn-next1">Next</a>
         </div>
         <div id="tab2" class="page-content tab">
           <div class="content-block">
@@ -196,7 +208,7 @@
                       <div class="item-input-wrap">
                         <select id="payment" name="payment">
                           <!-- <option value="" selected>-</option> -->
-                          <option value="15">Credit Card (Visa &amp; Mastercard)</option>
+                          <option value="15" selected>Credit Card (Visa &amp; Mastercard)</option>
                           <option value="31">Indomaret</option>
                           <option value="35">Alfamart</option>
                           <option value="36">Permata VA</option>
@@ -209,6 +221,7 @@
             </div>
 
           </div>
+          <a href="#" @click="onNext2Click" class="button button-raised button-fill larger btn-next2">Next</a>
         </div>
         <div id="tab3" class="page-content tab">
           <div class="card data-table">
@@ -230,7 +243,7 @@
                 {{/each}}
               </tbody>
             </table>
-            <div class="card-footer">
+            <div class="card-footer subtotal">
               <div class="product-name">Subtotal</div>
               <div class="product-price">Rp{{data.total_utensil.toLocaleString('ID')}}</div>
             </div>
@@ -255,47 +268,48 @@
         </div>
       </div>
     </div>
-    
+
+
     <!-- cart item -->
     {{#each data.utensil}}
       <input type="hidden" class="cart-item" value="{{nama}},{{harga}}.00,{{qty}},{{jumlah}}.00">
     {{/each}}
     <!-- cart item -->
-
-    <input type="hidden" id="total"    name="total"    value="{{data.total_utensil}}">
-    <input type="hidden" id="shipcost" name="shipcost" value="0">
-    <!-- <input type="hidden" id="svcname"  name="svcname"  value="jne"> -->
-    <input type="hidden" id="tax"      name="tax"      value="0">
-    <input type="hidden" id="add_fee"  name="add_fee"  value="0">
-    <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total_utensil}}">
     
-    <form action="" id="frmDoku" method="post" >
+    <form id="frmDoku" method="post" >
     
       <input name="BASKET" type="hidden" id="BASKET" value="" />
-      <input name="MALLID" type="hidden" id="MALLID" value="5338" />
+
+      <!-- staging -->
+      <input name="MALLID"    type="hidden" id="MALLID" value="5338" />
       <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="XJNLey8o6u38" maxlength="12"/>
-      <input name="CHAINMERCHANT" type="hidden" id="CHAINMERCHANT" value="NA" />
-      <input name="CURRENCY" type="hidden" id="CURRENCY" value="360" maxlength="3" />
+      
+      <!-- production -->
+      <!-- <input name="MALLID"    type="hidden" id="MALLID"    value="4736" />
+      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="5qQHZ4Af1zw9" maxlength="12"/> -->
+
+      <input name="CHAINMERCHANT"    type="hidden" id="CHAINMERCHANT" value="NA" />
+      <input name="CURRENCY"         type="hidden" id="CURRENCY" value="360" maxlength="3" />
       <input name="PURCHASECURRENCY" type="hidden" id="PURCHASECURRENCY" value="360" maxlength="3" />
-      <input name="AMOUNT" type="hidden" id="AMOUNT" value="0" />
-      <input name="PURCHASEAMOUNT" type="hidden" id="PURCHASEAMOUNT" value="0" />
-      <input name="TRANSIDMERCHANT" type="hidden" id="TRANSIDMERCHANT" />
-      <input name="WORDS" type="hidden" id="WORDS" />
-      <input name="REQUESTDATETIME" type="hidden" id="REQUESTDATETIME" maxlength="14" />
-      <input name="SESSIONID" type="hidden" id="SESSIONID" />
-      <input name="PAYMENTCHANNEL" type="hidden" id="PAYMENTCHANNEL" value="15" />
-      <input name="EMAIL" type="hidden" id="EMAIL" value="" />
-      <input name="NAME" type="hidden" id="NAME" value="" maxlength="50" />
+      <input name="AMOUNT"           type="hidden" id="AMOUNT" value="0" />
+      <input name="PURCHASEAMOUNT"   type="hidden" id="PURCHASEAMOUNT" value="0" />
+      <input name="TRANSIDMERCHANT"  type="hidden" id="TRANSIDMERCHANT" />
+      <input name="WORDS"            type="hidden" id="WORDS" />
+      <input name="REQUESTDATETIME"  type="hidden" id="REQUESTDATETIME" maxlength="14" />
+      <input name="SESSIONID"        type="hidden" id="SESSIONID" />
+      <input name="PAYMENTCHANNEL"   type="hidden" id="PAYMENTCHANNEL" value="" />
+      <input name="EMAIL"            type="hidden" id="EMAIL" value="" />
+      <input name="NAME"             type="hidden" id="NAME" value="" maxlength="50" />
     
       <input name="ADDRESS"  type="hidden" id="ADDRESS" value="" maxlength="50" />
       <input name="COUNTRY"  type="hidden" id="COUNTRY" value="360" maxlength="50" />
-      <input name="STATE"    type="hidden" id="STATE" value="" maxlength="50" />
+      <input name="STATE"    type="hidden" id="STATE"   value="" maxlength="50" />
       <input name="PROVINCE" type="hidden" id="PROVINCE" value="" maxlength="50" />
-      <input name="CITY"     type="hidden" id="CITY" value="" maxlength="50" />
+      <input name="CITY"     type="hidden" id="CITY"    value="" maxlength="50" />
       <input name="ZIPCODE"  type="hidden" id="ZIPCODE" value="" maxlength="10" />
     
       <input name="SHIPPING_ADDRESS" type="hidden" id="SHIPPING_ADDRESS" value="" maxlength="10" />
-      <input name="SHIPPING_CITY"    type="hidden" id="SHIPPING_CITY" value="" maxlength="10" />
+      <input name="SHIPPING_CITY"    type="hidden" id="SHIPPING_CITY"    value="" maxlength="10" />
       <input name="SHIPPING_COUNTRY" type="hidden" id="SHIPPING_COUNTRY" value="ID" maxlength="10" />
       <input name="SHIPPING_ZIPCODE" type="hidden" id="SHIPPING_ZIPCODE" value="" maxlength="10" />
     
@@ -311,14 +325,93 @@
     // Component Methods
     methods: {
       
-      showNextTab: function (e) {
+      onNext1Click: function (e) {
         // app.tab.show('.tabs-swipeable-wrap', '#tab2', false);
-        app.dialog.alert('Haloo')
+        // app.dialog.alert('Haloo')
+            
+        var first_name = $$('#first_name').val();
+        if ( first_name == '')
+        {
+            alert('Please enter first name.');
+            $$( "#first_name" ).focus();
+            return false;
+        }
+        
+        /*var last_name = $$('#last_name').val();
+        if ( last_name == '')
+        {
+            alert('Please enter last name.');
+            $$( "#last_name" ).focus();
+            return false;
+        }*/
+        
+        var address = $$('#address').val();
+        if ( address == '')
+        {
+            app.dialog.alert('Please enter address.');
+            $$( "#address" ).focus();
+            return false;
+        }
+
+        var province = $$('#province').val();
+        if ( province == '')
+        {
+            alert('Please enter province.');
+            $$( "#province" ).focus();
+            return false;
+        }
+        
+        var regency = $$('#regency').val();
+        if ( regency == '')
+        {
+            alert('Please enter regency.');
+            $$( "#regency" ).focus();
+            return false;
+        }
+        
+        var district = $$('#district').val();
+        if ( district == '')
+        {
+            alert('Please enter district.');
+            $$( "#district" ).focus();
+            return false;
+        }
+        
+        var phone = $$('#phone').val();
+        if ( phone == '')
+        {
+            alert('Please enter phone number.');
+            $$( "#phone" ).focus();
+            return false;
+        }
+
+        var email = $$('#email').val();
+        if ( email == '')
+        {
+            alert('Please enter email address.');
+            $$( "#email" ).focus();
+            return false;
+        }
+        
+        app.tab.show('#tab2', false);
       },
+      onNext2Click: function (e) {
+        
+        var form = app.form.convertToData('#frmDetail');
+        
+        app.request.post( app.data.endpoint + 'checkout/update_info', form, function(data) {
+          
+          app.tab.show('#tab3', false);
+        });
+      }
     },
     // Page Events
     on: {
       
+      tabShow: function (el) {
+        console.log('SHOW TAB: ' + el.target.id);
+      },
+
       pageBeforeIn: function (event, page) {
         
         if (app.data.bLogedIn) {
@@ -645,7 +738,25 @@
             // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
             
             
-            // ref.addEventListener('loadstop', onBrowserLoadStop);
+            // add handler on back to merchant
+            ref.addEventListener('loadstart', function(event) {
+              
+              if(event.url == 'https://askitchen.com/') {
+                
+                ref.close();
+                ref = undefined;
+                
+                // back to main page
+                var view = app.views.current;
+                view.router.back(view.history[0], { force: true });
+
+                // app.router.navigate('/', {
+                //   reloadCurrent: true,
+                //   ignoreCache: true,
+                // });
+              }
+            });
+
             ref.addEventListener('loadstop', function(event) {
               
               var elements = $$('#frmDoku')[0].elements;
@@ -657,29 +768,9 @@
               }
               script += 'document.getElementById("frmDoku").submit();';
 
-              
               // console.log(script)
               // return;
-              
-              
-              // var script = 'var form = document.createElement("form");';
-              //   script += 'var url = "https://staging.doku.com/Suite/Receive";';
-              //   script += 'form.method="post"';
-              //   script += 'form.setAttribute("action",url);';
-
-                
-                // script += 'var hiddenField = document.createElement("input");';
-                // script += 'hiddenField.setAttribute("type", "hidden");';
-                // script += 'hiddenField.setAttribute("name","' + element.name +'");';
-                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
-                // script += 'form.appendChild(hiddenField);';
-                // script += 'document.getElementById("' + element.name + '").value = "' + element.value + '";';
-                // script += 'hiddenField.setAttribute("value","' + element.value + '");';
-              // }
-              // script += 'document.body.appendChild(form)';
-              // script += 'document.getElementById("frmDoku").submit();';
-
-              
+                         
               function executeScriptCallBack(params) {
 
                 if (params[0] == null) {
@@ -691,24 +782,7 @@
               }
 
               ref.executeScript({ code: script }, executeScriptCallBack);
-              // ref.close();
-              // ref = undefined;
-
             });
-
-            
-            ref.addEventListener('exit', function(event) {
-              // check transaction status
-
-              // clear cart data
-              // app.request.post( app.data.endpoint + 'cart/clear', formData, function(res) {
-              // });
-              
-              // back to main page
-              var view = app.views.current;
-              view.router.back(view.history[0], { force: true });
-            });
-
           });
         });
 

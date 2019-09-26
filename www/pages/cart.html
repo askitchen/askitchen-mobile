@@ -45,7 +45,7 @@
           <div class="product-price">Rp{{$root.tot_equipment.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
-          <a href="#" @click="doInquiry" class="button button-raised button-fill larger btn-inquiry">Request Quotation</a>
+          <a href="#" @click="doRequest" class="button button-raised button-fill larger btn-inquiry">Request Quotation</a>
         </div>
       </div>
       {{/js_if}}
@@ -94,12 +94,21 @@
     // Component Methods
     methods: {
       
-      doInquiry: function (e) {
+      doRequest: function (e) {
+        
         // var formData = app.form.convertToData('.komplain');
         // formData.Authorization = app.data.token;
         
-        app.request.post(app.data.endpoint + 'req-inquiry', [], function (res) {
-            
+        app.request.post(app.data.endpoint + 'mail-order', [], function (res) {
+                
+          // back to main page
+          var view = app.views.current;
+          view.router.back(view.history[0], { force: true });
+
+          // app.router.navigate('/', {
+          //   reloadCurrent: true,
+          //   ignoreCache: true,
+          // });
         });
       },
 
@@ -110,6 +119,7 @@
         //   return;
         // }
 
+        // open checkout page
         app.router.navigate('/checkout/', {
           reloadCurrent: true,
           ignoreCache: true,
@@ -126,9 +136,9 @@
         $$('.btn-delete').on('click', function (e) {
 
           var card  = $$(this).parents('.card-footer.top');
-          console.log(card)
+          // console.log(card)
           var kode  = card.find('.item-code').val();
-          console.log(kode)
+          // console.log(kode)
           var qty   = card.find('.item-qty').val();
 
           var formData = [];

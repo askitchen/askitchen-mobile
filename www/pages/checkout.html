@@ -179,6 +179,7 @@
         <div id="tab2" class="page-content tab">
           <div class="content-block">
             
+            <form id="frmPmnt" method="post" >
             <div class="block">
               <div class="list no-hairlines-md">
                 <ul>
@@ -219,6 +220,7 @@
                 <ul>
               </div>
             </div>
+            </form>
 
           </div>
           <a href="#" @click="onNext2Click" class="button button-raised button-fill larger btn-next2">Next</a>
@@ -245,23 +247,23 @@
             </table>
             <div class="card-footer subtotal">
               <div class="product-name">Subtotal</div>
-              <div class="product-price">Rp{{data.total_utensil.toLocaleString('ID')}}</div>
+              <div class="product-price total">Rp{{data.total_utensil.toLocaleString('ID')}}</div>
             </div>
             <div class="card-footer">
               <div class="product-name">Tax</div>
-              <div class="product-price"><b>Rp<span id="spantax">0</span></b></div>
+              <div class="product-price total"><b>Rp<span id="spantax">0</span></b></div>
             </div>
             <div class="card-footer">
               <div class="product-name">Shipping</div>
-              <div class="product-price"><b>Rp<span id="spanship">0</span></b></div>
+              <div class="product-price total"><b>Rp<span id="spanship">0</span></b></div>
             </div>
             <div class="card-footer">
               <div class="product-name">Processing</div>
-              <div class="product-price"><b>Rp<span id="span-add">0</span></b></div>
+              <div class="product-price total"><b>Rp<span id="span-add">0</span></b></div>
             </div>
             <div class="card-footer">
               <div class="product-name">Total</div>
-              <div class="product-price"><b>Rp<span id="spangt">{{data.total_utensil.toLocaleString('ID')}}</span></b></div>
+              <div class="product-price total"><b>Rp<span id="spangt">{{data.total_utensil.toLocaleString('ID')}}</span></b></div>
             </div>
           </div>
           <div class="content-block"><a href="#" class="button button-raised button-fill larger btn-pay">Pay</a></div>
@@ -322,12 +324,16 @@
 </template>
 <script>
   return {
+    data: function () {
+      return {
+        bUpdateInfo: false
+      }
+    },
     // Component Methods
     methods: {
       
+      // tab detail
       onNext1Click: function (e) {
-        // app.tab.show('.tabs-swipeable-wrap', '#tab2', false);
-        // app.dialog.alert('Haloo')
             
         var first_name = $$('#first_name').val();
         if ( first_name == '')
@@ -356,7 +362,7 @@
         var province = $$('#province').val();
         if ( province == '')
         {
-            alert('Please enter province.');
+            app.dialog.alert('Please enter province.');
             $$( "#province" ).focus();
             return false;
         }
@@ -364,7 +370,7 @@
         var regency = $$('#regency').val();
         if ( regency == '')
         {
-            alert('Please enter regency.');
+            app.dialog.alert('Please enter regency.');
             $$( "#regency" ).focus();
             return false;
         }
@@ -372,7 +378,7 @@
         var district = $$('#district').val();
         if ( district == '')
         {
-            alert('Please enter district.');
+            app.dialog.alert('Please enter district.');
             $$( "#district" ).focus();
             return false;
         }
@@ -380,7 +386,7 @@
         var phone = $$('#phone').val();
         if ( phone == '')
         {
-            alert('Please enter phone number.');
+            app.dialog.alert('Please enter phone number.');
             $$( "#phone" ).focus();
             return false;
         }
@@ -388,18 +394,24 @@
         var email = $$('#email').val();
         if ( email == '')
         {
-            alert('Please enter email address.');
+            app.dialog.alert('Please enter email address.');
             $$( "#email" ).focus();
             return false;
         }
         
-        app.tab.show('#tab2', false);
-      },
-      onNext2Click: function (e) {
-        
         var form = app.form.convertToData('#frmDetail');
         
         app.request.post( app.data.endpoint + 'checkout/update_info', form, function(data) {
+          
+          app.tab.show('#tab2', false);
+        });
+      },
+      // tab payment type
+      onNext2Click: function (e) {
+        
+        var form = app.form.convertToData('#frmPmnt');
+        
+        app.request.post( app.data.endpoint + 'checkout/update-pmnt', form, function(data) {
           
           app.tab.show('#tab3', false);
         });
@@ -409,7 +421,14 @@
     on: {
       
       tabShow: function (el) {
-        console.log('SHOW TAB: ' + el.target.id);
+        // console.log(el)
+        el.preventDefault;
+        // console.log('SHOW TAB: ' + el.target.id);
+        if (el.target.id == 'tab1') {
+          this.data.bUpdateInfo = false;
+        } else {
+          this.data.bUpdateInfo = true;
+        }
       },
 
       pageBeforeIn: function (event, page) {
@@ -746,9 +765,11 @@
                 ref.close();
                 ref = undefined;
                 
-                // back to main page
-                var view = app.views.current;
-                view.router.back(view.history[0], { force: true });
+                app.request.post(app.data.endpoint + 'checkout/clear-data', [], function (res) {
+                  // back to main page
+                  var view = app.views.current;
+                  view.router.back(view.history[0], { force: true });
+                });
 
                 // app.router.navigate('/', {
                 //   reloadCurrent: true,

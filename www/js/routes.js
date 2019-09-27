@@ -283,15 +283,108 @@ routes = [
   },
   {
     path: '/wish-list/',
-    componentUrl: './pages/wish-list.html',
+    // componentUrl: './pages/wish-list.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+    
+      var db = app.data.db;
+      var items = [];
+
+      if (db) {
+      
+        db.transaction(function(tx) {
+          
+          tx.executeSql('select kdbar, nsms from wishlist order by urut;', [], function(ignored, res) {
+            
+            if (res.rows.length === 0) {
+              app.preloader.hide();
+              return;
+            }
+            
+            for (var i = 0; i < res.rows.length; i++) {
+              items.push({ kdbar: res.rows.item(i).kdbar,
+                nama: res.rows.item(i).nama });
+            }
+      
+            resolve(
+              { componentUrl: './pages/wish-list.html' },
+              { context: { data: items } }
+            );
+            app.preloader.hide();
+          });
+        }, function(error) {
+          app.preloader.hide();
+          app.dialog.alert('select error: ' + error.message);
+        });
+      }
+    }
   },
   {
     path: '/order-status/',
-    componentUrl: './pages/order-status.html',
+    // componentUrl: './pages/order-status.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+
+      // kode item
+      var mbrid = app.data.mbrid;
+      // var nama = routeTo.params.nama;
+
+      // var db = app.data.db;
+      
+      app.request.getJSON( app.data.endpoint + 'member/order-status/'+mbrid, function(res) {
+        
+        app.preloader.hide();
+
+        resolve(
+          { componentUrl: './pages/order-status.html' },
+          { context: { data: res.data } }
+        );
+      });
+    },
   },
   {
     path: '/order-history/',
-    componentUrl: './pages/order-history.html',
+    // componentUrl: './pages/order-history.html',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+
+      // kode item
+      var mbrid = app.data.mbrid;
+      // var nama = routeTo.params.nama;
+
+      // var db = app.data.db;
+      
+      app.request.getJSON( app.data.endpoint + 'member/order-history/'+mbrid, function(res) {
+        
+        app.preloader.hide();
+
+        resolve(
+          { componentUrl: './pages/order-history.html' },
+          { context: { data: res.data } }
+        );
+      });
+    },
   },
   {
     path: '/profile/',

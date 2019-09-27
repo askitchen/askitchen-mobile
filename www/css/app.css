@@ -210,6 +210,7 @@ i.fa.fa-search {
 }
 .md .data-table tbody td {
   height: 36px;
+  font-size: 11px;
 }
 .md .data-table.card .card-footer {
   height: 36px;
@@ -602,6 +603,7 @@ span.golden {
 }
 .card-footer.bottom {
   height: 40px;
+  font-size: 12px;
 }
 /* .card-header:after, */
 .card-footer.top:before {
@@ -648,14 +650,15 @@ span.golden {
 
 .item-after.product,
 .product-price {
-  font-size: 14px; /*20px;*/
+  font-size: 20px;
   font-weight: 700;
   /* color: #f00; */
 }
 
 .product-price.total {
-  color: #8bc34a;
-  font-size: 16px;
+  /* color: #8bc34a; */
+  font-size: 14px;
+  font-weight: 700;
 }
 
 div.product-size, div.product-code {

@@ -42,7 +42,7 @@
         <!-- total equipment -->
         <div class="card-footer total">
           <div class="product-name">Total:</div>
-          <div class="product-price">Rp{{$root.tot_equipment.toLocaleString('ID')}}</div>
+          <div class="product-price total">Rp{{$root.tot_equipment.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
           <a href="#" @click="doRequest" class="button button-raised button-fill larger btn-inquiry">Request Quotation</a>
@@ -79,7 +79,7 @@
         <!-- total utensil -->
         <div class="card-footer total">
           <div class="product-name">Total:</div>
-          <div class="product-price">Rp{{$root.tot_utensil.toLocaleString('ID')}}</div>
+          <div class="product-price total">Rp{{$root.tot_utensil.toLocaleString('ID')}}</div>
         </div>
         <div class="card-footer">
           <a href="#" @click="doCheckout" class="button button-raised button-fill larger btn-checkout">Proceed to checkout</a>
@@ -98,17 +98,35 @@
         
         // var formData = app.form.convertToData('.komplain');
         // formData.Authorization = app.data.token;
+          
+        var db = app.data.db;
+        
+        if (db) {
+                      
+          db.transaction(function(tx) {
+            tx.executeSql('insert into wishlist (kdbar, nama) values (?, ?);', [kode, nama]);
+          }, function(error) {
+            app.dialog.alert('UPDATE error: ' + error.message);
+          }, function() {
+            // console.log('Sukses!.');
+          });
+        }
         
         app.request.post(app.data.endpoint + 'mail-order', [], function (res) {
                 
-          // back to main page
-          var view = app.views.current;
-          view.router.back(view.history[0], { force: true });
+          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
+
+            // back to main page
+            var view = app.views.current;
+            view.router.back(view.history[0], { force: true });
+          });
 
           // app.router.navigate('/', {
           //   reloadCurrent: true,
           //   ignoreCache: true,
           // });
+          
+          app.dialog.alert('Thank you! Your inquiry already sent.');
         });
       },
 
@@ -160,6 +178,7 @@
               view.router.back(view.history[0], { force: true });
 
             } else {
+              
               app.router.navigate('/cart/', {
                 reloadCurrent: true,
                 ignoreCache: true,

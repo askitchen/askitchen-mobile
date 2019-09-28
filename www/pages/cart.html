@@ -114,19 +114,28 @@
         
         app.request.post(app.data.endpoint + 'mail-order', [], function (res) {
                 
-          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
+          var data = JSON.parse(res);
+            
+          if (data.status)
+          {
+            app.data.total_items = data.totqty;
+            $$('.badge').text(data.totqty);
 
             // back to main page
             var view = app.views.current;
             view.router.back(view.history[0], { force: true });
-          });
+          
+            app.dialog.alert('Thank you! Your inquiry already sent.');
+          }
+          else
+          {
+            app.dialog.alert('Fail to send inquiry!');
+          }
 
           // app.router.navigate('/', {
           //   reloadCurrent: true,
           //   ignoreCache: true,
           // });
-          
-          app.dialog.alert('Thank you! Your inquiry already sent.');
         });
       },
 

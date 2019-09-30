@@ -387,6 +387,8 @@ $$(document).on('backbutton', function (e) {
   
     // console.log('url => '+app.views.main.router.url)
     mainView.router.back();
+    // var view = app.views.current;
+    // view.router.back();
   }
 
 });

@@ -35,6 +35,9 @@
         <input type="hidden" class="item-name"    value="{{data.nama}}" />
         <input type="hidden" class="item-price"   value="{{data.hjual}}" />
         <input type="hidden" class="item-picture" value="{{data.gambar}}" />
+        <input type="hidden" class="item-pnj"     value="{{data.pnj}}" />
+        <input type="hidden" class="item-lbr"     value="{{data.lbr}}" />
+        <input type="hidden" class="item-tgi"     value="{{data.tgi}}" />
         <input type="hidden" class="last-value"   value="{{data.stok}}" />
         
         <input type="hidden" id="maxqty" value="{{data.stok}}">
@@ -49,7 +52,8 @@
         <div class="card-footer detail">
           <div class="product-price">Rp{{data.hjualf}}</div>
           <div class="product-price">
-            <a href="#" class="button-add"><img src="img/cart.png" class="cart-img" /><span class="cart-label">Add To Cart</span></a>
+            <a href="#" class="button-add"><img src="img/add.png" class="cart-img" /></a>
+            <a href="#" class="button-add2"><img src="img/a2wl.png" class="cart-img" /></a>
             <!-- <a href="#" class="button-coming"><span class="cart-label">Pre Order</span></a> -->
           </div>
         </div>
@@ -65,7 +69,7 @@
           <i class="f7-icons">star</i>
           <i class="f7-icons">star</i>
         </div> -->
-        <div class="card-footer detail">
+        <div class="card-footer">
           <div class="stepper stepper-fill stepper-init" data-wraps="false" data-autorepeat="true" data-autorepeat-dynamic="true" data-decimal-point="2" data-manual-input-mode="true">
             <div class="stepper-button-minus"></div>
             <div class="stepper-input-wrap">
@@ -74,6 +78,9 @@
             <div class="stepper-button-plus"></div>
           </div>
         </div>
+        <!-- <div class="card-footer detail">
+          <a href="#" @click="doAddWishList" class="button button-raised button-fill larger wish-list">ADD TO WISHLIST</a>
+        </div> -->
       </div>
 
       <div class="block">
@@ -133,6 +140,21 @@
 </template>
 <script>
   return {
+    // Component Methods
+    methods: {
+      
+      // add to wishlist
+      doAddWishList: function (e) {
+            
+        var first_name = $$('#first_name').val();
+        if ( first_name == '')
+        {
+            alert('Please enter first name.');
+            $$( "#first_name" ).focus();
+            return false;
+        }
+      }
+    },
     // Page Events
     on: {
       
@@ -261,6 +283,42 @@
               $$('.badge').css("display", "block");
             }
           });
+        });
+
+        
+        $$('.button-add2').on('click', function (e) {
+
+          var page   = $$('.page-current'); // get current page
+          var kode   = page.find('.item-code').val();
+          var nama   = page.find('.item-name').val();
+          var gambar = page.find('.item-picture').val();
+          var hjual  = page.find('.item-price').val();
+
+          var pnj    = page.find('.item-pnj').val();
+          var lbr    = page.find('.item-lbr').val();
+          var tgi    = page.find('.item-tgi').val();
+
+          // if (pnj) {
+          //   var strsql = 'insert into wishlist (kdbar, nama, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?);';
+          // } else {
+          //   var strsql = 'insert into wishlist (kdbar, nama, hjual, tglinput) values (?, ?, ?, ?);';
+          // }
+
+          var db = app.data.db;
+
+          if (db) {
+          
+            var now = new Date();
+            var date = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+          
+            db.transaction(function(tx) {
+              
+              tx.executeSql('insert into wishlist (kdbar, nama, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?);', 
+              [kode, nama, hjual, pnj, lbr, tgi, date]);
+              
+              app.dialog.alert('Data berhasil ditambahkan ke dalam wishlist.')
+            });
+          }
         });
       }
     }

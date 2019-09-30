@@ -132,6 +132,9 @@
             }
             
             app.data.lastURL = '';
+            
+            $$('div.item-title.menu.login').text('Logout')
+      
 
             // tampilkan nama dan status
             $$('.member-name').text(data.nama);
@@ -141,12 +144,12 @@
             // load profile picture
             var imageData = localStorage.getItem('profile');
             if (imageData) {
-              $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
+              $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
             }
             
             var imageData = localStorage.getItem('profile');
             if (imageData) {
-              $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
+              $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
             }
               
             //   var view = app.views.current;

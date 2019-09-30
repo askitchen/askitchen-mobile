@@ -101,7 +101,7 @@ var app  = new Framework7({
       //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
       // }
       
-      destinationType = navigator.camera.DestinationType;
+      // destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {
@@ -392,6 +392,7 @@ $$(document).on('backbutton', function (e) {
 
 });
 
+
 app.on('pageInit', function (page) {
 
   $$('input').on('focus', function () {
@@ -407,4 +408,38 @@ app.on('pageInit', function (page) {
   $$('input').on('blur', function () {
     $$('.kb').css('height', '0px');
   });
+
+  $$('div.searchTerm').on('click', function () {
+    // console.log('on click!')
+    $$('#searchTerm').focus();
+  });
+
+  $$('div.item-title.menu.login').on('click', function () {
+    
+    if ($$(this).text() == 'Login') {
+      
+      app.router.navigate('/login/', {
+        reloadCurrent: true,
+        ignoreCache: true,
+      });
+
+    } else {
+      
+      if (app.data.bLogedIn) {
+        app.request.get( app.data.endpoint + 'auth/logout', function(res) {
+          app.data.bLogedIn = false;
+          $$('div.item-title.menu.login').text('Login')      
+
+          // sembunyikan nama dan status
+          $$('div.member-name').text('GUEST');
+          $$('div.member-status').css('display', 'none');
+          $$('div.member-edit').css('display', 'none');
+
+          $$('img.responsive.profile').attr('src', 'img/user.png');
+          $$('img.responsive.profile2').attr('src', 'img/user.png');
+        });
+      }
+    }
+  });
+
 });

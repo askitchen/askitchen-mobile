@@ -1,36 +1,89 @@
 <template>
   <div class="page">
     <div class="navbar">
-      <div class="navbar-inner sliding">
+      <div class="navbar-inner">
         <div class="left">
           <a href="#" class="link back">
             <i class="icon icon-back"></i>
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div class="title">Wishlist</div>
+        <div class="title sliding">Wishlist</div>
+        <div class="right">
+          <a href="/cart/" data-view=".view-main" class="link icon-only">
+            <i class="icon f7-icons ios-only">shopping_cart<span class="badge color-red"></span></i>
+            <i class="icon material-icons md-only">shopping_cart<span class="badge color-red"></span></i>
+          </a>
+          <!-- <a href="#" class="link icon-only panel-open" data-panel="right">
+            <i class="icon f7-icons ios-only">more_vert</i>
+            <i class="icon material-icons md-only">more_vert</i>
+          </a> -->
+        </div>
       </div>
     </div>
     <div class="page-content">
-
-      <div class="card data-table">
-        <table>
-          <thead>
-            <tr>
-              <th class="label-cell">Item Code</th>
-              <th class="label-cell">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-            <tr>
-              <td class="label-cell">{{this.kdbar}}</td>
-              <td class="label-cell">{{this.nama}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        
+      <div class="block">
+          
+        <div class="row no-gutter">
+          {{#each data}}
+          <div class="col-50 tablet-33 product">
+            <a href="/detail/{{kdurl}}" class="item-link">
+            <div>
+              <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
+            </div>
+            <div class="product-name">{{nama}}</div>
+            <div class="product-price">Rp{{hjual}}</div>
+            {{#if pnj}}
+            <div class="product-size">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
+            {{/if}}
+            <div class="product-code">{{kdbar}}</div>
+            <img class="button-buy" src="img/{{#js_if 'this.saldo > 0'}}beli{{else}}pre{{/js_if}}.png" /></a>
+          </div>
+          {{/each}}
+        </div>
       </div>
+
     </div>
   </div>
 </template>
+<script>
+  return {
+        
+    // Page Events
+    on: {
+      pageBeforeIn: function (event, page) {
+                
+        if (app.data.bLogedIn) {
+
+          app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
+                    
+            var data = JSON.parse(res);
+            
+            if (data.status)
+            {
+              app.data.total_items = data.totqty;
+              $$('.badge').text(data.totqty);
+            }
+            else
+            {
+              $$('.badge').css("display", "none");
+              app.data.total_items = 0;
+            }
+          });
+        }
+
+        if (app.data.total_items > 0) {
+          $$('.badge').text(app.data.total_items);
+          $$('.badge').css("display", "block");
+        } else {
+          $$('.badge').css("display", "none");
+        }
+      },
+      
+      pageInit: function(e, page) {
+                
+      }
+    }
+  }
+</script>

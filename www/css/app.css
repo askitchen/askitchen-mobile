@@ -279,8 +279,8 @@ p {
 }
 
 div.swiper-detail {
-  height: 400px;
-  margin: 40px 0;
+  height: 320px;
+  margin: 15px 0;
 }
 
 div.swiper-related {
@@ -497,12 +497,43 @@ div.stock-avail {
   color: #47AC0A;
   font-size: 11px;
   white-space: nowrap;
+  margin-right: 35px;
 }
 
 img.cart-img {
-  display: block;
+  /* display: block;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto; */
+  width: 75px;
+}
+
+a.button-add {
+  position: absolute;
+  right: 95px;
+  top: 0px;
+}
+
+a.button-add2 {
+  position: absolute;
+  right: 14px;
+  top: 0px;
+}
+
+span.golden {
+  color: #ffb61a;
+}
+
+.button.larger {
+  width: 80%;
+  /* margin: 20px auto 28px auto; */
+  margin: 15px auto 20px auto;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 /* center image */
@@ -561,36 +592,6 @@ a.button-coming {
   background-color: #03274e;
 }
 /* stepper */
-
-a.button-add {
-  /* width: 80%;
-  margin: 0px auto 0px auto; */
-  background-color: #ffb61a;
-  color: #000;
-  font-size: 10px;
-  padding: 15px 15px;
-  border-radius: 50px;
-  position: absolute;
-  right: 14px;
-  top: 0px;
-}
-
-span.golden {
-  color: #ffb61a;
-}
-
-.button.larger {
-  width: 80%;
-  /* margin: 20px auto 28px auto; */
-  margin: 15px auto 20px auto;
-}
-
-.sticky {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
 
 .md .data-table thead th:not(.sortable-cell-active) {
   color: #000;

@@ -295,22 +295,30 @@ routes = [
       app.preloader.show();
     
       var db = app.data.db;
-      var items = [];
+      // var items = [];
 
       if (db) {
       
         db.transaction(function(tx) {
           
-          tx.executeSql('select kdbar, nsms from wishlist order by urut;', [], function(ignored, res) {
+          tx.executeSql('select kdbar, nama, hjual, pnj, lbr, tgi from wishlist order by tglinput;', [], function(ignored, res) {
             
             if (res.rows.length === 0) {
               app.preloader.hide();
               return;
             }
             
+            var items = [];
+
             for (var i = 0; i < res.rows.length; i++) {
-              items.push({ kdbar: res.rows.item(i).kdbar,
-                nama: res.rows.item(i).nama });
+              items.push({
+                kdbar: res.rows.item(i).kdbar,
+                nama: res.rows.item(i).nama,
+                hjual: res.rows.item(i).hjual,
+                pnj: res.rows.item(i).pnj,
+                lbr: res.rows.item(i).lbr,
+                tgi: res.rows.item(i).tgi,
+              });
             }
       
             resolve(
@@ -324,6 +332,13 @@ routes = [
           app.dialog.alert('select error: ' + error.message);
         });
       }
+      else
+      {
+        resolve(
+          { componentUrl: './pages/wish-list.html' }
+        );
+      }
+
     }
   },
   {

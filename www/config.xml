@@ -37,9 +37,7 @@
   <preference name="phonegap-version" value="cli-7.1.0" />
   <preference name="android-build-tool" value="gradle" />
   
-  <!--<plugin name="phonegap-plugin-push" spec="1.5.3" source="npm">
-      <variable name="SENDER_ID" value="857182253751" />
-  </plugin>-->
+  <!-- <plugin name="phonegap-plugin-push" spec="~2.1.2" source="npm"> -->
   
   <!--<plugin name="phonegap-plugin-portrait-barcodescanner" source="npm" />-->
   <!-- <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner#6.0.1" /> -->
@@ -78,10 +76,12 @@
   
   <!--<icon src="img/icon/icon.png"/>-->
   <platform name="android">
-  <icon src="res/icon/android/icon-36-ldpi.png" density="ldpi"/>
-  <icon src="res/icon/android/icon-48-mdpi.png" density="mdpi"/>
-  <icon src="res/icon/android/icon-72-hdpi.png" density="hdpi"/>
-  <icon src="res/icon/android/icon-96-xhdpi.png" density="xhdpi"/>
+    <allow-intent href="market:*" />
+    <!-- <resource-file src="google-services.json" target="google-services.json" /> -->
+    <icon src="res/icon/android/icon-36-ldpi.png" density="ldpi"/>
+    <icon src="res/icon/android/icon-48-mdpi.png" density="mdpi"/>
+    <icon src="res/icon/android/icon-72-hdpi.png" density="hdpi"/>
+    <icon src="res/icon/android/icon-96-xhdpi.png" density="xhdpi"/>
   </platform>
 
   <!-- Define app splash screen for each platform. -->

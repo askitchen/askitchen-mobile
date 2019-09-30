@@ -101,7 +101,7 @@ var app  = new Framework7({
       //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
       // }
       
-      // destinationType = navigator.camera.DestinationType;
+      destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {
@@ -162,7 +162,6 @@ var app  = new Framework7({
       /*
       this.data.push = PushNotification.init({
         "android": {
-            "senderID": "857182251234"
         },
         "ios": {
             "sound": true,

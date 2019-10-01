@@ -20,7 +20,7 @@
             <div class="member-name">GUEST</div>
             <div class="member-status">Member</div>
             <div class="member-edit">
-                <a href="/profile/" data-view=".view-main">Edit Profile</a>
+                <a href="/profile/" data-view=".view-main">Edit Profil</a>
             </div>
         </div>
       </div>
@@ -28,8 +28,8 @@
         <div class="list links-list no-safe-areas">
           <ul>
             <li><a href="/wish-list/" data-view=".view-main">Wishlist</a></li>
-            <li><a href="/order-status/" data-view=".view-main">Order Status</a></li>
-            <li><a href="/order-history/" data-view=".view-main">Order History</a></li>
+            <li><a href="/order-status/" data-view=".view-main">Status Order</a></li>
+            <li><a href="/order-history/" data-view=".view-main">Histori Order</a></li>
           </ul>
         </div>
       </div>
@@ -43,16 +43,15 @@
       
       pageInit: function (event, page) {
             
+        if (app.data.bLogedIn)
+          $$('div.member-name').text(app.data.username);
+        
         // load profile picture
         var imageData = localStorage.getItem('profile');
         
         if (imageData) {
-          // $$('img.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
           $$('img.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
-          // app.dialog.alert('imageData exists!');
-        } //else {
-        //   app.dialog.alert('imageData is empty!');
-        // }
+        }
       }
     }
   }

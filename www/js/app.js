@@ -101,7 +101,7 @@ var app  = new Framework7({
       //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
       // }
       
-      // destinationType = navigator.camera.DestinationType;
+      destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {
@@ -419,15 +419,18 @@ app.on('pageInit', function (page) {
     if ($$(this).text() == 'Login') {
       
       app.router.navigate('/login/', {
-        reloadCurrent: true,
+        reloadCurrent: false,
         ignoreCache: true,
       });
 
     } else {
       
       if (app.data.bLogedIn) {
+        
         app.request.get( app.data.endpoint + 'auth/logout', function(res) {
+          
           app.data.bLogedIn = false;
+          
           $$('div.item-title.menu.login').text('Login')      
 
           // sembunyikan nama dan status

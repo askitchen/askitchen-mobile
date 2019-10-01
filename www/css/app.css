@@ -536,6 +536,10 @@ span.golden {
   z-index: 1000;
 }
 
+.history-info {
+  width: 30px;
+}
+
 /* center image */
 .swiper-slide {
   text-align: center;

@@ -8,39 +8,32 @@
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div class="title">Order History</div>
+        <div class="title">Histori Order</div>
       </div>
     </div>
+    
     <div class="page-content">
-
-      <div class="card data-table">
-        <table>
-          <thead>
-            <tr>
-              <th class="label-cell">Order ID</th>
-              <th class="label-cell">Date</th>
-              <th class="label-cell">Shipping Address</th>
-              <th class="numeric-cell">Sub Total</th>
-              <th class="numeric-cell">Shipping Cost</th>
-              <th class="numeric-cell">Total</th>
-              <th class="label-cell">Courier Agent</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-            <tr>
-              <td class="label-cell">{{this.id}}</td>
-              <td class="label-cell">{{this.tglinput}}</td>
-              <td class="label-cell">{{this.address}}</td>
-              <td class="numeric-cell">{{this.total}}</td>
-              <td class="numeric-cell">{{this.ongkir}}</td>
-              <td class="numeric-cell">{{this.gtotal}}</td>
-              <td class="label-cell">{{this.delivery}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        
+      <div class="card item-cart">
+        
+        <div class="card-header">
+          <div class="product-name"><span><b>No. Order {{id}}</b></span><span>Tanggal {{tglinput}}</span></div>
+        </div>
+        {{#each data}}
+        <div class="card-footer top">          
+          <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
+          <div class="product-name">{{nama}}</div>
+          <div>x {{qty}}</div>
+        </div>
+        <div class="card-footer bottom">
+          <img class="cart lazy" src="img/none.png" />
+          <div>@Rp{{hjual.toLocaleString('ID')}}</div>
+          <div>Disc. {{disc}}%</div>
+          <div>Rp{{jumlah.toLocaleString('ID')}}</div>
+        </div>
+        {{/each}}
       </div>
+
     </div>
   </div>
 </template>

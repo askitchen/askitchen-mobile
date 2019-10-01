@@ -89,7 +89,8 @@
             localStorage.setItem('email', email);
             localStorage.setItem('password', password);
             
-            app.data.bLogedIn = true;
+            app.data.bLogedIn = true; // update status
+
             app.data.mbrid    = data.mbrid;
             app.data.email    = email;
             app.data.password = password;
@@ -137,7 +138,7 @@
       
 
             // tampilkan nama dan status
-            $$('.member-name').text(data.nama);
+            $$('div.member-name').text(data.nama);
             $$('.member-status').css('display', 'block');
             $$('.member-edit').css('display', 'block');
             

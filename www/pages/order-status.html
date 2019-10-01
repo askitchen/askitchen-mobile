@@ -8,39 +8,59 @@
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div class="title">Order Status</div>
+        <div class="title">Status Order</div>
       </div>
     </div>
+    
     <div class="page-content">
 
-      <div class="card data-table">
-        <table>
-          <thead>
-            <tr>
-              <th class="label-cell">Order ID</th>
-              <th class="label-cell">Date</th>
-              <th class="label-cell">Shipping Address</th>
-              <th class="numeric-cell">Sub Total</th>
-              <th class="numeric-cell">Shipping Cost</th>
-              <th class="numeric-cell">Total</th>
-              <th class="label-cell">Courier Agent</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-            <tr>
-              <td class="label-cell">{{this.id}}</td>
-              <td class="label-cell">{{this.tglinput}}</td>
-              <td class="label-cell">{{this.address}}</td>
-              <td class="numeric-cell">{{this.total}}</td>
-              <td class="numeric-cell">{{this.ongkir}}</td>
-              <td class="numeric-cell">{{this.gtotal}}</td>
-              <td class="label-cell">{{this.delivery}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+      <div class="block content">
+        {{#each data}}
+        <div class="card">
+          <div class="card-header"><span><b>No. Order {{id}}</b></span><span>Tanggal {{tglinput}}</span></div>
+          <div class="card-content"> 
+            <div class="card-content-inner" style="padding: 5px 16px;">
+              <div style="width: 100%; display: inline-flex;">
+                <div style="width: 75%; margin-top: 4px">
+                  <div class="product-name"><span class="history-info">Alamat</span>: {{address}}</div>
+                  <div class="product-name"><span class="history-info">Sub Total</span>: {{totalamount}}</div>
+                  <div class="product-name"><span class="history-info">By. Kirim</span>: {{shipcost}}</div>
+                  <div class="product-name"><span class="history-info">By. Proses</span>: {{addcost}}</div>
+                  <div class="product-name"><span class="history-info">Total</span>: {{gtotal}}</div>
+                  <div class="product-name"><span class="history-info">Status</span>: {{status}}</div>
+                <div style="width: 25%;"><a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
       </div>
+
     </div>
   </div>
 </template>
+<script>
+  return {
+    // Component Methods
+    methods: {
+      
+      cekResi: function (e) {
+        
+        var $btnEl = e.srcElement;
+        var number = $$($btnEl).attr('no-order');
+        
+        app.router.navigate('/cek-resi/'+number, {
+          reloadCurrent: false,
+          ignoreCache: true,
+        });
+      },
+    },
+    // Page Events
+    on: {
+      
+      pageInit: function(e, page) {
+        // to do
+      }
+    }
+  }
+</script>

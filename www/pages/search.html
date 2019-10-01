@@ -48,6 +48,7 @@
           searchContainer: '.list',
           // searchIn: '.item-title',
           on: {
+            
             search(sb, query, previousQuery) {
               
               app.request.getJSON( app.data.endpoint + 'search?q='+query, function(res) {

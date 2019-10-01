@@ -16,11 +16,12 @@
         
       <div class="card item-cart">
         
-        <div class="card-header">
-          <div class="product-name"><span><b>No. Order {{id}}</b></span><span>Tanggal {{tglinput}}</span></div>
-        </div>
         {{#each data}}
-        <div class="card-footer top">          
+        <div class="card-footer top">
+          <div class="product-name">Order #{{id}}</div>
+          <div class="product-name">{{tglinput}}</div>
+        </div>
+        <div class="card-footer">
           <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <div class="product-name">{{nama}}</div>
           <div>x {{qty}}</div>

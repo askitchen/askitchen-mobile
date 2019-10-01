@@ -536,8 +536,14 @@ span.golden {
   z-index: 1000;
 }
 
-.history-info {
-  width: 30px;
+.status-label {
+  display: inline-block;
+  width: 65px;
+}
+.status-value {
+  display: inline-block;
+  text-align: right;
+  width: 80px;
 }
 
 /* center image */
@@ -626,6 +632,10 @@ a.button-coming {
   box-shadow: 0px 5px 7px 0px rgba(175,175,175,1);
   border-radius: 0;
   height: 165px;
+}
+
+.card.status {
+  font-size: 12px;
 }
 
 .product-name,
@@ -897,7 +907,7 @@ img.responsive-product.lazy {
 
 img.cart.lazy {
   width: 42px;
-  height: 42px;
+  height: 40px;
 }
 
 img.responsive {

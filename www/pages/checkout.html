@@ -9,18 +9,18 @@
     </div>
     <div class="toolbar tabbar">
       <div class="toolbar-inner">
-        <a href="#tab1" class="active tab-link checkout">Address</a>
-        <a href="#tab2" class="tab-link checkout">Delivery</a>
-        <a href="#tab3" class="tab-link checkout">Order Detail</a></div>
+        <a href="#tab1" class="active tab-link checkout">Shipment</a>
+        <a href="#tab2" class="tab-link checkout">Order Detail</a></div>
     </div>
     <div class="tabs-swipeable-wrap">
       <div class="tabs">
         <div id="tab1" class="page-content tab active">
+
+          <form id="frmDetail" method="post" >
+          
           <div class="content-block">
 
-            <form id="frmDetail" method="post" >
-
-            <div class="block">
+            <!-- <div class="block"> -->
               <div class="list no-hairlines-md">
                 <ul>
                   <li class="item-content item-input">
@@ -163,7 +163,8 @@
                   </li>
                 </ul>
               </div>
-            </div>
+
+            <!-- </div> -->
             
             <input type="hidden" id="total"    name="total"    value="{{data.total_utensil}}">
             <input type="hidden" id="shipcost" name="shipcost" value="0">
@@ -171,16 +172,12 @@
             <input type="hidden" id="tax"      name="tax"      value="0">
             <input type="hidden" id="add_fee"  name="add_fee"  value="0">
             <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total_utensil}}">
-            </form>
         
           </div>
-          <a href="#" @click="onNext1Click" class="button button-raised button-fill larger btn-next1">Next</a>
-        </div>
-        <div id="tab2" class="page-content tab">
+          
           <div class="content-block">
             
-            <form id="frmPmnt" method="post" >
-            <div class="block">
+            <!-- <div class="block"> -->
               <div class="list no-hairlines-md">
                 <ul>
                   <li class="item-content item-input">
@@ -219,13 +216,15 @@
                   </li>
                 <ul>
               </div>
-            </div>
-            </form>
+            <!-- </div> -->
 
           </div>
-          <a href="#" @click="onNext2Click" class="button button-raised button-fill larger btn-next2">Next</a>
+
+          </form>
+          <a href="#" @click="onNext1Click" class="button button-raised button-fill larger btn-next1">Next</a>
+          <!-- <a href="#" @click="onNext2Click" class="button button-raised button-fill larger btn-next2">Next</a> -->
         </div>
-        <div id="tab3" class="page-content tab">
+        <div id="tab2" class="page-content tab">
           <div class="card data-table">
             <table>
               <thead>
@@ -406,16 +405,17 @@
           app.tab.show('#tab2', false);
         });
       },
+      
       // tab payment type
-      onNext2Click: function (e) {
+      // onNext2Click: function (e) {
         
-        var form = app.form.convertToData('#frmPmnt');
+      //   var form = app.form.convertToData('#frmPmnt');
         
-        app.request.post( app.data.endpoint + 'checkout/update-pmnt', form, function(data) {
+      //   app.request.post( app.data.endpoint + 'checkout/update-pmnt', form, function(data) {
           
-          app.tab.show('#tab3', false);
-        });
-      }
+      //     app.tab.show('#tab3', false);
+      //   });
+      // }
     },
     // Page Events
     on: {

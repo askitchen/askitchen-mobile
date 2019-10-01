@@ -14,27 +14,26 @@
     
     <div class="page-content">
 
-      <div class="block content">
-        {{#each data}}
-        <div class="card">
-          <div class="card-header"><span><b>No. Order {{id}}</b></span><span>Tanggal {{tglinput}}</span></div>
-          <div class="card-content"> 
-            <div class="card-content-inner" style="padding: 5px 16px;">
-              <div style="width: 100%; display: inline-flex;">
-                <div style="width: 75%; margin-top: 4px">
-                  <div class="product-name"><span class="history-info">Alamat</span>: {{address}}</div>
-                  <div class="product-name"><span class="history-info">Sub Total</span>: {{totalamount}}</div>
-                  <div class="product-name"><span class="history-info">By. Kirim</span>: {{shipcost}}</div>
-                  <div class="product-name"><span class="history-info">By. Proses</span>: {{addcost}}</div>
-                  <div class="product-name"><span class="history-info">Total</span>: {{gtotal}}</div>
-                  <div class="product-name"><span class="history-info">Status</span>: {{status}}</div>
-                <div style="width: 25%;"><a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a></div>
+      {{#each data}}
+      <div class="card status">
+        <div class="card-header"><span><b>Order #{{id}}</b></span><span>{{tglinput}}</span></div>
+        <div class="card-content"> 
+          <div class="card-content-inner">
+            <div style="width: 100%; display: inline-flex;">
+              <div style="width: 75%; margin-top: 4px">
+                <div class="product-name"><span class="status-label">Alamat</span>: {{address}}</div>
+                <div class="product-name"><span class="status-label">Sub Total</span>: <span class="status-value">{{totalamount}}</span></div>
+                <div class="product-name"><span class="status-label">By. Kirim</span>: <span class="status-value">{{shipcost}}</span></div>
+                <div class="product-name"><span class="status-label">By. Proses</span>: <span class="status-value">{{addcost}}</span></div>
+                <div class="product-name"><span class="status-label">Total</span>: <span class="status-value">{{gtotal}}</span></div>
+                <div class="product-name"><span class="status-label">Status</span>: {{status}}</div>
               </div>
+              <div style="width: 25%;"><a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a></div>
             </div>
           </div>
         </div>
-        {{/each}}
       </div>
+      {{/each}}
 
     </div>
   </div>
@@ -48,7 +47,7 @@
         
         var $btnEl = e.srcElement;
         var number = $$($btnEl).attr('no-order');
-        
+
         app.router.navigate('/cek-resi/'+number, {
           reloadCurrent: false,
           ignoreCache: true,

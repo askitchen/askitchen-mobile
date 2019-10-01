@@ -95,15 +95,9 @@ var app  = new Framework7({
         $$('.member-edit').css('display', 'none');
       }
       
-      // var imageData = localStorage.getItem('profile');
-      // if (imageData) {
-      //   $$('.responsive.profile').attr('src', "data:image/jpeg; base64," + imageData);
-      //   $$('.responsive.profile2').attr('src', "data:image/jpeg; base64," + imageData);
-      // }
-      
       destinationType = navigator.camera.DestinationType;
 
-      /*
+      //*
       function copyDatabaseFile(dbName) {
 
         var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
@@ -349,6 +343,7 @@ $$('.ac-share').on('click', function () {
   ac_share.open();
 });
 
+
 $$(document).on('backbutton', function (e) {
 
   e.preventDefault();
@@ -409,10 +404,11 @@ app.on('pageInit', function (page) {
     $$('.kb').css('height', '0px');
   });
 
-  $$('div.searchTerm').on('click', function () {
-    // console.log('on click!')
-    $$('#searchTerm').focus();
-  });
+  
+  
+  // $$('div.searchTerm').on('click', function () {
+  //   $$('#searchTerm').focus();
+  // });
 
   $$('div.item-title.menu.login').on('click', function () {
     

@@ -306,13 +306,8 @@
           var pnj    = page.find('.item-pnj').val();
           var lbr    = page.find('.item-lbr').val();
           var tgi    = page.find('.item-tgi').val();
-
-          // if (pnj) {
-          //   var strsql = 'insert into wishlist (kdbar, nama, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?);';
-          // } else {
-          //   var strsql = 'insert into wishlist (kdbar, nama, hjual, tglinput) values (?, ?, ?, ?);';
-          // }
-
+          
+          
           var db = app.data.db;
 
           if (db) {
@@ -325,8 +320,9 @@
               tx.executeSql('insert into wishlist (kdbar, kdurl, nama, gambar, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?, ?, ?);', 
               [kode, url, nama, gambar, hjual, pnj, lbr, tgi, date]);
               
-              app.dialog.alert('Data berhasil ditambahkan ke dalam wishlist.')
+              app.dialog.alert('Data berhasil ditambahkan ke dalam tabel wishlist.')
             });
+          
           } else {
             
             var formData = [];

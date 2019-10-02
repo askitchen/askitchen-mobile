@@ -9,18 +9,14 @@
     </div>
     <div class="toolbar tabbar">
       <div class="toolbar-inner">
-        <a href="#tab1" class="active tab-link checkout">Shipment</a>
+        <a href="#tab1" class="active tab-link checkout">Delivery</a>
         <a href="#tab2" class="tab-link checkout">Order Detail</a></div>
     </div>
     <div class="tabs-swipeable-wrap">
       <div class="tabs">
         <div id="tab1" class="page-content tab active">
 
-          <form id="frmDetail" method="post" >
-          
-          <div class="content-block">
-
-            <!-- <div class="block"> -->
+            <div class="block">
               <div class="list no-hairlines-md">
                 <ul>
                   <li class="item-content item-input">
@@ -164,20 +160,9 @@
                 </ul>
               </div>
 
-            <!-- </div> -->
+            </div>
             
-            <input type="hidden" id="total"    name="total"    value="{{data.total_utensil}}">
-            <input type="hidden" id="shipcost" name="shipcost" value="0">
-            <!-- <input type="hidden" id="svcname"  name="svcname"  value="jne"> -->
-            <input type="hidden" id="tax"      name="tax"      value="0">
-            <input type="hidden" id="add_fee"  name="add_fee"  value="0">
-            <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total_utensil}}">
-        
-          </div>
-          
-          <div class="content-block">
-            
-            <!-- <div class="block"> -->
+            <div class="block">
               <div class="list no-hairlines-md">
                 <ul>
                   <li class="item-content item-input">
@@ -216,13 +201,9 @@
                   </li>
                 <ul>
               </div>
-            <!-- </div> -->
+            </div>
 
-          </div>
-
-          </form>
           <a href="#" @click="onNext1Click" class="button button-raised button-fill larger btn-next1">Next</a>
-          <!-- <a href="#" @click="onNext2Click" class="button button-raised button-fill larger btn-next2">Next</a> -->
         </div>
         <div id="tab2" class="page-content tab">
           <div class="card data-table">
@@ -270,6 +251,14 @@
       </div>
     </div>
 
+    <form id="frmData" method="post" >
+    
+      <input type="hidden" id="total"    name="total"    value="{{data.total_utensil}}">
+      <input type="hidden" id="shipcost" name="shipcost" value="0">
+      <input type="hidden" id="tax"      name="tax"      value="0">
+      <input type="hidden" id="add_fee"  name="add_fee"  value="0">
+      <input type="hidden" id="gtotal"   name="gtotal"   value="{{data.total_utensil}}">
+    </form>
 
     <!-- cart item - digunakan saat submit -->
     {{#each data.utensil}}
@@ -342,8 +331,9 @@
             return false;
         }
         
-        /*var last_name = $$('#last_name').val();
-        if ( last_name == '')
+        var last_name = $$('#last_name').val();
+        var company = $$('#company').val();
+        /*if ( last_name == '')
         {
             alert('Please enter last name.');
             $$( "#last_name" ).focus();
@@ -382,6 +372,7 @@
             return false;
         }
         
+        var post_code = $$('#post_code').val();
         var phone = $$('#phone').val();
         if ( phone == '')
         {
@@ -397,10 +388,28 @@
             $$( "#email" ).focus();
             return false;
         }
-        
-        var form = app.form.convertToData('#frmDetail');
-        
-        app.request.post( app.data.endpoint + 'checkout/update_info', form, function(data) {
+        var note = $$('#note').val();
+
+        var carrier = $$('#carrier').val();
+        var paket = $$('#package').val();
+
+        var formData = app.form.convertToData('#frmData');
+
+        formData.first_name = first_name;
+        formData.last_name  = last_name;
+        formData.company    = company;
+        formData.address    = address;
+        formData.province   = province;
+        formData.regency    = regency;
+        formData.district   = district;
+        formData.post_code  = post_code;
+        formData.phone      = phone;
+        formData.email      = email;
+        formData.carrier    = carrier;
+        formData.package    = paket;
+
+        // console.log(formData)
+        app.request.post( app.data.endpoint + 'checkout/update-info', formData, function(data) {
           
           app.tab.show('#tab2', false);
         });
@@ -423,6 +432,7 @@
       tabShow: function (el) {
         // console.log(el)
         el.preventDefault;
+        
         // console.log('SHOW TAB: ' + el.target.id);
         if (el.target.id == 'tab1') {
           this.data.bUpdateInfo = false;
@@ -791,7 +801,7 @@
 
               // console.log(script)
               // return;
-                         
+              
               function executeScriptCallBack(params) {
 
                 if (params[0] == null) {

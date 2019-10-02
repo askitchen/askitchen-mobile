@@ -1,7 +1,6 @@
 // Dom7
 var $$ = Dom7;
 
-// var details = [];
 var items   = [];
 
 var bBackPressed = false;
@@ -25,7 +24,7 @@ var app  = new Framework7({
   // App root data
   data: function () {
     return {
-      // db: null,
+      db: null,
       mbrid: null,
       username: null,
       email: null,
@@ -128,7 +127,6 @@ var app  = new Framework7({
         });
       }
 
-      /*
       copyDatabaseFile('data.db').then(function () {
         // success! :)
         app.data.db = window.sqlitePlugin.openDatabase({name: 'data.db'});
@@ -137,6 +135,7 @@ var app  = new Framework7({
         // var year = currentDate.getFullYear();
         
         var db = app.data.db;
+        
         if (db) {
           app.dialog.alert('db is OK!');
 
@@ -350,6 +349,20 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
+  var leftp = app.panel.left && app.panel.left.opened;
+  var rightp = app.panel.right && app.panel.right.opened;
+  
+  if (leftp || rightp) {
+
+    app.panel.close();
+    return false;
+  } else
+  if ($$('.modal-in').length > 0) {
+
+      app.dialog.close();
+      app.popup.close();
+      return false;
+  } else
   if (app.views.main.router.url == '/') {
     
     /*if (!bBackPressed) {
@@ -423,10 +436,10 @@ app.on('pageInit', function (page) {
     } else {
       
       if (app.data.bLogedIn) {
+          
+        app.data.bLogedIn = false;
         
         app.request.get( app.data.endpoint + 'auth/logout', function(res) {
-          
-          app.data.bLogedIn = false;
           
           $$('div.item-title.menu.login').text('Login')      
 

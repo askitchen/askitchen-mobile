@@ -128,6 +128,7 @@ var app  = new Framework7({
         });
       }
 
+      /*
       copyDatabaseFile('data.db').then(function () {
         // success! :)
         app.data.db = window.sqlitePlugin.openDatabase({name: 'data.db'});

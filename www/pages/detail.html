@@ -32,6 +32,7 @@
       
       <div class="card item-detail">
         <input type="hidden" class="item-code"    value="{{data.kdbar}}" />
+        <input type="hidden" class="item-url"     value="{{data.kdurl}}" />
         <input type="hidden" class="item-name"    value="{{data.nama}}" />
         <input type="hidden" class="item-price"   value="{{data.hjual}}" />
         <input type="hidden" class="item-picture" value="{{data.gambar}}" />
@@ -205,16 +206,6 @@
         })
 
         $$('.button-add').on('click', function (e) {
-
-          var page  = $$('.page-current'); // get current page
-          // var card  = $$('.item-detail');
-          var kode  = page.find('.item-code').val();
-          var qty   = page.find('.item-qty').val();
-          var hjual = page.find('.item-price').val();
-
-          var maxVal  = parseInt($$('#maxqty').val());
-          var context = parseInt($$('#context').val());
-
           
           // cek login
           if (!app.data.bLogedIn) {
@@ -227,6 +218,15 @@
             });
             return;
           }
+
+          var page  = $$('.page-current'); // get current page
+          // var card  = $$('.item-detail');
+          var kode  = page.find('.item-code').val();
+          var qty   = page.find('.item-qty').val();
+          var hjual = page.find('.item-price').val();
+
+          var maxVal  = parseInt($$('#maxqty').val());
+          var context = parseInt($$('#context').val());
           
 
           var bFound = false;
@@ -284,8 +284,21 @@
         
         $$('.button-add2').on('click', function (e) {
 
+          // cek login
+          if (!app.data.bLogedIn) {
+            
+            app.data.lastURL = app.views.main.router.url;
+
+            app.router.navigate('/login/', {
+              reloadCurrent: true,
+              ignoreCache: true,
+            });
+            return;
+          }
+
           var page   = $$('.page-current'); // get current page
           var kode   = page.find('.item-code').val();
+          var url    = page.find('.item-url').val();
           var nama   = page.find('.item-name').val();
           var gambar = page.find('.item-picture').val();
           var hjual  = page.find('.item-price').val();
@@ -309,10 +322,31 @@
           
             db.transaction(function(tx) {
               
-              tx.executeSql('insert into wishlist (kdbar, nama, gambar, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?, ?);', 
-              [kode, nama, gambar, hjual, pnj, lbr, tgi, date]);
+              tx.executeSql('insert into wishlist (kdbar, kdurl, nama, gambar, hjual, pnj, lbr, tgi, tglinput) values (?, ?, ?, ?, ?, ?, ?, ?, ?);', 
+              [kode, url, nama, gambar, hjual, pnj, lbr, tgi, date]);
               
               app.dialog.alert('Data berhasil ditambahkan ke dalam wishlist.')
+            });
+          } else {
+            
+            var formData = [];
+
+            formData.kdbar  = kode;
+            
+            app.request.post( app.data.endpoint + 'wishlist/'+app.data.mbrid, formData, function(res) {
+              
+              var data = JSON.parse(res);
+  
+              if (data.status)
+              {
+                app.dialog.alert('Data berhasil ditambahkan ke dalam wishlist.')
+                // var view = app.views.current;
+                // view.router.back(view.history[0], { force: true });
+              }
+              else
+              {
+                app.dialog.alert(data.message)
+              }
             });
           }
         });

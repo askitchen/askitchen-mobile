@@ -321,7 +321,7 @@ routes = [
       
         db.transaction(function(tx) {
           
-          tx.executeSql('select kdbar, nama, hjual, pnj, lbr, tgi from wishlist order by tglinput;', [], function(ignored, res) {
+          tx.executeSql('select kdbar, kdurl, nama, gambar, hjual, pnj, lbr, tgi from wishlist order by tglinput;', [], function(ignored, res) {
             
             if (res.rows.length === 0) {
               app.preloader.hide();
@@ -334,7 +334,9 @@ routes = [
               
               items.push({
                 kdbar: res.rows.item(i).kdbar,
+                kdurl: res.rows.item(i).kdurl,
                 nama: res.rows.item(i).nama,
+                gambar: res.rows.item(i).gambar,
                 hjual: res.rows.item(i).hjual,
                 pnj: res.rows.item(i).pnj,
                 lbr: res.rows.item(i).lbr,
@@ -357,16 +359,18 @@ routes = [
       }
       else
       {
-        app.preloader.hide();
-        // var items = [{"kdbar":"AB-106R","kdurl":"AB-106R","nama":"CHEST FREEZER 102 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.","hjual":"2,650,000","hpromof":"2,650,000","kriteria":"","pnj":"56.3cm","lbr":"56.2cm","tgi":"84.5cm","master":"N","saldo":"0","gambar":"ab-106r.png"},{"kdbar":"AB-1200TX","kdurl":"AB-1200TX","nama":"CHEST FREEZER 1.050 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.\r\n","hjual":"13,000,000","hpromof":"13,000,000","kriteria":"","pnj":"225.0cm","lbr":"82.0cm","tgi":"88.0cm","master":"N","saldo":"0","gambar":"ab12001.png"},{"kdbar":"AB-226R","kdurl":"AB-226R","nama":"CHEST FREEZER 220 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.\r\n","hjual":"3,575,000","hpromof":"3,575,000","kriteria":"","pnj":"94.6cm","lbr":"56.2cm","tgi":"84.5cm","master":"N","saldo":"0","gambar":"ab336r.png"}];
-        
-        resolve(
-          { componentUrl: './pages/wish-list.html' },
-          // { context: { data: items } }
-        );
-        app.dialog.alert('Gagal menampilkan data!');
+        app.request.getJSON( app.data.endpoint + 'wishlist/'+app.data.mbrid, function(res) {
+          app.preloader.hide();
+          // var items = [{"kdbar":"AB-106R","kdurl":"AB-106R","nama":"CHEST FREEZER 102 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.","hjual":"2,650,000","hpromof":"2,650,000","kriteria":"","pnj":"56.3cm","lbr":"56.2cm","tgi":"84.5cm","master":"N","saldo":"0","gambar":"ab-106r.png"},{"kdbar":"AB-1200TX","kdurl":"AB-1200TX","nama":"CHEST FREEZER 1.050 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.\r\n","hjual":"13,000,000","hpromof":"13,000,000","kriteria":"","pnj":"225.0cm","lbr":"82.0cm","tgi":"88.0cm","master":"N","saldo":"0","gambar":"ab12001.png"},{"kdbar":"AB-226R","kdurl":"AB-226R","nama":"CHEST FREEZER 220 LITER","deskripsi":"Box tempat penyimpanan bahan makanan yang akan dibekukan seperti daging, bakso, nuget, sosis, dsb. Dengan berbagai ukuran yang disesuaikan untuk kebutuhan masing-masing.\r\n","hjual":"3,575,000","hpromof":"3,575,000","kriteria":"","pnj":"94.6cm","lbr":"56.2cm","tgi":"84.5cm","master":"N","saldo":"0","gambar":"ab336r.png"}];
+          // console.log(res)
+          // var items = res.data;
+          resolve(
+            { componentUrl: './pages/wish-list.html' },
+            { context: { data: res } }
+          );
+          // app.dialog.alert('Gagal menampilkan data!');
+        });
       }
-
     }
   },
   {

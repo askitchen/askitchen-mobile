@@ -15,7 +15,7 @@
     <div class="page-content">
         
       {{#js_if "app.data.tot_equipment > 0"}}
-      <div class="card item-cart">
+      <div class="card item-cart equipment">
         
         <div class="card-header">
           <div class="product-name"><b>Equipment Items</b></div>
@@ -99,18 +99,18 @@
         // var formData = app.form.convertToData('.komplain');
         // formData.Authorization = app.data.token;
           
-        var db = app.data.db;
+        // var db = app.data.db;
         
-        if (db) {
+        // if (db) {
                       
-          db.transaction(function(tx) {
-            tx.executeSql('insert into wishlist (kdbar, nama) values (?, ?);', [kode, nama]);
-          }, function(error) {
-            app.dialog.alert('UPDATE error: ' + error.message);
-          }, function() {
-            // console.log('Sukses!.');
-          });
-        }
+        //   db.transaction(function(tx) {
+        //     tx.executeSql('insert into wishlist (kdbar, nama) values (?, ?);', [kode, nama]);
+        //   }, function(error) {
+        //     app.dialog.alert('UPDATE error: ' + error.message);
+        //   }, function() {
+        //     // console.log('Sukses!.');
+        //   });
+        // }
         
         app.request.post(app.data.endpoint + 'mail-order', [], function (res) {
                 
@@ -122,9 +122,12 @@
             $$('.badge').text(data.totqty);
 
             // back to main page
-            var view = app.views.current;
-            view.router.back(view.history[0], { force: true });
+            // var view = app.views.current;
+            // view.router.back(view.history[0], { force: true });
           
+            // hide equipment panel
+            $$('.card.item-cart.equipment').css("display", "none");
+
             app.dialog.alert('Thank you! Your inquiry already sent.');
           }
           else

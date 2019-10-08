@@ -87,55 +87,40 @@
             if (data.status)
             {
               app.data.total_items = data.totqty;
-              $$('.badge').text(data.totqty);
+              if (app.data.total_items > 0) {
+                $$('.badge').text(data.totqty);
+                $$('.badge').css("display", "block");
+              }
             } else {
               $$('.badge').css("display", "none");
               app.data.total_items = 0;
             }
           });
         }
-
-        if (app.data.total_items > 0) {
-          $$('.badge').text(app.data.total_items);
-          $$('.badge').css("display", "block");
-        } else {
-          $$('.badge').css("display", "none");
-        }
       },
       
       pageInit: function(e, page) {
                 
-        var cmp = $$('.swiper-container');
+        var cmp = $$('.swiper-container.swiper-init');
         // console.log(cmp)
 
-        if (!cmp) {
+        if (cmp.swiper == undefined) {
           
           var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
               speed: 400,
               // slidesPerView: auto,
               loop: true,
               //autoHeight: true,
-              // shortSwipes: false,
-              // longSwipes: false,
+              //shortSwipes: false,
+              //longSwipes: false,
               //effect:'fade'
-              //spaceBetween: 100
+              spaceBetween: 100
           });
-
-          // console.log($$('.swiper-container'));
 
           swiper.autoplay.start();
         }
 
-        // $$('.searchTerm').on('focus', function (e) {
-          
-        //   e.preventDefault();
-          
-        //   app.router.navigate('/search/', {
-        //     reloadCurrent: true,
-        //     ignoreCache: true,
-        //   });
 
-        // });
 
         // app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
                   

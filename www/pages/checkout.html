@@ -623,6 +623,8 @@
                 
         $$('#spangt').text(app.data.gtotal.toLocaleString());
 
+        
+        // make payment
         $$('.btn-pay').click(function(event) {
             
           event.preventDefault();
@@ -829,7 +831,28 @@
 
         $$('#province').on('change', function(e){
           
-          var provid = $$(this).val();
+          var provid = $$(this).val(),
+              total = parseFloat($$('#total').val());
+
+          if (provid == '1') { // khusus wilayah bali dgn minimum order
+            
+            $$('#payment').append($$('<option>', { value : '01' }).text('Cash Payment'));
+
+            if (total >= 250000) { // khusus wilayah bali dgn minimum order
+              $$('#carrier').val('jne');
+              $$('#carrier').prop('disabled', true);
+              $$("#package").prop('disabled', true);
+            }
+          }
+
+          else  // hitung ongkos kirim
+
+          {
+            
+            $$('#carrier').prop('disabled', false);
+            $$("#package").prop('disabled', false);
+            $$("#payment option[value='01']").remove();
+          }
 
           app.request.json( app.data.endpoint + 'checkout/regencies/'+provid, function(json) {
             
@@ -910,6 +933,7 @@
           });
         });
 
+        
         $$('#regency').on('change', function(e){
           
           // get district data

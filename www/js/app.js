@@ -94,9 +94,9 @@ var app  = new Framework7({
         $$('.member-edit').css('display', 'none');
       }
       
-      destinationType = navigator.camera.DestinationType;
+      // destinationType = navigator.camera.DestinationType;
 
-      //*
+      /*
       function copyDatabaseFile(dbName) {
 
         var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
@@ -137,7 +137,7 @@ var app  = new Framework7({
         var db = app.data.db;
         
         if (db) {
-          app.dialog.alert('db is OK!');
+          // app.dialog.alert('db is OK!');
 
           // $$('.item-basket').on('click', function () {
           //   var li = $$(this).parents("li");
@@ -197,7 +197,7 @@ var app  = new Framework7({
               });
           });
         }
-        
+      
         // show message
         app.dialog.alert(data.message, 'ASKITCHEN');
         
@@ -217,6 +217,8 @@ var app  = new Framework7({
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
+
+
 
 // $$('.barcode-scan1').on('click', function () {
      
@@ -349,13 +351,13 @@ $$(document).on('backbutton', function (e) {
   e.preventDefault();
 
   // for example, based on what and where view you have
-  var leftp = app.panel.left && app.panel.left.opened;
+  var leftp  = app.panel.left && app.panel.left.opened;
   var rightp = app.panel.right && app.panel.right.opened;
   
   if (leftp || rightp) {
 
-    app.panel.close();
-    return false;
+      app.panel.close();
+      return false;
   } else
   if ($$('.modal-in').length > 0) {
 
@@ -418,27 +420,30 @@ app.on('pageInit', function (page) {
     $$('.kb').css('height', '0px');
   });
 
-  
-  
-  // $$('div.searchTerm').on('click', function () {
-  //   $$('#searchTerm').focus();
-  // });
 
-  $$('div.item-title.menu.login').on('click', function () {
+
+  $$('div.item-title.menu.login').on('click', function (e) {
     
+    e.preventDefault();
+
     if ($$(this).text() == 'Login') {
-      
+
       app.router.navigate('/login/', {
-        reloadCurrent: false,
+        reloadCurrent: true,
         ignoreCache: true,
       });
 
     } else {
       
+
       if (app.data.bLogedIn) {
           
         app.data.bLogedIn = false;
         
+        app.data.total_items = 0;
+        $$('.badge').text('');
+        $$('.badge').css("display", "none");
+  
         app.request.get( app.data.endpoint + 'auth/logout', function(res) {
           
           $$('div.item-title.menu.login').text('Login')      

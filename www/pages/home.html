@@ -40,9 +40,10 @@
         </div>
                 
         <!-- Scrollable page content-->
+        <!-- demo-swiper -->
         <div class="page-content">
           <div class="block header">
-            <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init demo-swiper">
+            <div data-pagination='{"el": ".swiper-pagination"}' class="swiper-container swiper-init dashboard">
               <div class="swiper-pagination dashboard"></div>
               <div class="swiper-wrapper">
                 {{#each banner}}
@@ -101,19 +102,15 @@
       
       pageInit: function(e, page) {
                 
-        var cmp = $$('.swiper-container.swiper-init');
-        // console.log(cmp)
+        // Note: gunakan selecter secara lengkap untuk menghindari error
+        var cmp = $$('.swiper-container.swiper-init.dashboard');
+        // console.log(cmp.swiper)
 
-        if (cmp.swiper == undefined) {
+        if (cmp.swiper === undefined) {
           
-          var swiper = app.swiper.create('.swiper-container', { //.swiper-init.demo-swiper
+          var swiper = app.swiper.create('.swiper-container.swiper-init.dashboard', {
               speed: 400,
-              // slidesPerView: auto,
               loop: true,
-              //autoHeight: true,
-              //shortSwipes: false,
-              //longSwipes: false,
-              //effect:'fade'
               spaceBetween: 100
           });
 
@@ -123,7 +120,6 @@
 
 
         // app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
-                  
         //   var data = JSON.parse(res);
           
         //   if (data.status)

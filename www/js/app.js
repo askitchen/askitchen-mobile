@@ -58,12 +58,12 @@ var app  = new Framework7({
       var bFound = false;
 
       for (var i=0; i < items.length; i++)
-      if (items[i].kdbar === kode) {
-         
-        bFound = true;
-        items[i].qty += parseInt(qty);
-        break;
-      }
+        if (items[i].kdbar === kode) {
+          
+          bFound = true;
+          items[i].qty += parseInt(qty);
+          break;
+        }
 
       if (!bFound) {
         items.push({ kdbar: kode, qty: parseInt(qty) })
@@ -75,10 +75,11 @@ var app  = new Framework7({
     deleteItem: function(kode) {
       
       for (var i =0; i < items.length; i++)
-      if (items[i].kdbar === kode) {
-         items.splice(i,1);
-         break;
-      }
+        if (items[i].kdbar === kode) {
+          items.splice(i,1);
+          break;
+        }
+
       // app.methods.calcTotal();
     },
   
@@ -421,7 +422,6 @@ app.on('pageInit', function (page) {
   });
 
 
-
   $$('div.item-title.menu.login').on('click', function (e) {
     
     e.preventDefault();
@@ -460,4 +460,16 @@ app.on('pageInit', function (page) {
     }
   });
 
+
+  $$('#order-display .btnContinue').on('click', function (e) {
+
+    e.preventDefault();
+
+    // app.popup.close($$('.page[data-name="transfer-bonus"]').parents(".popup"));
+    app.popup.close('#order-display', false);
+    
+    // back to main page
+    var view = app.views.current;
+    view.router.back(view.history[0], { force: true });    
+  });
 });

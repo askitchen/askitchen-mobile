@@ -630,101 +630,109 @@
           event.preventDefault();
 
           $$(this).prop("disabled", true);
+          
+          // get payment type
+          var pmnt = $$('#payment').val();
 
-          var strVal = '';
+          
+          if (pmnt > '01') { // non cash payment
 
-          $$('.cart-item').forEach (function (item, index) {
-            if (index > 0) {
-              strVal += ';' + item.value;
-            } else {
-              strVal += item.value;
+            var strVal = '';
+
+            $$('.cart-item').forEach (function (item, index) {
+              if (index > 0) {
+                strVal += ';' + item.value;
+              } else {
+                strVal += item.value;
+              }
+            });
+            
+            // console.log(strVal)
+            $$('#BASKET').val(strVal)
+
+            // fill data
+            genInvoice();
+            getWords();
+            getRequestDateTime();
+            genSessionID();
+
+            
+            if ($$('#first_name').val() == '')
+            {
+                app.dialog.alert('Please enter first name.');
+                $$( "#first_name" ).focus();
+                return;
             }
-          });
-          
-          // console.log(strVal)
-          $$('#BASKET').val(strVal)
+            else if ($$('#last_name').val() == '')
+            {
+                app.dialog.alert('Please enter last name.');
+                $$( "#last_name" ).focus();
+                return;
+            }
+            // else if ($$('#company').val() == '')
+            // {
+            //     app.dialog.alert('Please enter company.');
+            //     $$( "#company" ).focus();
+            //     return;
+            // }
+            else if ($$('#address').val() == '')
+            {
+                app.dialog.alert('Please enter address.');
+                $$( "#address" ).focus();
+                return;
+            }
+            else if ($$('#province').val() == '')
+            {
+                app.dialog.alert('Please enter province.');
+                $$( "#province" ).focus();
+                return;
+            }
+            else if ($$('#regency').val() == '')
+            {
+                app.dialog.alert('Please enter regency.');
+                $$( "#regency" ).focus();
+                return;
+            }
+            else if ($$('#district').val() == '')
+            {
+                app.dialog.alert('Please enter district.');
+                $$( "#district" ).focus();
+                return;
+            }
+            else if ($$('#phone').val() == '')
+            {
+                app.dialog.alert('Please enter phone number.');
+                $$( "#phone" ).focus();
+                return;
+            }
+            else if ($$('#email').val() == '')
+            {
+                app.dialog.alert('Please enter email address.');
+                $$( "#email" ).focus();
+                return;
+            }
 
-          // fill data
-          genInvoice();
-          getWords();
-          getRequestDateTime();
-          genSessionID();
+            else if ($$('#payment').val() == '')
+            {
+                app.dialog.alert('Please enter payment type.');
+                $$( "#payment" ).focus();
+                return;
+            }
 
-          
-          if ($$('#first_name').val() == '')
-          {
-              app.dialog.alert('Please enter first name.');
-              $$( "#first_name" ).focus();
-              return;
-          }
-          else if ($$('#last_name').val() == '')
-          {
-              app.dialog.alert('Please enter last name.');
-              $$( "#last_name" ).focus();
-              return;
-          }
-          // else if ($$('#company').val() == '')
-          // {
-          //     app.dialog.alert('Please enter company.');
-          //     $$( "#company" ).focus();
-          //     return;
-          // }
-          else if ($$('#address').val() == '')
-          {
-              app.dialog.alert('Please enter address.');
-              $$( "#address" ).focus();
-              return;
-          }
-          else if ($$('#province').val() == '')
-          {
-              app.dialog.alert('Please enter province.');
-              $$( "#province" ).focus();
-              return;
-          }
-          else if ($$('#regency').val() == '')
-          {
-              app.dialog.alert('Please enter regency.');
-              $$( "#regency" ).focus();
-              return;
-          }
-          else if ($$('#district').val() == '')
-          {
-              app.dialog.alert('Please enter district.');
-              $$( "#district" ).focus();
-              return;
-          }
-          else if ($$('#phone').val() == '')
-          {
-              app.dialog.alert('Please enter phone number.');
-              $$( "#phone" ).focus();
-              return;
-          }
-          else if ($$('#email').val() == '')
-          {
-              app.dialog.alert('Please enter email address.');
-              $$( "#email" ).focus();
-              return;
-          }
+            // console.log('payment: '+$$('#payment').val())
 
-          else if ($$('#payment').val() == '')
-          {
-              app.dialog.alert('Please enter payment type.');
-              $$( "#payment" ).focus();
-              return;
+            $$('#EMAIL').val($$('#email').val());
+            $$('#NAME').val($$('#first_name').val() + ' ' + $$('#last_name').val()); // member name
+
+            $$('#ADDRESS').val($$('#address').val());
+            $$('#PROVINCE').val($$('#province').val()); // province
+            $$('#CITY').val($$('#regency').val());
+            $$('#ZIPCODE').val($$('#post_code').val());
           }
 
-          // console.log('payment: '+$$('#payment').val())
-
-          $$('#EMAIL').val($$('#email').val());
-          $$('#NAME').val($$('#first_name').val() + ' ' + $$('#last_name').val()); // member name
-
-          $$('#ADDRESS').val($$('#address').val());
-          $$('#PROVINCE').val($$('#province').val()); // province
-          $$('#CITY').val($$('#regency').val());
-          $$('#ZIPCODE').val($$('#post_code').val());
-
+            
           var formData = [];
-          
+            
           formData.mbrid      = app.data.mbrid;
           
           // address data
@@ -755,68 +763,95 @@
           formData.gtotal     = $$('#gtotal').val();
 
           
+          // save order data
           app.request.post( app.data.endpoint + 'snap/savetrx', formData, function(data) {
             
-            // display message
-            var toast = app.toast.create({
-              text: 'Loading, please wait..',
-              closeTimeout: 2000,
-            });
-            toast.open();
-
-
-            ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
-            // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
-            
-            
-            // add handler on back to merchant
-            ref.addEventListener('loadstart', function(event) {
-              
-              if(event.url == 'https://askitchen.com/') {
+            // send email - order for utensil
+            app.request.post(app.data.endpoint + 'mail-order/2', [], function (res) {
                 
-                ref.close();
-                ref = undefined;
+              var data = JSON.parse(res);
                 
-                app.request.post(app.data.endpoint + 'checkout/clear-data', [], function (res) {
-                  // back to main page
-                  var view = app.views.current;
-                  view.router.back(view.history[0], { force: true });
-                });
+              if (data.status)
+              {
 
-                // app.router.navigate('/', {
-                //   reloadCurrent: true,
-                //   ignoreCache: true,
-                // });
-              }
-            });
-
-            ref.addEventListener('loadstop', function(event) {
-              
-              var elements = $$('#frmDoku')[0].elements;
+                if ( pmnt == '01' ) { // cash payment
+                  
+                  app.popup.open('#order-display', false);
                 
-              var script = '';
+                } else { // redirect to DOKU
+                  
+                  
+                  // display message
+                  var toast = app.toast.create({
+                    text: 'Loading, please wait..',
+                    closeTimeout: 2000,
+                  });
+                  toast.open();
 
-              for (var i = 0; i < elements.length; i++) {
-                script += 'document.getElementById("' + elements[i].name + '").value = "' + elements[i].value + '";';
-              }
-              script += 'document.getElementById("frmDoku").submit();';
 
-              // console.log(script)
-              // return;
-              
-              function executeScriptCallBack(params) {
+                  var ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+                  // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+                  
+                  
+                  // add handler on back to merchant
+                  ref.addEventListener('loadstart', function(event) {
+                    
+                    if(event.url == 'https://askitchen.com/') {
+                      
+                      ref.close();
+                      ref = undefined;
+                      
+                      app.request.post(app.data.endpoint + 'checkout/clear-data', [], function (res) {
+                        // back to main page
+                        var view = app.views.current;
+                        view.router.back(view.history[0], { force: true });
+                      });
 
-                if (params[0] == null) {
+                      // app.router.navigate('/', {
+                      //   reloadCurrent: true,
+                      //   ignoreCache: true,
+                      // });
+                    }
+                  });
 
-                    $('#status-message').text(
-                      "Sorry we couldn't open that page. Message from the server is : '"
-                      + params.message + "'");
+
+                  ref.addEventListener('loadstop', function(event) {
+                    
+                    var elements = $$('#frmDoku')[0].elements;
+                      
+                    var script = '';
+
+                    for (var i = 0; i < elements.length; i++) {
+                      script += 'document.getElementById("' + elements[i].name + '").value = "' + elements[i].value + '";';
+                    }
+                    script += 'document.getElementById("frmDoku").submit();';
+
+                    // console.log(script)
+                    // return;
+                    
+                    function executeScriptCallBack(params) {
+
+                      if (params[0] == null) {
+
+                          $('#status-message').text(
+                            "Sorry we couldn't open that page. Message from the server is : '"
+                            + params.message + "'");
+                      }
+                    }
+
+                    ref.executeScript({ code: script }, executeScriptCallBack);
+                  });
                 }
+
+              } // status
+              else
+              {
+                app.dialog.alert('Gagal mengirim email!');
               }
 
-              ref.executeScript({ code: script }, executeScriptCallBack);
             });
           });
+
         });
 
         app.request.json( app.data.endpoint + 'checkout/carrier', function(json) {
@@ -849,7 +884,6 @@
           else  // hitung ongkos kirim
 
           {
-            
             $$('#carrier').prop('disabled', false);
             $$("#package").prop('disabled', false);
             $$("#payment option[value='01']").remove();
@@ -1010,6 +1044,7 @@
 
 
         $$('#carrier').on('change', function(e){
+          
           var city = $$('#regency').val();
 
           app.request.json( app.data.endpoint + 'checkout/ongkir/'+$$(this).val()+'/'+city, function(json) {

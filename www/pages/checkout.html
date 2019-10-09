@@ -220,7 +220,7 @@
                 <tr>
                   <td class="label-cell">{{nama}}</td>
                   <td class="label-cell" style="white-space: nowrap">x {{qty}}</td>
-                  <td class="numeric-cell">{{hargaf}}</td>
+                  <td class="numeric-cell">{{jumlahf}}</td>
                 </tr>
                 {{/each}}
               </tbody>
@@ -836,7 +836,8 @@
 
           if (provid == '1') { // khusus wilayah bali dgn minimum order
             
-            $$('#payment').append($$('<option>', { value : '01' }).text('Cash Payment'));
+            // tambahkan opsi pembayaran cash
+            $$('#payment').append($$('<option>').val('01').text('Cash Payment'));
 
             if (total >= 250000) { // khusus wilayah bali dgn minimum order
               $$('#carrier').val('jne');

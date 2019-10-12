@@ -389,8 +389,10 @@ div.block.main {
 
 .card-content-inner {
   padding: 5px;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  text-overflow: clip;
+  overflow: hidden;
+  display: block;
   color: #000;
 }
 
@@ -615,6 +617,17 @@ a.button-coming {
 .card-footer.bottom {
   height: 40px;
   font-size: 12px;
+}
+.card-footer.histori {
+  font-size: 11px;
+}
+.md .data-table td {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.md .data-table td:first-child,
+.md .data-table th:first-child {
+  padding-left: 15px;
 }
 /* .card-header:after, */
 .card-footer.top:before {

@@ -256,15 +256,20 @@ routes = [
 
       // App instance
       var app = router.app;
-      var resi = routeTo.params.nomor;
+      var order_id = routeTo.params.nomor;
 
-      console.log(resi)
-      app.preloader.hide();
+      // Show Preloader
+      app.preloader.show();
 
-      resolve (
-        { componentUrl: './pages/cek-resi.html' },
-        // { context: { data: data } }
-      );
+      app.request.getJSON( app.data.endpoint + 'resi/'+order_id, function(res) {
+
+        app.preloader.hide();
+
+        resolve (
+          { componentUrl: './pages/cek-resi.html' },
+          { context: { data: res } }
+        );
+      });
     }
   },
   {
@@ -280,7 +285,6 @@ routes = [
       // App instance
       var app = router.app;
 
-      // console.log('bLogedIn: '+app.data.bLogedIn)
       if (!app.data.bLogedIn) {
         
         app.data.lastURL = '/account/';

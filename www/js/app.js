@@ -43,9 +43,11 @@ var app  = new Framework7({
       gtotal: 0,      // total
 
       // currentDate: null,
+      ordernum: null,
       lastURL: null,
       
       bLogedIn: false,
+      // bUpdateInfo: false,
       token: null,
       push: null,
     };
@@ -461,6 +463,11 @@ app.on('pageInit', function (page) {
   });
 
 
+
+  $$('#order-display').on('popup:opened', function (e, popup) {
+    $$('#order-display .ordernum').text(app.data.ordernum);
+  });
+  
   $$('#order-display .btnContinue').on('click', function (e) {
 
     e.preventDefault();

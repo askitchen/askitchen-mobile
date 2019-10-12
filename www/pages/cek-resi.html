@@ -13,8 +13,62 @@
     </div>
     <div class="page-content">
       
-        <div class="block">
+      <!-- nomor resi & jenis paket -->
+      <div class="card item-cart">
+        <div class="card-footer">
+          <div class="col-33"><b>No. Resi</b></div>
+          <div class="col-33"><b>Jenis Paket</b></div>
+          <div class="col-33"><b>Tgl. Kirim</b></div>
         </div>
+        <div class="card-footer">
+          <div class="col-33">{{data.no_resi}}</div>
+          <div class="col-33">{{data.paket}}</div>
+          <div class="col-33">{{data.tglkirim}}</div>
+        </div>
+      </div>
+      
+      <!-- kota asal & tujuan -->
+      <div class="card item-cart">
+        <div class="card-footer">
+          <div class="col-50"><b>Kota Asal</b></div>
+          <div class="col-50"><b>Kota Tujuan</b></div>
+        </div>
+        <div class="card-footer">
+          <div class="col-50">{{data.asal}}</div>
+          <div class="col-50">{{data.tujuan}}</div>
+        </div>
+      </div>
+      
+      <!-- pengirim & penerima -->
+      <div class="card item-cart">
+        <div class="card-footer">
+          <div class="col-50"><b>Pengirim</b></div>
+          <div class="col-50"><b>Penerima</b></div>
+        </div>
+        <div class="card-footer">
+          <div class="col-50">{{data.pengirim}}</div>
+          <div class="col-50">{{data.penerima}}</div>
+        </div>
+      </div>
+      
+      <!-- histori -->
+      <div class="card data-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="label-cell" colspan="2">Histori</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each data.manifest}}
+          <tr>
+            <td width="25%">{{manifest_date}} {{manifest_time}}</td>
+            <td width="75%">{{manifest_description}}</td>
+          </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>

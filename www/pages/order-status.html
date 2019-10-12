@@ -28,7 +28,11 @@
                 <div class="product-name"><span class="status-label">Total</span>: <span class="status-value">{{gtotal}}</span></div>
                 <div class="product-name"><span class="status-label">Status</span>:  {{status}}</div>
               </div>
-              <div style="width: 25%;"><a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a></div>
+              <div style="width: 25%;">
+                {{#js_if "this.no_resi !== ''"}}
+                <a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a>
+                {{/js_if}}
+              </div>
             </div>
           </div>
         </div>

@@ -112,7 +112,7 @@
         //   });
         // }
         
-        app.request.post(app.data.endpoint + 'mail-order/1', [], function (res) {
+        app.request.post(app.data.endpoint + 'mail-order/1', {}, function (res) {
                 
           var data = JSON.parse(res);
             

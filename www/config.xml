@@ -55,6 +55,8 @@
   <!--<plugin name="cordova-plugin-ble-central" source="npm" />-->
   
   <plugin name="cordova-plugin-splashscreen" source="npm" />
+  <preference name="SplashScreenDelay" value="3000" />
+
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   <plugin name="cordova-plugin-inappbrowser"    source="npm" />
 

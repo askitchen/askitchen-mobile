@@ -54,7 +54,7 @@
 
   <!--<plugin name="cordova-plugin-ble-central" source="npm" />-->
   
-  <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
+  <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   <plugin name="cordova-plugin-inappbrowser"    source="npm" />
 

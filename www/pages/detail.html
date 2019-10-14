@@ -48,6 +48,8 @@
           <div class="product-name">{{data.nama}}</div>
           {{#if data.stok}}
           <div class="stock-avail">Stock Available</div>
+          {{else}}
+          <div class="stock-not-avail">Out of Stock</div>
           {{/if}}
         </div>
         <div class="card-footer detail">
@@ -207,6 +209,11 @@
 
         $$('.button-add').on('click', function (e) {
           
+          var maxVal  = parseInt($$('#maxqty').val());
+
+          if (maxVal == 0)
+            return false;
+
           // cek login
           if (!app.data.bLogedIn) {
             
@@ -225,7 +232,7 @@
           var qty   = page.find('.item-qty').val();
           var hjual = page.find('.item-price').val();
 
-          var maxVal  = parseInt($$('#maxqty').val());
+          // var maxVal  = parseInt($$('#maxqty').val());
           var context = parseInt($$('#context').val());
           
 

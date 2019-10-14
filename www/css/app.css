@@ -497,7 +497,14 @@ img.button-buy {
 
 div.stock-avail {
   color: #47AC0A;
-  font-size: 11px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-right: 35px;
+}
+
+div.stock-not-avail {
+  color: #f00;
+  font-size: 12px;
   white-space: nowrap;
   margin-right: 35px;
 }

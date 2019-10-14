@@ -56,6 +56,7 @@
   
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <preference name="SplashScreenDelay" value="3000" />
+  <preference name="SplashScreen" value="screen"/>
 
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   <plugin name="cordova-plugin-inappbrowser"    source="npm" />

@@ -45,9 +45,17 @@
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Address</div>
+                      <div class="item-title item-label">Address 1</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="address" name="address" placeholder="Address"/>
+                        <input type="text" id="address" name="address" placeholder="Address 1"/>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Address 2</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="address2" name="address2" placeholder="Address 2"/>
                       </div>
                     </div>
                   </li>
@@ -293,22 +301,22 @@
       <input name="EMAIL"            type="hidden" id="EMAIL" value="" />
       <input name="NAME"             type="hidden" id="NAME" value="" maxlength="50" />
     
-      <input name="ADDRESS"  type="hidden" id="ADDRESS" value="" maxlength="50" />
-      <input name="COUNTRY"  type="hidden" id="COUNTRY" value="360" maxlength="50" />
-      <input name="STATE"    type="hidden" id="STATE"   value="" maxlength="50" />
-      <input name="PROVINCE" type="hidden" id="PROVINCE" value="" maxlength="50" />
-      <input name="CITY"     type="hidden" id="CITY"    value="" maxlength="50" />
-      <input name="ZIPCODE"  type="hidden" id="ZIPCODE" value="" maxlength="10" />
+      <input name="ADDRESS"          type="hidden" id="ADDRESS" value="" maxlength="50" />
+      <input name="COUNTRY"          type="hidden" id="COUNTRY" value="360" maxlength="50" />
+      <input name="STATE"            type="hidden" id="STATE"   value="" maxlength="50" />
+      <input name="PROVINCE"         type="hidden" id="PROVINCE" value="" maxlength="50" />
+      <input name="CITY"             type="hidden" id="CITY"    value="" maxlength="50" />
+      <input name="ZIPCODE"          type="hidden" id="ZIPCODE" value="" maxlength="10" />
     
       <input name="SHIPPING_ADDRESS" type="hidden" id="SHIPPING_ADDRESS" value="" maxlength="10" />
       <input name="SHIPPING_CITY"    type="hidden" id="SHIPPING_CITY"    value="" maxlength="10" />
       <input name="SHIPPING_COUNTRY" type="hidden" id="SHIPPING_COUNTRY" value="ID" maxlength="10" />
       <input name="SHIPPING_ZIPCODE" type="hidden" id="SHIPPING_ZIPCODE" value="" maxlength="10" />
     
-      <input name="HOMEPHONE"   type="hidden" id="HOMEPHONE"   value="" maxlength="20" />
-      <input name="MOBILEPHONE" type="hidden" id="MOBILEPHONE" value="" maxlength="20" />
-      <input name="WORKPHONE"   type="hidden" id="WORKPHONE"   value="" maxlength="20" />
-      <input name="BIRTHDATE"   type="hidden" id="BIRTHDATE"   value="" maxlength="8" />
+      <input name="HOMEPHONE"        type="hidden" id="HOMEPHONE"   value="" maxlength="20" />
+      <input name="MOBILEPHONE"      type="hidden" id="MOBILEPHONE" value="" maxlength="20" />
+      <input name="WORKPHONE"        type="hidden" id="WORKPHONE"   value="" maxlength="20" />
+      <input name="BIRTHDATE"        type="hidden" id="BIRTHDATE"   value="" maxlength="8" />
     </form>
   </div>
 </template>
@@ -349,6 +357,7 @@
             $$( "#address" ).focus();
             return false;
         }
+        var address2 = $$('#address2').val();
 
         var province = $$('#province').val();
         if ( province == '')
@@ -397,10 +406,12 @@
 
         var formData = app.form.convertToData('#frmData');
 
+        // addtional data
         formData.first_name = first_name;
         formData.last_name  = last_name;
         formData.company    = company;
         formData.address    = address;
+        formData.address2   = address2;
         formData.province   = province;
         formData.regency    = regency;
         formData.district   = district;
@@ -661,6 +672,7 @@
             var strVal = '';
 
             $$('.cart-item').forEach (function (item, index) {
+              
               if (index > 0) {
                 strVal += ';' + item.value;
               } else {
@@ -686,12 +698,12 @@
               $$( "#first_name" ).focus();
               return;
           }
-          else if ($$('#last_name').val() == '')
-          {
-              app.dialog.alert('Please enter last name.');
-              $$( "#last_name" ).focus();
-              return;
-          }
+          // else if ($$('#last_name').val() == '')
+          // {
+          //     app.dialog.alert('Please enter last name.');
+          //     $$( "#last_name" ).focus();
+          //     return;
+          // }
           // else if ($$('#company').val() == '')
           // {
           //     app.dialog.alert('Please enter company.');
@@ -767,6 +779,7 @@
 
           formData.company       = $$('#company').val();
           formData.address       = $$('#address').val();
+          formData.address2      = $$('#address2').val();
           formData.province      = $$('#province').val();
           formData.regency       = $$('#regency').val();
           formData.district      = $$('#district').val();
@@ -826,7 +839,7 @@
 
 
                   var ref = cordova.InAppBrowser.open("https://askitchen.com/blank", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
-                  // ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
+                  // var ref = cordova.InAppBrowser.open("https://staging.doku.com/Suite/Receive", "_blank", 'location=no,clearcache=yes,hardwareback=no,zoom=no');
                   
                   
                   // add handler on back to merchant
@@ -887,9 +900,10 @@
 
             });
           });
-
         });
 
+        
+        // load data kurir
         app.request.json( app.data.endpoint + 'checkout/carrier', function(json) {
           
           var data = json.data;
@@ -900,6 +914,7 @@
           }
         });
 
+        
         $$('#province').on('change', function(e){
           
           var provid = $$(this).val(),
@@ -925,6 +940,7 @@
             $$("#payment option[value='01']").remove();
           }
 
+          
           app.request.json( app.data.endpoint + 'checkout/regencies/'+provid, function(json) {
             
             var data = json.data, firstid = data[0].id;
@@ -935,6 +951,7 @@
               $$('#regency').append('<option value="'+data[i].id+'">'+data[i].name+'</option>')
             }
 
+            
             app.request.json( app.data.endpoint + 'checkout/districts/'+firstid, function(json) {
               var data = json.data;
 

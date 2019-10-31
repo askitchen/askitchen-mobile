@@ -61,49 +61,54 @@ routes = [
         
         $$('.register-button').on('click', function () {
   
-          var first_name = $$('input [name="first_name"]').val();
+          var first_name = $$('#first_name').val();
           if (first_name == '') {
               app.dialog.alert('Masukkan nama depan anda.', 'Daftar');
               return;
           }
           
-          var last_name = $$('input [name="last_name"]').val();
+          var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
+          var namax = first_name.trim().match(rgx_nama);
+          if (!namax) {
+            app.dialog.alert('Input data nama belum benar.', 'Daftar');
+            return;
+          }
+          
+          var last_name = $$('#last_name').val();
           if (last_name == '') {
               app.dialog.alert('Masukkan nama belakang anda.', 'Daftar');
               return;
           }
-          
-          // var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
-          // var namax = nama.trim().match(rgx_nama);
-          // if (!namax) {
-          //   app.dialog.alert('Input data nama belum benar.', 'Daftar');
-          //   return;
-          // }
         
-          var email = $$('input [name="email"]').val();
+          var email = $$('#email').val();
           if (email == '') {
               app.dialog.alert('Masukkan email anda.', 'Daftar');
               return;
           }
         
-          var phone = $$('input [name="phone"]').val();
+          var phone = $$('#phone').val();
           if (phone == '') {
               app.dialog.alert('Masukkan nomor handphone anda.', 'Daftar');
               return;
           }
         
-          var password = $$('input [name="password"]').val();
+          var password = $$('#password').val();
           if (password == '') {
             app.dialog.alert('Masukkan password anda.', 'Daftar');
             return;
           }
         
-          var pconfirm = $$('input [name="password_confirm"]').val();
+          var pconfirm = $$('#password_confirm').val();
           if (pconfirm == '') {
-            app.dialog.alert('Masukkan password confirm anda.', 'Daftar');
+            app.dialog.alert('Masukkan konfirmasi password anda.', 'Daftar');
             return;
           }
-        
+
+          if (password !== pconfirm) {
+            app.dialog.alert('Input password tidak sama.', 'Daftar');
+            return;
+          }
+
           app.preloader.show();
           
           // var regId = localStorage.getItem('RegId');

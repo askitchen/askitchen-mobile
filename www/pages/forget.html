@@ -22,9 +22,9 @@
             <li>
               <div class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Masukkan E-Mail untuk mereset password</div>
+                  <div class="item-title item-label">Masukkan email untuk mereset password</div>
                   <div class="item-input-wrap">
-                    <input type="text" id="email" name="email" placeholder="E-Mail" autofocus />
+                    <input type="text" id="email" name="email" placeholder="Email" autofocus />
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
         
         var email = $$('input [name="email"]').val();
         if (email == '') {
-            app.dialog.alert('Masukkan alamat email anda.', 'Lupa Password');
+            app.dialog.alert('Masukkan email anda.', 'Lupa Password');
             return;
         }
         

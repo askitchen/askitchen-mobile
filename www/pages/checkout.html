@@ -21,47 +21,47 @@
                 <ul>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">First Name</div>
+                      <div class="item-title item-label">Nama Depan</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="first_name" name="first_name" placeholder="First Name"/>
+                        <input type="text" id="first_name" name="first_name" placeholder="Nama Depan"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Last Name</div>
+                      <div class="item-title item-label">Nama Belakang</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="last_name" name="last_name" placeholder="Last Name"/>
+                        <input type="text" id="last_name" name="last_name" placeholder="Nama Belakang"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Company</div>
+                      <div class="item-title item-label">Perusahaan</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="company" name="company" placeholder="Company"/>
+                        <input type="text" id="company" name="company" placeholder="Perusahaan"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Address 1</div>
+                      <div class="item-title item-label">Alamat 1</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="address" name="address" placeholder="Address 1"/>
+                        <input type="text" id="address" name="address" placeholder="Alamat 1"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Address 2</div>
+                      <div class="item-title item-label">Alamat 2</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="address2" name="address2" placeholder="Address 2"/>
+                        <input type="text" id="address2" name="address2" placeholder="Alamat 2"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Province</div>
+                      <div class="item-title item-label">Provinsi</div>
                       <div class="item-input-wrap">
                         <select id="province" name="province">
                           <option value="" selected>-</option>
@@ -105,7 +105,7 @@
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Regency</div>
+                      <div class="item-title item-label">Kabupaten/Kota</div>
                       <div class="item-input-wrap">
                         <select id="regency" name="regency">
                         </select>
@@ -114,7 +114,7 @@
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">District</div>
+                      <div class="item-title item-label">Kecamatan</div>
                       <div class="item-input-wrap">
                         <select id="district" name="district">
                         </select>
@@ -123,18 +123,18 @@
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Post Code</div>
+                      <div class="item-title item-label">Kode Pos</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="post_code" name="post_code" placeholder="Post code" autocomplete="off" onkeypress="return isNumber(event)"/>
+                        <input type="text" id="post_code" name="post_code" placeholder="Kode Pos" autocomplete="off" onkeypress="return isNumber(event)"/>
                       </div>
                     </div>
                   </li>
                                 
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Phone</div>
+                      <div class="item-title item-label">Nomor Handphone</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="phone" name="phone" placeholder="Phone" autocomplete="off" onkeypress="return isNumber(event)"/>
+                        <input type="text" id="phone" name="phone" placeholder="Nomor Handphone" autocomplete="off" onkeypress="return isNumber(event)"/>
                       </div>
                     </div>
                   </li>
@@ -151,17 +151,17 @@
                   </script>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">E-Mail</div>
+                      <div class="item-title item-label">Email</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="email" name="email" placeholder="E-Mail" autocomplete="off"/>
+                        <input type="text" id="email" name="email" placeholder="Email" autocomplete="off"/>
                       </div>
                     </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <div class="item-title item-label">Note</div>
+                      <div class="item-title item-label">Catatan</div>
                       <div class="item-input-wrap">
-                        <input type="text" id="note" name="note" placeholder="Note" autocomplete="off"/>
+                        <input type="text" id="note" name="note" placeholder="Catatan" autocomplete="off"/>
                       </div>
                     </div>
                   </li>
@@ -237,13 +237,17 @@
               <div class="product-name">Subtotal</div>
               <div class="product-price total">Rp{{data.total_utensil.toLocaleString('ID')}}</div>
             </div>
-            <div class="card-footer">
+            <!-- <div class="card-footer">
               <div class="product-name">Tax</div>
               <div class="product-price total"><b>Rp<span id="spantax">0</span></b></div>
-            </div>
+            </div> -->
             <div class="card-footer">
               <div class="product-name">Shipping</div>
               <div class="product-price total"><b>Rp<span id="spanship">0</span></b></div>
+            </div>
+            <div class="card-footer" id="disc-ongkir">
+              <div class="product-name">Diskon Ongkir</div>
+              <div class="product-price total"><b>Rp<span id="spandscship">0</span></b></div>
             </div>
             <div class="card-footer">
               <div class="product-name">Processing</div>
@@ -336,7 +340,7 @@
         var first_name = $$('#first_name').val();
         if ( first_name == '')
         {
-            alert('Please enter first name.');
+            alert('Masukkan nama depan.');
             $$( "#first_name" ).focus();
             return false;
         }
@@ -345,7 +349,7 @@
         var company = $$('#company').val();
         /*if ( last_name == '')
         {
-            alert('Please enter last name.');
+            alert('Masukkan nama belakang.');
             $$( "#last_name" ).focus();
             return false;
         }*/
@@ -353,7 +357,7 @@
         var address = $$('#address').val();
         if ( address == '')
         {
-            app.dialog.alert('Please enter address.');
+            app.dialog.alert('Masukkan alamat.');
             $$( "#address" ).focus();
             return false;
         }
@@ -362,7 +366,7 @@
         var province = $$('#province').val();
         if ( province == '')
         {
-            app.dialog.alert('Please enter province.');
+            app.dialog.alert('Pilih provinsi.');
             $$( "#province" ).focus();
             return false;
         }
@@ -370,7 +374,7 @@
         var regency = $$('#regency').val();
         if ( regency == '')
         {
-            app.dialog.alert('Please enter regency.');
+            app.dialog.alert('Pilih kabupaten.');
             $$( "#regency" ).focus();
             return false;
         }
@@ -378,7 +382,7 @@
         var district = $$('#district').val();
         if ( district == '')
         {
-            app.dialog.alert('Please enter district.');
+            app.dialog.alert('Pilih kecamatan.');
             $$( "#district" ).focus();
             return false;
         }
@@ -387,7 +391,7 @@
         var phone = $$('#phone').val();
         if ( phone == '')
         {
-            app.dialog.alert('Please enter phone number.');
+            app.dialog.alert('Masukkan nomor handphone.');
             $$( "#phone" ).focus();
             return false;
         }
@@ -395,7 +399,7 @@
         var email = $$('#email').val();
         if ( email == '')
         {
-            app.dialog.alert('Please enter email address.');
+            app.dialog.alert('Masukkan email.');
             $$( "#email" ).focus();
             return false;
         }
@@ -522,7 +526,7 @@
                     // hitung total ongkos kirim
                     app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
                     
-                      var data  = json.data, shipcost = 0, shipcost_disc = 0;
+                      var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
 
                       if (res.province == '1') {
                           
@@ -532,12 +536,33 @@
                               shipcost_disc = data.shipcost;
                           }
                       } else {
-                          shipcost = data.shipcost;
+
+                          if (total < 350000) {
+                              shipcost = data.shipcost;
+                          } else {
+                              
+                              if (data.shipcost > 50000) {
+                                  shipcost = data.shipcost - 50000;
+                                  shipcost_disc = 50000;
+                              } else {
+                                  shipcost = 0;
+                                  shipcost_disc = data.shipcost;
+                              }
+                          }
                       }
 
                       $$('#shipcost').val(shipcost);
                       $$('#shipcost_disc').val(shipcost_disc);
                       $$('#spanship').text(shipcost.toLocaleString());
+
+
+                      if (shipcost_disc > 0) {
+                          $('#spandscship').text(shipcost_disc.toLocaleString());
+                          $('#disc-ongkir').css('display', 'block')
+                      } else {
+                          $('#spandscship').text('0');
+                          $('#disc-ongkir').css('display', 'none')
+                      }
 
                       total += shipcost;
                       
@@ -771,37 +796,37 @@
             
           var formData = [];
             
-          formData.mbrid         = app.data.mbrid;
+          formData.mbrid           = app.data.mbrid;
           
           // address data
-          formData.first_name    = $$('#first_name').val();
-          formData.last_name     = $$('#last_name').val();
+          formData.first_name      = $$('#first_name').val();
+          formData.last_name       = $$('#last_name').val();
 
-          formData.company       = $$('#company').val();
-          formData.address       = $$('#address').val();
-          formData.address2      = $$('#address2').val();
-          formData.province      = $$('#province').val();
-          formData.regency       = $$('#regency').val();
-          formData.district      = $$('#district').val();
-          formData.post_code     = $$('#post_code').val();
-          formData.phone         = $$('#phone').val();
-          formData.email         = $$('#email').val();
+          formData.company         = $$('#company').val();
+          formData.address         = $$('#address').val();
+          formData.address2        = $$('#address2').val();
+          formData.province        = $$('#province').val();
+          formData.regency         = $$('#regency').val();
+          formData.district        = $$('#district').val();
+          formData.post_code       = $$('#post_code').val();
+          formData.phone           = $$('#phone').val();
+          formData.email           = $$('#email').val();
 
-          formData.note          = $$('#note').val();
+          formData.note            = $$('#note').val();
 
-          formData.carrier       = $$('#carrier').val();
-          formData.package       = $$('#package')[0].selectedOptions[0].text;
+          formData.carrier         = $$('#carrier').val();
+          formData.package         = $$('#package')[0].selectedOptions[0].text;
 
           formData.transidmerchant = $$('#TRANSIDMERCHANT').val()
-          formData.words         = $$('#WORDS').val()
+          formData.words           = $$('#WORDS').val()
   
-          formData.total         = $$('#total').val();
-          formData.shipcost      = $$('#shipcost').val();
-          formData.shipcost_disc = $$('#shipcost_disc').val();
-          formData.tax           = $$('#tax').val();
-          formData.add_fee       = $$('#add_fee').val();
-          formData.gtotal        = $$('#gtotal').val();
-          formData.payment       = $$('#payment').val();
+          formData.total           = $$('#total').val();
+          formData.shipcost        = $$('#shipcost').val();
+          formData.shipcost_disc   = $$('#shipcost_disc').val();
+          formData.tax             = $$('#tax').val();
+          formData.add_fee         = $$('#add_fee').val();
+          formData.gtotal          = $$('#gtotal').val();
+          formData.payment         = $$('#payment').val();
 
           
           app.preloader.show();
@@ -980,7 +1005,7 @@
               // hitung total ongkos kirim
               app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
               
-                var data  = json.data, shipcost = 0, shipcost_disc = 0;
+                var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
                 
                 if (provid == '1') {
                   
@@ -990,12 +1015,33 @@
                       shipcost_disc = data.shipcost;
                   }
                 } else {
-                    shipcost = data.shipcost;
+
+                  if (total < 350000) {
+                      shipcost = data.shipcost;
+                  } else {
+                      
+                      if (data.shipcost > 50000) {
+                          shipcost = data.shipcost - 50000;
+                          shipcost_disc = 50000;
+                      } else {
+                          shipcost = 0;
+                          shipcost_disc = data.shipcost;
+                      }
+                  }
                 }
 
                 $$('#shipcost').val(shipcost);
                 $$('#shipcost_disc').val(shipcost_disc);
                 $$('#spanship').text(shipcost.toLocaleString());
+
+
+                if (shipcost_disc > 0) {
+                    $('#spandscship').text(shipcost_disc.toLocaleString());
+                    $('#disc-ongkir').css('display', 'block')
+                } else {
+                    $('#spandscship').text('0');
+                    $('#disc-ongkir').css('display', 'none')
+                }
 
                 total += shipcost;
             
@@ -1082,7 +1128,7 @@
             // hitung total ongkos kirim
             app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
             
-              var data  = json.data, shipcost = 0, shipcost_disc = 0;
+              var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
               
               if (provid == '1') {
 
@@ -1092,12 +1138,33 @@
                       shipcost_disc = data.shipcost;
                   }
               } else {
-                  shipcost = data.shipcost;
+
+                if (total < 350000) {
+                    shipcost = data.shipcost;
+                } else {
+                    
+                    if (data.shipcost > 50000) {
+                        shipcost = data.shipcost - 50000;
+                        shipcost_disc = 50000;
+                    } else {
+                        shipcost = 0;
+                        shipcost_disc = data.shipcost;
+                    }
+                }
               }
 
               $$('#shipcost').val(shipcost);
               $$('#shipcost_disc').val(shipcost_disc);
               $$('#spanship').text(shipcost.toLocaleString());
+
+
+              if (shipcost_disc > 0) {
+                  $('#spandscship').text(shipcost_disc.toLocaleString());
+                  $('#disc-ongkir').css('display', 'block')
+              } else {
+                  $('#spandscship').text('0');
+                  $('#disc-ongkir').css('display', 'none')
+              }
 
               total += shipcost;
             
@@ -1164,7 +1231,7 @@
             // hitung total ongkos kirim
             app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
             
-              var data  = json.data, shipcost = 0, shipcost_disc = 0;
+              var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
 
               if (provid == '1') {
                   
@@ -1174,12 +1241,33 @@
                       shipcost_disc = data.shipcost;
                   }
               } else {
-                  shipcost = data.shipcost;
+
+                if (total < 350000) {
+                    shipcost = data.shipcost;
+                } else {
+                    
+                    if (data.shipcost > 50000) {
+                        shipcost = data.shipcost - 50000;
+                        shipcost_disc = 50000;
+                    } else {
+                        shipcost = 0;
+                        shipcost_disc = data.shipcost;
+                    }
+                }
               }
 
               $$('#shipcost').val(shipcost);
               $$('#shipcost_disc').val(shipcost_disc);
               $$('#spanship').text(shipcost.toLocaleString());
+
+
+              if (shipcost_disc > 0) {
+                  $('#spandscship').text(shipcost_disc.toLocaleString());
+                  $('#disc-ongkir').css('display', 'block')
+              } else {
+                  $('#spandscship').text('0');
+                  $('#disc-ongkir').css('display', 'none')
+              }
 
               total += shipcost;
             
@@ -1240,7 +1328,7 @@
           // hitung total ongkos kirim
           app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
             
-            var data  = json.data, shipcost = 0, shipcost_disc = 0;
+            var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
 
             if (provid == '1') {
                   
@@ -1250,12 +1338,33 @@
                     shipcost_disc = data.shipcost;
                 }
             } else {
-                shipcost = data.shipcost;
+
+              if (total < 350000) {
+                  shipcost = data.shipcost;
+              } else {
+                  
+                  if (data.shipcost > 50000) {
+                      shipcost = data.shipcost - 50000;
+                      shipcost_disc = 50000;
+                  } else {
+                      shipcost = 0;
+                      shipcost_disc = data.shipcost;
+                  }
+              }
             }
 
             $$('#shipcost').val(shipcost);
             $$('#shipcost_disc').val(shipcost_disc);
             $$('#spanship').text(shipcost.toLocaleString());
+
+
+            if (shipcost_disc > 0) {
+                $('#spandscship').text(shipcost_disc.toLocaleString());
+                $('#disc-ongkir').css('display', 'block')
+            } else {
+                $('#spandscship').text('0');
+                $('#disc-ongkir').css('display', 'none')
+            }
 
             total += shipcost;
             

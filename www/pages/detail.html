@@ -49,7 +49,9 @@
           {{#if data.stok}}
           <div class="stock-avail">Stock Available</div>
           {{else}}
-          <div class="stock-not-avail">Out of Stock</div>
+          {{#js_if "this.data.context == '2'"}}
+          <div class="stock-not-avail">Out of Stock - {{data.context}}</div>
+          {{/js_if}}
           {{/if}}
         </div>
         <div class="card-footer detail">
@@ -145,13 +147,6 @@
       // add to wishlist
       doAddWishList: function (e) {
             
-        var first_name = $$('#first_name').val();
-        if ( first_name == '')
-        {
-            alert('Please enter first name.');
-            $$( "#first_name" ).focus();
-            return false;
-        }
       }
     },
     // Page Events
@@ -209,10 +204,14 @@
 
         $$('.button-add').on('click', function (e) {
           
-          var maxVal  = parseInt($$('#maxqty').val());
+          var context = parseInt($$('#context').val());
 
-          if (maxVal == 0)
-            return false;
+          if (context == 2) {
+            var maxVal  = parseInt($$('#maxqty').val());
+
+            if (maxVal == 0)
+              return false;
+          }
 
           // cek login
           if (!app.data.bLogedIn) {
@@ -232,9 +231,6 @@
           var qty   = page.find('.item-qty').val();
           var hjual = page.find('.item-price').val();
 
-          // var maxVal  = parseInt($$('#maxqty').val());
-          var context = parseInt($$('#context').val());
-          
 
           var bFound = false;
 

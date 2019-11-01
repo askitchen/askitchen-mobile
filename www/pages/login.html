@@ -24,9 +24,9 @@
             <li>
               <div class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">E-Mail</div>
+                  <div class="item-title item-label">Email</div>
                   <div class="item-input-wrap">
-                    <input type="text" id="email" name="identity" placeholder="E-Mail" autofocus />
+                    <input type="text" id="email" name="identity" placeholder="Email" autofocus />
                   </div>
                 </div>
               </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="content-block"><a href="#" @click="doLogin" class="button button-raised button-fill larger login-button">LOGIN</a></div>
         <!-- login with social media -->
-        <div class="content-block"><a href="#" @click="doLoginFb" class="button button-raised button-fill larger login-fb"><i class="fa fa-facebook"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Facebook</a></div>
+        <!-- <div class="content-block"><a href="#" @click="doLoginFb" class="button button-raised button-fill larger login-fb"><i class="fa fa-facebook"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Facebook</a></div> -->
         <!-- <div class="content-block"><a href="#" @click="doLoginGoogle" class="button button-raised button-fill larger login-google"><i class="fa fa-google-plus"></i> Login with Google</a></div> -->
                   
         <!-- <div class="block-footer text-align-center"><a class="label-register" href="/forget/">Lupa password?</a></div> -->
@@ -64,7 +64,7 @@
         
         var email = $$('#email').val();
         if (email == '') {
-            app.dialog.alert('Masukkan alamat email anda.', 'Login');
+            app.dialog.alert('Masukkan email anda.', 'Login');
             return;
         }
       

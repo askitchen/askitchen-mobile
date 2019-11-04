@@ -10,12 +10,12 @@
   font-family: 'Segoe UI', Roboto,Noto,Helvetica,Arial,sans-serif
 }
 
-.md .row .col-50 {
+.md .row .col-50.category {
   width: 50%;
 }
 
 @media (min-width: 768px) {
-  .md .row .tablet-33 {
+  .md .row .tablet-33.category {
     width: 33.333333333333336%;
   }
 }

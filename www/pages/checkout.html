@@ -791,7 +791,10 @@
           if (pmnt > '01') { // non cash payment - setup form data
             
             console.log('Complete doku form!')
-         
+        
+            // set payment channel
+            $$('#PAYMENTCHANNEL').val($$('#payment').val());
+
             $$('#EMAIL').val($$('#email').val());
             $$('#NAME').val($$('#first_name').val() + ' ' + $$('#last_name').val()); // member name
 

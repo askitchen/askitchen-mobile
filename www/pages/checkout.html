@@ -525,8 +525,12 @@
                     
                     // hitung total ongkos kirim
                     app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
+                      
+                      console.log('Call hitung_ongkir..')
                     
                       var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
+                      
+                      console.log('res.province: '+res.province)
 
                       if (res.province == '1') {
                           
@@ -557,11 +561,13 @@
 
 
                       if (shipcost_disc > 0) {
-                          $('#spandscship').text(shipcost_disc.toLocaleString());
-                          $('#disc-ongkir').css('display', 'block')
+                        console.log('shipcost_disc > 0')
+                          $$('#spandscship').text(shipcost_disc.toLocaleString());
+                          // $$('#disc-ongkir').css('display', 'block')
                       } else {
-                          $('#spandscship').text('0');
-                          $('#disc-ongkir').css('display', 'none')
+                        console.log('shipcost_disc = 0')
+                          $$('#spandscship').text('0');
+                          // $$('#disc-ongkir').css('display', 'none')
                       }
 
                       total += shipcost;
@@ -570,6 +576,8 @@
                       $$('#gtotal').val(total);
                       $$('#spangt').text(total.toLocaleString());
 
+                      
+                      console.log('prepare to call hitung_biaya..')
                       // default perhitungan biaya menggunakan kartu kredit
                       app.request.json( app.data.endpoint + 'checkout/hitung_biaya/15/'+total, function(json) {
                     
@@ -1036,18 +1044,23 @@
 
 
                 if (shipcost_disc > 0) {
-                    $('#spandscship').text(shipcost_disc.toLocaleString());
-                    $('#disc-ongkir').css('display', 'block')
+                    $$('#spandscship').text(shipcost_disc.toLocaleString());
+                    // $$('#disc-ongkir').css('display', 'block')
                 } else {
-                    $('#spandscship').text('0');
-                    $('#disc-ongkir').css('display', 'none')
+                    $$('#spandscship').text('0');
+                    // $$('#disc-ongkir').css('display', 'none')
                 }
 
                 total += shipcost;
             
                 var pm_mtd = $$('#payment').val();
-
-                if (pm_mtd) {
+                
+                if (!pm_mtd) {
+                    $$('#payment').val('15');
+                    pm_mtd = "15";
+                }
+                
+                // if (pm_mtd) {
 
                   // hitung additional charge
                   app.request.json( app.data.endpoint + 'checkout/hitung_biaya/'+pm_mtd+'/'+total, function(json) {
@@ -1076,11 +1089,11 @@
                     }
                   });
 
-                } else {
+                // } else {
 
-                  $$('#gtotal').val(total);
-                  $$('#spangt').text(total.toLocaleString());
-                }
+                //   $$('#gtotal').val(total);
+                //   $$('#spangt').text(total.toLocaleString());
+                // }
               });
 
               $$('#package').html('');
@@ -1159,11 +1172,11 @@
 
 
               if (shipcost_disc > 0) {
-                  $('#spandscship').text(shipcost_disc.toLocaleString());
-                  $('#disc-ongkir').css('display', 'block')
+                  $$('#spandscship').text(shipcost_disc.toLocaleString());
+                  // $$('#disc-ongkir').css('display', 'block')
               } else {
-                  $('#spandscship').text('0');
-                  $('#disc-ongkir').css('display', 'none')
+                  $$('#spandscship').text('0');
+                  // $$('#disc-ongkir').css('display', 'none')
               }
 
               total += shipcost;
@@ -1262,11 +1275,11 @@
 
 
               if (shipcost_disc > 0) {
-                  $('#spandscship').text(shipcost_disc.toLocaleString());
-                  $('#disc-ongkir').css('display', 'block')
+                  $$('#spandscship').text(shipcost_disc.toLocaleString());
+                  // $$('#disc-ongkir').css('display', 'block')
               } else {
-                  $('#spandscship').text('0');
-                  $('#disc-ongkir').css('display', 'none')
+                  $$('#spandscship').text('0');
+                  // $$('#disc-ongkir').css('display', 'none')
               }
 
               total += shipcost;
@@ -1301,7 +1314,7 @@
                 });
               
               } else {
-
+                console.log('pm_mtd not detected!')
                 $$('#gtotal').val(total);
                 $$('#spangt').text(total.toLocaleString());
               }
@@ -1359,11 +1372,11 @@
 
 
             if (shipcost_disc > 0) {
-                $('#spandscship').text(shipcost_disc.toLocaleString());
-                $('#disc-ongkir').css('display', 'block')
+                $$('#spandscship').text(shipcost_disc.toLocaleString());
+                // $$('#disc-ongkir').css('display', 'block')
             } else {
-                $('#spandscship').text('0');
-                $('#disc-ongkir').css('display', 'none')
+                $$('#spandscship').text('0');
+                // $$('#disc-ongkir').css('display', 'none')
             }
 
             total += shipcost;

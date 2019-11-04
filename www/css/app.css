@@ -10,6 +10,16 @@
   font-family: 'Segoe UI', Roboto,Noto,Helvetica,Arial,sans-serif
 }
 
+.md .row .col-50 {
+  width: 50%;
+}
+
+@media (min-width: 768px) {
+  .md .row .tablet-33 {
+    width: 33.333333333333336%;
+  }
+}
+
 /* Left Panel right border when it is visible by breakpoint */
 .panel-left.panel-visible-by-breakpoint:before {
   position: absolute;
@@ -943,7 +953,13 @@ img.responsive-card {
   margin-left: auto;
   margin-right: auto;
   width: auto;
-  height: 75px; /*32px;*/
+  height: 125px; /*75px;*/
+}
+
+@media (min-width: 768px) {
+  img.responsive-card {
+    height: 150px;
+  }
 }
 
 img.responsive-product.lazy {

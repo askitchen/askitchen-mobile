@@ -107,6 +107,7 @@
             app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
                     
               var data = JSON.parse(res);
+              console.log(data)
               
               if (data.status)
               {

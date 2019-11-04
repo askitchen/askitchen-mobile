@@ -526,11 +526,11 @@
                     // hitung total ongkos kirim
                     app.request.json( app.data.endpoint + 'checkout/hitung_ongkir/'+cost, function(json) {
                       
-                      console.log('Call hitung_ongkir..')
+                      // console.log('Call hitung_ongkir..')
                     
                       var data  = json.data, shipcost = 0, shipcost_dsp = data.shipcost, shipcost_disc = 0;
                       
-                      console.log('res.province: '+res.province)
+                      // console.log('res.province: '+res.province)
 
                       if (res.province == '1') {
                           
@@ -561,11 +561,9 @@
 
 
                       if (shipcost_disc > 0) {
-                        console.log('shipcost_disc > 0')
                           $$('#spandscship').text(shipcost_disc.toLocaleString());
                           // $$('#disc-ongkir').css('display', 'block')
                       } else {
-                        console.log('shipcost_disc = 0')
                           $$('#spandscship').text('0');
                           // $$('#disc-ongkir').css('display', 'none')
                       }
@@ -577,7 +575,6 @@
                       $$('#spangt').text(total.toLocaleString());
 
                       
-                      console.log('prepare to call hitung_biaya..')
                       // default perhitungan biaya menggunakan kartu kredit
                       app.request.json( app.data.endpoint + 'checkout/hitung_biaya/15/'+total, function(json) {
                     

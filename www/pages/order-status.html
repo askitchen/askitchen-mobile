@@ -29,9 +29,9 @@
                 <div class="product-name"><span class="status-label">Status</span>:  {{status}}</div>
               </div>
               <div style="width: 25%;">
-                {{#js_if "this.no_resi !== ''"}}
+                {{#if no_resi}}
                 <a href="#" no-order="{{id}}" @click="cekResi" class="button button-small button-fill color-blue btn-check">Cek Resi</a>
-                {{/js_if}}
+                {{/if}}
               </div>
             </div>
           </div>

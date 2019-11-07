@@ -118,10 +118,8 @@
             
             {{#each data.related}}
             <div class="swiper-slide detail" @click="doOpenLink('{{kdurl}}')">
-              <!-- <a href="/detail/{{kdurl}}" class="item-link"> -->
               <div>
                 <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
-                <!-- image https://askitchen.com/upload/gambar/ -->
               </div>
               <div class="product-name-rel">{{nama}}</div>
               <div class="product-price-rel">Rp{{hjual}}</div>
@@ -129,8 +127,7 @@
               <div class="product-size-rel">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
               {{/if}}
               <div class="product-code-rel">{{kdbar}}</div>
-              <div><img class="button-buy" src="img/{{#js_if 'this.saldo > 0'}}beli{{else}}pre{{/js_if}}.png" /></div>
-            <!-- </a> -->
+              <img class="button-buy" src="img/{{#js_if 'this.saldo > 0'}}beli{{else}}pre{{/js_if}}.png" />
             </div>
             {{/each}}
 
@@ -189,7 +186,22 @@
       pageInit: function(e, page) {
 
         // var starRating = new SimpleStarRating($$('#rater'));
+        
+        var cmp = $$('.swiper-container.swiper-init.swiper-related');
 
+        if (cmp[0].swiper === undefined) {
+
+          var swiper = app.swiper.create('.swiper-container.swiper-init.swiper-related', {
+              speed: 400,
+              loop: true,
+              spaceBetween: 10,
+              slidesPerView: 3
+          });
+
+          swiper.autoplay.start();
+        }
+
+        
         $$('.page-content').on('scroll', function (e) {
           
           var card = $$('.card.item-detail');

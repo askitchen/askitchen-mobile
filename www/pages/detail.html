@@ -50,7 +50,7 @@
           <div class="stock-avail">Stock Available</div>
           {{else}}
           {{#js_if "this.data.context == '2'"}}
-          <div class="stock-not-avail">Out of Stock - {{data.context}}</div>
+          <div class="stock-not-avail">Out of Stock</div>
           {{/js_if}}
           {{/if}}
         </div>
@@ -117,8 +117,8 @@
           <div class="swiper-wrapper">
             
             {{#each data.related}}
-            <div class="swiper-slide detail">
-              <a href="/detail/{{kdurl}}" class="item-link">
+            <div class="swiper-slide detail" @click="doOpenLink('{{kdurl}}')">
+              <!-- <a href="/detail/{{kdurl}}" class="item-link"> -->
               <div>
                 <img class="responsive-product lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
                 <!-- image https://askitchen.com/upload/gambar/ -->
@@ -129,7 +129,8 @@
               <div class="product-size-rel">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
               {{/if}}
               <div class="product-code-rel">{{kdbar}}</div>
-              <img class="button-buy" src="img/beli.png" /></a>
+              <div><img class="button-buy" src="img/{{#js_if 'this.saldo > 0'}}beli{{else}}pre{{/js_if}}.png" /></div>
+            <!-- </a> -->
             </div>
             {{/each}}
 
@@ -144,11 +145,15 @@
     // Component Methods
     methods: {
       
-      // add to wishlist
-      doAddWishList: function (e) {
-            
+      doOpenLink: function (url) {
+
+        app.router.navigate('/detail/'+url, {
+          reloadCurrent: true,
+          ignoreCache: true,
+        });
       }
     },
+        
     // Page Events
     on: {
       
@@ -202,6 +207,8 @@
           }
         })
 
+        
+        // add to cart
         $$('.button-add').on('click', function (e) {
           
           var context = parseInt($$('#context').val());
@@ -235,28 +242,26 @@
           var bFound = false;
 
           for (var i =0; i < items.length; i++)
-          if (items[i].kdbar === kode) {
-            
-            bFound = true;
+            if (items[i].kdbar === kode) {
+              
+              bFound = true;
 
-            if (context == 2)
-              if (items[i].qty >= maxVal) {
-                console.log('item.qty >= maxVal')
-                return;
-              }
-            
-            // var x = parseInt(items[i].qty) + parseInt(qty);
-            
-            if (context == 2)
-            if (parseInt(items[i].qty) + parseInt(qty) > maxVal) {
-              // console.log('maxVal: '+ maxVal)
-              console.log('item.qty + qty > maxVal')
-              return;
-            } //else {
+              if (context == 2) {
+                
+                if (items[i].qty >= maxVal) {
+                  // console.log('item.qty >= maxVal')
+                  return;
+                }
+              
+                if (parseInt(items[i].qty) + parseInt(qty) > maxVal) {
+                  // console.log('maxVal: '+ maxVal)
+                  // console.log('item.qty + qty > maxVal')
+                  return;
+                }
+              }              
               
               items[i].qty += parseInt(qty);
-            // }
-          }
+            }
 
           if (!bFound) {
             app.methods.addItem(kode, qty);
@@ -268,6 +273,7 @@
           formData.kode  = kode;
           formData.qty   = qty;
           formData.hjual = hjual;
+          
           // formData.Authorization = app.data.token;
           // app.methods.addItem(kode);
 
@@ -285,6 +291,7 @@
         });
 
         
+        // add to wishlist
         $$('.button-add2').on('click', function (e) {
 
           // cek login

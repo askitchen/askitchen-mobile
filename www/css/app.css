@@ -715,6 +715,9 @@ a.button-coming {
   text-decoration: none;
   text-align: left;
 }
+.product-name-rel {
+  height: 25px; /* 2 lines */
+}
 
 .product-price-rel {
   font-size: 14px;
@@ -817,7 +820,7 @@ div.product-size2, div.product-code2 {
 
 .md .list .item-inner, .list .item-title, .md .links-list a {
   /* display: block; */
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .item-title.rev-name {
@@ -1010,12 +1013,15 @@ div.member-info {
 div.member-info {
   margin-left: 10px;
 }
+div.member-name {
+  font-size: 16px;
+}
 div.member-status {
-  font-size: 12px;
+  font-size: 14px;
   color: #ababab;
 }
 div.member-edit {
-  font-size: 12px;
+  font-size: 14px;
 }
 img.responsive.search {
   margin-top: 14px;

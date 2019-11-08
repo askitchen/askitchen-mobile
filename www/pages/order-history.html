@@ -14,26 +14,24 @@
     
     <div class="page-content">
         
-      <div class="card item-cart">
-        
-        {{#each data}}
+      {{#each data}}
+      <div class="card status">
+        <div class="card-header"><span><b>Order #{{id}}</b></span><span>{{tglinput}}</span></div>
+        {{#each detail}}
         <div class="card-footer top">
-          <div class="product-name">Order #{{id}}</div>
-          <div class="product-name">{{tglinput}}</div>
-        </div>
-        <div class="card-footer">
           <img class="cart lazy" src="https://askitchen.com/upload/gambar/{{gambar}}" />
           <div class="product-name">{{nama}}</div>
           <div>x {{qty}}</div>
         </div>
-        <div class="card-footer bottom">
+        <div class="card-footer">
           <img class="cart lazy" src="img/none.png" />
-          <div>@Rp{{hjualf.toLocaleString('ID')}}</div>
+          <div>@Rp{{hjual}}</div>
           <div>Disc. {{disc}}%</div>
-          <div>Rp{{jumlahf.toLocaleString('ID')}}</div>
+          <div>Rp{{jumlah}}</div>
         </div>
         {{/each}}
       </div>
+      {{/each}}
 
     </div>
   </div>

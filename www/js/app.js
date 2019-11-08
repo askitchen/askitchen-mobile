@@ -97,7 +97,7 @@ var app  = new Framework7({
         $$('.member-edit').css('display', 'none');
       }
       
-      destinationType = navigator.camera.DestinationType;
+      // destinationType = navigator.camera.DestinationType;
 
       /*
       function copyDatabaseFile(dbName) {
@@ -204,7 +204,7 @@ var app  = new Framework7({
         // show message
         app.dialog.alert(data.message, 'ASKITCHEN');
         
-      });//*/
+      }); //*/
     },     
   },
   // App routes

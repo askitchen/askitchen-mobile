@@ -10,6 +10,10 @@
   font-family: 'Segoe UI', Roboto,Noto,Helvetica,Arial,sans-serif
 }
 
+.md .block {
+  margin: 16px 0;
+}
+
 .md .row .col-50.category {
   width: 50%;
 }
@@ -756,7 +760,7 @@ div.product-size2, div.product-code2 {
 }
 
 .product-code {
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 .product-desc {
   text-align: justify;
@@ -971,10 +975,11 @@ img.responsive-card {
 
 img.responsive-product.lazy {
   display:block;
-  padding-top: 10px;
-  margin-top: 10px;
+  /* padding-top: 10px; */
+  margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
   max-width: 100%;
   height: 100px; /*32px;*/
 }

@@ -362,12 +362,12 @@ $$(document).on('backbutton', function (e) {
       app.panel.close();
       return false;
   } else
-  if ($$('.modal-in').length > 0) {
+  // if ($$('.modal-in').length > 0) {
 
-      app.dialog.close();
-      app.popup.close();
-      return false;
-  } else
+  //     app.dialog.close();
+  //     app.popup.close();
+  //     return false;
+  // } else
   if (app.views.main.router.url == '/') {
     
     /*if (!bBackPressed) {

@@ -126,7 +126,7 @@
               {{#if pnj}}
               <div class="product-size-rel">{{pnj}} x {{lbr}}{{#if tgi}} x {{tgi}}{{/if}}</div>
               {{/if}}
-              <div class="product-code-rel"{{#js_if 'this.pnj == ""'}} style="margin-top: 12.8px;"{{/js_if}}>{{kdbar}}</div>
+              <div class="product-code-rel"{{#js_if 'this.pnj == "" || this.pnj == null'}} style="margin-top: 12.8px;"{{/js_if}}>{{kdbar}}</div>
               <img class="button-buy" src="img/{{#js_if 'this.saldo > 0'}}beli{{else}}pre{{/js_if}}.png" />
             </div>
             {{/each}}

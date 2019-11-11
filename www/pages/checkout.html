@@ -285,12 +285,12 @@
       <input name="BASKET" type="hidden" id="BASKET" value="" />
 
       <!-- staging -->
-      <input name="MALLID"    type="hidden" id="MALLID" value="5338" />
-      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="XJNLey8o6u38" maxlength="12"/>
+      <!-- <input name="MALLID"    type="hidden" id="MALLID" value="5338" />
+      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="XJNLey8o6u38" maxlength="12"/> -->
       
       <!-- production -->
-      <!-- <input name="MALLID"    type="hidden" id="MALLID"    value="4736" />
-      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="5qQHZ4Af1zw9" maxlength="12"/> -->
+      <input name="MALLID"    type="hidden" id="MALLID"    value="4736" />
+      <input name="SHAREDKEY" type="hidden" id="SHAREDKEY" value="5qQHZ4Af1zw9" maxlength="12"/>
 
       <input name="CHAINMERCHANT"    type="hidden" id="CHAINMERCHANT" value="NA" />
       <input name="CURRENCY"         type="hidden" id="CURRENCY" value="360" maxlength="3" />
@@ -813,14 +813,14 @@
           formData.company         = $$('#company').val();
           formData.address         = $$('#address').val();
           formData.address2        = $$('#address2').val();
+
           formData.province        = $$('#province').val();
           formData.regency         = $$('#regency').val();
           formData.district        = $$('#district').val();
           formData.post_code       = $$('#post_code').val();
+
           formData.phone           = $$('#phone').val();
           formData.email           = $$('#email').val();
-
-          formData.note            = $$('#note').val();
 
           formData.carrier         = $$('#carrier').val();
           formData.package         = $$('#package')[0].selectedOptions[0].text;
@@ -836,6 +836,8 @@
           formData.gtotal          = $$('#gtotal').val();
           formData.payment         = $$('#payment').val();
 
+          formData.note            = $$('#note').val();
+
           
           app.preloader.show();
 
@@ -844,6 +846,7 @@
                 
             var data = JSON.parse(data);
             
+            // simpan data nomor order
             app.data.ordernum = data.ordernum;
             
             // send email - order for utensil

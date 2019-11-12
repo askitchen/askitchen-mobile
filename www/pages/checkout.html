@@ -388,6 +388,7 @@
         }
         
         var post_code = $$('#post_code').val();
+        
         var phone = $$('#phone').val();
         if ( phone == '')
         {
@@ -403,6 +404,7 @@
             $$( "#email" ).focus();
             return false;
         }
+        
         var note = $$('#note').val();
 
         var carrier = $$('#carrier').val();
@@ -464,7 +466,7 @@
         if (app.data.bLogedIn) {
           
           // ambil info data member
-          app.request.getJSON( app.data.endpoint + 'member/'+app.data.mbrid, function(res) {
+          app.request.getJSON( app.data.endpoint + 'checkout/'+app.data.mbrid, function(res) {
             
             $$('#first_name').val(res.first_name);
             $$('#last_name').val(res.last_name);

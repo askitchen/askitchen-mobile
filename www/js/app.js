@@ -368,6 +368,7 @@ $$(document).on('backbutton', function (e) {
   //     app.popup.close();
   //     return false;
   // } else
+  
   if (app.views.main.router.url == '/') {
     
     /*if (!bBackPressed) {
@@ -396,9 +397,16 @@ $$(document).on('backbutton', function (e) {
       navigator.app.exitApp();
       // console.log('navigator.app.exitApp();')
     // }
-  } else {
+  } else
   
+  if (app.views.main.router.url == '/login/' && mainView.router.history.length == 1)
+  {
+    app.router.navigate('/', { reloadCurrent: true });
+  }
+  else
+  {
     // console.log('url => '+app.views.main.router.url)
+
     mainView.router.back();
     // var view = app.views.current;
     // view.router.back();

@@ -158,7 +158,6 @@
               
             //   var view = app.views.current;
             //   view.router.back(view.history[0], { force: true });
-            // }
       
           } else {
             app.dialog.alert(data.message, 'Login');
@@ -171,6 +170,21 @@
       doLoginGoogle: function (e) {
         app.dialog.alert('Login with Google!');
       },
+    },
+    on: {
+      
+      pageInit: function (event, page) {
+        
+        $$('.link.back').on('click', function () {
+          
+          var view = app.views.current;
+
+          if (view.history.length == 1)
+
+            app.router.navigate('/', { reloadCurrent: true });
+        });
+      
+      }
     }
 
   }

@@ -63,49 +63,49 @@ routes = [
   
           var first_name = $$('#first_name').val();
           if (first_name == '') {
-              app.dialog.alert('Masukkan nama depan anda.', 'Daftar');
+              app.dialog.alert('Masukkan nama depan anda.', 'Pendaftaran');
               return;
           }
           
           var rgx_nama = /^[a-zA-Z]'?([a-zA-Z]|\,|\.| |-)+$/;
           var namax = first_name.trim().match(rgx_nama);
           if (!namax) {
-            app.dialog.alert('Input data nama belum benar.', 'Daftar');
+            app.dialog.alert('Input data nama belum benar.', 'Pendaftaran');
             return;
           }
           
-          var last_name = $$('#last_name').val();
-          if (last_name == '') {
-              app.dialog.alert('Masukkan nama belakang anda.', 'Daftar');
-              return;
-          }
+          // var last_name = $$('#last_name').val();
+          // if (last_name == '') {
+          //     app.dialog.alert('Masukkan nama belakang anda.', 'Pendaftaran');
+          //     return;
+          // }
         
-          var email = $$('#email').val();
+          var email = $$('#email-reg').val();
           if (email == '') {
-              app.dialog.alert('Masukkan email anda.', 'Daftar');
+              app.dialog.alert('Masukkan email anda.', 'Pendaftaran');
               return;
           }
         
           var phone = $$('#phone').val();
           if (phone == '') {
-              app.dialog.alert('Masukkan nomor handphone anda.', 'Daftar');
+              app.dialog.alert('Masukkan nomor handphone anda.', 'Pendaftaran');
               return;
           }
         
-          var password = $$('#password').val();
+          var password = $$('#password-reg').val();
           if (password == '') {
-            app.dialog.alert('Masukkan password anda.', 'Daftar');
+            app.dialog.alert('Masukkan password anda.', 'Pendaftaran');
             return;
           }
         
           var pconfirm = $$('#password_confirm').val();
           if (pconfirm == '') {
-            app.dialog.alert('Masukkan konfirmasi password anda.', 'Daftar');
+            app.dialog.alert('Masukkan konfirmasi password anda.', 'Pendaftaran');
             return;
           }
 
           if (password !== pconfirm) {
-            app.dialog.alert('Input password tidak sama.', 'Daftar');
+            app.dialog.alert('Input password tidak sama.', 'Pendaftaran');
             return;
           }
 
@@ -129,21 +129,23 @@ routes = [
               // localStorage.setItem('phone', phone);
               localStorage.setItem('password', password);
         
-              app.data.email    = email;
-              app.data.password = password;
-        
-              // set data ke form login
-              $$('input [name="email"]').val(email);
-        
-              // app.loginScreen.close('#my-reg-screen');
-            
+          
               // setTimeout(function () {
-                app.dialog.alert(data.message, 'Daftar');
+                app.dialog.alert(data.message, 'Pendaftaran');
               // }, 2000);
-        
+              
+              // redirect to login
+              app.router.navigate('/login/', {
+                reloadCurrent: true,
+                ignoreCache: true,
+              });
+
             } else {
-              app.dialog.alert(data.message, 'Daftar');
+              app.dialog.alert(data.message, 'Pendaftaran');
             }
+          }, function (xhr) {
+            
+            console.log(xhr)
           });
         });
 

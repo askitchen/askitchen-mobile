@@ -101,7 +101,7 @@
             app.data.token    = data.token;
             
             // kosongkan isian nomor pin
-            $$('input [name="password"]').val('');
+            $$('#password').val('');
 
             // get last total item
             app.request.get( app.data.endpoint + 'cart/total_items', function(res) {
@@ -175,12 +175,14 @@
       
       pageInit: function (event, page) {
         
+        // get default email
+        $$('#email').val(localStorage.getItem('email'));
+
         $$('.link.back').on('click', function () {
           
           var view = app.views.current;
 
           if (view.history.length == 1)
-
             app.router.navigate('/', { reloadCurrent: true });
         });
       

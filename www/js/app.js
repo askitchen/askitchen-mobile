@@ -222,7 +222,6 @@ var mainView = app.views.create('.view-main', {
 });
 
 
-
 // $$('.barcode-scan1').on('click', function () {
      
 //   bBackPressed = true;
@@ -471,11 +470,11 @@ app.on('pageInit', function (page) {
   });
 
 
-
   $$('#order-display').on('popup:opened', function (e, popup) {
     $$('#order-display .ordernum').text(app.data.ordernum);
   });
   
+
   $$('#order-display .btnContinue').on('click', function (e) {
 
     e.preventDefault();

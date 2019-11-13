@@ -703,6 +703,10 @@ a.button-coming {
   font-size: 12px;
 }
 
+.product-name.item {
+  width: 180px;
+}
+
 .product-name,
 .product-total,
 .item-title.product {

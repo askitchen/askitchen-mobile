@@ -309,15 +309,6 @@ p {
   color: #000;
 }
 
-/*.md .block-title { // judul grup transaksi dan laporan
-  color: #fff;
-  margin: 16px 16px 16px;
-  padding-left: 16px;
-  line-height: 32px;
-  font-weight: 500;
-  background-color: #2196f3;
-} */
-
 /* , .swiper-container */
 #tab1, #tab2, #tab3 {
   height: 100%;
@@ -326,6 +317,12 @@ p {
 div.swiper-detail {
   height: 320px;
   margin: 15px 0;
+}
+
+@media (min-width: 768px) {
+  div.swiper-detail {
+    height: 512px;
+  }
 }
 
 div.swiper-related {

@@ -405,8 +405,12 @@ $$(document).on('backbutton', function (e) {
   else
   {
     // console.log('url => '+app.views.main.router.url)
-
-    mainView.router.back();
+    var view = app.views.current;
+    if (view.history.length > 4) {
+      view.router.back(view.history[0], { force: true });
+    } else {
+      mainView.router.back();
+    }
     // var view = app.views.current;
     // view.router.back();
   }

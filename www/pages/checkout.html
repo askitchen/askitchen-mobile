@@ -426,6 +426,7 @@
         formData.email      = email;
         formData.carrier    = carrier;
         formData.package    = paket;
+        formData.note       = note;
 
         // console.log(formData)
         app.request.post( app.data.endpoint + 'checkout/update-info', formData, function(data) {

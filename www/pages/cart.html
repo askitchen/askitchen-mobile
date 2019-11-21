@@ -96,22 +96,6 @@
       
       doRequest: function (e) {
         
-        // var formData = app.form.convertToData('.komplain');
-        // formData.Authorization = app.data.token;
-          
-        // var db = app.data.db;
-        
-        // if (db) {
-                      
-        //   db.transaction(function(tx) {
-        //     tx.executeSql('insert into wishlist (kdbar, nama) values (?, ?);', [kode, nama]);
-        //   }, function(error) {
-        //     app.dialog.alert('UPDATE error: ' + error.message);
-        //   }, function() {
-        //     // console.log('Sukses!.');
-        //   });
-        // }
-        
         app.request.post(app.data.endpoint + 'mail-order/1', {}, function (res) {
                 
           var data = JSON.parse(res);
@@ -144,11 +128,6 @@
 
       doCheckout: function (e) {
         
-        // if (app.data.total == 0) {
-        //   app.dialog.alert('Keranjang belanja anda masih kosong.');
-        //   return;
-        // }
-
         // open checkout page
         app.router.navigate('/checkout/', {
           reloadCurrent: true,

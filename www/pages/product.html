@@ -147,7 +147,7 @@
       },
       
       pageInit: function(e, page) {
-                
+        
         $$('.searchTerm').on('focus', function (e) {
           
           e.preventDefault();
@@ -157,6 +157,16 @@
             ignoreCache: true,
           });
 
+        });
+        
+        $$('.link.back').on('click', function (e) {
+          // e.preventDefault();
+          // e.stopPropagation();
+    
+          // back to main page
+          var view = app.views.current;
+          if (view.history.length > 4)
+            view.router.back(view.history[0], { force: true });
         });
       }
     }
